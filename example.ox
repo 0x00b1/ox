@@ -21,8 +21,10 @@ module A {
 
     type F ← ⟨8-bit Integer × 8-bit Integer × 8-bit Integer⟩;
     
+    type G ← [224 × 224 × 3 × 8-bit Integer];
+    
     /*
-     * FIXME: 
+     * FIXME:
      * type G ← [224 × 224 × 3 × 8-bit Integer];
      */
 

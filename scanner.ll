@@ -68,15 +68,14 @@
 %option noyywrap nounput noinput batch debug
 
 %{
-  // A number symbol corresponding to the value in S.
-  yy::parser::symbol_type
-
-  make_NUMBER(const std::string &s, const yy::parser::location_type& location);
+  yy::parser::symbol_type make_FLOATING_POINT(const std::string &s, const yy::parser::location_type& location);
+  
+  yy::parser::symbol_type make_INTEGER(const std::string &s, const yy::parser::location_type& location);
 %}
 
 id              [a-zA-Z][a-zA-Z_0-9]*
-INTEGER         [1-9][0-9]*
-FLOATING_POINT  [1-9][0-9]*\.[0-9]+
+INTEGER         [0-9]*
+FLOATING_POINT  [0-9]*\.[0-9]+
 blank           [ \t]
 
 %{
@@ -179,8 +178,8 @@ blank           [ \t]
 "∨" return yy::parser::make_LOGICAL_OR(location);
 "⊻" return yy::parser::make_XOR(location);
 
-{INTEGER}         return make_NUMBER(yytext, location);
-{FLOATING_POINT}  return make_NUMBER(yytext, location);
+{INTEGER}        return make_INTEGER(yytext, location);
+{FLOATING_POINT} return make_FLOATING_POINT(yytext, location);
 
 {id} {
     return yy::parser::make_IDENTIFIER(yytext, location);
@@ -196,7 +195,7 @@ blank           [ \t]
 
 %%
 
-yy::parser::symbol_type make_NUMBER(const std::string &s, const yy::parser::location_type& location) {
+yy::parser::symbol_type make_INTEGER(const std::string &s, const yy::parser::location_type& location) {
   errno = 0;
 
   long n = strtol (s.c_str(), NULL, 10);
@@ -205,7 +204,19 @@ yy::parser::symbol_type make_NUMBER(const std::string &s, const yy::parser::loca
     throw yy::parser::syntax_error (location, "integer is out of range: " + s);
   }
 
-  return yy::parser::make_NUMBER ((int) n, location);
+  return yy::parser::make_INTEGER((int) n, location);
+}
+
+yy::parser::symbol_type make_FLOATING_POINT(const std::string &s, const yy::parser::location_type& location) {
+  errno = 0;
+
+  long n = strtol (s.c_str(), NULL, 10);
+
+  if (! (INT_MIN <= n && n <= INT_MAX && errno != ERANGE)) {
+    throw yy::parser::syntax_error(location, "integer is out of range: " + s);
+  }
+
+  return yy::parser::make_FLOATING_POINT((int) n, location);
 }
 
 void Compiler::scan_begin () {

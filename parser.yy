@@ -133,7 +133,10 @@
 
 %token <std::string> IDENTIFIER
 
-%token <int> NUMBER "number"
+%token <int> INTEGER 
+%token <int> FLOATING_POINT 
+
+%token <int> NUMBER 
 
 %type <int> EXPRESSION
 %type <int> GROUPED_EXPRESSION
@@ -275,7 +278,8 @@ EXPRESSION                                : LITERAL_EXPRESSION
                                           | CONDITIONAL_EXPRESSION
                                           | GROUPED_EXPRESSION
                                           ;
-LITERAL_EXPRESSION                        : "number"
+LITERAL_EXPRESSION                        : INTEGER
+                                          | FLOATING_POINT
                                           ;
 BLOCK_EXPRESSION                          : "{" EXPRESSIONS "}"
                                           ;
