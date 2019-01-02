@@ -94,6 +94,8 @@ blank           [ \t]
   location.step();
 %}
 
+"/*"((\*+[^/*])|([^*]))*\**"*/" {}
+
 {blank}+   location.step();
 
 \n+ {
