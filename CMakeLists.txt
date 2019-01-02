@@ -15,4 +15,4 @@ ADD_FLEX_BISON_DEPENDENCY(SCANNER PARSER)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(.)
 
-add_executable(ox main.cc compiler.cc ${BISON_PARSER_OUTPUTS} ${FLEX_SCANNER_OUTPUTS} compiler.hh ox.cc ox.hh)
+add_executable(ox main.cc compiler.cc ${BISON_PARSER_OUTPUTS} ${FLEX_SCANNER_OUTPUTS} compiler.hh ox.hh)
