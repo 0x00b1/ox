@@ -148,6 +148,7 @@ blank           [ \t]
 "÷" return yy::parser::make_DIVISION_SIGN(location);
 "−" return yy::parser::make_MINUS_SIGN(location);
 
+"," return yy::parser::make_COMMA(location);
 ":" return yy::parser::make_COLON(location);
 ";" return yy::parser::make_SEMICOLON(location);
 "…" return yy::parser::make_HORIZONTAL_ELLIPSIS(location);

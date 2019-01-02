@@ -44,6 +44,7 @@
 ;
 
 %token
+  COMMA                             ","
   COLON                             ":"
   SEMICOLON                         ";"
   HORIZONTAL_ELLIPSIS               "…"
@@ -231,23 +232,27 @@ SUBROUTINE_DECLARATION_PARAMETER          : IDENTIFIER ":" TYPE
                                           ;
 TYPE_DECLARATION                          : "type" IDENTIFIER "←" TYPE ";"
                                           ;
-RECORD_DECLARATION                        : "record" "{" RECORD_DECLARATION_FIELDS "}" ";"
+RECORD_DECLARATION                        : "record" IDENTIFIER "{" RECORD_DECLARATION_FIELDS "}" ";"
                                           ;
-RECORD_DECLARATION_FIELDS                 : RECORD_DECLARATION_FIELD
+RECORD_DECLARATION_FIELDS                 : %empty
+                                          | RECORD_DECLARATION_FIELD
                                           | RECORD_DECLARATION_FIELDS "," RECORD_DECLARATION_FIELD
                                           ;
 RECORD_DECLARATION_FIELD                  : IDENTIFIER ":" TYPE
                                           ;
-ENUMERATED_DECLARATION                    : "enumerated" "{" ENUMERATED_DECLARATION_ITEMS "}" ";"
+ENUMERATED_DECLARATION                    : "enumerated" IDENTIFIER "{" ENUMERATED_DECLARATION_ITEMS "}" ";" {
+                                            std::cout << "enumerated" << std::endl;
+                                          }
                                           ;
 ENUMERATED_DECLARATION_ITEMS              : ENUMERATED_DECLARATION_ITEM
                                           | ENUMERATED_DECLARATION_ITEMS "," ENUMERATED_DECLARATION_ITEM
                                           ;
 ENUMERATED_DECLARATION_ITEM               : IDENTIFIER
                                           ;
-UNION_DECLARATION                         : "union" "{" UNION_DECLARATION_ITEMS "}" ";"
+UNION_DECLARATION                         : "union" IDENTIFIER "{" UNION_DECLARATION_ITEMS "}" ";"
                                           ;
-UNION_DECLARATION_ITEMS                   : UNION_DECLARATION_ITEM
+UNION_DECLARATION_ITEMS                   : %empty
+                                          | UNION_DECLARATION_ITEM
                                           | UNION_DECLARATION_ITEMS "," UNION_DECLARATION_ITEM
                                           ;
 UNION_DECLARATION_ITEM                    : IDENTIFIER ":" TYPE
