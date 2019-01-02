@@ -86,7 +86,7 @@
 ;
 
 %token
-  EIGHT_BIT_KEYWORD                 "8-bit"
+  EIGHT_BIT_KEYWORD                  "8-bit"
   SIXTEEN_BIT_KEYWORD               "16-bit"
   THIRTY_TWO_BIT_KEYWORD            "32-bit"
   SIXTY_FOUR_BIT_KEYWORD            "64-bit"
@@ -144,6 +144,7 @@
 %type <int> LOGICAL_INFIX_OPERATOR_EXPRESSION
 %type <int> TYPE_CONVERSION_INFIX_OPERATOR_EXPRESSION
 %type <int> CONDITIONAL_EXPRESSION
+%type <int> LITERAL_EXPRESSION
 
 %printer {
     yyo << $$;
@@ -151,41 +152,127 @@
 
 %%
 
-%start UNIT;
+%start MODULE_DECLARATION;
 
 %left "+" "−";
 %left "×" "÷";
 
+/*
+ *    TYPES
+ */
 TYPE                                      : PRIMITIVE_TYPE
+                                          | COMPOSITE_TYPE
+                                          | REFERENCE_TYPE
+                                          | PATH_TYPE
                                           ;
-PRIMITIVE_TYPE                            : FLOATING_POINT_PRIMITIVE_TYPE
+PRIMITIVE_TYPE                            : BOOLEAN_PRIMITIVE_TYPE
+                                          | FLOATING_POINT_PRIMITIVE_TYPE
                                           | INTEGER_PRIMITIVE_TYPE
                                           ;
-FLOATING_POINT_SIZE                       : "16-bit"
+BOOLEAN_PRIMITIVE_TYPE                    : "Boolean"
+                                          ;
+FLOATING_POINT_PRIMITIVE_TYPE             : FLOATING_POINT_PRIMITIVE_TYPE_SIZE "Floating-point"
+                                          ;
+FLOATING_POINT_PRIMITIVE_TYPE_SIZE        : "16-bit"
                                           | "32-bit"
                                           ;
-FLOATING_POINT_PRIMITIVE_TYPE             : FLOATING_POINT_SIZE "Floating-point"
+INTEGER_PRIMITIVE_TYPE                    : INTEGER_PRIMITIVE_TYPE_SIZE "Integer"
                                           ;
-INTEGER_SIZE                              :  "8-bit"
+INTEGER_PRIMITIVE_TYPE_SIZE               :  "8-bit"
                                           | "16-bit"
                                           | "32-bit"
                                           | "64-bit"
                                           ;
-INTEGER_PRIMITIVE_TYPE                    : INTEGER_SIZE "Integer"
+COMPOSITE_TYPE                            : ARRAY_COMPOSITE_TYPE
+                                          | TUPLE_COMPOSITE_TYPE
                                           ;
-UNIT                                      : EXPRESSIONS EXPRESSION {
+ARRAY_COMPOSITE_TYPE                      : "[" ARRAY_COMPOSITE_TYPE_ITEM "×" TYPE "]"
+                                          ;
+ARRAY_COMPOSITE_TYPE_ITEM                 : EXPRESSION
+                                          | ARRAY_COMPOSITE_TYPE_ITEM "×" EXPRESSION
+                                          ;
+TUPLE_COMPOSITE_TYPE                      : "⟨" TUPLE_COMPOSITE_TYPE_ITEM "⟩"
+                                          ;
+TUPLE_COMPOSITE_TYPE_ITEM                 : TYPE
+                                          | TUPLE_COMPOSITE_TYPE_ITEM "×" TYPE
+                                          ;
+REFERENCE_TYPE                            : "reference" TYPE
+                                          ;
+PATH_TYPE                                 : IDENTIFIER
+                                          | PATH_TYPE "::" IDENTIFIER
+                                          ;
+/*
+ *    DECLARATIONS
+ */
+DECLARATIONS                              : %empty
+                                          | DECLARATION
+                                          | DECLARATIONS DECLARATION
+                                          ;
+DECLARATION                               : MODULE_DECLARATION
+                                          | SUBROUTINE_DECLARATION
+                                          | TYPE_DECLARATION
+                                          | RECORD_DECLARATION
+                                          | ENUMERATED_DECLARATION
+                                          | UNION_DECLARATION
+                                          | CONSTANT_DECLARATION
+                                          ;
+MODULE_DECLARATION                        : "module" IDENTIFIER "{" DECLARATIONS "}" ";" {
+                                            std::cout << "module" << std::endl;
+                                          }
+                                          ;
+SUBROUTINE_DECLARATION                    : "subroutine" IDENTIFIER "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";" {
+                                            std::cout << "(SUBROUTINE " << std::endl;
+                                          }
+                                          ;
+SUBROUTINE_DECLARATION_PARAMETERS         : SUBROUTINE_DECLARATION_PARAMETER
+                                          | SUBROUTINE_DECLARATION_PARAMETERS "," SUBROUTINE_DECLARATION_PARAMETER
+                                          ;
+SUBROUTINE_DECLARATION_PARAMETER          : IDENTIFIER ":" TYPE
+                                          ;
+TYPE_DECLARATION                          : "type" IDENTIFIER "←" TYPE ";"
+                                          ;
+RECORD_DECLARATION                        : "record" "{" RECORD_DECLARATION_FIELDS "}" ";"
+                                          ;
+RECORD_DECLARATION_FIELDS                 : RECORD_DECLARATION_FIELD
+                                          | RECORD_DECLARATION_FIELDS "," RECORD_DECLARATION_FIELD
+                                          ;
+RECORD_DECLARATION_FIELD                  : IDENTIFIER ":" TYPE
+                                          ;
+ENUMERATED_DECLARATION                    : "enumerated" "{" ENUMERATED_DECLARATION_ITEMS "}" ";"
+                                          ;
+ENUMERATED_DECLARATION_ITEMS              : ENUMERATED_DECLARATION_ITEM
+                                          | ENUMERATED_DECLARATION_ITEMS "," ENUMERATED_DECLARATION_ITEM
+                                          ;
+ENUMERATED_DECLARATION_ITEM               : IDENTIFIER
+                                          ;
+UNION_DECLARATION                         : "union" "{" UNION_DECLARATION_ITEMS "}" ";"
+                                          ;
+UNION_DECLARATION_ITEMS                   : UNION_DECLARATION_ITEM
+                                          | UNION_DECLARATION_ITEMS "," UNION_DECLARATION_ITEM
+                                          ;
+UNION_DECLARATION_ITEM                    : IDENTIFIER ":" TYPE
+                                          ;
+CONSTANT_DECLARATION                      : "constant" IDENTIFIER ":" TYPE "←" EXPRESSION ";"
+                                          ;
+/*
+ *    EXPRESSIONS
+ */
+EXPRESSIONS                               : EXPRESSION
+                                          | EXPRESSIONS EXPRESSION {
                                             compiler.result = $2;
-                                          };
-EXPRESSIONS                               : %empty
-                                          | EXPRESSIONS EXPRESSION
+                                          }
                                           ;
-EXPRESSION                                : "number"
+EXPRESSION                                : LITERAL_EXPRESSION
                                           | IDENTIFIER {
                                             $$ = compiler.variables[$1];
                                           }
                                           | OPERATOR_EXPRESSION
                                           | CONDITIONAL_EXPRESSION
                                           | GROUPED_EXPRESSION
+                                          ;
+LITERAL_EXPRESSION                        : "number"
+                                          ;
+BLOCK_EXPRESSION                          : "{" EXPRESSIONS "}"
                                           ;
 CONDITIONAL_EXPRESSION                    : "if" EXPRESSION "{" EXPRESSIONS "}" "else" "{" EXPRESSIONS "}" {
                                             $$ = 1;

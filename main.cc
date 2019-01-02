@@ -13,25 +13,26 @@ int main (int argc, char *argv[]) {
         } else if (argv[i] == std::string("-s")) {
             compiler.trace_scanning = true;
         } else if (!compiler.parse(argv[i])) {
-            std::cout << compiler.result << '\n';
+            // std::cout << compiler.result << '\n';
+            std::cout << std::endl;
         } else {
             res = 1;
         }
     }
 
-    IntegerLiteral integer;
-    BooleanLiteral boolean;
+//    IntegerLiteral integer;
+//    BooleanLiteral boolean;
+//
+//    std::vector<Node*> nodes;
+//
+//    nodes.push_back(&integer);
+//    nodes.push_back(&boolean);
+//
+//    Generator generator;
+//
+//    for (Node* node: nodes) {
+//        node->accept(generator);
+//    }
 
-    std::vector<Node*> nodes;
-
-    nodes.push_back(&integer);
-    nodes.push_back(&boolean);
-
-    Generator generator;
-
-    for (Node* node: nodes) {
-        node->accept(generator);
-    }
-
-    return res;
+//    return res;
 }
