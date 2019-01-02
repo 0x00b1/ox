@@ -20,8 +20,8 @@ int main (int argc, char *argv[]) {
     }
 
     Expression expression;
-    Integer integer;
-    Boolean boolean;
+    IntegerLiteral integer;
+    BooleanLiteral boolean;
 
     std::vector<Node*> nodes;
 

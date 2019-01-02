@@ -11,60 +11,66 @@ public:
     virtual void accept(Visitor &visitor) = 0;
 };
 
-class Array;
+class ArrayExpression;
 class Block;
-class Boolean;
-class Break;
+class BooleanLiteral;
+class BreakExpression;
 class Call;
-class Closure;
+class ClosureExpression;
 class Conditional;
-class Constant;
-class Continue;
-class Enumerated;
+class ConstantDeclaration;
+class ContinueExpression;
+class EnumeratedDeclaration;
 class Expression;
-class FloatingPoint;
+class FloatingPointLiteral;
 class For;
 class Goto;
-class Integer;
-class Module;
-class Record;
-class Return;
-class Subroutine;
+class IndexExpression;
+class IntegerLiteral;
+class ModuleItem;
+class OperatorDeclaration;
+class RecordExpression;
+class RecordDeclaration;
+class ReturnExpression;
+class SubroutineDeclaration;
 class Switch;
-class Tuple;
-class Type;
-class Union;
+class TupleExpression;
+class TypeDeclaration;
+class UnionDeclaration;
 class While;
 
 class Visitor {
 public:
-    virtual void visit(Array &file) = 0;
+    virtual void visit(ArrayExpression &file) = 0;
     virtual void visit(Block &file) = 0;
-    virtual void visit(Boolean &file) = 0;
-    virtual void visit(Break &file) = 0;
+    virtual void visit(BooleanLiteral &file) = 0;
+    virtual void visit(BreakExpression &file) = 0;
     virtual void visit(Call &file) = 0;
-    virtual void visit(Closure &file) = 0;
+    virtual void visit(ClosureExpression &file) = 0;
     virtual void visit(Conditional &file) = 0;
-    virtual void visit(Constant &file) = 0;
-    virtual void visit(Continue &file) = 0;
-    virtual void visit(Enumerated &file) = 0;
-    virtual void visit(FloatingPoint &file) = 0;
+    virtual void visit(ConstantDeclaration &file) = 0;
+    virtual void visit(ContinueExpression &file) = 0;
+    virtual void visit(EnumeratedDeclaration &file) = 0;
+    virtual void visit(FloatingPointLiteral &file) = 0;
     virtual void visit(For &file) = 0;
     virtual void visit(Goto &file) = 0;
-    virtual void visit(Integer &file) = 0;
+    virtual void visit(IndexExpression &file) = 0;
+    virtual void visit(IntegerLiteral &file) = 0;
     virtual void visit(Expression &file) = 0;
-    virtual void visit(Module &file) = 0;
-    virtual void visit(Record &file) = 0;
-    virtual void visit(Return &file) = 0;
-    virtual void visit(Subroutine &file) = 0;
+    virtual void visit(ModuleItem &file) = 0;
+    virtual void visit(OperatorDeclaration &file) = 0;
+    virtual void visit(RecordExpression &file) = 0;
+    virtual void visit(RecordDeclaration &file) = 0;
+    virtual void visit(ReturnExpression &file) = 0;
+    virtual void visit(SubroutineDeclaration &file) = 0;
     virtual void visit(Switch &file) = 0;
-    virtual void visit(Tuple &file) = 0;
-    virtual void visit(Type &file) = 0;
-    virtual void visit(Union &file) = 0;
+    virtual void visit(TupleExpression &file) = 0;
+    virtual void visit(TypeDeclaration &file) = 0;
+    virtual void visit(UnionDeclaration &file) = 0;
     virtual void visit(While &file) = 0;
 };
 
-class Array: public Node {
+class ArrayExpression: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
@@ -78,14 +84,14 @@ public:
     }
 };
 
-class Boolean: public Node {
+class BooleanLiteral: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
 };
 
-class Break: public Node {
+class BreakExpression: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
@@ -99,7 +105,7 @@ public:
     }
 };
 
-class Closure: public Node {
+class ClosureExpression: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
@@ -113,28 +119,28 @@ public:
     }
 };
 
-class Constant: public Node {
+class ConstantDeclaration: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
 };
 
-class Continue: public Node {
+class ContinueExpression: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
 };
 
-class Enumerated: public Node {
+class EnumeratedDeclaration: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
 };
 
-class FloatingPoint: public Node {
+class FloatingPointLiteral: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
@@ -155,7 +161,14 @@ public:
     }
 };
 
-class Integer: public Node {
+class IndexExpression: public Node {
+public:
+    void accept(Visitor &visitor) override {
+        visitor.visit(*this);
+    }
+};
+
+class IntegerLiteral: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
@@ -169,28 +182,42 @@ public:
     }
 };
 
-class Module: public Node {
+class ModuleItem: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
 };
 
-class Record: public Node {
+class OperatorDeclaration: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
 };
 
-class Return: public Node {
+class RecordExpression: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
 };
 
-class Subroutine: public Node {
+class RecordDeclaration: public Node {
+public:
+    void accept(Visitor &visitor) override {
+        visitor.visit(*this);
+    }
+};
+
+class ReturnExpression: public Node {
+public:
+    void accept(Visitor &visitor) override {
+        visitor.visit(*this);
+    }
+};
+
+class SubroutineDeclaration: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
@@ -204,21 +231,21 @@ public:
     }
 };
 
-class Tuple: public Node {
+class TupleExpression: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
 };
 
-class Type: public Node {
+class TypeDeclaration: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
 };
 
-class Union: public Node {
+class UnionDeclaration: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
@@ -234,96 +261,108 @@ public:
 
 class Generator: public Visitor {
 public:
-    void visit(Array &) override {
-        std::cout << "generating Boolean" << std::endl;
+    void visit(ArrayExpression &) override {
+        std::cout << "generating BooleanLiteral" << std::endl;
     }
 
     void visit(Block &) override {
-        std::cout << "generating Boolean" << std::endl;
+        std::cout << "generating BooleanLiteral" << std::endl;
     }
 
-    void visit(Boolean &) override {
-        std::cout << "generating Boolean" << std::endl;
+    void visit(BooleanLiteral &) override {
+        std::cout << "generating BooleanLiteral" << std::endl;
     }
 
-    void visit(Break &) override {
-        std::cout << "generating Break" << std::endl;
+    void visit(BreakExpression &) override {
+        std::cout << "generating BreakExpression" << std::endl;
     }
 
     void visit(Call &) override {
-        std::cout << "generating Break" << std::endl;
+        std::cout << "generating BreakExpression" << std::endl;
     }
 
-    void visit(Closure &) override {
-        std::cout << "generating Closure" << std::endl;
+    void visit(ClosureExpression &) override {
+        std::cout << "generating ClosureExpression" << std::endl;
     }
 
     void visit(Conditional &) override {
         std::cout << "generating Conditional" << std::endl;
     }
 
-    void visit(Constant &) override {
-        std::cout << "generating Constant" << std::endl;
+    void visit(ConstantDeclaration &) override {
+        std::cout << "generating ConstantDeclaration" << std::endl;
     }
 
-    void visit(Continue &) override {
-        std::cout << "generating Continue" << std::endl;
+    void visit(ContinueExpression &) override {
+        std::cout << "generating ContinueExpression" << std::endl;
     }
 
-    void visit(FloatingPoint &) override {
-        std::cout << "generating FloatingPoint" << std::endl;
+    void visit(FloatingPointLiteral &) override {
+        std::cout << "generating FloatingPointLiteral" << std::endl;
     }
 
     void visit(For &) override {
-        std::cout << "generating FloatingPoint" << std::endl;
+        std::cout << "generating FloatingPointLiteral" << std::endl;
     }
 
     void visit(Goto &) override {
         std::cout << "generating Goto" << std::endl;
     }
 
-    void visit(Integer &) override {
-        std::cout << "generating Integer" << std::endl;
+    void visit(IndexExpression &) override {
+        std::cout << "generating IndexExpression" << std::endl;
     }
 
-    void visit(Enumerated &) override {
-        std::cout << "generating Enumerated" << std::endl;
+    void visit(IntegerLiteral &) override {
+        std::cout << "generating IntegerLiteral" << std::endl;
+    }
+
+    void visit(EnumeratedDeclaration &) override {
+        std::cout << "generating EnumeratedDeclaration" << std::endl;
     }
 
     void visit(Expression &) override {
         std::cout << "generating Expression" << std::endl;
     }
 
-    void visit(Module &) override {
-        std::cout << "generating Module" << std::endl;
+    void visit(ModuleItem &) override {
+        std::cout << "generating ModuleItem" << std::endl;
     }
 
-    void visit(Record &) override {
-        std::cout << "generating Record" << std::endl;
+    void visit(OperatorDeclaration &) override {
+        std::cout << "generating OperatorDeclaration" << std::endl;
     }
 
-    void visit(Return &) override {
-        std::cout << "generating Return" << std::endl;
+    void visit(RecordExpression &) override {
+        std::cout << "generating RecordExpression" << std::endl;
     }
 
-    void visit(Subroutine &) override {
-        std::cout << "generating Subroutine" << std::endl;
+    void visit(RecordDeclaration &) override {
+        std::cout << "generating RecordDeclaration" << std::endl;
+    }
+
+    void visit(ReturnExpression &) override {
+        std::cout << "generating ReturnExpression" << std::endl;
+    }
+
+    void visit(SubroutineDeclaration &) override {
+        std::cout << "generating SubroutineDeclaration" << std::endl;
     }
 
     void visit(Switch &) override {
         std::cout << "generating Switch" << std::endl;
     }
 
-    void visit(Tuple &) override {
-        std::cout << "generating Type" << std::endl;
+    void visit(TupleExpression &) override {
+        std::cout << "generating TypeDeclaration" << std::endl;
     }
 
-    void visit(Type &) override {
-        std::cout << "generating Type" << std::endl;
+    void visit(TypeDeclaration &) override {
+        std::cout << "generating TypeDeclaration" << std::endl;
     }
 
-    void visit(Union &) override {
-        std::cout << "generating Union" << std::endl;
+    void visit(UnionDeclaration &) override {
+        std::cout << "generating UnionDeclaration" << std::endl;
     }
 
     void visit(While &) override {

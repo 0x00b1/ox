@@ -106,7 +106,7 @@ blank           [ \t]
 "32-bit"          return yy::parser::make_THIRTY_TWO_BIT_KEYWORD(location);
 "64-bit"          return yy::parser::make_SIXTY_FOUR_BIT_KEYWORD(location);
 "8-bit"           return yy::parser::make_EIGHT_BIT_KEYWORD(location);
-"Boolean"         return yy::parser::make_BOOLEAN_KEYWORD(location);
+"BooleanLiteral"         return yy::parser::make_BOOLEAN_KEYWORD(location);
 "break"           return yy::parser::make_BREAK_KEYWORD(location);
 "case"            return yy::parser::make_CASE_KEYWORD(location);
 "closure"         return yy::parser::make_CLOSURE_KEYWORD(location);
@@ -121,7 +121,7 @@ blank           [ \t]
 "if"              return yy::parser::make_IF_KEYWORD(location);
 "immutable"       return yy::parser::make_IMMUTABLE_KEYWORD(location);
 "infix"           return yy::parser::make_INFIX_KEYWORD(location);
-"Integer"         return yy::parser::make_INTEGER_KEYWORD(location);
+"IntegerLiteral"         return yy::parser::make_INTEGER_KEYWORD(location);
 "label"           return yy::parser::make_LABEL_KEYWORD(location);
 "module"          return yy::parser::make_MODULE_KEYWORD(location);
 "mutable"         return yy::parser::make_MUTABLE_KEYWORD(location);

@@ -61,7 +61,7 @@
   THIRTY_TWO_BIT_KEYWORD            "32-bit"
   SIXTY_FOUR_BIT_KEYWORD            "64-bit"
   EIGHT_BIT_KEYWORD                 "8-bit"
-  BOOLEAN_KEYWORD                   "Boolean"
+  BOOLEAN_KEYWORD                   "BooleanLiteral"
   BREAK_KEYWORD                     "break"
   CASE_KEYWORD                      "case"
   CLOSURE_KEYWORD                   "closure"
@@ -76,7 +76,7 @@
   IF_KEYWORD                        "if"
   IMMUTABLE_KEYWORD                 "immutable"
   INFIX_KEYWORD                     "infix"
-  INTEGER_KEYWORD                   "Integer"
+  INTEGER_KEYWORD                   "IntegerLiteral"
   LABEL_KEYWORD                     "label"
   MODULE_KEYWORD                    "module"
   MUTABLE_KEYWORD                   "mutable"
@@ -118,10 +118,10 @@ assignments : %empty {
 
             }
             ;
-type        : "8-bit" "Integer"
-            | "16-bit" "Integer"
-            | "32-bit" "Integer"
-            | "64-bit" "Integer"
+type        : "8-bit" "IntegerLiteral"
+            | "16-bit" "IntegerLiteral"
+            | "32-bit" "IntegerLiteral"
+            | "64-bit" "IntegerLiteral"
             | "16-bit" "Floating-point"
             | "32-bit" "Floating-point"
             ;
