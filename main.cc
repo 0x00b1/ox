@@ -19,13 +19,11 @@ int main (int argc, char *argv[]) {
         }
     }
 
-    Expression expression;
     IntegerLiteral integer;
     BooleanLiteral boolean;
 
     std::vector<Node*> nodes;
 
-    nodes.push_back(&expression);
     nodes.push_back(&integer);
     nodes.push_back(&boolean);
 

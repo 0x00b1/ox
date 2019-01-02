@@ -77,7 +77,6 @@ class Conditional;
 class ConstantDeclaration;
 class ContinueExpression;
 class EnumeratedDeclaration;
-class Expression;
 class FloatingPointLiteral;
 class For;
 class Goto;
@@ -85,6 +84,7 @@ class IndexExpression;
 class IntegerLiteral;
 class ModuleDeclaration;
 class OperatorDeclaration;
+class RangeExpression;
 class RecordExpression;
 class RecordDeclaration;
 class ReturnExpression;
@@ -112,9 +112,9 @@ public:
     virtual void visit(Goto &file) = 0;
     virtual void visit(IndexExpression &file) = 0;
     virtual void visit(IntegerLiteral &file) = 0;
-    virtual void visit(Expression &file) = 0;
     virtual void visit(ModuleDeclaration &file) = 0;
     virtual void visit(OperatorDeclaration &file) = 0;
+    virtual void visit(RangeExpression &file) = 0;
     virtual void visit(RecordExpression &file) = 0;
     virtual void visit(RecordDeclaration &file) = 0;
     virtual void visit(ReturnExpression &file) = 0;
@@ -173,7 +173,13 @@ public:
 };
 
 class Conditional: public Node {
+private:
+    Node *p;
+    Node *q;
+    Node *r;
 public:
+    Conditional(Node *p, Node *q, Node *r): p(p), q(q), r(r) {};
+
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -241,13 +247,6 @@ public:
     }
 };
 
-class Expression: public Node {
-public:
-    void accept(Visitor &visitor) override {
-        visitor.visit(*this);
-    }
-};
-
 class ModuleDeclaration: public Node {
 public:
     void accept(Visitor &visitor) override {
@@ -257,6 +256,15 @@ public:
 
 class OperatorDeclaration: public Node {
 public:
+    void accept(Visitor &visitor) override {
+        visitor.visit(*this);
+    }
+};
+
+class RangeExpression: public Node {
+public:
+    Type::Record type;
+
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -397,16 +405,16 @@ public:
         std::cout << "generating EnumeratedDeclaration" << std::endl;
     }
 
-    void visit(Expression &) override {
-        std::cout << "generating Expression" << std::endl;
-    }
-
     void visit(ModuleDeclaration &) override {
         std::cout << "generating ModuleDeclaration" << std::endl;
     }
 
     void visit(OperatorDeclaration &) override {
         std::cout << "generating OperatorDeclaration" << std::endl;
+    }
+
+    void visit(RangeExpression &) override {
+        std::cout << "generating RangeExpression" << std::endl;
     }
 
     void visit(RecordExpression &) override {
