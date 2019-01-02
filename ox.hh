@@ -4,6 +4,62 @@
 #include <iostream>
 #include <vector>
 
+namespace Type {
+    class Type {};
+
+    class Array: public Type {
+    public:
+        std::size_t count;
+
+        Type type;
+    };
+
+    class Boolean: public Type {
+    public:
+    };
+
+    class Bottom: public Type {
+
+    };
+
+    class Enumerated: public Type {
+
+    };
+
+    class FloatingPoint: public Type {
+
+    };
+
+    class Function: public Type {
+
+    };
+
+    class Integer: public Type {
+    public:
+
+    };
+
+    class Option: public Type {};
+
+    class Record: public Type {
+    public:
+        std::vector<Type> types;
+    };
+
+    class Reference: public Type {};
+
+    class Top: public Type {};
+
+    class Tuple: public Type {
+    public:
+        std::vector<Type> types;
+    };
+
+    class Union: public Type {};
+
+    class Unit: public Type {};
+}
+
 class Visitor;
 
 class Node {
@@ -27,7 +83,7 @@ class For;
 class Goto;
 class IndexExpression;
 class IntegerLiteral;
-class ModuleItem;
+class ModuleDeclaration;
 class OperatorDeclaration;
 class RecordExpression;
 class RecordDeclaration;
@@ -57,7 +113,7 @@ public:
     virtual void visit(IndexExpression &file) = 0;
     virtual void visit(IntegerLiteral &file) = 0;
     virtual void visit(Expression &file) = 0;
-    virtual void visit(ModuleItem &file) = 0;
+    virtual void visit(ModuleDeclaration &file) = 0;
     virtual void visit(OperatorDeclaration &file) = 0;
     virtual void visit(RecordExpression &file) = 0;
     virtual void visit(RecordDeclaration &file) = 0;
@@ -72,6 +128,8 @@ public:
 
 class ArrayExpression: public Node {
 public:
+    Type::Array type;
+
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -86,6 +144,8 @@ public:
 
 class BooleanLiteral: public Node {
 public:
+    Type::Boolean type;
+
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -135,6 +195,8 @@ public:
 
 class EnumeratedDeclaration: public Node {
 public:
+    Type::Enumerated type;
+
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -142,6 +204,8 @@ public:
 
 class FloatingPointLiteral: public Node {
 public:
+    Type::FloatingPoint type;
+
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -170,6 +234,8 @@ public:
 
 class IntegerLiteral: public Node {
 public:
+    Type::Integer type;
+
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -182,7 +248,7 @@ public:
     }
 };
 
-class ModuleItem: public Node {
+class ModuleDeclaration: public Node {
 public:
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
@@ -198,6 +264,8 @@ public:
 
 class RecordExpression: public Node {
 public:
+    Type::Record type;
+
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -205,6 +273,8 @@ public:
 
 class RecordDeclaration: public Node {
 public:
+    Type::Record type;
+
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -219,6 +289,8 @@ public:
 
 class SubroutineDeclaration: public Node {
 public:
+    Type::Function type;
+
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -233,6 +305,8 @@ public:
 
 class TupleExpression: public Node {
 public:
+    Type::Tuple type;
+
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -247,6 +321,8 @@ public:
 
 class UnionDeclaration: public Node {
 public:
+    Type::Union type;
+    
     void accept(Visitor &visitor) override {
         visitor.visit(*this);
     }
@@ -325,8 +401,8 @@ public:
         std::cout << "generating Expression" << std::endl;
     }
 
-    void visit(ModuleItem &) override {
-        std::cout << "generating ModuleItem" << std::endl;
+    void visit(ModuleDeclaration &) override {
+        std::cout << "generating ModuleDeclaration" << std::endl;
     }
 
     void visit(OperatorDeclaration &) override {
