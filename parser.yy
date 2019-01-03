@@ -156,17 +156,16 @@
 
 %start ROOT;
 
-%left "(" ")";
-%left "as";
-%left "×" "÷";
-%left "+" "−";
-%left "<" ">" "≤" "≥" "=" "≠";
-%left "∧";
-%left "∨";
-%left "⊻";
-
 %right "←";
 
+%left "⊻";
+%left "∨";
+%left "∧";
+%left "<" ">" "≤" "≥" "=" "≠";
+%left "+" "−";
+%left "×" "÷";
+%left "as";
+%left "(" ")";
 
 ROOT                                      : MODULE_DECLARATIONS {
                                             $$ = new AST::Root();
