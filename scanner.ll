@@ -67,13 +67,8 @@
 
 %option noyywrap nounput noinput batch debug
 
-%{
-  yy::parser::symbol_type make_FLOATING_POINT(const std::string &s, const yy::parser::location_type& location);
-  
-  yy::parser::symbol_type make_INTEGER(const std::string &s, const yy::parser::location_type& location);
-%}
-
 id              [a-zA-Z][a-zA-Z_0-9]*
+BOOLEAN         "true"|"false"
 INTEGER         [0-9]*
 FLOATING_POINT  [0-9]*\.[0-9]+
 blank           [ \t]
@@ -122,6 +117,7 @@ blank           [ \t]
 "default"         return yy::parser::make_DEFAULT_KEYWORD(location);
 "else"            return yy::parser::make_ELSE_KEYWORD(location);
 "enumerated"      return yy::parser::make_ENUMERATED_KEYWORD(location);
+"false"           return yy::parser::make_FALSE_KEYWORD(location);
 "for"             return yy::parser::make_FOR_KEYWORD(location);
 "goto"            return yy::parser::make_GOTO_KEYWORD(location);
 "if"              return yy::parser::make_IF_KEYWORD(location);
@@ -138,6 +134,7 @@ blank           [ \t]
 "return"          return yy::parser::make_RETURN_KEYWORD(location);
 "subroutine"      return yy::parser::make_SUBROUTINE_KEYWORD(location);
 "switch"          return yy::parser::make_SWITCH_KEYWORD(location);
+"true"            return yy::parser::make_TRUE_KEYWORD(location);
 "type"            return yy::parser::make_TYPE_KEYWORD(location);
 "union"           return yy::parser::make_UNION_KEYWORD(location);
 "unsigned"        return yy::parser::make_UNSIGNED_KEYWORD(location);
@@ -181,12 +178,10 @@ blank           [ \t]
 "∨" return yy::parser::make_LOGICAL_OR(location);
 "⊻" return yy::parser::make_XOR(location);
 
-{INTEGER}        return make_INTEGER(yytext, location);
-{FLOATING_POINT} return make_FLOATING_POINT(yytext, location);
-
-{id} {
-    return yy::parser::make_IDENTIFIER(yytext, location);
-}
+{INTEGER}         return yy::parser::make_INTEGER(yytext, location);
+{FLOATING_POINT}  return yy::parser::make_FLOATING_POINT(yytext, location);
+{BOOLEAN}         return yy::parser::make_BOOLEAN(yytext, location);
+{id}              return yy::parser::make_IDENTIFIER(yytext, location);
 
 . {
     throw yy::parser::syntax_error(location, "invalid character: " + std::string(yytext));
@@ -197,30 +192,6 @@ blank           [ \t]
 }
 
 %%
-
-yy::parser::symbol_type make_INTEGER(const std::string &s, const yy::parser::location_type& location) {
-  errno = 0;
-
-  long n = strtol (s.c_str(), NULL, 10);
-
-  if (! (INT_MIN <= n && n <= INT_MAX && errno != ERANGE)) {
-    throw yy::parser::syntax_error (location, "integer is out of range: " + s);
-  }
-
-  return yy::parser::make_INTEGER((int) n, location);
-}
-
-yy::parser::symbol_type make_FLOATING_POINT(const std::string &s, const yy::parser::location_type& location) {
-  errno = 0;
-
-  long n = strtol (s.c_str(), NULL, 10);
-
-  if (! (INT_MIN <= n && n <= INT_MAX && errno != ERANGE)) {
-    throw yy::parser::syntax_error(location, "integer is out of range: " + s);
-  }
-
-  return yy::parser::make_FLOATING_POINT((int) n, location);
-}
 
 void Compiler::scan_begin () {
   yy_flex_debug = trace_scanning;

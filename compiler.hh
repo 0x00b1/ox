@@ -17,7 +17,7 @@ class Compiler {
 public:
     Compiler();
 
-    std::vector<Node> nodes;
+    std::vector<AST::Node*> nodes;
 
     std::map<std::string, int> variables;
 
