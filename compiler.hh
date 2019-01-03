@@ -19,6 +19,8 @@ public:
 
     std::vector<AST::Node*> nodes;
 
+    AST::Root* root;
+
     std::map<std::string, int> variables;
 
     int result;
