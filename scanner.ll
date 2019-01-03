@@ -118,6 +118,7 @@ blank           [ \t]
 "closure"         return yy::parser::make_CLOSURE_KEYWORD(location);
 "constant"        return yy::parser::make_CONSTANT_KEYWORD(location);
 "continue"        return yy::parser::make_CONTINUE_KEYWORD(location);
+"coroutine"       return yy::parser::make_COROUTINE_KEYWORD(location);
 "default"         return yy::parser::make_DEFAULT_KEYWORD(location);
 "else"            return yy::parser::make_ELSE_KEYWORD(location);
 "enumerated"      return yy::parser::make_ENUMERATED_KEYWORD(location);

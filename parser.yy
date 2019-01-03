@@ -106,6 +106,7 @@
   CLOSURE_KEYWORD                   "closure"
   CONSTANT_KEYWORD                  "constant"
   CONTINUE_KEYWORD                  "continue"
+  COROUTINE_KEYWORD                 "coroutine"
   DEFAULT_KEYWORD                   "default"
   ELSE_KEYWORD                      "else"  
   ENUMERATED_KEYWORD                "enumerated"
@@ -224,11 +225,13 @@ MODULE_DECLARATION                        : "module" IDENTIFIER "{" DECLARATIONS
                                             std::cout << "module" << std::endl;
                                           }
                                           ;
-SUBROUTINE_DECLARATION                    : "subroutine" IDENTIFIER "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";" {
-                                            std::cout << "(SUBROUTINE " << std::endl;
-                                          }
+SUBROUTINE_DECLARATION                    : "subroutine" IDENTIFIER "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
+                                          | "subroutine" IDENTIFIER "→" TYPE BLOCK_EXPRESSION ";"
+                                          | "subroutine" IDENTIFIER "(" SUBROUTINE_DECLARATION_PARAMETERS ")" BLOCK_EXPRESSION ";"
+                                          | "subroutine" IDENTIFIER BLOCK_EXPRESSION ";"
                                           ;
-SUBROUTINE_DECLARATION_PARAMETERS         : SUBROUTINE_DECLARATION_PARAMETER
+SUBROUTINE_DECLARATION_PARAMETERS         : %empty
+                                          | SUBROUTINE_DECLARATION_PARAMETER
                                           | SUBROUTINE_DECLARATION_PARAMETERS "," SUBROUTINE_DECLARATION_PARAMETER
                                           ;
 SUBROUTINE_DECLARATION_PARAMETER          : IDENTIFIER ":" TYPE
@@ -279,6 +282,7 @@ EXPRESSION                                : LITERAL_EXPRESSION
                                           | OPERATOR_EXPRESSION
                                           | CONDITIONAL_EXPRESSION
                                           | GROUPED_EXPRESSION
+                                          | RETURN_EXPRESSION
                                           ;
 LITERAL_EXPRESSION                        : INTEGER
                                           | FLOATING_POINT
@@ -355,7 +359,8 @@ TYPE_CONVERSION_INFIX_OPERATOR_EXPRESSION : EXPRESSION "as" TYPE {
                                             $$ = 1;
                                           }
                                           ;
-
+RETURN_EXPRESSION                         : "return" EXPRESSION ";"
+                                          ;
 %%
 
 void yy::parser::error(const location_type& l, const std::string& m) {

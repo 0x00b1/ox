@@ -21,6 +21,30 @@ module A {
         b: 32-bit Integer
     };
 
+    subroutine f → 8-bit Integer {
+        return 0;
+    };
+
+    subroutine f() → 8-bit Integer {
+        return 0;
+    };
+
+    subroutine f(x: 8-bit Integer) → 8-bit Integer {
+        return x;
+    };
+
+    subroutine f {
+        return 0;
+    };
+
+    subroutine f() {
+        return 0;
+    };
+
+    subroutine f(x: 8-bit Integer) {
+        return 0;
+    };
+
     type G ← ⟨8-bit Integer × 8-bit Integer × 8-bit Integer⟩;
 
     type H ← [64 × 64 × 8-bit Integer];
