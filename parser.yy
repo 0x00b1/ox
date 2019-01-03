@@ -60,6 +60,10 @@
 ;
 
 %token
+  PRIME                             "′"
+;
+
+%token
   LEFT_PARENTHESIS                  "("
   RIGHT_PARENTHESIS                 ")"
   LEFT_SQUARE_BRACKET               "["
@@ -226,7 +230,9 @@ MODULE_DECLARATION                        : "module" IDENTIFIER "{" DECLARATIONS
                                           }
                                           ;
 SUBROUTINE_DECLARATION                    : "subroutine" IDENTIFIER "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
+                                          | "subroutine" IDENTIFIER PRIME "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
                                           | "subroutine" IDENTIFIER "→" TYPE BLOCK_EXPRESSION ";"
+                                          | "subroutine" IDENTIFIER PRIME "→" TYPE BLOCK_EXPRESSION ";"
                                           | "subroutine" IDENTIFIER "(" SUBROUTINE_DECLARATION_PARAMETERS ")" BLOCK_EXPRESSION ";"
                                           | "subroutine" IDENTIFIER BLOCK_EXPRESSION ";"
                                           ;

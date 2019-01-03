@@ -158,6 +158,8 @@ blank           [ \t]
 
 "λ" return yy::parser::make_GREEK_SMALL_LETTER_LAMBDA(location);
 
+"′" return yy::parser::make_PRIME(location);
+
 "(" return yy::parser::make_LEFT_PARENTHESIS(location);
 ")" return yy::parser::make_RIGHT_PARENTHESIS(location);
 "[" return yy::parser::make_LEFT_SQUARE_BRACKET(location);

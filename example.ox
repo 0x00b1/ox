@@ -33,6 +33,18 @@ module A {
         return x;
     };
 
+    subroutine f′ → 8-bit Integer {
+        return 0;
+    };
+
+    subroutine f′() → 8-bit Integer {
+        return 0;
+    };
+
+    subroutine f′(x: 8-bit Integer) → 8-bit Integer {
+        return x;
+    };
+
     subroutine f {
         return;
     };
