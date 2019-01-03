@@ -359,8 +359,10 @@ TYPE_CONVERSION_INFIX_OPERATOR_EXPRESSION : EXPRESSION "as" TYPE {
                                             $$ = 1;
                                           }
                                           ;
-RETURN_EXPRESSION                         : "return" EXPRESSION ";"
+RETURN_EXPRESSION                         : "return" ";"
+                                          | "return" EXPRESSION ";"
                                           ;
+
 %%
 
 void yy::parser::error(const location_type& l, const std::string& m) {

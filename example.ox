@@ -34,15 +34,15 @@ module A {
     };
 
     subroutine f {
-        return 0;
+        return;
     };
 
     subroutine f() {
-        return 0;
+        return;
     };
 
     subroutine f(x: 8-bit Integer) {
-        return 0;
+        return;
     };
 
     type G ← ⟨8-bit Integer × 8-bit Integer × 8-bit Integer⟩;
