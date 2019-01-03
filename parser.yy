@@ -80,7 +80,7 @@
   LESS_THAN_SIGN                    "<"
   EQUALS_SIGN                       "="
   GREATER_THAN_SIGN                 ">"
-  NOT_EQUAL_TO                      "≠"
+  NOT_EQUAL_TO
   LESS_THAN_OR_EQUAL_TO             "≤"
   GREATER_THAN_OR_EQUAL_TO          "≥"
 ;
@@ -156,8 +156,17 @@
 
 %start ROOT;
 
-%left "+" "−";
+%left "(" ")";
+%left "as";
 %left "×" "÷";
+%left "+" "−";
+%left "<" ">" "≤" "≥" "=" "≠";
+%left "∧";
+%left "∨";
+%left "⊻";
+
+%right "←";
+
 
 ROOT                                      : MODULE_DECLARATIONS {
                                             $$ = new AST::Root();
@@ -237,7 +246,7 @@ EXPRESSION                                : BREAK_EXPRESSION
                                           | CALL_EXPRESSION
                                           | CLOSURE_EXPRESSION
                                           | CONDITIONAL_EXPRESSION
-                                          | GROUPED_EXPRESSION
+                                          | "(" EXPRESSION ")"
                                           | IDENTIFIER
                                           | LITERAL_EXPRESSION
                                           | OPERATOR_EXPRESSION
@@ -260,6 +269,9 @@ CALL_EXPRESSION_PARAMETERS                : CALL_EXPRESSION_PARAMETERS "," EXPRE
 CLOSURE_EXPRESSION                        : "λ" "(" CLOSURE_EXPRESSION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION
                                           ;
 
+BLOCK_EXPRESSION                          : "{" EXPRESSIONS "}"
+                                          ;
+
 CLOSURE_EXPRESSION_PARAMETERS             : CLOSURE_EXPRESSION_PARAMETERS "," CLOSURE_EXPRESSION_PARAMETER
                                           | CLOSURE_EXPRESSION_PARAMETER
                                           | %empty
@@ -268,12 +280,9 @@ CLOSURE_EXPRESSION_PARAMETERS             : CLOSURE_EXPRESSION_PARAMETERS "," CL
 CLOSURE_EXPRESSION_PARAMETER              : IDENTIFIER ":" TYPE
                                           ;
 
-CONDITIONAL_EXPRESSION                    : "if" EXPRESSION "{" EXPRESSIONS "}" "else" "{" EXPRESSIONS "}"
-                                          | "if" EXPRESSION "{" EXPRESSIONS "}"
-                                          | "switch" EXPRESSION "{" EXPRESSIONS "}"
-                                          ;
-
-GROUPED_EXPRESSION                        : "(" EXPRESSION ")"
+CONDITIONAL_EXPRESSION                    : "if" EXPRESSION BLOCK_EXPRESSION "else" BLOCK_EXPRESSION
+                                          | "if" EXPRESSION BLOCK_EXPRESSION
+                                          | "switch" EXPRESSION BLOCK_EXPRESSION
                                           ;
 
 LITERAL_EXPRESSION                        : BOOLEAN
@@ -284,33 +293,24 @@ LITERAL_EXPRESSION                        : BOOLEAN
 OPERATOR_EXPRESSION                       : INFIX_OPERATOR_EXPRESSION
                                           ;
 
-INFIX_OPERATOR_EXPRESSION                 : ARITHMETIC_INFIX_OPERATOR_EXPRESSION
-                                          | ASSIGNMENT_INFIX_OPERATOR_EXPRESSION
-                                          | COMPARISON_INFIX_OPERATOR_EXPRESSION
-                                          | LOGICAL_INFIX_OPERATOR_EXPRESSION
+INFIX_OPERATOR_EXPRESSION                 : ASSIGNMENT_INFIX_OPERATOR_EXPRESSION
                                           | TYPE_CONVERSION_INFIX_OPERATOR_EXPRESSION
-                                          ;
-
-ARITHMETIC_INFIX_OPERATOR_EXPRESSION      : EXPRESSION "+" EXPRESSION
+                                          | EXPRESSION "+" EXPRESSION
                                           | EXPRESSION "−" EXPRESSION
                                           | EXPRESSION "×" EXPRESSION
                                           | EXPRESSION "÷" EXPRESSION
-                                          ;
-
-ASSIGNMENT_INFIX_OPERATOR_EXPRESSION      : IDENTIFIER "←" EXPRESSION
-                                          ;
-
-COMPARISON_INFIX_OPERATOR_EXPRESSION      : EXPRESSION "<" EXPRESSION
+                                          | EXPRESSION "<" EXPRESSION
                                           | EXPRESSION "=" EXPRESSION
                                           | EXPRESSION ">" EXPRESSION
                                           | EXPRESSION "≠" EXPRESSION
                                           | EXPRESSION "≤" EXPRESSION
                                           | EXPRESSION "≥" EXPRESSION
-                                          ;
-
-LOGICAL_INFIX_OPERATOR_EXPRESSION         : EXPRESSION "∧" EXPRESSION
+                                          | EXPRESSION "∧" EXPRESSION
                                           | EXPRESSION "∨" EXPRESSION
                                           | EXPRESSION "⊻" EXPRESSION
+                                          ;
+
+ASSIGNMENT_INFIX_OPERATOR_EXPRESSION      : IDENTIFIER "←" EXPRESSION
                                           ;
 
 TYPE_CONVERSION_INFIX_OPERATOR_EXPRESSION : EXPRESSION "as" TYPE
@@ -342,12 +342,12 @@ RECORD_DECLARATION                        : "record" IDENTIFIER ";"
                                           | "record" IDENTIFIER "{" RECORD_DECLARATION_FIELDS "}" ";"
                                           ;
 
-RECORD_DECLARATION_FIELDS                 : RECORD_DECLARATION_FIELDS "," RECORD_DECLARATION_FIELD
-                                          | RECORD_DECLARATION_FIELD
+RECORD_DECLARATION_FIELDS                 : RECORD_DECLARATION_FIELDS "," TYPED_IDENTIFIER
+                                          | TYPED_IDENTIFIER
                                           | %empty
                                           ;
 
-RECORD_DECLARATION_FIELD                  : IDENTIFIER ":" TYPE
+TYPED_IDENTIFIER                          : IDENTIFIER ":" TYPE
                                           ;
 
 SUBROUTINE_DECLARATION                    : "subroutine" IDENTIFIER "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
@@ -358,15 +358,9 @@ SUBROUTINE_DECLARATION                    : "subroutine" IDENTIFIER "(" SUBROUTI
                                           | "subroutine" IDENTIFIER BLOCK_EXPRESSION ";"
                                           ;
 
-SUBROUTINE_DECLARATION_PARAMETERS         : SUBROUTINE_DECLARATION_PARAMETERS "," SUBROUTINE_DECLARATION_PARAMETER
-                                          | SUBROUTINE_DECLARATION_PARAMETER
+SUBROUTINE_DECLARATION_PARAMETERS         : SUBROUTINE_DECLARATION_PARAMETERS "," TYPED_IDENTIFIER
+                                          | TYPED_IDENTIFIER
                                           | %empty
-                                          ;
-
-SUBROUTINE_DECLARATION_PARAMETER          : IDENTIFIER ":" TYPE
-                                          ;
-
-BLOCK_EXPRESSION                          : "{" EXPRESSIONS "}"
                                           ;
 
 TYPE_DECLARATION                          : "type" IDENTIFIER "←" TYPE ";"
@@ -376,12 +370,9 @@ UNION_DECLARATION                         : "union" IDENTIFIER ";"
                                           | "union" IDENTIFIER "{" UNION_DECLARATION_ITEMS "}" ";"
                                           ;
 
-UNION_DECLARATION_ITEMS                   : UNION_DECLARATION_ITEMS "," UNION_DECLARATION_ITEM
-                                          | UNION_DECLARATION_ITEM
+UNION_DECLARATION_ITEMS                   : UNION_DECLARATION_ITEMS "," TYPED_IDENTIFIER
+                                          | TYPED_IDENTIFIER
                                           | %empty
-                                          ;
-
-UNION_DECLARATION_ITEM                    : IDENTIFIER ":" TYPE
                                           ;
 
 %%
