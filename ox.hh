@@ -457,6 +457,10 @@ namespace AST {
             std::cout << "generating ReturnExpression" << std::endl;
         }
 
+        void visit(Root &) override {
+            std::cout << "generating Root" << std::endl;
+        }
+
         void visit(SubroutineDeclaration &) override {
             std::cout << "generating SubroutineDeclaration" << std::endl;
         }

@@ -158,8 +158,11 @@
 %type <int> CONDITIONAL_EXPRESSION
 %type <AST::Node*> LITERAL_EXPRESSION
 %type <AST::Node*> MODULE_DECLARATION
+%type <AST::Node*> DECLARATION
 %type <AST::Root*> UNIT
-%type <AST::ModuleDeclaration*> MODULE_DECLARATIONS
+%type <std::vector<AST::Node*> *> MODULE_DECLARATIONS
+%type <std::vector<AST::Node*> *> DECLARATIONS
+
 
 %printer {
     yyo << $$;
@@ -172,29 +175,19 @@
 %left "+" "−";
 %left "×" "÷";
 
-UNIT                                      : MODULE_DECLARATIONS {
-                                            compiler.nodes.push_back($1);
-                                          }
+UNIT                                      : MODULE_DECLARATIONS
                                           ;
 
-MODULE_DECLARATIONS                       : MODULE_DECLARATIONS MODULE_DECLARATION {
-                                            $1 -> nodes.push_back($2);
-
-                                            $$ = $1;
-                                          }
-                                          | MODULE_DECLARATION {
-                                            $$ -> nodes.push_back($1);
-                                          }
+MODULE_DECLARATIONS                       : MODULE_DECLARATION
+                                          | MODULE_DECLARATIONS MODULE_DECLARATION
                                           ;
 
-MODULE_DECLARATION                        : "module" IDENTIFIER "{" DECLARATIONS "}" ";" {
-                                            $$ = new AST::ModuleDeclaration($2);
-                                          }
+MODULE_DECLARATION                        : "module" IDENTIFIER "{" DECLARATIONS "}" ";"
                                           ;
 
-DECLARATIONS                              : DECLARATIONS DECLARATION
+DECLARATIONS                              : %empty
                                           | DECLARATION
-                                          | %empty
+                                          | DECLARATIONS DECLARATION
                                           ;
 
 DECLARATION                               : MODULE_DECLARATION
@@ -260,10 +253,6 @@ REFERENCE_TYPE                            : "reference" TYPE
 PATH_TYPE                                 : IDENTIFIER
                                           | PATH_TYPE "::" IDENTIFIER
                                           ;
-
-
-
-
 
 SUBROUTINE_DECLARATION                    : "subroutine" IDENTIFIER "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
                                           | "subroutine" IDENTIFIER PRIME "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
