@@ -1,40 +1,39 @@
 module A {
-    enumerated A {
+    enumerated B {
         a
     };
 
-    enumerated B {
+    enumerated C {
         a,
         b
     };
 
-    record C {};
+    record D;
 
-    record D {
+    record D {};
+
+    record E {
         a: 16-bit Integer
     };
 
-    record E {
+    record F {
         a: 16-bit Integer,
         b: 32-bit Integer
     };
 
-    type F ← ⟨8-bit Integer × 8-bit Integer × 8-bit Integer⟩;
-    
-    type G ← [224 × 224 × 3 × 8-bit Integer];
-    
-    /*
-     * FIXME:
-     * type G ← [224 × 224 × 3 × 8-bit Integer];
-     */
+    type G ← ⟨8-bit Integer × 8-bit Integer × 8-bit Integer⟩;
 
-    union H {};
+    type H ← [64 × 64 × 8-bit Integer];
 
-    union I {
+    union I;
+
+    union I {};
+
+    union J {
         a: 32-bit Floating-point
     };
 
-    union J {
+    union K {
         a: 16-bit Floating-point,
         b: 32-bit Floating-point
     };

@@ -192,8 +192,8 @@ COMPOSITE_TYPE                            : ARRAY_COMPOSITE_TYPE
                                           ;
 ARRAY_COMPOSITE_TYPE                      : "[" ARRAY_COMPOSITE_TYPE_ITEM "×" TYPE "]"
                                           ;
-ARRAY_COMPOSITE_TYPE_ITEM                 : EXPRESSION
-                                          | ARRAY_COMPOSITE_TYPE_ITEM "×" EXPRESSION
+ARRAY_COMPOSITE_TYPE_ITEM                 : INTEGER
+                                          | ARRAY_COMPOSITE_TYPE_ITEM "×" INTEGER
                                           ;
 TUPLE_COMPOSITE_TYPE                      : "⟨" TUPLE_COMPOSITE_TYPE_ITEM "⟩"
                                           ;
@@ -235,7 +235,8 @@ SUBROUTINE_DECLARATION_PARAMETER          : IDENTIFIER ":" TYPE
                                           ;
 TYPE_DECLARATION                          : "type" IDENTIFIER "←" TYPE ";"
                                           ;
-RECORD_DECLARATION                        : "record" IDENTIFIER "{" RECORD_DECLARATION_FIELDS "}" ";"
+RECORD_DECLARATION                        : "record" IDENTIFIER ";"
+                                          | "record" IDENTIFIER "{" RECORD_DECLARATION_FIELDS "}" ";"
                                           ;
 RECORD_DECLARATION_FIELDS                 : %empty
                                           | RECORD_DECLARATION_FIELD
@@ -252,7 +253,8 @@ ENUMERATED_DECLARATION_ITEMS              : ENUMERATED_DECLARATION_ITEM
                                           ;
 ENUMERATED_DECLARATION_ITEM               : IDENTIFIER
                                           ;
-UNION_DECLARATION                         : "union" IDENTIFIER "{" UNION_DECLARATION_ITEMS "}" ";"
+UNION_DECLARATION                         : "union" IDENTIFIER ";"
+                                          | "union" IDENTIFIER "{" UNION_DECLARATION_ITEMS "}" ";"
                                           ;
 UNION_DECLARATION_ITEMS                   : %empty
                                           | UNION_DECLARATION_ITEM
