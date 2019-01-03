@@ -1,22 +1,24 @@
 module A {
-    enumerated B {
+    constant x: 8-bit Integer ← 0;
+
+    enumerated A {
         a
     };
 
-    enumerated C {
+    enumerated A {
         a,
         b
     };
 
-    record D;
+    record A;
 
-    record D {};
+    record A {};
 
-    record E {
+    record A {
         a: 16-bit Integer
     };
 
-    record F {
+    record A {
         a: 16-bit Integer,
         b: 32-bit Integer
     };
@@ -57,19 +59,33 @@ module A {
         return;
     };
 
-    type G ← ⟨8-bit Integer × 8-bit Integer × 8-bit Integer⟩;
+    subroutine f(x: 8-bit Integer) → 8-bit Integer {
+        if x = 0 {
+            return x;
+        }
+    };
 
-    type H ← [64 × 64 × 8-bit Integer];
+    subroutine f(x: 8-bit Integer) → 8-bit Integer {
+        if x = 0 {
+            return x;
+        } else {
+            return x + 1;
+        }
+    };
 
-    union I;
+    type A ← ⟨8-bit Integer × 8-bit Integer × 8-bit Integer⟩;
 
-    union I {};
+    type A ← [64 × 64 × 8-bit Integer];
 
-    union J {
+    union A;
+
+    union A {};
+
+    union A {
         a: 32-bit Floating-point
     };
 
-    union K {
+    union A {
         a: 16-bit Floating-point,
         b: 32-bit Floating-point
     };
