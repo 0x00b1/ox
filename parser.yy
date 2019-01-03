@@ -290,7 +290,8 @@ EXPRESSION                                : LITERAL_EXPRESSION
                                           | GROUPED_EXPRESSION
                                           | RECORD_EXPRESSION
                                           | CALL_EXPRESSION
-                                          | CLOSURE_EXRESSION
+                                          | CLOSURE_EXPRESSION
+                                          | BREAK_EXPRESSION
                                           | RETURN_EXPRESSION
                                           ;
 LITERAL_EXPRESSION                        : INTEGER
@@ -382,12 +383,16 @@ CALL_EXPRESSION_PARAMETERS                : CALL_EXPRESSION_PARAMETER
                                           ;
 CALL_EXPRESSION_PARAMETER                 : EXPRESSION
                                           ;
-CLOSURE_EXRESSION                         : "λ" "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
-                                          | "λ" PRIME "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
-                                          | "λ" "→" TYPE BLOCK_EXPRESSION ";"
-                                          | "λ" PRIME "→" TYPE BLOCK_EXPRESSION ";"
-                                          | "λ" "(" SUBROUTINE_DECLARATION_PARAMETERS ")" BLOCK_EXPRESSION ";"
-                                          | "λ" BLOCK_EXPRESSION ";"
+CLOSURE_EXPRESSION                        : "λ" "(" CLOSURE_EXPRESSION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION
+                                          ;
+CLOSURE_EXPRESSION_PARAMETERS             : %empty
+                                          | CLOSURE_EXPRESSION_PARAMETER
+                                          | CLOSURE_EXPRESSION_PARAMETERS "," CLOSURE_EXPRESSION_PARAMETER
+                                          ;
+CLOSURE_EXPRESSION_PARAMETER              : IDENTIFIER ":" TYPE
+                                          ;
+BREAK_EXPRESSION                          : "break" ";"
+                                          | "break" EXPRESSION ";"
                                           ;
 RETURN_EXPRESSION                         : "return" ";"
                                           | "return" EXPRESSION ";"

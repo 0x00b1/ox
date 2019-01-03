@@ -79,6 +79,12 @@ module A {
         };
     };
 
+    subroutine example(x: 8-bit Integer) → f {
+        return λ (y: 8-bit Integer) → 8-bit Integer {
+            x + y
+        };
+    };
+
     type A ← ⟨8-bit Integer⟩;
 
     type A ← ⟨8-bit Integer × 8-bit Integer × 8-bit Integer⟩;
