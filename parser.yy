@@ -288,6 +288,9 @@ EXPRESSION                                : LITERAL_EXPRESSION
                                           | OPERATOR_EXPRESSION
                                           | CONDITIONAL_EXPRESSION
                                           | GROUPED_EXPRESSION
+                                          | RECORD_EXPRESSION
+                                          | CALL_EXPRESSION
+                                          | CLOSURE_EXRESSION
                                           | RETURN_EXPRESSION
                                           ;
 LITERAL_EXPRESSION                        : INTEGER
@@ -364,6 +367,27 @@ LOGICAL_INFIX_OPERATOR_EXPRESSION         : EXPRESSION "∧" EXPRESSION {
 TYPE_CONVERSION_INFIX_OPERATOR_EXPRESSION : EXPRESSION "as" TYPE {
                                             $$ = 1;
                                           }
+                                          ;
+RECORD_EXPRESSION                         : PATH_TYPE "{" RECORD_EXPRESSION_FIELDS "}"
+                                          ;
+RECORD_EXPRESSION_FIELDS                  : RECORD_EXPRESSION_FIELD
+                                          | RECORD_EXPRESSION_FIELDS "," RECORD_EXPRESSION_FIELD
+                                          ;
+RECORD_EXPRESSION_FIELD                   : IDENTIFIER ":" EXPRESSION
+                                          ;
+CALL_EXPRESSION                           : EXPRESSION "(" CALL_EXPRESSION_PARAMETERS ")"
+                                          ;
+CALL_EXPRESSION_PARAMETERS                : CALL_EXPRESSION_PARAMETER
+                                          | CALL_EXPRESSION_PARAMETERS "," CALL_EXPRESSION_PARAMETER
+                                          ;
+CALL_EXPRESSION_PARAMETER                 : EXPRESSION
+                                          ;
+CLOSURE_EXRESSION                         : "λ" "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
+                                          | "λ" PRIME "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
+                                          | "λ" "→" TYPE BLOCK_EXPRESSION ";"
+                                          | "λ" PRIME "→" TYPE BLOCK_EXPRESSION ";"
+                                          | "λ" "(" SUBROUTINE_DECLARATION_PARAMETERS ")" BLOCK_EXPRESSION ";"
+                                          | "λ" BLOCK_EXPRESSION ";"
                                           ;
 RETURN_EXPRESSION                         : "return" ";"
                                           | "return" EXPRESSION ";"

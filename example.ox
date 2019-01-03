@@ -73,7 +73,17 @@ module A {
         }
     };
 
+    subroutine f(x: 8-bit Integer) → A {
+        return A {
+            a: x
+        };
+    };
+
+    type A ← ⟨8-bit Integer⟩;
+
     type A ← ⟨8-bit Integer × 8-bit Integer × 8-bit Integer⟩;
+
+    type A ← [64 × 8-bit Integer];
 
     type A ← [64 × 64 × 8-bit Integer];
 
