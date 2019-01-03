@@ -1,7 +1,5 @@
 # Ox
 
-## Syntax
-
 ## Influences
 
 [Crystal Programming Language](https://crystal-lang.org/docs/)
