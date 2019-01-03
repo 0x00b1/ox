@@ -158,6 +158,8 @@
 %type <int> CONDITIONAL_EXPRESSION
 %type <AST::Node*> LITERAL_EXPRESSION
 %type <AST::Node*> MODULE_DECLARATION
+%type <AST::Root*> UNIT
+%type <AST::ModuleDeclaration*> MODULE_DECLARATIONS
 
 %printer {
     yyo << $$;
@@ -170,18 +172,38 @@
 %left "+" "−";
 %left "×" "÷";
 
-UNIT                                      : MODULE_DECLARATIONS
+UNIT                                      : MODULE_DECLARATIONS {
+                                            compiler.nodes.push_back($1);
+                                          }
                                           ;
 
-MODULE_DECLARATIONS                       : MODULE_DECLARATION
-                                          | MODULE_DECLARATIONS MODULE_DECLARATION {
-                                            compiler.nodes.push_back($2);
+MODULE_DECLARATIONS                       : MODULE_DECLARATIONS MODULE_DECLARATION {
+                                            $1 -> nodes.push_back($2);
+
+                                            $$ = $1;
+                                          }
+                                          | MODULE_DECLARATION {
+                                            $$ -> nodes.push_back($1);
                                           }
                                           ;
 
 MODULE_DECLARATION                        : "module" IDENTIFIER "{" DECLARATIONS "}" ";" {
                                             $$ = new AST::ModuleDeclaration($2);
                                           }
+                                          ;
+
+DECLARATIONS                              : DECLARATIONS DECLARATION
+                                          | DECLARATION
+                                          | %empty
+                                          ;
+
+DECLARATION                               : MODULE_DECLARATION
+                                          | SUBROUTINE_DECLARATION
+                                          | TYPE_DECLARATION
+                                          | RECORD_DECLARATION
+                                          | ENUMERATED_DECLARATION
+                                          | UNION_DECLARATION
+                                          | CONSTANT_DECLARATION
                                           ;
 
 TYPE                                      : PRIMITIVE_TYPE
@@ -239,19 +261,7 @@ PATH_TYPE                                 : IDENTIFIER
                                           | PATH_TYPE "::" IDENTIFIER
                                           ;
 
-DECLARATIONS                              : %empty
-                                          | DECLARATION
-                                          | DECLARATIONS DECLARATION
-                                          ;
 
-DECLARATION                               : MODULE_DECLARATION
-                                          | SUBROUTINE_DECLARATION
-                                          | TYPE_DECLARATION
-                                          | RECORD_DECLARATION
-                                          | ENUMERATED_DECLARATION
-                                          | UNION_DECLARATION
-                                          | CONSTANT_DECLARATION
-                                          ;
 
 
 

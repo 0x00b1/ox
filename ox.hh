@@ -90,9 +90,10 @@ namespace AST {
     class ModuleDeclaration;
     class OperatorDeclaration;
     class RangeExpression;
-    class RecordExpression;
     class RecordDeclaration;
+    class RecordExpression;
     class ReturnExpression;
+    class Root;
     class SubroutineDeclaration;
     class Switch;
     class TupleExpression;
@@ -120,9 +121,10 @@ namespace AST {
         virtual void visit(ModuleDeclaration &file) = 0;
         virtual void visit(OperatorDeclaration &file) = 0;
         virtual void visit(RangeExpression &file) = 0;
-        virtual void visit(RecordExpression &file) = 0;
         virtual void visit(RecordDeclaration &file) = 0;
+        virtual void visit(RecordExpression &file) = 0;
         virtual void visit(ReturnExpression &file) = 0;
+        virtual void visit(Root &file) = 0;
         virtual void visit(SubroutineDeclaration &file) = 0;
         virtual void visit(Switch &file) = 0;
         virtual void visit(TupleExpression &file) = 0;
@@ -307,6 +309,15 @@ namespace AST {
 
     class ReturnExpression: public Node {
     public:
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    class Root: public Node {
+    public:
+        std::vector<AST::Node*> nodes;    
+
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
