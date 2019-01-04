@@ -123,6 +123,7 @@
   IMMUTABLE_KEYWORD                 "immutable"
   IN_KEYWORD                        "in"
   INFIX_KEYWORD                     "infix"
+  IS_KEYWORD                        "is"
   LABEL_KEYWORD                     "label"
   MODULE_KEYWORD                    "module"
   MUTABLE_KEYWORD                   "mutable"

@@ -124,6 +124,7 @@ blank           [ \t]
 "immutable"       return yy::parser::make_IMMUTABLE_KEYWORD(location);
 "in"              return yy::parser::make_IN_KEYWORD(location);
 "infix"           return yy::parser::make_INFIX_KEYWORD(location);
+"is"              return yy::parser::make_IS_KEYWORD(location);
 "label"           return yy::parser::make_LABEL_KEYWORD(location);
 "module"          return yy::parser::make_MODULE_KEYWORD(location);
 "mutable"         return yy::parser::make_MUTABLE_KEYWORD(location);
