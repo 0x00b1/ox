@@ -122,6 +122,7 @@ blank           [ \t]
 "goto"            return yy::parser::make_GOTO_KEYWORD(location);
 "if"              return yy::parser::make_IF_KEYWORD(location);
 "immutable"       return yy::parser::make_IMMUTABLE_KEYWORD(location);
+"in"              return yy::parser::make_IN_KEYWORD(location);
 "infix"           return yy::parser::make_INFIX_KEYWORD(location);
 "label"           return yy::parser::make_LABEL_KEYWORD(location);
 "module"          return yy::parser::make_MODULE_KEYWORD(location);

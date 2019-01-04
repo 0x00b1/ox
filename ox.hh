@@ -374,11 +374,11 @@ namespace AST {
     class Generator: public Visitor {
     public:
         void visit(ArrayExpression &) override {
-            std::cout << "generating BooleanLiteral" << std::endl;
+            std::cout << "generating ArrayExpression" << std::endl;
         }
 
         void visit(Block &) override {
-            std::cout << "generating BooleanLiteral" << std::endl;
+            std::cout << "generating Block" << std::endl;
         }
 
         void visit(BooleanLiteral &) override {
@@ -390,7 +390,7 @@ namespace AST {
         }
 
         void visit(Call &) override {
-            std::cout << "generating BreakExpression" << std::endl;
+            std::cout << "generating Call" << std::endl;
         }
 
         void visit(ClosureExpression &) override {

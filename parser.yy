@@ -121,6 +121,7 @@
   GOTO_KEYWORD                      "goto"
   IF_KEYWORD                        "if"
   IMMUTABLE_KEYWORD                 "immutable"
+  IN_KEYWORD                        "in"
   INFIX_KEYWORD                     "infix"
   LABEL_KEYWORD                     "label"
   MODULE_KEYWORD                    "module"
@@ -164,8 +165,9 @@
 %left "<" ">" "≤" "≥" "=" "≠";
 %left "+" "−";
 %left "×" "÷";
-%left "as";
+%left "as" ":";
 %left "(" ")";
+%left "[" "]" "⟨" "⟩";
 
 ROOT                                      : MODULE_DECLARATIONS {
                                             $$ = new AST::Root();
@@ -241,16 +243,21 @@ EXPRESSIONS                               : EXPRESSIONS EXPRESSION
                                           | EXPRESSION
                                           ;
 
-EXPRESSION                                : BREAK_EXPRESSION
+EXPRESSION                                : "(" EXPRESSION ")"
+                                          | BREAK_EXPRESSION
                                           | CALL_EXPRESSION
                                           | CLOSURE_EXPRESSION
                                           | CONDITIONAL_EXPRESSION
-                                          | "(" EXPRESSION ")"
+                                          | CONTINUE_EXPRESSION
+                                          | FOR_EXPRESSION
                                           | IDENTIFIER
                                           | LITERAL_EXPRESSION
                                           | OPERATOR_EXPRESSION
+                                          | RANGE_EXPRESSION
                                           | RECORD_EXPRESSION
                                           | RETURN_EXPRESSION
+                                          | SUBSCRIPT_EXPRESSION
+                                          | WHILE_EXPRESSION
                                           ;
 
 BREAK_EXPRESSION                          : "break" ";"
@@ -265,23 +272,30 @@ CALL_EXPRESSION_PARAMETERS                : CALL_EXPRESSION_PARAMETERS "," EXPRE
                                           | %empty
                                           ;
 
-CLOSURE_EXPRESSION                        : "λ" "(" CLOSURE_EXPRESSION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION
+CLOSURE_EXPRESSION                        : "λ" "(" PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION
+                                          ;
+
+PARAMETERS                                : PARAMETERS "," PARAMETER
+                                          | PARAMETER
+                                          | %empty
+                                          ;
+
+PARAMETER                                 : IDENTIFIER ":" TYPE
                                           ;
 
 BLOCK_EXPRESSION                          : "{" EXPRESSIONS "}"
                                           ;
 
-CLOSURE_EXPRESSION_PARAMETERS             : CLOSURE_EXPRESSION_PARAMETERS "," CLOSURE_EXPRESSION_PARAMETER
-                                          | CLOSURE_EXPRESSION_PARAMETER
-                                          | %empty
+CONDITIONAL_EXPRESSION                    : "if" EXPRESSION BLOCK_EXPRESSION
+                                          | "if" EXPRESSION BLOCK_EXPRESSION "else" BLOCK_EXPRESSION
+                                          | "switch" EXPRESSION BLOCK_EXPRESSION ";"
                                           ;
 
-CLOSURE_EXPRESSION_PARAMETER              : IDENTIFIER ":" TYPE
+CONTINUE_EXPRESSION                       : "continue" EXPRESSION ";"
+                                          | "continue" ";"
                                           ;
 
-CONDITIONAL_EXPRESSION                    : "if" EXPRESSION BLOCK_EXPRESSION "else" BLOCK_EXPRESSION
-                                          | "if" EXPRESSION BLOCK_EXPRESSION
-                                          | "switch" EXPRESSION BLOCK_EXPRESSION
+FOR_EXPRESSION                            : "for" IDENTIFIER "in" EXPRESSION BLOCK_EXPRESSION
                                           ;
 
 LITERAL_EXPRESSION                        : BOOLEAN
@@ -315,6 +329,10 @@ ASSIGNMENT_INFIX_OPERATOR_EXPRESSION      : IDENTIFIER "←" EXPRESSION
 TYPE_CONVERSION_INFIX_OPERATOR_EXPRESSION : EXPRESSION "as" TYPE
                                           ;
 
+RANGE_EXPRESSION                          : EXPRESSION "," "…" EXPRESSION
+                                          | EXPRESSION "," EXPRESSION "," "…" EXPRESSION
+                                          ;
+
 RECORD_EXPRESSION                         : PATH_TYPE "{" RECORD_EXPRESSION_FIELDS "}"
                                           ;
 
@@ -330,6 +348,17 @@ RETURN_EXPRESSION                         : "return" ";"
                                           | "return" EXPRESSION ";"
                                           ;
 
+SUBSCRIPT_EXPRESSION                      : EXPRESSION "[" INDEX_EXPRESSIONS "]"
+                                          | EXPRESSION "⟨" INDEX_EXPRESSIONS "⟩"
+                                          ;
+
+INDEX_EXPRESSIONS                         : INDEX_EXPRESSIONS "," EXPRESSION
+                                          | EXPRESSION
+                                          ;
+
+WHILE_EXPRESSION                          : "while" EXPRESSION BLOCK_EXPRESSION
+                                          ;
+
 ENUMERATED_DECLARATION                    : "enumerated" IDENTIFIER "{" ENUMERATED_DECLARATION_ITEMS "}" ";"
                                           ;
 
@@ -338,10 +367,10 @@ ENUMERATED_DECLARATION_ITEMS              : ENUMERATED_DECLARATION_ITEMS "," IDE
                                           ;
 
 RECORD_DECLARATION                        : "record" IDENTIFIER ";"
-                                          | "record" IDENTIFIER "{" RECORD_DECLARATION_FIELDS "}" ";"
+                                          | "record" IDENTIFIER "{" FIELDS "}" ";"
                                           ;
 
-RECORD_DECLARATION_FIELDS                 : RECORD_DECLARATION_FIELDS "," TYPED_IDENTIFIER
+FIELDS                                    : FIELDS "," TYPED_IDENTIFIER
                                           | TYPED_IDENTIFIER
                                           | %empty
                                           ;
@@ -349,29 +378,19 @@ RECORD_DECLARATION_FIELDS                 : RECORD_DECLARATION_FIELDS "," TYPED_
 TYPED_IDENTIFIER                          : IDENTIFIER ":" TYPE
                                           ;
 
-SUBROUTINE_DECLARATION                    : "subroutine" IDENTIFIER "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
-                                          | "subroutine" IDENTIFIER PRIME "(" SUBROUTINE_DECLARATION_PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
+SUBROUTINE_DECLARATION                    : "subroutine" IDENTIFIER "(" PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
+                                          | "subroutine" IDENTIFIER PRIME "(" PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
                                           | "subroutine" IDENTIFIER "→" TYPE BLOCK_EXPRESSION ";"
                                           | "subroutine" IDENTIFIER PRIME "→" TYPE BLOCK_EXPRESSION ";"
-                                          | "subroutine" IDENTIFIER "(" SUBROUTINE_DECLARATION_PARAMETERS ")" BLOCK_EXPRESSION ";"
+                                          | "subroutine" IDENTIFIER "(" PARAMETERS ")" BLOCK_EXPRESSION ";"
                                           | "subroutine" IDENTIFIER BLOCK_EXPRESSION ";"
-                                          ;
-
-SUBROUTINE_DECLARATION_PARAMETERS         : SUBROUTINE_DECLARATION_PARAMETERS "," TYPED_IDENTIFIER
-                                          | TYPED_IDENTIFIER
-                                          | %empty
                                           ;
 
 TYPE_DECLARATION                          : "type" IDENTIFIER "←" TYPE ";"
                                           ;
 
 UNION_DECLARATION                         : "union" IDENTIFIER ";"
-                                          | "union" IDENTIFIER "{" UNION_DECLARATION_ITEMS "}" ";"
-                                          ;
-
-UNION_DECLARATION_ITEMS                   : UNION_DECLARATION_ITEMS "," TYPED_IDENTIFIER
-                                          | TYPED_IDENTIFIER
-                                          | %empty
+                                          | "union" IDENTIFIER "{" FIELDS "}" ";"
                                           ;
 
 %%

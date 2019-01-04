@@ -84,6 +84,20 @@ module A {
             x + y
         };
     };
+ 
+    subroutine example(x: 8-bit Integer) {
+        for x in 1, … 100 {
+            x + 1
+        }
+
+        for x in 1, 2, … 100 {
+            x + 1
+        }
+
+        while x > 0 {
+            x + 1        
+        }
+    };
 
     type A ← ⟨8-bit Integer⟩;
 
