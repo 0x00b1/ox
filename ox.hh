@@ -135,7 +135,9 @@ namespace AST {
 
     class ArrayExpression: public Node {
     public:
-        Type::Array type;
+        ArrayExpression(std::vector<AST::Node*> *items): items(items) {};
+
+        std::vector<AST::Node*> *items;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);

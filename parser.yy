@@ -170,6 +170,13 @@
 %type <std::string> SUBROUTINE_NAME;
 %type <std::string> TYPE_ALIAS_NAME;
 %type <std::string> UNION_DECLARATION_NAME;
+
+%type <AST::ArrayExpression*> ARRAY_LITERAL;
+%type <std::vector<AST::Node*>*> ARRAY_LITERAL_ITEMS;
+%type <AST::Node*> ARRAY_LITERAL_ITEM;
+
+%type <AST::FloatingPointLiteral*> FLOATING_POINT_LITERAL;
+%type <AST::IntegerLiteral*> INTEGER_LITERAL;
 %type <AST::EnumerationDeclaration*> ENUMERATION_DECLARATION;
 %type <AST::RecordDeclaration*> RECORD_DECLARATION;
 %type <AST::SubroutineDeclaration*> SUBROUTINE_DECLARATION;
@@ -382,25 +389,33 @@ NUMERIC_LITERAL                         : FLOATING_POINT_LITERAL
                                         | INTEGER_LITERAL
                                         ;
 FLOATING_POINT_LITERAL                  : FLOATING_POINT {
-                                          std::cout << $1 << " ";
+                                          $$ = new AST::FloatingPointLiteral($1);
                                         }
                                         | "−" FLOATING_POINT  %prec UNARY_MINUS_SIGN {
-                                          std::cout << $2 << " ";
+                                          $$ = new AST::FloatingPointLiteral($2);
                                         }
                                         ;
 INTEGER_LITERAL                         : INTEGER {
-                                          std::cout << $1 << " ";
+                                          $$ = new AST::IntegerLiteral($1);
                                         }
                                         | "−" INTEGER         %prec UNARY_MINUS_SIGN {
-                                          std::cout << $2 << " ";
+                                          $$ = new AST::IntegerLiteral($2);
                                         }
                                         ;
 
-ARRAY_LITERAL                           : "[" "]"
-                                        | "[" ARRAY_LITERAL_ITEMS "]"
+ARRAY_LITERAL                           : "[" ARRAY_LITERAL_ITEMS "]" {
+                                          $$ = new AST::ArrayExpression($2);
+                                        }
                                         ;
-ARRAY_LITERAL_ITEMS                     : ARRAY_LITERAL_ITEM 
-                                        | ARRAY_LITERAL_ITEM "," ARRAY_LITERAL_ITEMS
+ARRAY_LITERAL_ITEMS                     : %empty {
+                                          $$ = new std::vector<AST::Node*>();
+                                        }
+                                        | ARRAY_LITERAL_ITEM {
+                                          $$ = new std::vector<AST::Node*>();
+                                        }
+                                        | ARRAY_LITERAL_ITEM "," ARRAY_LITERAL_ITEMS {
+                                          $$ = new std::vector<AST::Node*>();
+                                        }
                                         ;
 ARRAY_LITERAL_ITEM                      : EXPRESSION
                                         ;
