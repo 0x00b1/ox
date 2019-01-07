@@ -412,9 +412,15 @@ ARRAY_LITERAL_ITEMS                     : %empty {
                                         }
                                         | ARRAY_LITERAL_ITEM {
                                           $$ = new std::vector<AST::Node*>();
+
+                                          $$ -> push_back($1);
                                         }
                                         | ARRAY_LITERAL_ITEM "," ARRAY_LITERAL_ITEMS {
-                                          $$ = new std::vector<AST::Node*>();
+                                          std::vector<AST::Node*> *items = $3;
+
+                                          items -> push_back($1);
+
+                                          $$ = items;
                                         }
                                         ;
 ARRAY_LITERAL_ITEM                      : EXPRESSION
