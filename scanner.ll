@@ -68,7 +68,6 @@
 %option noyywrap nounput noinput batch debug
 
 id              [a-zA-Z][a-zA-Z_0-9]*
-BOOLEAN         "true"|"false"
 INTEGER         [0-9]*
 FLOATING_POINT  [0-9]*\.[0-9]+
 blank           [ \t]
@@ -184,7 +183,6 @@ blank           [ \t]
 
 {INTEGER}         return yy::parser::make_INTEGER(yytext, location);
 {FLOATING_POINT}  return yy::parser::make_FLOATING_POINT(yytext, location);
-{BOOLEAN}         return yy::parser::make_BOOLEAN(yytext, location);
 {id}              return yy::parser::make_IDENTIFIER(yytext, location);
 
 . {

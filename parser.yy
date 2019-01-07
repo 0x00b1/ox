@@ -148,13 +148,22 @@
 
 %token <std::string> IDENTIFIER
 
-%token <std::string> BOOLEAN
 %token <std::string> INTEGER 
 %token <std::string> FLOATING_POINT 
 
 %printer {
     yyo << $$;
 } <*>;
+
+%left "←"
+%left "<" "=" ">" "≠" "≤" "≥"
+%left "+" "−"
+%left "×" "÷"
+%precedence UNARY_MINUS_SIGN
+%left "as" "is"
+%left "(" ")"
+%left ":" ";" "," "."
+%left "⟨" "⟩"
 
 %%
 
@@ -164,60 +173,36 @@
  *  LEXICAL SYNTAX
  */
 
+BINARY_OPERATOR                         : "+"
+                                        | "<"
+                                        | "="
+                                        | ">"
+                                        | "÷"
+                                        | "∧"
+                                        | "∨"
+                                        | "≠"
+                                        | "≤"
+                                        | "≥"
+                                        | "⊻"
+                                        ;
+PREFIX_OPERATOR                         : "¬"
+                                        ;
+POSTFIX_OPERATOR                        : "!"
+                                        | "?"
+                                        ;
+
 BOOLEAN_LITERAL                         : "true" 
                                         | "false"
                                         ;
 
 NUMERIC_LITERAL                         : INTEGER
-                                        | "−" INTEGER
+                                        | "−" INTEGER         %prec UNARY_MINUS_SIGN
                                         | FLOATING_POINT
-                                        | "−" FLOATING_POINT
+                                        | "−" FLOATING_POINT  %prec UNARY_MINUS_SIGN
                                         ;
 
 LITERAL                                 : BOOLEAN_LITERAL 
                                         | NUMERIC_LITERAL
-                                        ;
-
-IDENTIFIER_LIST                         : IDENTIFIER 
-                                        | IDENTIFIER "," IDENTIFIER_LIST
-                                        ;
-
-OPERATOR                                : OPERATOR_HEAD 
-                                        | OPERATOR_HEAD OPERATOR_CHARACTERS
-                                        ;
-OPERATOR                                : DOT_OPERATOR_HEAD DOT_OPERATOR_CHARACTERS
-                                        ;
-OPERATOR_HEAD                           : "÷" 
-                                        | "=" 
-                                        | "−"
-                                        | "+" 
-                                        | "!" 
-                                        | "×" 
-                                        | "<" 
-                                        | ">" 
-                                        | "∧" 
-                                        | "∨"
-                                        | "¬" 
-                                        | "?"
-                                        ;
-OPERATOR_CHARACTER                      : OPERATOR_HEAD
-                                        ;
-OPERATOR_CHARACTERS                     : OPERATOR_CHARACTER
-                                        | OPERATOR_CHARACTER OPERATOR_CHARACTERS
-                                        ;
-DOT_OPERATOR_HEAD                       : "."
-                                        ;
-DOT_OPERATOR_CHARACTER                  : "." 
-                                        | OPERATOR_CHARACTER
-                                        ;
-DOT_OPERATOR_CHARACTERS                 : DOT_OPERATOR_CHARACTER
-                                        | DOT_OPERATOR_CHARACTER DOT_OPERATOR_CHARACTERS
-                                        ;
-BINARY_OPERATOR                         : OPERATOR
-                                        ;
-PREFIX_OPERATOR                         : OPERATOR
-                                        ;
-POSTFIX_OPERATOR                        : OPERATOR
                                         ;
 
 /*
@@ -337,18 +322,6 @@ GENERIC_PARAMETER_LIST                  : GENERIC_PARAMETER
 GENERIC_PARAMETER                       : TYPE_NAME
                                         | TYPE_NAME ":" TYPE_IDENTIFIER
                                         ;
-GENERIC_WHERE_CLAUSE                    : "where" REQUIREMENT_LIST
-                                        ;
-REQUIREMENT_LIST                        : REQUIREMENT 
-                                        | REQUIREMENT "," REQUIREMENT_LIST
-                                        ;
-REQUIREMENT                             : CONFORMANCE_REQUIREMENT 
-                                        | SAME_TYPE_REQUIREMENT
-                                        ;
-CONFORMANCE_REQUIREMENT                 : TYPE_IDENTIFIER ":" TYPE_IDENTIFIER
-                                        ;
-SAME_TYPE_REQUIREMENT                   : TYPE_IDENTIFIER "is" TYPE
-                                        ;
 
 GENERIC_ARGUMENT_CLAUSE                 : "⟨" GENERIC_ARGUMENT_LIST "⟩"
                                         ;
@@ -385,10 +358,6 @@ TYPE_CASTING_OPERATOR                   : "is" TYPE
                                         | "as" TYPE
                                         ;
 
-EXPRESSIONS                             : EXPRESSION
-                                        | EXPRESSION "," EXPRESSIONS
-                                        ;
-
 PRIMARY_EXPRESSION                      : IDENTIFIER 
                                         | IDENTIFIER GENERIC_ARGUMENT_CLAUSE
                                         | LITERAL_EXPRESSION
@@ -403,7 +372,8 @@ LITERAL_EXPRESSION                      : LITERAL
                                         | TUPLE_LITERAL
                                         ;
 
-ARRAY_LITERAL                           : "[" ARRAY_LITERAL_ITEMS "]"
+ARRAY_LITERAL                           : "[" "]"
+                                        | "[" ARRAY_LITERAL_ITEMS "]"
                                         ;
 ARRAY_LITERAL_ITEMS                     : ARRAY_LITERAL_ITEM 
                                         | ARRAY_LITERAL_ITEM "," ARRAY_LITERAL_ITEMS
@@ -421,10 +391,8 @@ TUPLE_LITERAL_ITEM                      : EXPRESSION
                                         | IDENTIFIER ":" EXPRESSION
                                         ;
 
-CLOSURE_EXPRESSION                      : CLOSURE_HEAD CLOSURE_SIGNATURE "{" "}"
-                                        | CLOSURE_HEAD CLOSURE_SIGNATURE "{" STATEMENTS "}"
-                                        | CLOSURE_HEAD "{" "}"
-                                        | CLOSURE_HEAD "{" STATEMENTS "}"
+CLOSURE_EXPRESSION                      : CLOSURE_HEAD CLOSURE_SIGNATURE CLOSURE_BLOCK
+                                        | CLOSURE_HEAD CLOSURE_BLOCK
                                         ;
 CLOSURE_HEAD                            : "λ"
                                         ;
@@ -433,7 +401,6 @@ CLOSURE_SIGNATURE                       : CLOSURE_PARAMETER_CLAUSE
                                         ;
 CLOSURE_PARAMETER_CLAUSE                : "(" ")" 
                                         | "(" CLOSURE_PARAMETER_LIST ")" 
-                                        | IDENTIFIER_LIST
                                         ;
 CLOSURE_PARAMETER_LIST                  : CLOSURE_PARAMETER 
                                         | CLOSURE_PARAMETER "," CLOSURE_PARAMETER_LIST
@@ -443,6 +410,9 @@ CLOSURE_PARAMETER                       : CLOSURE_PARAMETER_NAME
                                         | CLOSURE_PARAMETER_NAME TYPE_ANNOTATION "…"
                                         ;
 CLOSURE_PARAMETER_NAME                  : IDENTIFIER
+                                        ;
+CLOSURE_BLOCK                           : "{" "}"
+                                        | "{" STATEMENTS "}"
                                         ;
 
 PARENTHESIZED_EXPRESSION                : "(" EXPRESSION ")"
@@ -636,7 +606,6 @@ SUBROUTINE_DECLARATION                  : SUBROUTINE_HEAD SUBROUTINE_NAME SUBROU
 SUBROUTINE_HEAD                         : "subroutine"
                                         ;
 SUBROUTINE_NAME                         : IDENTIFIER 
-                                        | OPERATOR
                                         ;
 SUBROUTINE_SIGNATURE                    : PARAMETER_CLAUSE
                                         | PARAMETER_CLAUSE SUBROUTINE_RESULT
