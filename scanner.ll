@@ -116,7 +116,7 @@ blank           [ \t]
 "coroutine"       return yy::parser::make_COROUTINE_KEYWORD(location);
 "default"         return yy::parser::make_DEFAULT_KEYWORD(location);
 "else"            return yy::parser::make_ELSE_KEYWORD(location);
-"enumerated"      return yy::parser::make_ENUMERATED_KEYWORD(location);
+"enumeration"     return yy::parser::make_ENUMERATION_KEYWORD(location);
 "false"           return yy::parser::make_FALSE_KEYWORD(location);
 "for"             return yy::parser::make_FOR_KEYWORD(location);
 "goto"            return yy::parser::make_GOTO_KEYWORD(location);

@@ -115,7 +115,7 @@
   COROUTINE_KEYWORD                 "coroutine"
   DEFAULT_KEYWORD                   "default"
   ELSE_KEYWORD                      "else"  
-  ENUMERATED_KEYWORD                "enumerated"
+  ENUMERATION_KEYWORD               "enumeration"
   FALSE_KEYWORD                     "false"
   FOR_KEYWORD                       "for"
   GOTO_KEYWORD                      "goto"
@@ -148,251 +148,635 @@
 %token <std::string> INTEGER 
 %token <std::string> FLOATING_POINT 
 
-%type <AST::Root*> ROOT
-
 %printer {
     yyo << $$;
 } <*>;
 
 %%
 
-%start ROOT;
+%start TOP_LEVEL_DECLARATION;
 
-%right "←";
+/*
+ *  LEXICAL SYNTAX
+ */
 
-%left "⊻";
-%left "∨";
-%left "∧";
-%left "<" ">" "≤" "≥" "=" "≠";
-%left "+" "−";
-%left "×" "÷";
-%left "as" ":";
-%left "(" ")";
-%left "[" "]" "⟨" "⟩";
+BOOLEAN_LITERAL                         : "true" 
+                                        | "false"
+                                        ;
 
-ROOT                                      : MODULE_DECLARATIONS {
-                                            $$ = new AST::Root();
-                                          }
-                                          ;
+NUMERIC_LITERAL                         : INTEGER
+                                        | "−" INTEGER
+                                        | FLOATING_POINT
+                                        | "−" FLOATING_POINT
+                                        ;
 
-MODULE_DECLARATIONS                       : MODULE_DECLARATIONS MODULE_DECLARATION 
-                                          | MODULE_DECLARATION
-                                          | %empty
-                                          ;
+LITERAL                                 : BOOLEAN_LITERAL 
+                                        | NUMERIC_LITERAL
+                                        ;
 
-MODULE_DECLARATION                        : "module" IDENTIFIER "{" DECLARATIONS "}" ";"
-                                          ;
+IDENTIFIER_LIST                         : IDENTIFIER 
+                                        | IDENTIFIER "," IDENTIFIER_LIST
+                                        ;
 
-DECLARATIONS                              : DECLARATIONS DECLARATION
-                                          | DECLARATION
-                                          | %empty
-                                          ;
+OPERATOR                                : OPERATOR_HEAD 
+                                        | OPERATOR_HEAD OPERATOR_CHARACTERS
+                                        ;
+OPERATOR                                : DOT_OPERATOR_HEAD DOT_OPERATOR_CHARACTERS
+                                        ;
+OPERATOR_HEAD                           : "÷" 
+                                        | "=" 
+                                        | "−"
+                                        | "+" 
+                                        | "!" 
+                                        | "×" 
+                                        | "<" 
+                                        | ">" 
+                                        | "∧" 
+                                        | "∨"
+                                        | "¬" 
+                                        | "?"
+                                        ;
+OPERATOR_CHARACTER                      : OPERATOR_HEAD
+                                        ;
+OPERATOR_CHARACTERS                     : OPERATOR_CHARACTER
+                                        | OPERATOR_CHARACTER OPERATOR_CHARACTERS
+                                        ;
+DOT_OPERATOR_HEAD                       : "."
+                                        ;
+DOT_OPERATOR_CHARACTER                  : "." 
+                                        | OPERATOR_CHARACTER
+                                        ;
+DOT_OPERATOR_CHARACTERS                 : DOT_OPERATOR_CHARACTER
+                                        | DOT_OPERATOR_CHARACTER DOT_OPERATOR_CHARACTERS
+                                        ;
+BINARY_OPERATOR                         : OPERATOR
+                                        ;
+PREFIX_OPERATOR                         : OPERATOR
+                                        ;
+POSTFIX_OPERATOR                        : OPERATOR
+                                        ;
 
-DECLARATION                               : CONSTANT_DECLARATION
-                                          | ENUMERATED_DECLARATION
-                                          | MODULE_DECLARATION
-                                          | RECORD_DECLARATION
-                                          | SUBROUTINE_DECLARATION
-                                          | TYPE_DECLARATION
-                                          | UNION_DECLARATION
-                                          ;
+/*
+ *  TYPES
+ */
 
-CONSTANT_DECLARATION                      : "constant" IDENTIFIER ":" TYPE "←" EXPRESSIONS ";"
-                                          ;
+TYPE                                    : ARRAY_TYPE
+                                        | FUNCTION_TYPE
+                                        | TYPE_IDENTIFIER
+                                        | TUPLE_TYPE
+                                        | PRIMITIVE_TYPE
+                                        | "(" TYPE ")"
+                                        ;
 
-TYPE                                      : PRIMITIVE_TYPE
-                                          | COMPOSITE_TYPE
-                                          | PATH_TYPE
-                                          | REFERENCE_TYPE
-                                          ;
+/*
+ *  ARRAY TYPE
+ */
 
-PRIMITIVE_TYPE                            : "Boolean"
-                                          | FLOATING_POINT_PRIMITIVE_TYPE_SIZE "Floating-point"
-                                          | INTEGER_PRIMITIVE_TYPE_SIZE "Integer"
-                                          ;
+ARRAY_TYPE                              : "[" TYPE "]"
+                                        ;
 
-FLOATING_POINT_PRIMITIVE_TYPE_SIZE        : "16-bit"
-                                          | "32-bit"
-                                          ;
+/*
+ *  FUNCTION TYPE
+ */ 
 
-INTEGER_PRIMITIVE_TYPE_SIZE               :  "8-bit"
-                                          | "16-bit"
-                                          | "32-bit"
-                                          | "64-bit"
-                                          ;
+FUNCTION_TYPE                           : FUNCTION_TYPE_ARGUMENT_CLAUSE "→" TYPE
+                                        ;
+FUNCTION_TYPE_ARGUMENT_CLAUSE           : "(" ")"
+                                        | "(" FUNCTION_TYPE_ARGUMENT_LIST ")"
+                                        | "(" FUNCTION_TYPE_ARGUMENT_LIST "…" ")"
+                                        ;
+FUNCTION_TYPE_ARGUMENT_LIST             : FUNCTION_TYPE_ARGUMENT 
+                                        | FUNCTION_TYPE_ARGUMENT "," FUNCTION_TYPE_ARGUMENT_LIST
+                                        ;
+FUNCTION_TYPE_ARGUMENT                  : TYPE 
+                                        | ARGUMENT_LABEL TYPE_ANNOTATION
+                                        ;
+ARGUMENT_LABEL                          : IDENTIFIER
+                                        ;
 
-COMPOSITE_TYPE                            : "[" ARRAY_COMPOSITE_TYPE_ITEM "×" TYPE "]"
-                                          | "⟨" TUPLE_COMPOSITE_TYPE_ITEM "⟩"
-                                          ;
+/*
+ *  TYPE IDENTIFIER
+ */
 
-ARRAY_COMPOSITE_TYPE_ITEM                 : ARRAY_COMPOSITE_TYPE_ITEM "×" INTEGER
-                                          | INTEGER
-                                          ;
+TYPE_IDENTIFIER                         : TYPE_NAME
+                                        | TYPE_NAME GENERIC_ARGUMENT_CLAUSE  
+                                        | TYPE_NAME "." TYPE_IDENTIFIER
+                                        | TYPE_NAME GENERIC_ARGUMENT_CLAUSE "." TYPE_IDENTIFIER
+                                        ;
+TYPE_NAME                               : IDENTIFIER
+                                        ;
 
-TUPLE_COMPOSITE_TYPE_ITEM                 : TUPLE_COMPOSITE_TYPE_ITEM "×" TYPE
-                                          | TYPE
-                                          ;
+/*
+ *  TUPLE TYPE
+ */
 
-PATH_TYPE                                 : PATH_TYPE "::" IDENTIFIER
-                                          | IDENTIFIER
-                                          ;
+TUPLE_TYPE                              : "⟨" "⟩"
+                                        | "⟨" TUPLE_TYPE_ELEMENT "×" TUPLE_TYPE_ELEMENT_LIST "⟩"
+                                        ;
+TUPLE_TYPE_ELEMENT_LIST                 : TUPLE_TYPE_ELEMENT 
+                                        | TUPLE_TYPE_ELEMENT "×" TUPLE_TYPE_ELEMENT_LIST
+                                        ;
+TUPLE_TYPE_ELEMENT                      : ELEMENT_NAME TYPE_ANNOTATION 
+                                        | TYPE
+                                        ;
+ELEMENT_NAME                            : IDENTIFIER
+                                        ;
 
-REFERENCE_TYPE                            : "reference" TYPE
-                                          ;
+/*
+ *  TYPE ANNOTATION
+ */
 
-EXPRESSIONS                               : EXPRESSIONS EXPRESSION
-                                          | EXPRESSION
-                                          ;
+TYPE_ANNOTATION                         : ":" TYPE
+                                        ;
 
-EXPRESSION                                : "(" EXPRESSION ")"
-                                          | BREAK_EXPRESSION
-                                          | CALL_EXPRESSION
-                                          | CLOSURE_EXPRESSION
-                                          | CONDITIONAL_EXPRESSION
-                                          | CONTINUE_EXPRESSION
-                                          | FOR_EXPRESSION
-                                          | IDENTIFIER
-                                          | LITERAL_EXPRESSION
-                                          | OPERATOR_EXPRESSION
-                                          | RANGE_EXPRESSION
-                                          | RECORD_EXPRESSION
-                                          | RETURN_EXPRESSION
-                                          | SUBSCRIPT_EXPRESSION
-                                          | WHILE_EXPRESSION
-                                          ;
+/*
+ *  PRIMITIVE TYPE
+ */
 
-BREAK_EXPRESSION                          : "break" ";"
-                                          | "break" EXPRESSIONS ";"
-                                          ;
+PRIMITIVE_TYPE                          : BOOLEAN_TYPE
+                                        | FLOATING_POINT_TYPE
+                                        | INTEGER_TYPE
+                                        ;
+BOOLEAN_TYPE                            : "Boolean"
+                                        ;
+FLOATING_POINT_TYPE                     : FLOATING_POINT_SIZE "Floating-point"
+                                        ;
+FLOATING_POINT_SIZE                     : "32-bit"
+                                        | "64-bit"
+                                        ;
+INTEGER_TYPE                            : INTEGER_TYPE_SIZE "Integer"
+                                        | SIGNEDNESS INTEGER_TYPE_SIZE "Integer"
+                                        ;
+INTEGER_TYPE_SIZE                       :   "8-bit"
+                                        |  "16-bit"
+                                        |  "32-bit"
+                                        |  "64-bit"
+                                        | "128-bit"
+                                        ;
+SIGNEDNESS                              : "unsigned"
+                                        ;
 
-CALL_EXPRESSION                           : EXPRESSION "(" CALL_EXPRESSION_PARAMETERS ")"
-                                          ;
+/*
+ *  GENERIC PARAMETERS AND ARGUMENTS
+ */
 
-CALL_EXPRESSION_PARAMETERS                : CALL_EXPRESSION_PARAMETERS "," EXPRESSIONS
-                                          | EXPRESSIONS
-                                          | %empty
-                                          ;
+GENERIC_PARAMETER_CLAUSE                : "⟨" GENERIC_PARAMETER_LIST "⟩"
+                                        ;
+GENERIC_PARAMETER_LIST                  : GENERIC_PARAMETER 
+                                        | GENERIC_PARAMETER "," GENERIC_PARAMETER_LIST
+                                        ;
+GENERIC_PARAMETER                       : TYPE_NAME
+                                        | TYPE_NAME ":" TYPE_IDENTIFIER
+                                        ;
+GENERIC_WHERE_CLAUSE                    : "where" REQUIREMENT_LIST
+                                        ;
+REQUIREMENT_LIST                        : REQUIREMENT 
+                                        | REQUIREMENT "," REQUIREMENT_LIST
+                                        ;
+REQUIREMENT                             : CONFORMANCE_REQUIREMENT 
+                                        | SAME_TYPE_REQUIREMENT
+                                        ;
+CONFORMANCE_REQUIREMENT                 : TYPE_IDENTIFIER ":" TYPE_IDENTIFIER
+                                        ;
+SAME_TYPE_REQUIREMENT                   : TYPE_IDENTIFIER "is" TYPE
+                                        ;
 
-CLOSURE_EXPRESSION                        : "λ" "(" PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION
-                                          ;
+GENERIC_ARGUMENT_CLAUSE                 : "⟨" GENERIC_ARGUMENT_LIST "⟩"
+                                        ;
+GENERIC_ARGUMENT_LIST                   : GENERIC_ARGUMENT 
+                                        | GENERIC_ARGUMENT "," GENERIC_ARGUMENT_LIST
+                                        ;
+GENERIC_ARGUMENT                        : TYPE
+                                        ;   
 
-PARAMETERS                                : PARAMETERS "," PARAMETER
-                                          | PARAMETER
-                                          | %empty
-                                          ;
+/*
+ *  EXPRESSIONS
+ */
 
-PARAMETER                                 : IDENTIFIER ":" TYPE
-                                          ;
+EXPRESSION                              : PREFIX_EXPRESSION 
+                                        | PREFIX_EXPRESSION BINARY_EXPRESSIONS
+                                        ;
+PREFIX_EXPRESSION                       : POSTFIX_EXPRESSION
+                                        | PREFIX_OPERATOR POSTFIX_EXPRESSION
+                                        ;
 
-BLOCK_EXPRESSION                          : "{" EXPRESSIONS "}"
-                                          ;
+BINARY_EXPRESSION                       : BINARY_OPERATOR PREFIX_EXPRESSION
+                                        | ASSIGNMENT_OPERATOR PREFIX_EXPRESSION
+                                        | TYPE_CASTING_OPERATOR
+                                        ;
+                                
+BINARY_EXPRESSIONS                      : BINARY_EXPRESSION 
+                                        | BINARY_EXPRESSION BINARY_EXPRESSIONS
+                                        ;
 
-CONDITIONAL_EXPRESSION                    : "if" EXPRESSION BLOCK_EXPRESSION
-                                          | "if" EXPRESSION BLOCK_EXPRESSION "else" BLOCK_EXPRESSION
-                                          | "switch" EXPRESSION BLOCK_EXPRESSION ";"
-                                          ;
+ASSIGNMENT_OPERATOR                     : "←"
+                                        ;
 
-CONTINUE_EXPRESSION                       : "continue" EXPRESSION ";"
-                                          | "continue" ";"
-                                          ;
+TYPE_CASTING_OPERATOR                   : "is" TYPE
+                                        | "as" TYPE
+                                        ;
 
-FOR_EXPRESSION                            : "for" IDENTIFIER "in" EXPRESSION BLOCK_EXPRESSION
-                                          ;
+EXPRESSIONS                             : EXPRESSION
+                                        | EXPRESSION "," EXPRESSIONS
+                                        ;
 
-LITERAL_EXPRESSION                        : BOOLEAN
-                                          | INTEGER
-                                          | FLOATING_POINT
-                                          ;
+PRIMARY_EXPRESSION                      : LITERAL_EXPRESSION
+                                        | CLOSURE_EXPRESSION
+                                        | PARENTHESIZED_EXPRESSION
+                                        | WILDCARD_EXPRESSION
+                                        | EXPLICIT_MEMBER_EXPRESSION
+                                        ;
 
-OPERATOR_EXPRESSION                       : INFIX_OPERATOR_EXPRESSION
-                                          ;
+LITERAL_EXPRESSION                      : LITERAL
+                                        | ARRAY_LITERAL
+                                        | TUPLE_LITERAL
+                                        ;
 
-INFIX_OPERATOR_EXPRESSION                 : ASSIGNMENT_INFIX_OPERATOR_EXPRESSION
-                                          | TYPE_CONVERSION_INFIX_OPERATOR_EXPRESSION
-                                          | EXPRESSION "+" EXPRESSION
-                                          | EXPRESSION "−" EXPRESSION
-                                          | EXPRESSION "×" EXPRESSION
-                                          | EXPRESSION "÷" EXPRESSION
-                                          | EXPRESSION "<" EXPRESSION
-                                          | EXPRESSION "=" EXPRESSION
-                                          | EXPRESSION ">" EXPRESSION
-                                          | EXPRESSION "≠" EXPRESSION
-                                          | EXPRESSION "≤" EXPRESSION
-                                          | EXPRESSION "≥" EXPRESSION
-                                          | EXPRESSION "∧" EXPRESSION
-                                          | EXPRESSION "∨" EXPRESSION
-                                          | EXPRESSION "⊻" EXPRESSION
-                                          ;
+ARRAY_LITERAL                           : "[" ARRAY_LITERAL_ITEMS "]"
+                                        ;
+ARRAY_LITERAL_ITEMS                     : ARRAY_LITERAL_ITEM 
+                                        | ARRAY_LITERAL_ITEM "," ARRAY_LITERAL_ITEMS
+                                        ;
+ARRAY_LITERAL_ITEM                      : EXPRESSION
+                                        ;
 
-ASSIGNMENT_INFIX_OPERATOR_EXPRESSION      : IDENTIFIER "←" EXPRESSION
-                                          ;
+TUPLE_LITERAL                           : "⟨" "⟩" 
+                                        | "⟨" TUPLE_LITERAL_ITEM "," TUPLE_LITERAL_ITEMS "⟩"
+                                        ;
+TUPLE_LITERAL_ITEMS                     : TUPLE_LITERAL_ITEM 
+                                        | TUPLE_LITERAL_ITEM "," TUPLE_LITERAL_ITEMS
+                                        ;
+TUPLE_LITERAL_ITEM                      : EXPRESSION
+                                        | IDENTIFIER ":" EXPRESSION
+                                        ;
 
-TYPE_CONVERSION_INFIX_OPERATOR_EXPRESSION : EXPRESSION "as" TYPE
-                                          ;
+CLOSURE_EXPRESSION                      : "{" CLOSURE_SIGNATURE "}"
+                                        | "{" CLOSURE_SIGNATURE STATEMENTS "}"
+                                        | "{" "}"
+                                        | "{" STATEMENTS "}"
+                                        ;
+CLOSURE_SIGNATURE                       : CLOSURE_PARAMETER_CLAUSE 
+                                        | CLOSURE_PARAMETER_CLAUSE SUBROUTINE_RESULT
+                                        ;
+CLOSURE_PARAMETER_CLAUSE                : "(" ")" 
+                                        | "(" CLOSURE_PARAMETER_LIST ")" 
+                                        | IDENTIFIER_LIST
+                                        ;
+CLOSURE_PARAMETER_LIST                  : CLOSURE_PARAMETER 
+                                        | CLOSURE_PARAMETER "," CLOSURE_PARAMETER_LIST
+                                        ;
+CLOSURE_PARAMETER                       : CLOSURE_PARAMETER_NAME
+                                        | CLOSURE_PARAMETER_NAME TYPE_ANNOTATION
+                                        | CLOSURE_PARAMETER_NAME TYPE_ANNOTATION "…"
+                                        ;
+CLOSURE_PARAMETER_NAME                  : IDENTIFIER
+                                        ;
 
-RANGE_EXPRESSION                          : EXPRESSION "," "…" EXPRESSION
-                                          | EXPRESSION "," EXPRESSION "," "…" EXPRESSION
-                                          ;
+PARENTHESIZED_EXPRESSION                : "(" EXPRESSION ")"
+                                        ;
 
-RECORD_EXPRESSION                         : PATH_TYPE "{" RECORD_EXPRESSION_FIELDS "}"
-                                          ;
+WILDCARD_EXPRESSION                     : "_"
+                                        ;
 
-RECORD_EXPRESSION_FIELDS                  : RECORD_EXPRESSION_FIELDS "," RECORD_EXPRESSION_FIELD
-                                          | RECORD_EXPRESSION_FIELD
-                                          | %empty
-                                          ;
+POSTFIX_EXPRESSION                      : PRIMARY_EXPRESSION
+                                        | POSTFIX_EXPRESSION POSTFIX_OPERATOR
+                                        | CALL_EXPRESSION
+                                        | SUBSCRIPT_EXPRESSION
+                                        ;
 
-RECORD_EXPRESSION_FIELD                   : IDENTIFIER ":" EXPRESSION
-                                          ;
+CALL_EXPRESSION                         : POSTFIX_EXPRESSION CALL_ARGUMENT_CLAUSE
+                                        ;
+CALL_ARGUMENT_CLAUSE                    : "(" ")" 
+                                        | "(" CALL_ARGUMENT_LIST ")"
+                                        ;
+CALL_ARGUMENT_LIST                      : CALL_ARGUMENT 
+                                        | CALL_ARGUMENT "," CALL_ARGUMENT_LIST
+                                        ;
+CALL_ARGUMENT                           : EXPRESSION 
+                                        | IDENTIFIER ":" EXPRESSION
+                                        ;
 
-RETURN_EXPRESSION                         : "return" ";"
-                                          | "return" EXPRESSION ";"
-                                          ;
+SUBSCRIPT_EXPRESSION                    : POSTFIX_EXPRESSION "[" CALL_ARGUMENT_LIST "]"
+                                        ;
 
-SUBSCRIPT_EXPRESSION                      : EXPRESSION "[" INDEX_EXPRESSIONS "]"
-                                          | EXPRESSION "⟨" INDEX_EXPRESSIONS "⟩"
-                                          ;
+EXPLICIT_MEMBER_EXPRESSION              : POSTFIX_EXPRESSION "." IDENTIFIER
+                                        | POSTFIX_EXPRESSION "." IDENTIFIER GENERIC_ARGUMENT_CLAUSE
+                                        | POSTFIX_EXPRESSION "." IDENTIFIER "(" ARGUMENT_NAMES ")"
+                                        ;
+ARGUMENT_NAMES                          : ARGUMENT_NAME
+                                        | ARGUMENT_NAME ARGUMENT_NAMES
+                                        ;                                
+ARGUMENT_NAME                           : IDENTIFIER ":"
+                                        ;
 
-INDEX_EXPRESSIONS                         : INDEX_EXPRESSIONS "," EXPRESSION
-                                          | EXPRESSION
-                                          ;
+/*
+ *  STATEMENTS
+ */
 
-WHILE_EXPRESSION                          : "while" EXPRESSION BLOCK_EXPRESSION
-                                          ;
+STATEMENT                               : EXPRESSION ";"
+                                        | DECLARATION ";"
+                                        | LOOP_STATEMENT ";"
+                                        | BRANCH_STATEMENT ";"
+                                        | LABELED_STATEMENT ";"
+                                        | CONTROL_TRANSFER_STATEMENT ";"
+                                        ;
 
-ENUMERATED_DECLARATION                    : "enumerated" IDENTIFIER "{" ENUMERATED_DECLARATION_ITEMS "}" ";"
-                                          ;
+STATEMENTS                              : STATEMENT
+                                        | STATEMENT STATEMENTS 
+                                        ;
 
-ENUMERATED_DECLARATION_ITEMS              : ENUMERATED_DECLARATION_ITEMS "," IDENTIFIER
-                                          | IDENTIFIER
-                                          ;
+LOOP_STATEMENT                          : FOR_IN_STATEMENT
+                                        | WHILE_STATEMENT
+                                        ;
 
-RECORD_DECLARATION                        : "record" IDENTIFIER ";"
-                                          | "record" IDENTIFIER "{" FIELDS "}" ";"
-                                          ;
+FOR_IN_STATEMENT                        : "for" PATTERN "in" EXPRESSION CODE_BLOCK
+                                        ;
 
-FIELDS                                    : FIELDS "," TYPED_IDENTIFIER
-                                          | TYPED_IDENTIFIER
-                                          | %empty
-                                          ;
+WHILE_STATEMENT                         : "while" CONDITION_LIST CODE_BLOCK
+                                        ;
+CONDITION_LIST                          : CONDITION 
+                                        | CONDITION "," CONDITION_LIST
 
-TYPED_IDENTIFIER                          : IDENTIFIER ":" TYPE
-                                          ;
+CONDITION                               : EXPRESSION 
+                                        | CASE_CONDITION
+                                        ;
+CASE_CONDITION                          : "case" PATTERN INITIALIZER
+                                        ;
 
-SUBROUTINE_DECLARATION                    : "subroutine" IDENTIFIER "(" PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
-                                          | "subroutine" IDENTIFIER PRIME "(" PARAMETERS ")" "→" TYPE BLOCK_EXPRESSION ";"
-                                          | "subroutine" IDENTIFIER "→" TYPE BLOCK_EXPRESSION ";"
-                                          | "subroutine" IDENTIFIER PRIME "→" TYPE BLOCK_EXPRESSION ";"
-                                          | "subroutine" IDENTIFIER "(" PARAMETERS ")" BLOCK_EXPRESSION ";"
-                                          | "subroutine" IDENTIFIER BLOCK_EXPRESSION ";"
-                                          ;
+BRANCH_STATEMENT                        : IF_STATEMENT
+                                        | SWITCH_STATEMENT
+                                        ;
 
-TYPE_DECLARATION                          : "type" IDENTIFIER "←" TYPE ";"
-                                          ;
+IF_STATEMENT                            : "if" CONDITION_LIST CODE_BLOCK
+                                        | "if" CONDITION_LIST CODE_BLOCK ELSE_CLAUSE
+                                        ;
+ELSE_CLAUSE                             : "else" CODE_BLOCK 
+                                        | "else" IF_STATEMENT
+                                        ;
 
-UNION_DECLARATION                         : "union" IDENTIFIER ";"
-                                          | "union" IDENTIFIER "{" FIELDS "}" ";"
-                                          ;
+SWITCH_STATEMENT                        : "switch" EXPRESSION "{" "}"
+                                        | "switch" EXPRESSION "{" SWITCH_CASES "}"
+                                        ;
+SWITCH_CASES                            : SWITCH_CASE 
+                                        | SWITCH_CASE SWITCH_CASES
+                                        ;
+SWITCH_CASE                             : CASE_LABEL STATEMENTS
+                                        | DEFAULT_LABEL STATEMENTS
+                                        ;
+CASE_LABEL                              : "case" CASE_ITEM_LIST ":"
+                                        ;
+CASE_ITEM_LIST                          : PATTERN
+                                        | PATTERN WHERE_CLAUSE 
+                                        | PATTERN "," CASE_ITEM_LIST
+                                        | PATTERN WHERE_CLAUSE "," CASE_ITEM_LIST
+                                        ;
+DEFAULT_LABEL                           : "default" ":"
+                                        ;
+WHERE_CLAUSE                            : "where" WHERE_EXPRESSION
+                                        ;
+WHERE_EXPRESSION                        : EXPRESSION
+                                        ;
+
+LABELED_STATEMENT                       : STATEMENT_LABEL LOOP_STATEMENT
+                                        | STATEMENT_LABEL IF_STATEMENT
+                                        | STATEMENT_LABEL SWITCH_STATEMENT
+                                        ;
+STATEMENT_LABEL                         : LABEL_NAME ":"
+                                        ;
+                                        ;
+LABEL_NAME                              : IDENTIFIER
+                                        ;
+
+CONTROL_TRANSFER_STATEMENT              : BREAK_STATEMENT
+                                        | CONTINUE_STATEMENT
+                                        | RETURN_STATEMENT
+                                        ;
+
+BREAK_STATEMENT                         : "break"
+                                        | "break" LABEL_NAME 
+                                        ;
+
+CONTINUE_STATEMENT                      : "continue"
+                                        | "continue" LABEL_NAME
+                                        ;
+
+RETURN_STATEMENT                        : "return"
+                                        | "return" EXPRESSION
+                                        ;
+
+/*
+ *  DECLARATIONS
+ */
+
+DECLARATION                             : CONSTANT_DECLARATION
+                                        | TYPE_ALIAS_DECLARATION
+                                        | SUBROUTINE_DECLARATION
+                                        | UNION_DECLARATION
+                                        | ENUMERATION_DECLARATION
+                                        | RECORD_DECLARATION
+                                        ;
+
+TOP_LEVEL_DECLARATION                   : 
+                                        | STATEMENTS
+                                        ;
+
+CODE_BLOCK                              : "{" "}"
+                                        | "{" STATEMENTS "}"
+                                        ;
+
+/*
+ *  CONSTANT DECLARATION
+ */
+
+CONSTANT_DECLARATION                    : "constant" PATTERN_INITIALIZER_LIST
+                                        ;
+PATTERN_INITIALIZER_LIST                : PATTERN_INITIALIZER 
+                                        | PATTERN_INITIALIZER "," PATTERN_INITIALIZER_LIST
+                                        ;
+PATTERN_INITIALIZER                     : PATTERN
+                                        | PATTERN INITIALIZER
+                                        ;
+INITIALIZER                             : "←" EXPRESSION
+                                        ;
+
+/*
+ *  TYPE ALIAS DECLARATION
+ */
+
+TYPE_ALIAS_DECLARATION                  : "type" TYPE_ALIAS_NAME TYPE_ALIAS_ASSIGNMENT
+                                        | "type" TYPE_ALIAS_NAME GENERIC_PARAMETER_CLAUSE TYPE_ALIAS_ASSIGNMENT
+                                        ;
+TYPE_ALIAS_NAME                         : IDENTIFIER
+                                        ;
+TYPE_ALIAS_ASSIGNMENT                   : "←" TYPE
+                                        ;
+
+/*
+ *  SUBROUTINE DECLARATION
+ */
+
+SUBROUTINE_DECLARATION                  : SUBROUTINE_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE
+                                        | SUBROUTINE_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE SUBROUTINE_BODY
+                                        | SUBROUTINE_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE
+                                        | SUBROUTINE_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE SUBROUTINE_BODY
+                                        ;
+SUBROUTINE_HEAD                         : "subroutine"
+                                        ;
+SUBROUTINE_NAME                         : IDENTIFIER 
+                                        | OPERATOR
+                                        ;
+SUBROUTINE_SIGNATURE                    : PARAMETER_CLAUSE
+                                        | PARAMETER_CLAUSE SUBROUTINE_RESULT
+                                        ;
+SUBROUTINE_RESULT                       : "→" TYPE
+                                        ;
+SUBROUTINE_BODY                         : CODE_BLOCK
+                                        ;
+PARAMETER_CLAUSE                        : "(" ")"
+                                        | "(" PARAMETER_LIST ")"
+                                        ;
+PARAMETER_LIST                          : PARAMETER 
+                                        | PARAMETER "," PARAMETER_LIST
+                                        ;
+PARAMETER                               : LOCAL_PARAMETER_NAME TYPE_ANNOTATION
+                                        | LOCAL_PARAMETER_NAME TYPE_ANNOTATION DEFAULT_ARGUMENT_CLAUSE
+                                        | LOCAL_PARAMETER_NAME TYPE_ANNOTATION "…"
+                                        ;
+LOCAL_PARAMETER_NAME                    : IDENTIFIER
+                                        ;
+DEFAULT_ARGUMENT_CLAUSE                 : "←" EXPRESSION
+                                        ;
+
+/*
+ *  ENUMERATION DECLARATION
+ */
+
+ENUMERATION_DECLARATION                 : "enumeration" ENUMERATION_DECLARATION_NAME "{" "}"
+                                        | "enumeration" ENUMERATION_DECLARATION_NAME "{" ENUMERATION_DECLARATION_MEMBERS "}"
+                                        | "enumeration" ENUMERATION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE "{" "}"
+                                        | "enumeration" ENUMERATION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE "{" ENUMERATION_DECLARATION_MEMBERS "}"
+                                        ;
+ENUMERATION_DECLARATION_NAME            : IDENTIFIER
+                                        ;
+ENUMERATION_DECLARATION_MEMBERS         : ENUMERATION_DECLARATION_MEMBER
+                                        | ENUMERATION_DECLARATION_MEMBER ENUMERATION_DECLARATION_MEMBERS
+                                        ;
+ENUMERATION_DECLARATION_MEMBER          : DECLARATION 
+                                        | ENUMERATION_DECLARATION_CASE_CLAUSE 
+                                        ;
+ENUMERATION_DECLARATION_CASE_CLAUSE     : "case" ENUMERATION_DECLARATION_CASE_LIST
+                                        ;
+ENUMERATION_DECLARATION_CASE_LIST       : ENUMERATION_DECLARATION_CASE 
+                                        | ENUMERATION_DECLARATION_CASE "," ENUMERATION_DECLARATION_CASE_LIST
+                                        ;
+ENUMERATION_DECLARATION_CASE            : ENUMERATION_DECLARATION_CASE_NAME
+                                        | ENUMERATION_DECLARATION_CASE_NAME ENUMERATION_DECLARATION_ASSIGNMENT
+                                        ;
+ENUMERATION_DECLARATION_CASE_NAME       : IDENTIFIER
+                                        ;
+ENUMERATION_DECLARATION_ASSIGNMENT      : "←" ENUMERATION_DECLARATION_LITERAL
+                                        ;
+ENUMERATION_DECLARATION_LITERAL         : BOOLEAN_LITERAL 
+                                        | NUMERIC_LITERAL
+                                        ;
+
+/*
+ *  RECORD DECLARATION
+ */
+
+RECORD_DECLARATION                      : "record" RECORD_NAME GENERIC_PARAMETER_CLAUSE RECORD_BODY
+                                        | "record" RECORD_NAME RECORD_BODY
+                                        ;                              
+RECORD_NAME                             : IDENTIFIER
+                                        ;
+RECORD_BODY                             : "{" "}"
+                                        | "{" RECORD_MEMBERS "}"
+                                        ;
+RECORD_MEMBERS                          : RECORD_MEMBER
+                                        | RECORD_MEMBER "," RECORD_MEMBERS
+                                        ;
+RECORD_MEMBER                           : DECLARATION
+                                        | RECORD_MEMBER_NAME TYPE_ANNOTATION
+                                        ;
+RECORD_MEMBER_NAME                      : IDENTIFIER
+                                        ;
+
+/*
+ *  UNION DECLARATION
+ */
+
+UNION_DECLARATION                       : "union" UNION_DECLARATION_NAME "{" "}"
+                                        | "union" UNION_DECLARATION_NAME "{" UNION_DECLARATION_MEMBERS "}"
+                                        | "union" UNION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE "{" "}"
+                                        | "union" UNION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE "{" UNION_DECLARATION_MEMBERS "}"
+                                        ;
+UNION_DECLARATION_NAME                  : IDENTIFIER
+                                        ;
+UNION_DECLARATION_MEMBERS               : UNION_DECLARATION_MEMBER
+                                        | UNION_DECLARATION_MEMBER UNION_DECLARATION_MEMBERS
+                                        ;
+UNION_DECLARATION_MEMBER                : DECLARATION
+                                        | UNION_DECLARATION_CASE_LIST
+                                        ;
+UNION_DECLARATION_CASE_LIST             : UNION_DECLARATION_CASE 
+                                        | UNION_DECLARATION_CASE "," UNION_DECLARATION_CASE_LIST
+                                        ;
+UNION_DECLARATION_CASE                  : UNION_DECLARATION_CASE_NAME TYPE_ANNOTATION
+                                        ;
+UNION_DECLARATION_CASE_NAME             : IDENTIFIER
+                                        ;
+
+/*
+ *  PATTERNS
+ */
+
+PATTERN                                 : WILDCARD_PATTERN
+                                        | WILDCARD_PATTERN TYPE_ANNOTATION
+                                        | IDENTIFIER_PATTERN
+                                        | IDENTIFIER_PATTERN TYPE_ANNOTATION
+                                        | TUPLE_PATTERN
+                                        | TUPLE_PATTERN TYPE_ANNOTATION
+                                        | ENUMERATION_DECLARATION_CASE_PATTERN
+                                        | OPTIONAL_PATTERN
+                                        | TYPE_CASTING_PATTERN
+                                        | EXPRESSION_PATTERN
+                                        ;
+
+WILDCARD_PATTERN                        : "_"
+                                        ;
+
+IDENTIFIER_PATTERN                      : IDENTIFIER
+                                        ;
+
+TUPLE_PATTERN                           : "⟨" "⟩"
+                                        | "⟨" TUPLE_PATTERN_ELEMENT_LIST "⟩"
+                                        ;
+TUPLE_PATTERN_ELEMENT_LIST              : TUPLE_PATTERN_ELEMENT
+                                        | TUPLE_PATTERN_ELEMENT "," TUPLE_PATTERN_ELEMENT_LIST
+                                        ;
+TUPLE_PATTERN_ELEMENT                   : PATTERN 
+                                        | IDENTIFIER ":" PATTERN
+                                        ;
+
+ENUMERATION_DECLARATION_CASE_PATTERN    : "." ENUMERATION_DECLARATION_CASE_NAME 
+                                        | "." ENUMERATION_DECLARATION_CASE_NAME TUPLE_PATTERN
+                                        | TYPE_IDENTIFIER "." ENUMERATION_DECLARATION_CASE_NAME
+                                        | TYPE_IDENTIFIER "." ENUMERATION_DECLARATION_CASE_NAME TUPLE_PATTERN
+                                        ;
+
+OPTIONAL_PATTERN                        : IDENTIFIER_PATTERN "?"
+                                        ;
+
+TYPE_CASTING_PATTERN                    : IS_PATTERN 
+                                        | AS_PATTERN
+                                        ;
+IS_PATTERN                              : "is" TYPE
+                                        ;
+AS_PATTERN                              : PATTERN "as" TYPE
+                                        ;
+
+EXPRESSION_PATTERN                      : EXPRESSION
+                                        ;
 
 %%
 
