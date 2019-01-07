@@ -77,6 +77,8 @@ blank           [ \t]
   #define YY_USER_ACTION location.columns(yyleng);
 %}
 
+%x IN_COMMENT
+
 %%
 
 %{
@@ -86,8 +88,6 @@ blank           [ \t]
   // Code run each time yylex is called.
   location.step();
 %}
-
-"/*"((\*+[^/*])|([^*]))*\**"*/" {}
 
 {blank}+   location.step();
 

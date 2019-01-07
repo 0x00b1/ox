@@ -1,27 +1,21 @@
 constant a ← 0;
 
-enumeration A {};
-
 enumeration A {
-    case a
+    a
 };
 
 enumeration A {
-    case a
-    case b
+    a,
+    b
 };
 
 enumeration A {
-    case a, b
+    a ← 1, b
 };
 
-enumeration A {
-    case a ← 1, b
-};
-
-enumeration A⟨T⟩ {
-    case a
-    case b
+enumeration A ⟨T⟩ {
+    a,
+    b
 };
 
 record A {
@@ -33,7 +27,7 @@ record A {
     b: 8-bit Integer
 };
 
-record A⟨T⟩ {
+record A ⟨T⟩ {
     a: T,
     b: T
 };
@@ -49,7 +43,7 @@ union A {
     b: 8-bit Integer
 };
 
-union A⟨T⟩ {
+union A ⟨T⟩ {
     a: T,
     b: T
 };
@@ -125,6 +119,8 @@ a ← 0;
 
 [1, 2, 3];
 
+⟨1, 2⟩;
+
 ⟨1, 2, 3⟩;
 
 ⟨a: 1, b: 2, c: 3⟩;
@@ -141,7 +137,11 @@ f(x: a, y: b);
 
 A[0];
 
+A[0, 0];
+
 A[a];
+
+A[a, b, c];
 
 a is T;
 

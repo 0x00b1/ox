@@ -165,6 +165,17 @@
 %left ":" ";" "," "."
 %left "⟨" "⟩"
 
+%type <std::string> ENUMERATION_DECLARATION_NAME;
+%type <std::string> RECORD_DECLARATION_NAME;
+%type <std::string> SUBROUTINE_NAME;
+%type <std::string> TYPE_ALIAS_NAME;
+%type <std::string> UNION_DECLARATION_NAME;
+%type <AST::EnumerationDeclaration*> ENUMERATION_DECLARATION;
+%type <AST::RecordDeclaration*> RECORD_DECLARATION;
+%type <AST::SubroutineDeclaration*> SUBROUTINE_DECLARATION;
+%type <AST::TypeDeclaration*> TYPE_ALIAS_DECLARATION;
+%type <AST::UnionDeclaration*> UNION_DECLARATION;
+
 %%
 
 %start TOP_LEVEL_DECLARATION;
@@ -191,19 +202,7 @@ POSTFIX_OPERATOR                        : "!"
                                         | "?"
                                         ;
 
-BOOLEAN_LITERAL                         : "true" 
-                                        | "false"
-                                        ;
 
-NUMERIC_LITERAL                         : INTEGER
-                                        | "−" INTEGER         %prec UNARY_MINUS_SIGN
-                                        | FLOATING_POINT
-                                        | "−" FLOATING_POINT  %prec UNARY_MINUS_SIGN
-                                        ;
-
-LITERAL                                 : BOOLEAN_LITERAL 
-                                        | NUMERIC_LITERAL
-                                        ;
 
 /*
  *  TYPES
@@ -370,6 +369,31 @@ PRIMARY_EXPRESSION                      : IDENTIFIER
 LITERAL_EXPRESSION                      : LITERAL
                                         | ARRAY_LITERAL
                                         | TUPLE_LITERAL
+                                        ;
+
+LITERAL                                 : BOOLEAN_LITERAL 
+                                        | NUMERIC_LITERAL
+                                        ;
+
+BOOLEAN_LITERAL                         : "true" 
+                                        | "false"
+                                        ;
+NUMERIC_LITERAL                         : FLOATING_POINT_LITERAL
+                                        | INTEGER_LITERAL
+                                        ;
+FLOATING_POINT_LITERAL                  : FLOATING_POINT {
+                                          std::cout << $1 << " ";
+                                        }
+                                        | "−" FLOATING_POINT  %prec UNARY_MINUS_SIGN {
+                                          std::cout << $2 << " ";
+                                        }
+                                        ;
+INTEGER_LITERAL                         : INTEGER {
+                                          std::cout << $1 << " ";
+                                        }
+                                        | "−" INTEGER         %prec UNARY_MINUS_SIGN {
+                                          std::cout << $2 << " ";
+                                        }
                                         ;
 
 ARRAY_LITERAL                           : "[" "]"
@@ -571,7 +595,9 @@ CODE_BLOCK                              : "{" "}"
  *  CONSTANT DECLARATION
  */
 
-CONSTANT_DECLARATION                    : "constant" PATTERN_INITIALIZER_LIST
+CONSTANT_DECLARATION                    : CONSTANT_DECLARATION_HEAD PATTERN_INITIALIZER_LIST
+                                        ;
+CONSTANT_DECLARATION_HEAD               : "constant"
                                         ;
 PATTERN_INITIALIZER_LIST                : PATTERN_INITIALIZER 
                                         | PATTERN_INITIALIZER "," PATTERN_INITIALIZER_LIST
@@ -586,8 +612,14 @@ INITIALIZER                             : "←" EXPRESSION
  *  TYPE ALIAS DECLARATION
  */
 
-TYPE_ALIAS_DECLARATION                  : "type" TYPE_ALIAS_NAME TYPE_ALIAS_ASSIGNMENT
-                                        | "type" TYPE_ALIAS_NAME GENERIC_PARAMETER_CLAUSE TYPE_ALIAS_ASSIGNMENT
+TYPE_ALIAS_DECLARATION                  : TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME TYPE_ALIAS_ASSIGNMENT {
+                                          $$ = new AST::TypeDeclaration($2);
+                                        }
+                                        | TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME GENERIC_PARAMETER_CLAUSE TYPE_ALIAS_ASSIGNMENT {
+                                          $$ = new AST::TypeDeclaration($2);
+                                        }
+                                        ;
+TYPE_ALIAS_DECLARATION_HEAD             : "type"
                                         ;
 TYPE_ALIAS_NAME                         : IDENTIFIER
                                         ;
@@ -595,15 +627,84 @@ TYPE_ALIAS_ASSIGNMENT                   : "←" TYPE
                                         ;
 
 /*
+ *  ENUMERATION DECLARATION
+ */
+
+ENUMERATION_DECLARATION                 : ENUMERATION_DECLARATION_HEAD ENUMERATION_DECLARATION_NAME ENUMERATION_DECLARATION_BODY {
+                                          $$ = new AST::EnumerationDeclaration($2);
+                                        }
+                                        | ENUMERATION_DECLARATION_HEAD ENUMERATION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE ENUMERATION_DECLARATION_BODY {
+                                          $$ = new AST::EnumerationDeclaration($2);
+                                        }
+                                        ;
+ENUMERATION_DECLARATION_HEAD            : "enumeration"
+                                        ;
+ENUMERATION_DECLARATION_NAME            : IDENTIFIER
+                                        ;
+ENUMERATION_DECLARATION_BODY            : "{" ENUMERATION_DECLARATION_MEMBERS "}"
+                                        ;
+ENUMERATION_DECLARATION_MEMBERS         : ENUMERATION_DECLARATION_MEMBER
+                                        | ENUMERATION_DECLARATION_MEMBER "," ENUMERATION_DECLARATION_MEMBERS
+                                        ;
+ENUMERATION_DECLARATION_MEMBER          : DECLARATION 
+                                        | ENUMERATION_DECLARATION_CASE 
+                                        ;
+ENUMERATION_DECLARATION_CASE            : ENUMERATION_DECLARATION_CASE_NAME
+                                        | ENUMERATION_DECLARATION_CASE_NAME ENUMERATION_DECLARATION_ASSIGNMENT
+                                        ;
+ENUMERATION_DECLARATION_CASE_NAME       : IDENTIFIER
+                                        ;
+ENUMERATION_DECLARATION_ASSIGNMENT      : "←" ENUMERATION_DECLARATION_LITERAL
+                                        ;
+ENUMERATION_DECLARATION_LITERAL         : BOOLEAN_LITERAL 
+                                        | NUMERIC_LITERAL
+                                        ;
+
+/*
+ *  RECORD DECLARATION
+ */
+
+RECORD_DECLARATION                      : RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME RECORD_BODY {
+                                          $$ = new AST::RecordDeclaration($2);
+                                        }
+                                        | RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE RECORD_BODY {
+                                          $$ = new AST::RecordDeclaration($2);
+                                        }
+                                        ;
+RECORD_DECLARATION_HEAD                 : "record"
+                                        ;
+RECORD_DECLARATION_NAME                 : IDENTIFIER
+                                        ;
+RECORD_BODY                             : "{" "}"
+                                        | "{" RECORD_MEMBERS "}"
+                                        ;
+RECORD_MEMBERS                          : RECORD_MEMBER
+                                        | RECORD_MEMBER "," RECORD_MEMBERS
+                                        ;
+RECORD_MEMBER                           : DECLARATION
+                                        | RECORD_MEMBER_NAME TYPE_ANNOTATION
+                                        ;
+RECORD_MEMBER_NAME                      : IDENTIFIER
+                                        ;
+
+/*
  *  SUBROUTINE DECLARATION
  */
 
-SUBROUTINE_DECLARATION                  : SUBROUTINE_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE
-                                        | SUBROUTINE_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE SUBROUTINE_BODY
-                                        | SUBROUTINE_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE
-                                        | SUBROUTINE_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE SUBROUTINE_BODY
+SUBROUTINE_DECLARATION                  : SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE {
+                                          $$ = new AST::SubroutineDeclaration($2);
+                                        }
+                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE SUBROUTINE_BODY {
+                                          $$ = new AST::SubroutineDeclaration($2);
+                                        }
+                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE {
+                                          $$ = new AST::SubroutineDeclaration($2);
+                                        }
+                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE SUBROUTINE_BODY {
+                                          $$ = new AST::SubroutineDeclaration($2);
+                                        }
                                         ;
-SUBROUTINE_HEAD                         : "subroutine"
+SUBROUTINE_DECLARATION_HEAD             : "subroutine"
                                         ;
 SUBROUTINE_NAME                         : IDENTIFIER 
                                         ;
@@ -630,69 +731,22 @@ DEFAULT_ARGUMENT_CLAUSE                 : "←" EXPRESSION
                                         ;
 
 /*
- *  ENUMERATION DECLARATION
- */
-
-ENUMERATION_DECLARATION                 : "enumeration" ENUMERATION_DECLARATION_NAME "{" "}"
-                                        | "enumeration" ENUMERATION_DECLARATION_NAME "{" ENUMERATION_DECLARATION_MEMBERS "}"
-                                        | "enumeration" ENUMERATION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE "{" "}"
-                                        | "enumeration" ENUMERATION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE "{" ENUMERATION_DECLARATION_MEMBERS "}"
-                                        ;
-ENUMERATION_DECLARATION_NAME            : IDENTIFIER
-                                        ;
-ENUMERATION_DECLARATION_MEMBERS         : ENUMERATION_DECLARATION_MEMBER
-                                        | ENUMERATION_DECLARATION_MEMBER ENUMERATION_DECLARATION_MEMBERS
-                                        ;
-ENUMERATION_DECLARATION_MEMBER          : DECLARATION 
-                                        | ENUMERATION_DECLARATION_CASE_CLAUSE 
-                                        ;
-ENUMERATION_DECLARATION_CASE_CLAUSE     : "case" ENUMERATION_DECLARATION_CASE_LIST
-                                        ;
-ENUMERATION_DECLARATION_CASE_LIST       : ENUMERATION_DECLARATION_CASE 
-                                        | ENUMERATION_DECLARATION_CASE "," ENUMERATION_DECLARATION_CASE_LIST
-                                        ;
-ENUMERATION_DECLARATION_CASE            : ENUMERATION_DECLARATION_CASE_NAME
-                                        | ENUMERATION_DECLARATION_CASE_NAME ENUMERATION_DECLARATION_ASSIGNMENT
-                                        ;
-ENUMERATION_DECLARATION_CASE_NAME       : IDENTIFIER
-                                        ;
-ENUMERATION_DECLARATION_ASSIGNMENT      : "←" ENUMERATION_DECLARATION_LITERAL
-                                        ;
-ENUMERATION_DECLARATION_LITERAL         : BOOLEAN_LITERAL 
-                                        | NUMERIC_LITERAL
-                                        ;
-
-/*
- *  RECORD DECLARATION
- */
-
-RECORD_DECLARATION                      : "record" RECORD_NAME GENERIC_PARAMETER_CLAUSE RECORD_BODY
-                                        | "record" RECORD_NAME RECORD_BODY
-                                        ;                              
-RECORD_NAME                             : IDENTIFIER
-                                        ;
-RECORD_BODY                             : "{" "}"
-                                        | "{" RECORD_MEMBERS "}"
-                                        ;
-RECORD_MEMBERS                          : RECORD_MEMBER
-                                        | RECORD_MEMBER "," RECORD_MEMBERS
-                                        ;
-RECORD_MEMBER                           : DECLARATION
-                                        | RECORD_MEMBER_NAME TYPE_ANNOTATION
-                                        ;
-RECORD_MEMBER_NAME                      : IDENTIFIER
-                                        ;
-
-/*
  *  UNION DECLARATION
  */
 
-UNION_DECLARATION                       : "union" UNION_DECLARATION_NAME "{" "}"
-                                        | "union" UNION_DECLARATION_NAME "{" UNION_DECLARATION_MEMBERS "}"
-                                        | "union" UNION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE "{" "}"
-                                        | "union" UNION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE "{" UNION_DECLARATION_MEMBERS "}"
+UNION_DECLARATION                       : UNION_DECLARATION_HEAD UNION_DECLARATION_NAME UNION_DECLARATION_BODY {
+                                          $$ = new AST::UnionDeclaration($2);
+                                        }
+                                        | UNION_DECLARATION_HEAD UNION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE UNION_DECLARATION_BODY {
+                                          $$ = new AST::UnionDeclaration($2);
+                                        }
+                                        ;
+UNION_DECLARATION_HEAD                  : "union"
                                         ;
 UNION_DECLARATION_NAME                  : IDENTIFIER
+                                        ;
+UNION_DECLARATION_BODY                  : "{" "}"
+                                        | "{" UNION_DECLARATION_MEMBERS "}"
                                         ;
 UNION_DECLARATION_MEMBERS               : UNION_DECLARATION_MEMBER
                                         | UNION_DECLARATION_MEMBER UNION_DECLARATION_MEMBERS
@@ -719,7 +773,6 @@ PATTERN                                 : WILDCARD_PATTERN
                                         | TUPLE_PATTERN
                                         | TUPLE_PATTERN TYPE_ANNOTATION
                                         | ENUMERATION_DECLARATION_CASE_PATTERN
-                                        | OPTIONAL_PATTERN
                                         | TYPE_CASTING_PATTERN
                                         | EXPRESSION_PATTERN
                                         ;
@@ -744,9 +797,6 @@ ENUMERATION_DECLARATION_CASE_PATTERN    : "." ENUMERATION_DECLARATION_CASE_NAME
                                         | "." ENUMERATION_DECLARATION_CASE_NAME TUPLE_PATTERN
                                         | TYPE_IDENTIFIER "." ENUMERATION_DECLARATION_CASE_NAME
                                         | TYPE_IDENTIFIER "." ENUMERATION_DECLARATION_CASE_NAME TUPLE_PATTERN
-                                        ;
-
-OPTIONAL_PATTERN                        : IDENTIFIER_PATTERN "?"
                                         ;
 
 TYPE_CASTING_PATTERN                    : IS_PATTERN 

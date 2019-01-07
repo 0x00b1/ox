@@ -81,7 +81,7 @@ namespace AST {
     class Conditional;
     class ConstantDeclaration;
     class ContinueExpression;
-    class EnumeratedDeclaration;
+    class EnumerationDeclaration;
     class FloatingPointLiteral;
     class For;
     class Goto;
@@ -112,7 +112,7 @@ namespace AST {
         virtual void visit(Conditional &file) = 0;
         virtual void visit(ConstantDeclaration &file) = 0;
         virtual void visit(ContinueExpression &file) = 0;
-        virtual void visit(EnumeratedDeclaration &file) = 0;
+        virtual void visit(EnumerationDeclaration &file) = 0;
         virtual void visit(FloatingPointLiteral &file) = 0;
         virtual void visit(For &file) = 0;
         virtual void visit(Goto &file) = 0;
@@ -208,9 +208,11 @@ namespace AST {
         }
     };
 
-    class EnumeratedDeclaration: public Node {
+    class EnumerationDeclaration: public Node {
     public:
-        Type::Enumerated type;
+        EnumerationDeclaration(std::string name): name(name) {};
+
+        std::string name;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -300,7 +302,9 @@ namespace AST {
 
     class RecordDeclaration: public Node {
     public:
-        Type::Record type;
+        RecordDeclaration(std::string name): name(name) {};
+
+        std::string name;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -325,7 +329,9 @@ namespace AST {
 
     class SubroutineDeclaration: public Node {
     public:
-        Type::Function type;
+        SubroutineDeclaration(std::string name): name(name) {};
+
+        std::string name;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -350,6 +356,10 @@ namespace AST {
 
     class TypeDeclaration: public Node {
     public:
+        TypeDeclaration(std::string name): name(name) {};
+
+        std::string name;
+
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -357,7 +367,9 @@ namespace AST {
 
     class UnionDeclaration: public Node {
     public:
-        Type::Union type;
+        UnionDeclaration(std::string name): name(name) {};
+
+        std::string name;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -429,8 +441,8 @@ namespace AST {
             std::cout << "generating IntegerLiteral" << std::endl;
         }
 
-        void visit(EnumeratedDeclaration &) override {
-            std::cout << "generating EnumeratedDeclaration" << std::endl;
+        void visit(EnumerationDeclaration &) override {
+            std::cout << "generating EnumerationDeclaration" << std::endl;
         }
 
         void visit(ModuleDeclaration &) override {
