@@ -159,6 +159,8 @@ blank           [ \t]
 
 "′" return yy::parser::make_PRIME(location);
 
+"_" return yy::parser::make_WILDCARD(location);
+
 "(" return yy::parser::make_LEFT_PARENTHESIS(location);
 ")" return yy::parser::make_RIGHT_PARENTHESIS(location);
 "[" return yy::parser::make_LEFT_SQUARE_BRACKET(location);

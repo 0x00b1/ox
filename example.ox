@@ -1,8 +1,6 @@
-constant a: 8-bit Integer ← 0;
+constant a ← 0;
 
-enumeration A {
-
-};
+enumeration A {};
 
 enumeration A {
     case a
@@ -40,9 +38,7 @@ record A⟨T⟩ {
     b: T
 };
 
-union A {
-    
-};
+union A {};
 
 union A {
     a: 8-bit Integer
@@ -53,86 +49,108 @@ union A {
     b: 8-bit Integer
 };
 
-subroutine f → 8-bit Integer {
-    return 0;
+union A⟨T⟩ {
+    a: T,
+    b: T
 };
 
-subroutine f() → 8-bit Integer {
-    return 0;
+subroutine f() → 8-bit Integer {};
+
+subroutine f⟨T⟩() → T {};
+
+subroutine f(x: 8-bit Integer) → 8-bit Integer {};
+
+subroutine f⟨T⟩(x: T) → T {};
+
+subroutine f(x: 8-bit Integer ← 0) → 8-bit Integer {};
+
+subroutine f⟨T⟩(x: T ← 0) → T {};
+
+subroutine f() {};
+
+subroutine f(x: 8-bit Integer) {};
+
+subroutine f⟨T⟩(x: T) {};
+
+type A ← ⟨8-bit Integer × 8-bit Integer⟩;
+
+type A ← [64 8-bit Integer];
+
+type A ← [64 × 64 8-bit Integer];
+
+type A ← [64 × 64 × 64 8-bit Integer];
+
+for a in A {
+
 };
 
-subroutine f(x: 8-bit Integer) → 8-bit Integer {
-    return x;
+if a {
+
 };
 
-subroutine f′ → 8-bit Integer {
-    return 0;
+if a {
+
+} else {
+
 };
 
-subroutine f′() → 8-bit Integer {
-    return 0;
+if a {
+
+} else if b {
+
+} else {
+
 };
 
-subroutine f′(x: 8-bit Integer) → 8-bit Integer {
-    return x;
+while a {
+
 };
 
-subroutine f {
-    return;
+switch a {};
+
+switch a {
+    case 1: 1;
 };
 
-subroutine f() {
-    return;
+switch a {
+    case 1: 1;
+    case 2: 2;
 };
 
-subroutine f(x: 8-bit Integer) {
-    return;
-};
+a ← 0;
 
-subroutine f(x: 8-bit Integer) → 8-bit Integer {
-    if x = 0 {
-        return x;
-    }
-};
+[1];
 
-subroutine f(x: 8-bit Integer) → 8-bit Integer {
-    if x = 0 {
-        return x;
-    } else {
-        return x + 1;
-    }
-};
+[1, 2, 3];
 
-subroutine f(x: 8-bit Integer) → A {
-    return A {
-        a: x
-    };
-};
+⟨1, 2, 3⟩;
 
-subroutine example(x: 8-bit Integer) → f {
-    return λ (y: 8-bit Integer) → 8-bit Integer {
-        x + y
-    };
-};
+⟨a: 1, b: 2, c: 3⟩;
 
-subroutine example(x: 8-bit Integer) {
-    for x in 1, … 100 {
-        x + 1
-    }
+a;
 
-    for x in 1, 2, … 100 {
-        x + 1
-    }
+(a);
 
-    while x > 0 {
-        x + 1
-    }
-};
+f();
 
-type A ← ⟨8-bit Integer⟩;
+f(1, 2, 3);
 
-type A ← ⟨8-bit Integer × 8-bit Integer × 8-bit Integer⟩;
+f(a: 1, b: 2, c: 3);
 
-type A ← [64 × 8-bit Integer];
+A[0];
 
-type A ← [64 × 64 × 8-bit Integer];
+A[a];
+
+a is T;
+
+a as T;
+
+λ (a: T) → T {};
+
+λ (a: T) → T { a; };
+
+λ {};
+
+λ { a; };
+
+_;

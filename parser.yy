@@ -93,6 +93,10 @@
 ;
 
 %token
+  WILDCARD                          "_"
+;
+
+%token
   EIGHT_BIT_KEYWORD                  "8-bit"
   SIXTEEN_BIT_KEYWORD               "16-bit"
   THIRTY_TWO_BIT_KEYWORD            "32-bit"
@@ -232,7 +236,12 @@ TYPE                                    : ARRAY_TYPE
  *  ARRAY TYPE
  */
 
-ARRAY_TYPE                              : "[" TYPE "]"
+ARRAY_TYPE                              : "[" ARRAY_TYPE_DIMENSIONS TYPE "]"
+                                        ;
+ARRAY_TYPE_DIMENSIONS                   : ARRAY_TYPE_DIMENSION
+                                        | ARRAY_TYPE_DIMENSION "×" ARRAY_TYPE_DIMENSIONS
+                                        ;
+ARRAY_TYPE_DIMENSION                    : INTEGER
                                         ;
 
 /*
@@ -380,7 +389,9 @@ EXPRESSIONS                             : EXPRESSION
                                         | EXPRESSION "," EXPRESSIONS
                                         ;
 
-PRIMARY_EXPRESSION                      : LITERAL_EXPRESSION
+PRIMARY_EXPRESSION                      : IDENTIFIER 
+                                        | IDENTIFIER GENERIC_ARGUMENT_CLAUSE
+                                        | LITERAL_EXPRESSION
                                         | CLOSURE_EXPRESSION
                                         | PARENTHESIZED_EXPRESSION
                                         | WILDCARD_EXPRESSION
@@ -410,10 +421,12 @@ TUPLE_LITERAL_ITEM                      : EXPRESSION
                                         | IDENTIFIER ":" EXPRESSION
                                         ;
 
-CLOSURE_EXPRESSION                      : "{" CLOSURE_SIGNATURE "}"
-                                        | "{" CLOSURE_SIGNATURE STATEMENTS "}"
-                                        | "{" "}"
-                                        | "{" STATEMENTS "}"
+CLOSURE_EXPRESSION                      : CLOSURE_HEAD CLOSURE_SIGNATURE "{" "}"
+                                        | CLOSURE_HEAD CLOSURE_SIGNATURE "{" STATEMENTS "}"
+                                        | CLOSURE_HEAD "{" "}"
+                                        | CLOSURE_HEAD "{" STATEMENTS "}"
+                                        ;
+CLOSURE_HEAD                            : "λ"
                                         ;
 CLOSURE_SIGNATURE                       : CLOSURE_PARAMETER_CLAUSE 
                                         | CLOSURE_PARAMETER_CLAUSE SUBROUTINE_RESULT
