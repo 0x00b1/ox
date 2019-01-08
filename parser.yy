@@ -175,9 +175,11 @@
 %type <std::vector<AST::Node*>*> ARRAY_LITERAL_ITEMS;
 %type <AST::Node*> ARRAY_LITERAL_ITEM;
 
+%type <AST::TupleExpression*> TUPLE_LITERAL;
 %type <std::vector<AST::Node*>*> TUPLE_LITERAL_ITEMS;
 %type <AST::Node*> TUPLE_LITERAL_ITEM;
 
+%type <AST::BooleanLiteral*> BOOLEAN_LITERAL;
 %type <AST::FloatingPointLiteral*> FLOATING_POINT_LITERAL;
 %type <AST::IntegerLiteral*> INTEGER_LITERAL;
 %type <AST::EnumerationDeclaration*> ENUMERATION_DECLARATION;
@@ -385,8 +387,12 @@ LITERAL                                 : BOOLEAN_LITERAL
                                         | NUMERIC_LITERAL
                                         ;
 
-BOOLEAN_LITERAL                         : "true" 
-                                        | "false"
+BOOLEAN_LITERAL                         : "true" {
+                                          $$ = new AST::BooleanLiteral(true);
+                                        }
+                                        | "false" {
+                                          $$ = new AST::BooleanLiteral(false);
+                                        }
                                         ;
 NUMERIC_LITERAL                         : FLOATING_POINT_LITERAL
                                         | INTEGER_LITERAL
@@ -429,10 +435,14 @@ ARRAY_LITERAL_ITEMS                     : %empty {
 ARRAY_LITERAL_ITEM                      : EXPRESSION
                                         ;
 
-TUPLE_LITERAL                           : "⟨" "⟩" 
-                                        | "⟨" TUPLE_LITERAL_ITEM "," TUPLE_LITERAL_ITEMS "⟩"
+TUPLE_LITERAL                           : "⟨" TUPLE_LITERAL_ITEMS "⟩" {
+                                          $$ = new AST::TupleExpression($2);
+                                        }
                                         ;
-TUPLE_LITERAL_ITEMS                     : TUPLE_LITERAL_ITEM {
+TUPLE_LITERAL_ITEMS                     : %empty {
+                                          $$ = new std::vector<AST::Node*>();
+                                        }
+                                        | TUPLE_LITERAL_ITEM {
                                           $$ = new std::vector<AST::Node*>();
 
                                           $$ -> push_back($1);
