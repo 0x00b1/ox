@@ -175,6 +175,9 @@
 %type <std::vector<AST::Node*>*> ARRAY_LITERAL_ITEMS;
 %type <AST::Node*> ARRAY_LITERAL_ITEM;
 
+%type <std::vector<AST::Node*>*> TUPLE_LITERAL_ITEMS;
+%type <AST::Node*> TUPLE_LITERAL_ITEM;
+
 %type <AST::FloatingPointLiteral*> FLOATING_POINT_LITERAL;
 %type <AST::IntegerLiteral*> INTEGER_LITERAL;
 %type <AST::EnumerationDeclaration*> ENUMERATION_DECLARATION;
@@ -429,8 +432,18 @@ ARRAY_LITERAL_ITEM                      : EXPRESSION
 TUPLE_LITERAL                           : "⟨" "⟩" 
                                         | "⟨" TUPLE_LITERAL_ITEM "," TUPLE_LITERAL_ITEMS "⟩"
                                         ;
-TUPLE_LITERAL_ITEMS                     : TUPLE_LITERAL_ITEM 
-                                        | TUPLE_LITERAL_ITEM "," TUPLE_LITERAL_ITEMS
+TUPLE_LITERAL_ITEMS                     : TUPLE_LITERAL_ITEM {
+                                          $$ = new std::vector<AST::Node*>();
+
+                                          $$ -> push_back($1);
+                                        }
+                                        | TUPLE_LITERAL_ITEM "," TUPLE_LITERAL_ITEMS {
+                                          std::vector<AST::Node*> *items = $3;
+
+                                          items -> push_back($1);
+
+                                          $$ = items;
+                                        }
                                         ;
 TUPLE_LITERAL_ITEM                      : EXPRESSION
                                         | IDENTIFIER ":" EXPRESSION
