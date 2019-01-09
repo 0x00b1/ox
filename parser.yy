@@ -32,6 +32,7 @@
 %code {
     #include "compiler.hh"
     #include "ox.hh"
+    #include "type.hh"
 }
 
 %define api.token.prefix {TOK_}
@@ -191,13 +192,10 @@
 %type <AST::IntegerLiteral*> INTEGER_LITERAL;
 %type <AST::Parameter*> CLOSURE_PARAMETER SUBROUTINE_PARAMETER;
 %type <AST::PrefixExpression*> PREFIX_EXPRESSION;
-%type <AST::RecordDeclaration*> RECORD_DECLARATION;
-%type <AST::SubroutineDeclaration*> SUBROUTINE_DECLARATION;
 %type <AST::SubscriptExpression*> SUBSCRIPT_EXPRESSION;
 %type <AST::TupleExpression*> TUPLE_LITERAL;
 %type <AST::TypeDeclaration*> TYPE_ALIAS_DECLARATION;
 %type <AST::TypeSignature*> CLOSURE_SIGNATURE SUBROUTINE_SIGNATURE;
-%type <AST::UnionDeclaration*> UNION_DECLARATION;
 %type <AST::ForLoop*> FOR_IN_STATEMENT;
 %type <AST::WhileLoop*> WHILE_STATEMENT;
 %type <Pattern::Pattern*> PATTERN;
@@ -206,16 +204,30 @@
  *
  */
 
-%type <AST::Root*> ROOT;
-%type <std::vector<AST::Node*>*> STATEMENTS;
-%type <AST::Node*> STATEMENT;
-
-%type <AST::IfStatement*> IF_STATEMENT;
-%type <AST::SwitchStatement*> SWITCH_STATEMENT;
-%type <std::string> LABEL_NAME;
 %type <AST::BreakStatement*> BREAK_STATEMENT;
 %type <AST::ContinueStatement*> CONTINUE_STATEMENT;
+%type <AST::IfStatement*> IF_STATEMENT;
+%type <AST::LabelStatement*> LABELED_STATEMENT
+%type <AST::Node*> LOOP_STATEMENT;
+%type <AST::Node*> STATEMENT;
 %type <AST::ReturnStatement*> RETURN_STATEMENT;
+%type <AST::Root*> ROOT;
+%type <AST::SwitchStatement*> SWITCH_STATEMENT;
+%type <std::string> LABEL_NAME;
+%type <std::string> STATEMENT_LABEL;
+%type <std::vector<AST::Node*>*> STATEMENTS;
+
+%type <AST::SubroutineDeclaration*> SUBROUTINE_DECLARATION;
+%type <AST::Node*> DEFAULT_ARGUMENT_CLAUSE;
+
+%type <AST::RecordDeclaration*> RECORD_DECLARATION;
+%type <std::vector<AST::RecordField*>*> RECORD_BODY;
+%type <std::vector<AST::RecordField*>*> RECORD_FIELDS;
+%type <AST::RecordField*> RECORD_FIELD;
+%type <std::string> RECORD_FIELD_NAME;
+
+%type <AST::UnionDeclaration*> UNION_DECLARATION;
+%type <std::vector<AST::RecordField*>*> UNION_DECLARATION_BODY;
 
 %%
 
@@ -228,26 +240,7 @@ ROOT                                    : {
                                           $$ = new AST::Root($1);
                                         }
                                         ;
-STATEMENTS                              : STATEMENT {
-                                          $$ = new std::vector<AST::Node*>();
 
-                                          $$ -> push_back($1);
-                                        }
-                                        | STATEMENT STATEMENTS {
-                                          std::vector<AST::Node*> *statements = $2;
-
-                                          statements -> push_back($1);
-
-                                          $$ = statements;  
-                                        }
-                                        ;
-STATEMENT                               : EXPRESSION ";"
-                                        | DECLARATION ";"
-                                        | LOOP_STATEMENT ";"
-                                        | BRANCH_STATEMENT ";"
-                                        | LABELED_STATEMENT ";"
-                                        | CONTROL_TRANSFER_STATEMENT ";"
-                                        ;
 EXPRESSION                              : PREFIX_EXPRESSION 
                                         | PREFIX_EXPRESSION BINARY_EXPRESSIONS
                                         ;
@@ -477,7 +470,7 @@ BLOCK_EXPRESSION                        : "{" "}" {
                                           $$ = new AST::BlockExpression();
                                         }
                                         | "{" STATEMENTS "}" {
-                                          $$ = new AST::BlockExpression();
+                                          $$ = new AST::BlockExpression($2);
                                         }
                                         ;
                                         ;
@@ -561,25 +554,13 @@ DECLARATION                             : CONSTANT_DECLARATION
                                         | ENUMERATION_DECLARATION
                                         | RECORD_DECLARATION
                                         ;
-CONSTANT_DECLARATION                    : CONSTANT_DECLARATION_HEAD PATTERN_INITIALIZERS
-                                        ;
-CONSTANT_DECLARATION_HEAD               : "constant"
-                                        ;
-PATTERN_INITIALIZERS                    : PATTERN_INITIALIZER 
-                                        | PATTERN_INITIALIZER "," PATTERN_INITIALIZERS
-                                        ;
-PATTERN_INITIALIZER                     : PATTERN
-                                        | PATTERN INITIALIZER
-                                        ;
-INITIALIZER                             : "←" EXPRESSION
-                                        ;
+
 PATTERN                                 : WILDCARD_PATTERN
                                         | WILDCARD_PATTERN TYPE_ANNOTATION
                                         | IDENTIFIER_PATTERN
                                         | IDENTIFIER_PATTERN TYPE_ANNOTATION
                                         | TUPLE_PATTERN
                                         | TUPLE_PATTERN TYPE_ANNOTATION
-                                        | ENUMERATION_DECLARATION_CASE_PATTERN
                                         | TYPE_CASTING_PATTERN
                                         | EXPRESSION_PATTERN
                                         ;
@@ -596,11 +577,6 @@ TUPLE_PATTERN_ELEMENTS                  : TUPLE_PATTERN_ELEMENT
 TUPLE_PATTERN_ELEMENT                   : PATTERN 
                                         | IDENTIFIER ":" PATTERN
                                         ;
-ENUMERATION_DECLARATION_CASE_PATTERN    : "." ENUMERATION_DECLARATION_CASE_NAME 
-                                        | "." ENUMERATION_DECLARATION_CASE_NAME TUPLE_PATTERN
-                                        | TYPE_IDENTIFIER "." ENUMERATION_DECLARATION_CASE_NAME
-                                        | TYPE_IDENTIFIER "." ENUMERATION_DECLARATION_CASE_NAME TUPLE_PATTERN
-                                        ;
 TYPE_CASTING_PATTERN                    : IS_PATTERN 
                                         | AS_PATTERN
                                         ;
@@ -610,21 +586,7 @@ AS_PATTERN                              : PATTERN "as" TYPE
                                         ;
 EXPRESSION_PATTERN                      : EXPRESSION
                                         ;
-TYPE_ALIAS_DECLARATION                  : TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME TYPE_ALIAS_ASSIGNMENT {
-                                          $$ = new AST::TypeDeclaration($2, $3);
-                                        }
-                                        | TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME GENERIC_PARAMETER_CLAUSE TYPE_ALIAS_ASSIGNMENT {
-                                          $$ = new AST::TypeDeclaration($2, $4);
-                                        }
-                                        ;
-TYPE_ALIAS_DECLARATION_HEAD             : "type"
-                                        ;
-TYPE_ALIAS_NAME                         : IDENTIFIER
-                                        ;
-TYPE_ALIAS_ASSIGNMENT                   : "←" TYPE {
-                                          $$ = $2;
-                                        }
-                                        ;
+
 GENERIC_PARAMETER_CLAUSE                : "⟨" GENERIC_PARAMETERS "⟩"
                                         ;
 GENERIC_PARAMETERS                      : GENERIC_PARAMETER 
@@ -633,6 +595,16 @@ GENERIC_PARAMETERS                      : GENERIC_PARAMETER
 GENERIC_PARAMETER                       : TYPE_NAME
                                         | TYPE_NAME ":" TYPE_IDENTIFIER
                                         ;
+
+
+/*
+ *  2.0   DECLARATIONS
+ */
+
+/*
+ *  2.1   SUBROUTINE
+ */
+
 SUBROUTINE_DECLARATION                  : SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE {
                                           $$ = new AST::SubroutineDeclaration($2, $3);
                                         }
@@ -691,35 +663,77 @@ SUBROUTINE_PARAMETER                    : SUBROUTINE_PARAMETER_NAME TYPE_ANNOTAT
                                         ;
 SUBROUTINE_PARAMETER_NAME               : IDENTIFIER
                                         ;
-DEFAULT_ARGUMENT_CLAUSE                 : "←" EXPRESSION
-                                        ;
-UNION_DECLARATION                       : UNION_DECLARATION_HEAD UNION_DECLARATION_NAME UNION_DECLARATION_BODY {
-                                          $$ = new AST::UnionDeclaration($2);
-                                        }
-                                        | UNION_DECLARATION_HEAD UNION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE UNION_DECLARATION_BODY {
-                                          $$ = new AST::UnionDeclaration($2);
+DEFAULT_ARGUMENT_CLAUSE                 : "←" EXPRESSION {
+                                          $$ = $2;
                                         }
                                         ;
-UNION_DECLARATION_HEAD                  : "union"
+
+/*
+ *  2.2   TYPE ALIAS
+ */
+
+TYPE_ALIAS_DECLARATION                  : TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME TYPE_ALIAS_ASSIGNMENT {
+                                          $$ = new AST::TypeDeclaration($2, $3);
+                                        }
+                                        | TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME GENERIC_PARAMETER_CLAUSE TYPE_ALIAS_ASSIGNMENT {
+                                          $$ = new AST::TypeDeclaration($2, $4);
+                                        }
                                         ;
-UNION_DECLARATION_NAME                  : IDENTIFIER
+TYPE_ALIAS_DECLARATION_HEAD             : "type"
                                         ;
-UNION_DECLARATION_BODY                  : "{" "}"
-                                        | "{" UNION_DECLARATION_MEMBERS "}"
+TYPE_ALIAS_NAME                         : IDENTIFIER
                                         ;
-UNION_DECLARATION_MEMBERS               : UNION_DECLARATION_MEMBER
-                                        | UNION_DECLARATION_MEMBER UNION_DECLARATION_MEMBERS
+TYPE_ALIAS_ASSIGNMENT                   : "←" TYPE {
+                                          $$ = $2;
+                                        }
                                         ;
-UNION_DECLARATION_MEMBER                : DECLARATION
-                                        | UNION_DECLARATION_CASE_LIST
+
+/*
+ *  2.3   RECORD 
+ */
+
+RECORD_DECLARATION                      : RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME RECORD_BODY {
+                                          $$ = new AST::RecordDeclaration($2, $3);
+                                        }
+                                        | RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE RECORD_BODY {
+                                          $$ = new AST::RecordDeclaration($2, $4);
+                                        }
                                         ;
-UNION_DECLARATION_CASE_LIST             : UNION_DECLARATION_CASE 
-                                        | UNION_DECLARATION_CASE "," UNION_DECLARATION_CASE_LIST
+RECORD_DECLARATION_HEAD                 : "record"
                                         ;
-UNION_DECLARATION_CASE                  : UNION_DECLARATION_CASE_NAME TYPE_ANNOTATION
+RECORD_DECLARATION_NAME                 : IDENTIFIER
                                         ;
-UNION_DECLARATION_CASE_NAME             : IDENTIFIER
+RECORD_BODY                             : "{" RECORD_FIELDS "}" {
+                                          $$ = $2;
+                                        }
                                         ;
+RECORD_FIELDS                           : %empty {
+                                          $$ = new std::vector<AST::RecordField*>();
+                                        }
+                                        | RECORD_FIELD {
+                                          $$ = new std::vector<AST::RecordField*>();
+
+                                          $$ -> push_back($1);
+                                        }
+                                        | RECORD_FIELD "," RECORD_FIELDS {
+                                          std::vector<AST::RecordField*> *fields = $3;
+
+                                          fields -> push_back($1);
+
+                                          $$ = fields;
+                                        }
+                                        ;
+RECORD_FIELD                            : RECORD_FIELD_NAME TYPE_ANNOTATION {
+                                          $$ = new AST::RecordField($1, $2);
+                                        }
+                                        ;
+RECORD_FIELD_NAME                       : IDENTIFIER
+                                        ;
+
+/*
+ *  2.4   ENUMERATION 
+ */
+
 ENUMERATION_DECLARATION                 : ENUMERATION_DECLARATION_HEAD ENUMERATION_DECLARATION_NAME ENUMERATION_DECLARATION_BODY {
                                           $$ = new AST::EnumerationDeclaration($2);
                                         }
@@ -731,46 +745,91 @@ ENUMERATION_DECLARATION_HEAD            : "enumeration"
                                         ;
 ENUMERATION_DECLARATION_NAME            : IDENTIFIER
                                         ;
-ENUMERATION_DECLARATION_BODY            : "{" ENUMERATION_DECLARATION_MEMBERS "}"
+ENUMERATION_DECLARATION_BODY            : "{" ENUMERATION_DECLARATION_FIELDS "}"
+                                        ; 
+ENUMERATION_DECLARATION_FIELDS          : ENUMERATION_DECLARATION_FIELD
+                                        | ENUMERATION_DECLARATION_FIELD "," ENUMERATION_DECLARATION_FIELDS
                                         ;
-ENUMERATION_DECLARATION_MEMBERS         : ENUMERATION_DECLARATION_MEMBER
-                                        | ENUMERATION_DECLARATION_MEMBER "," ENUMERATION_DECLARATION_MEMBERS
+ENUMERATION_DECLARATION_FIELD           : ENUMERATION_DECLARATION_FIELD_NAME
+                                        | ENUMERATION_DECLARATION_FIELD_NAME ENUMERATION_DECLARATION_TUPLE
+                                        | ENUMERATION_DECLARATION_FIELD_NAME ENUMERATION_DECLARATION_RECORD
+                                        | ENUMERATION_DECLARATION_FIELD_NAME ENUMERATION_DECLARATION_ASSIGNMENT
                                         ;
-ENUMERATION_DECLARATION_MEMBER          : DECLARATION 
-                                        | ENUMERATION_DECLARATION_CASE 
+ENUMERATION_DECLARATION_FIELD_NAME      : IDENTIFIER
                                         ;
-ENUMERATION_DECLARATION_CASE            : ENUMERATION_DECLARATION_CASE_NAME
-                                        | ENUMERATION_DECLARATION_CASE_NAME ENUMERATION_DECLARATION_ASSIGNMENT
+ENUMERATION_DECLARATION_TUPLE           : "⟨" TUPLE_TYPE_ELEMENTS "⟩"
                                         ;
-ENUMERATION_DECLARATION_CASE_NAME       : IDENTIFIER
+ENUMERATION_DECLARATION_RECORD          : "{" RECORD_FIELDS "}"
+                                        ;                                      
+ENUMERATION_DECLARATION_ASSIGNMENT      : "←" EXPRESSION
                                         ;
-ENUMERATION_DECLARATION_ASSIGNMENT      : "←" ENUMERATION_DECLARATION_LITERAL
-                                        ;
-ENUMERATION_DECLARATION_LITERAL         : BOOLEAN_LITERAL 
-                                        | NUMERIC_LITERAL
-                                        ;
-RECORD_DECLARATION                      : RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME RECORD_BODY {
-                                          $$ = new AST::RecordDeclaration($2);
+
+/*
+ *  2.5   UNION
+ */
+
+UNION_DECLARATION                       : UNION_DECLARATION_HEAD UNION_DECLARATION_NAME UNION_DECLARATION_BODY {
+                                          $$ = new AST::UnionDeclaration($2, $3);
                                         }
-                                        | RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE RECORD_BODY {
-                                          $$ = new AST::RecordDeclaration($2);
+                                        | UNION_DECLARATION_HEAD UNION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE UNION_DECLARATION_BODY {
+                                          $$ = new AST::UnionDeclaration($2, $4);
                                         }
                                         ;
-RECORD_DECLARATION_HEAD                 : "record"
+UNION_DECLARATION_HEAD                  : "union"
                                         ;
-RECORD_DECLARATION_NAME                 : IDENTIFIER
+UNION_DECLARATION_NAME                  : IDENTIFIER
                                         ;
-RECORD_BODY                             : "{" "}"
-                                        | "{" RECORD_MEMBERS "}"
+UNION_DECLARATION_BODY                  : "{" RECORD_FIELDS "}" {
+                                          $$ = $2;
+                                        }
                                         ;
-RECORD_MEMBERS                          : RECORD_MEMBER
-                                        | RECORD_MEMBER "," RECORD_MEMBERS
+
+/*
+ *  2.6   CONSTANT
+ */
+
+CONSTANT_DECLARATION                    : CONSTANT_DECLARATION_HEAD CONSTANT_DECLARATION_NAME TYPE_ANNOTATION CONSTANT_DECLARATION_ASSIGNMENT
                                         ;
-RECORD_MEMBER                           : DECLARATION
-                                        | RECORD_MEMBER_NAME TYPE_ANNOTATION
+CONSTANT_DECLARATION_HEAD               : "constant"
                                         ;
-RECORD_MEMBER_NAME                      : IDENTIFIER
+CONSTANT_DECLARATION_NAME               : IDENTIFIER
                                         ;
+CONSTANT_DECLARATION_ASSIGNMENT         : "←" EXPRESSION
+                                        ;
+
+/*
+ *  3.0   STATEMENTS
+ */
+
+STATEMENTS                              : STATEMENT {
+                                          $$ = new std::vector<AST::Node*>();
+
+                                          $$ -> push_back($1);
+                                        }
+                                        | STATEMENT STATEMENTS {
+                                          std::vector<AST::Node*> *statements = $2;
+
+                                          statements -> push_back($1);
+
+                                          $$ = statements;  
+                                        }
+                                        ;
+STATEMENT                               : DECLARATION ";"
+                                        | EXPRESSION ";"
+                                        | LOOP_STATEMENT ";"
+                                        | BRANCH_STATEMENT ";"
+                                        | LABELED_STATEMENT ";"
+                                        | CONTROL_TRANSFER_STATEMENT ";"
+                                        ;
+
+/*
+ *  4.0   EXPRESSIONS
+ */
+
+
+
+
+
 LOOP_STATEMENT                          : FOR_IN_STATEMENT
                                         | WHILE_STATEMENT
                                         ;
@@ -798,7 +857,7 @@ CONDITION_LIST                          : CONDITION
 CONDITION                               : EXPRESSION 
                                         | CASE_CONDITION
                                         ;
-CASE_CONDITION                          : "case" PATTERN INITIALIZER
+CASE_CONDITION                          : "case" PATTERN
                                         ;
 ELSE_CLAUSE                             : "else" BLOCK_EXPRESSION 
                                         | "else" IF_STATEMENT
@@ -816,12 +875,12 @@ SWITCH_CASES                            : SWITCH_CASE
 SWITCH_CASE                             : CASE_LABEL STATEMENTS
                                         | DEFAULT_LABEL STATEMENTS
                                         ;
-CASE_LABEL                              : "case" CASE_ITEM_LIST ":"
+CASE_LABEL                              : "case" CASE_ITEMS ":"
                                         ;
-CASE_ITEM_LIST                          : PATTERN
+CASE_ITEMS                              : PATTERN
                                         | PATTERN WHERE_CLAUSE 
-                                        | PATTERN "," CASE_ITEM_LIST
-                                        | PATTERN WHERE_CLAUSE "," CASE_ITEM_LIST
+                                        | PATTERN "," CASE_ITEMS
+                                        | PATTERN WHERE_CLAUSE "," CASE_ITEMS
                                         ;
 WHERE_CLAUSE                            : "where" WHERE_EXPRESSION
                                         ;
@@ -829,9 +888,15 @@ WHERE_EXPRESSION                        : EXPRESSION
                                         ;
 DEFAULT_LABEL                           : "default" ":"
                                         ;
-LABELED_STATEMENT                       : STATEMENT_LABEL LOOP_STATEMENT
-                                        | STATEMENT_LABEL IF_STATEMENT
-                                        | STATEMENT_LABEL SWITCH_STATEMENT
+LABELED_STATEMENT                       : STATEMENT_LABEL LOOP_STATEMENT {
+                                          $$ = new AST::LabelStatement($1, $2);
+                                        }
+                                        | STATEMENT_LABEL IF_STATEMENT {
+                                          $$ = new AST::LabelStatement($1, $2);
+                                        }
+                                        | STATEMENT_LABEL SWITCH_STATEMENT {
+                                          $$ = new AST::LabelStatement($1, $2);
+                                        }
                                         ;
 STATEMENT_LABEL                         : LABEL_NAME ":"
                                         ;
@@ -845,21 +910,21 @@ BREAK_STATEMENT                         : "break" {
                                           $$ = new AST::BreakStatement();
                                         }
                                         | "break" LABEL_NAME {
-                                          $$ = new AST::BreakStatement();
+                                          $$ = new AST::BreakStatement($2);
                                         }
                                         ;
 CONTINUE_STATEMENT                      : "continue" {
                                           $$ = new AST::ContinueStatement();
                                         }
                                         | "continue" LABEL_NAME {
-                                          $$ = new AST::ContinueStatement();
+                                          $$ = new AST::ContinueStatement($2);
                                         }
                                         ;
 RETURN_STATEMENT                        : "return" {
                                           $$ = new AST::ReturnStatement();
                                         }
                                         | "return" EXPRESSION {
-                                          $$ = new AST::ReturnStatement();
+                                          $$ = new AST::ReturnStatement($2);
                                         }
                                         ;
 

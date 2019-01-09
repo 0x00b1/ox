@@ -2,62 +2,13 @@
 #define OX_OX_HH
 
 #include <iostream>
+#include <optional>
 #include <vector>
 
-namespace Type {
-    class Type {};
+#include "type.hh"
 
-    class Array: public Type {
-    public:
-        std::size_t count;
-
-        Type type;
-    };
-
-    class Boolean: public Type {
-    public:
-    };
-
-    class Bottom: public Type {
-
-    };
-
-    class Enumerated: public Type {
-
-    };
-
-    class FloatingPoint: public Type {
-
-    };
-
-    class Function: public Type {
-
-    };
-
-    class Integer: public Type {
-    public:
-
-    };
-
-    class Option: public Type {};
-
-    class Record: public Type {
-    public:
-        std::vector<Type> types;
-    };
-
-    class Reference: public Type {};
-
-    class Top: public Type {};
-
-    class Tuple: public Type {
-    public:
-        std::vector<Type> types;
-    };
-
-    class Union: public Type {};
-
-    class Unit: public Type {};
+namespace Pattern {
+    class Pattern {};
 }
 
 namespace AST {
@@ -72,65 +23,98 @@ namespace AST {
         virtual void accept(Visitor &visitor) = 0;
     };
 
+    class Argument;
     class ArrayExpression;
-    class Block;
+    class BinaryExpression;
+    class BlockExpression;
     class BooleanLiteral;
-    class BreakExpression;
-    class Call;
+    class BreakStatement;
+    class CallExpression;
     class ClosureExpression;
-    class Conditional;
     class ConstantDeclaration;
-    class ContinueExpression;
+    class ContinueStatement;
     class EnumerationDeclaration;
     class FloatingPointLiteral;
-    class For;
+    class ForLoop;
+    class GenericParameter;
     class Goto;
+    class IfStatement;
     class IndexExpression;
     class IntegerLiteral;
+    class LabelStatement;
     class ModuleDeclaration;
     class OperatorDeclaration;
+    class Parameter;
+    class PrefixExpression;
     class RangeExpression;
     class RecordDeclaration;
     class RecordExpression;
-    class ReturnExpression;
+    class RecordField;
+    class ReturnStatement;
     class Root;
     class SubroutineDeclaration;
-    class Switch;
+    class SubscriptExpression;
+    class SwitchStatement;
     class TupleExpression;
     class TypeDeclaration;
+    class TypeSignature;
     class UnionDeclaration;
-    class While;
+    class WhileLoop;
 
     class Visitor {
     public:
+        virtual void visit(Argument &file) = 0;
         virtual void visit(ArrayExpression &file) = 0;
-        virtual void visit(Block &file) = 0;
+        virtual void visit(BinaryExpression &file) = 0;
+        virtual void visit(BlockExpression &file) = 0;
         virtual void visit(BooleanLiteral &file) = 0;
-        virtual void visit(BreakExpression &file) = 0;
-        virtual void visit(Call &file) = 0;
+        virtual void visit(BreakStatement &file) = 0;
+        virtual void visit(CallExpression &file) = 0;
         virtual void visit(ClosureExpression &file) = 0;
-        virtual void visit(Conditional &file) = 0;
         virtual void visit(ConstantDeclaration &file) = 0;
-        virtual void visit(ContinueExpression &file) = 0;
+        virtual void visit(ContinueStatement &file) = 0;
         virtual void visit(EnumerationDeclaration &file) = 0;
         virtual void visit(FloatingPointLiteral &file) = 0;
-        virtual void visit(For &file) = 0;
+        virtual void visit(ForLoop &file) = 0;
+        virtual void visit(GenericParameter &file) = 0;
         virtual void visit(Goto &file) = 0;
+        virtual void visit(IfStatement &file) = 0;
         virtual void visit(IndexExpression &file) = 0;
         virtual void visit(IntegerLiteral &file) = 0;
+        virtual void visit(LabelStatement &file) = 0;
         virtual void visit(ModuleDeclaration &file) = 0;
         virtual void visit(OperatorDeclaration &file) = 0;
+        virtual void visit(Parameter &file) = 0;
+        virtual void visit(PrefixExpression &file) = 0;
         virtual void visit(RangeExpression &file) = 0;
         virtual void visit(RecordDeclaration &file) = 0;
         virtual void visit(RecordExpression &file) = 0;
-        virtual void visit(ReturnExpression &file) = 0;
+        virtual void visit(RecordField &file) = 0;
+        virtual void visit(ReturnStatement &file) = 0;
         virtual void visit(Root &file) = 0;
         virtual void visit(SubroutineDeclaration &file) = 0;
-        virtual void visit(Switch &file) = 0;
+        virtual void visit(SubscriptExpression &file) = 0;
+        virtual void visit(SwitchStatement &file) = 0;
         virtual void visit(TupleExpression &file) = 0;
         virtual void visit(TypeDeclaration &file) = 0;
+        virtual void visit(TypeSignature &file) = 0;
         virtual void visit(UnionDeclaration &file) = 0;
-        virtual void visit(While &file) = 0;
+        virtual void visit(WhileLoop &file) = 0;
+    };
+
+    class Argument: public Node {
+    public:
+        Argument(AST::Node *expression): expression(expression) {};
+
+        Argument(std::string name, AST::Node *expression): name(name), expression(expression) {};
+
+        std::string name;
+
+        AST::Node *expression;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
     };
 
     class ArrayExpression: public Node {
@@ -144,8 +128,27 @@ namespace AST {
         }
     };
 
-    class Block: public Node {
+    class BinaryExpression: public Node {
     public:
+        BinaryExpression(std::string operation, AST::Node *a): operation(operation), a(a) {};
+
+        std::string operation;
+
+        AST::Node *a;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    class BlockExpression: public Node {
+    public:
+        BlockExpression() {};
+
+        BlockExpression(std::vector<AST::Node*> *statements): statements(statements) {};
+
+        std::vector<AST::Node*> *statements;
+
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -153,24 +156,36 @@ namespace AST {
 
     class BooleanLiteral: public Node {
     public:
-        BooleanLiteral(std::string value): value(value) {};
+        BooleanLiteral(bool value): value(value) {};
 
-        std::string value;
+        bool value;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
     };
 
-    class BreakExpression: public Node {
+    class BreakStatement: public Node {
     public:
+        BreakStatement() {};
+
+        BreakStatement(std::string name): name(name) {};
+
+        std::string name;
+
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
     };
 
-    class Call: public Node {
+    class CallExpression: public Node {
     public:
+        CallExpression(AST::Node *expression, std::vector<AST::Argument*> *arguments): expression(expression), arguments(arguments) {};
+
+        AST::Node *expression;
+
+        std::vector<AST::Argument*> *arguments;
+
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -178,18 +193,13 @@ namespace AST {
 
     class ClosureExpression: public Node {
     public:
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
-    };
+        ClosureExpression(AST::BlockExpression *expression): expression(expression) {};
 
-    class Conditional: public Node {
-    private:
-        Node *p;
-        Node *q;
-        Node *r;
-    public:
-        Conditional(Node *p, Node *q, Node *r): p(p), q(q), r(r) {};
+        ClosureExpression(AST::TypeSignature *signature, AST::BlockExpression *expression): signature(signature), expression(expression) {};
+
+        AST::TypeSignature *signature;
+
+        AST::BlockExpression *expression;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -203,8 +213,14 @@ namespace AST {
         }
     };
 
-    class ContinueExpression: public Node {
+    class ContinueStatement: public Node {
     public:
+        ContinueStatement() {};
+
+        ContinueStatement(std::string name): name(name) {};
+
+        std::string name;
+
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -232,7 +248,22 @@ namespace AST {
         }
     };
 
-    class For: public Node {
+    class ForLoop: public Node {
+    public:
+        ForLoop(Pattern::Pattern *item, AST::Node *container, AST::BlockExpression *expression): item(item), container(container), expression(expression) {};
+
+        Pattern::Pattern *item;
+
+        AST::Node *container;
+
+        AST::BlockExpression *expression;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    class GenericParameter: public Node {
     public:
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -240,6 +271,13 @@ namespace AST {
     };
 
     class Goto: public Node {
+    public:
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    class IfStatement: public Node {
     public:
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -258,6 +296,19 @@ namespace AST {
         IntegerLiteral(std::string value): value(value) {};
 
         std::string value;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    class LabelStatement: public Node {
+    public:
+        LabelStatement(std::string name, AST::Node *statement): name(name), statement(statement) {};
+
+        std::string name;
+
+        AST::Node *statement;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -284,10 +335,44 @@ namespace AST {
         }
     };
 
+    class Parameter: public Node {
+    public:
+        Parameter(std::string name): name(name) {};
+
+        Parameter(std::string name, AST::Node *expression): name(name), expression(expression) {};
+
+        Parameter(std::string name, Type::Type *type): name(name), type(type) {};
+
+        Parameter(std::string name, Type::Type *type, AST::Node *expression): name(name), type(type), expression(expression) {};
+
+        std::string name;
+
+        Type::Type *type;
+
+        AST::Node *expression;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    class PrefixExpression: public Node {
+    public:
+        PrefixExpression(AST::Node *a): a(a) {};
+
+        PrefixExpression(std::string operation, AST::Node *a): operation(operation), a(a) {};
+
+        AST::Node *a;
+
+        std::string operation;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
     class RangeExpression: public Node {
     public:
-        Type::Record type;
-
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -295,8 +380,6 @@ namespace AST {
 
     class RecordExpression: public Node {
     public:
-        Type::Record type;
-
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -304,17 +387,38 @@ namespace AST {
 
     class RecordDeclaration: public Node {
     public:
-        RecordDeclaration(std::string name): name(name) {};
+        RecordDeclaration(std::string name, std::vector<AST::RecordField*> *fields): name(name), fields(fields) {};
 
         std::string name;
+
+        std::vector<AST::RecordField*> *fields;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
     };
 
-    class ReturnExpression: public Node {
+    class RecordField: public Node {
     public:
+        RecordField(std::string name, Type::Type *type): name(name), type(type) {};
+
+        std::string name;
+
+        Type::Type *type;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    class ReturnStatement: public Node {
+    public:
+        ReturnStatement() {};
+
+        ReturnStatement(AST::Node *expression): expression(expression) {};
+
+        AST::Node *expression;
+
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -322,7 +426,11 @@ namespace AST {
 
     class Root: public Node {
     public:
-        std::vector<AST::Node*> nodes;    
+        Root() {};
+
+        Root(std::vector<AST::Node*> *nodes): nodes(nodes) {};
+
+        std::vector<AST::Node*> *nodes;    
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -331,16 +439,31 @@ namespace AST {
 
     class SubroutineDeclaration: public Node {
     public:
-        SubroutineDeclaration(std::string name): name(name) {};
+        SubroutineDeclaration(std::string name, AST::TypeSignature *signature): name(name), signature(signature) {};
 
         std::string name;
+
+        AST::TypeSignature *signature;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
     };
 
-    class Switch: public Node {
+    class SubscriptExpression: public Node {
+    public:
+        SubscriptExpression(AST::Node *expression, std::vector<AST::Argument*> *arguments): expression(expression), arguments(arguments) {};
+
+        AST::Node *expression;
+
+        std::vector<AST::Argument*> *arguments;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    class SwitchStatement: public Node {
     public:
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -349,7 +472,9 @@ namespace AST {
 
     class TupleExpression: public Node {
     public:
-        Type::Tuple type;
+        TupleExpression(std::vector<AST::Node*> *items): items(items) {};
+
+        std::vector<AST::Node*> *items;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -358,9 +483,28 @@ namespace AST {
 
     class TypeDeclaration: public Node {
     public:
-        TypeDeclaration(std::string name): name(name) {};
+        TypeDeclaration(std::string name, Type::Type *type): name(name), type(type) {};
 
         std::string name;
+
+        Type::Type *type;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    class TypeSignature: public Node {
+    public:
+        TypeSignature() {};
+
+        TypeSignature(std::vector<AST::Parameter*> *parameters): parameters(parameters) {};
+
+        TypeSignature(std::vector<AST::Parameter*> *parameters, Type::Type *type): parameters(parameters), type(type) {};
+
+        std::vector<AST::Parameter*> *parameters;
+
+        Type::Type *type;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -369,17 +513,25 @@ namespace AST {
 
     class UnionDeclaration: public Node {
     public:
-        UnionDeclaration(std::string name): name(name) {};
+        UnionDeclaration(std::string name, std::vector<AST::RecordField*> *fields): name(name), fields(fields) {};
 
         std::string name;
+
+        std::vector<AST::RecordField*> *fields;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
     };
 
-    class While: public Node {
+    class WhileLoop: public Node {
     public:
+        WhileLoop(AST::Node *condition, AST::BlockExpression *expression): condition(condition), expression(expression) {};
+
+        AST::Node *condition;
+
+        AST::BlockExpression *expression;
+
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -387,11 +539,19 @@ namespace AST {
 
     class Generator: public Visitor {
     public:
+        void visit(Argument &) override {
+            std::cout << "generating Argument" << std::endl;
+        }
+
         void visit(ArrayExpression &) override {
             std::cout << "generating ArrayExpression" << std::endl;
         }
 
-        void visit(Block &) override {
+        void visit(PrefixExpression &) override {
+            std::cout << "generating PrefixExpression" << std::endl;
+        }
+
+        void visit(BlockExpression &) override {
             std::cout << "generating Block" << std::endl;
         }
 
@@ -399,36 +559,36 @@ namespace AST {
             std::cout << "generating BooleanLiteral" << std::endl;
         }
 
-        void visit(BreakExpression &) override {
-            std::cout << "generating BreakExpression" << std::endl;
+        void visit(BreakStatement &) override {
+            std::cout << "generating BreakStatement" << std::endl;
         }
 
-        void visit(Call &) override {
-            std::cout << "generating Call" << std::endl;
+        void visit(CallExpression &) override {
+            std::cout << "generating CallExpression" << std::endl;
         }
 
         void visit(ClosureExpression &) override {
             std::cout << "generating ClosureExpression" << std::endl;
         }
 
-        void visit(Conditional &) override {
-            std::cout << "generating Conditional" << std::endl;
-        }
-
         void visit(ConstantDeclaration &) override {
             std::cout << "generating ConstantDeclaration" << std::endl;
         }
 
-        void visit(ContinueExpression &) override {
-            std::cout << "generating ContinueExpression" << std::endl;
+        void visit(ContinueStatement &) override {
+            std::cout << "generating ContinueStatement" << std::endl;
         }
 
         void visit(FloatingPointLiteral &) override {
             std::cout << "generating FloatingPointLiteral" << std::endl;
         }
 
-        void visit(For &) override {
+        void visit(ForLoop &) override {
             std::cout << "generating FloatingPointLiteral" << std::endl;
+        }
+
+        void visit(GenericParameter &) override {
+            std::cout << "generating Goto" << std::endl;
         }
 
         void visit(Goto &) override {
@@ -441,6 +601,10 @@ namespace AST {
 
         void visit(IntegerLiteral &) override {
             std::cout << "generating IntegerLiteral" << std::endl;
+        }
+
+        void visit(LabelStatement &) override {
+            std::cout << "generating LabelStatement" << std::endl;
         }
 
         void visit(EnumerationDeclaration &) override {
@@ -467,8 +631,12 @@ namespace AST {
             std::cout << "generating RecordDeclaration" << std::endl;
         }
 
-        void visit(ReturnExpression &) override {
-            std::cout << "generating ReturnExpression" << std::endl;
+        void visit(RecordField &) override {
+            std::cout << "generating RecordField" << std::endl;
+        }
+
+        void visit(ReturnStatement &) override {
+            std::cout << "generating ReturnStatement" << std::endl;
         }
 
         void visit(Root &) override {
@@ -479,8 +647,8 @@ namespace AST {
             std::cout << "generating SubroutineDeclaration" << std::endl;
         }
 
-        void visit(Switch &) override {
-            std::cout << "generating Switch" << std::endl;
+        void visit(SwitchStatement &) override {
+            std::cout << "generating SwitchStatement" << std::endl;
         }
 
         void visit(TupleExpression &) override {
@@ -491,12 +659,16 @@ namespace AST {
             std::cout << "generating TypeDeclaration" << std::endl;
         }
 
+        void visit(BinaryExpression &) override {
+            std::cout << "generating BinaryExpression" << std::endl;
+        }
+
         void visit(UnionDeclaration &) override {
             std::cout << "generating UnionDeclaration" << std::endl;
         }
 
-        void visit(While &) override {
-            std::cout << "generating While" << std::endl;
+        void visit(WhileLoop &) override {
+            std::cout << "generating WhileLoop" << std::endl;
         }
     };
 }

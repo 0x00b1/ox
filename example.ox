@@ -1,4 +1,4 @@
-constant a ← 0;
+constant a: 8-bit Integer ← 0;
 
 enumeration A {
     a
