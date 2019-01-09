@@ -204,17 +204,17 @@
  *
  */
 
-%type <AST::BreakStatement*> BREAK_STATEMENT;
-%type <AST::ContinueStatement*> CONTINUE_STATEMENT;
+%type <AST::BreakExpression*> BREAK_STATEMENT;
+%type <AST::ContinueExpression*> CONTINUE_STATEMENT;
 %type <AST::IfStatement*> IF_STATEMENT;
-%type <AST::LabelStatement*> LABELED_STATEMENT
+%type <AST::Label*> LABELED_STATEMENT
 %type <AST::Node*> LOOP_STATEMENT;
 %type <AST::Node*> STATEMENT;
 %type <AST::ReturnStatement*> RETURN_STATEMENT;
 %type <AST::Root*> ROOT;
 %type <AST::SwitchStatement*> SWITCH_STATEMENT;
 %type <std::string> LABEL_NAME;
-%type <std::string> STATEMENT_LABEL;
+%type <AST::Label*> STATEMENT_LABEL;
 %type <std::vector<AST::Node*>*> STATEMENTS;
 
 %type <AST::SubroutineDeclaration*> SUBROUTINE_DECLARATION;
@@ -888,17 +888,13 @@ WHERE_EXPRESSION                        : EXPRESSION
                                         ;
 DEFAULT_LABEL                           : "default" ":"
                                         ;
-LABELED_STATEMENT                       : STATEMENT_LABEL LOOP_STATEMENT {
-                                          $$ = new AST::LabelStatement($1, $2);
-                                        }
-                                        | STATEMENT_LABEL IF_STATEMENT {
-                                          $$ = new AST::LabelStatement($1, $2);
-                                        }
-                                        | STATEMENT_LABEL SWITCH_STATEMENT {
-                                          $$ = new AST::LabelStatement($1, $2);
-                                        }
+LABELED_STATEMENT                       : STATEMENT_LABEL LOOP_STATEMENT 
+                                        | STATEMENT_LABEL IF_STATEMENT 
+                                        | STATEMENT_LABEL SWITCH_STATEMENT 
                                         ;
-STATEMENT_LABEL                         : LABEL_NAME ":"
+STATEMENT_LABEL                         : LABEL_NAME ":" {
+                                          $$ = new AST::Label($1);
+                                        }
                                         ;
 LABEL_NAME                              : IDENTIFIER
                                         ;
@@ -907,17 +903,17 @@ CONTROL_TRANSFER_STATEMENT              : BREAK_STATEMENT
                                         | RETURN_STATEMENT
                                         ;
 BREAK_STATEMENT                         : "break" {
-                                          $$ = new AST::BreakStatement();
+                                          $$ = new AST::BreakExpression();
                                         }
                                         | "break" LABEL_NAME {
-                                          $$ = new AST::BreakStatement($2);
+                                          $$ = new AST::BreakExpression($2);
                                         }
                                         ;
 CONTINUE_STATEMENT                      : "continue" {
-                                          $$ = new AST::ContinueStatement();
+                                          $$ = new AST::ContinueExpression();
                                         }
                                         | "continue" LABEL_NAME {
-                                          $$ = new AST::ContinueStatement($2);
+                                          $$ = new AST::ContinueExpression($2);
                                         }
                                         ;
 RETURN_STATEMENT                        : "return" {

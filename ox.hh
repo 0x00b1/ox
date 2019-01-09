@@ -24,41 +24,44 @@ namespace AST {
     };
 
     class Argument;
+    class Label;
+
+    class ConstantDeclaration;
+    class EnumerationDeclaration;
+    class ModuleDeclaration;
+    class SubroutineDeclaration;
+    class TypeDeclaration;
+    class UnionDeclaration;
+
     class ArrayExpression;
     class BinaryExpression;
     class BlockExpression;
     class BooleanLiteral;
-    class BreakStatement;
+    class BreakExpression;
     class CallExpression;
     class ClosureExpression;
-    class ConstantDeclaration;
-    class ContinueStatement;
-    class EnumerationDeclaration;
+    class ContinueExpression;
     class FloatingPointLiteral;
+    class IndexExpression;
+    class IntegerLiteral;
+    class PrefixExpression;
+    class RangeExpression;
+    class RecordExpression;
+    class SubscriptExpression;
+    class TupleExpression;
+    
     class ForLoop;
     class GenericParameter;
     class Goto;
     class IfStatement;
-    class IndexExpression;
-    class IntegerLiteral;
-    class LabelStatement;
-    class ModuleDeclaration;
     class OperatorDeclaration;
     class Parameter;
-    class PrefixExpression;
-    class RangeExpression;
     class RecordDeclaration;
-    class RecordExpression;
     class RecordField;
     class ReturnStatement;
     class Root;
-    class SubroutineDeclaration;
-    class SubscriptExpression;
     class SwitchStatement;
-    class TupleExpression;
-    class TypeDeclaration;
     class TypeSignature;
-    class UnionDeclaration;
     class WhileLoop;
 
     class Visitor {
@@ -68,11 +71,11 @@ namespace AST {
         virtual void visit(BinaryExpression &file) = 0;
         virtual void visit(BlockExpression &file) = 0;
         virtual void visit(BooleanLiteral &file) = 0;
-        virtual void visit(BreakStatement &file) = 0;
+        virtual void visit(BreakExpression &file) = 0;
         virtual void visit(CallExpression &file) = 0;
         virtual void visit(ClosureExpression &file) = 0;
         virtual void visit(ConstantDeclaration &file) = 0;
-        virtual void visit(ContinueStatement &file) = 0;
+        virtual void visit(ContinueExpression &file) = 0;
         virtual void visit(EnumerationDeclaration &file) = 0;
         virtual void visit(FloatingPointLiteral &file) = 0;
         virtual void visit(ForLoop &file) = 0;
@@ -81,7 +84,7 @@ namespace AST {
         virtual void visit(IfStatement &file) = 0;
         virtual void visit(IndexExpression &file) = 0;
         virtual void visit(IntegerLiteral &file) = 0;
-        virtual void visit(LabelStatement &file) = 0;
+        virtual void visit(Label &file) = 0;
         virtual void visit(ModuleDeclaration &file) = 0;
         virtual void visit(OperatorDeclaration &file) = 0;
         virtual void visit(Parameter &file) = 0;
@@ -169,11 +172,15 @@ namespace AST {
         }
     };
 
-    class BreakStatement: public Node {
+    class BreakExpression: public Node {
     public:
-        BreakStatement() {};
+        BreakExpression() {};
 
-        BreakStatement(std::string name): name(name) {};
+        BreakExpression(std::string name): name(name) {};
+
+        BreakExpression(AST::Label *label): label(label) {};
+
+        std::optional<AST::Label*> label;
 
         std::string name;
 
@@ -219,11 +226,15 @@ namespace AST {
         }
     };
 
-    class ContinueStatement: public Node {
+    class ContinueExpression: public Node {
     public:
-        ContinueStatement() {};
+        ContinueExpression() {};
 
-        ContinueStatement(std::string name): name(name) {};
+        ContinueExpression(AST::Label *label): label(label) {};
+
+        ContinueExpression(std::string name): name(name) {};
+
+        std::optional<AST::Label*> label;
 
         std::string name;
 
@@ -312,9 +323,11 @@ namespace AST {
         }
     };
 
-    class LabelStatement: public Node {
-    public:
-        LabelStatement(std::string name, AST::Node *statement): name(name), statement(statement) {};
+    class Label: public Node {
+    public:        
+        Label(std::string name): name(name) {};
+
+        Label(std::string name, AST::Node *statement): name(name), statement(statement) {};
 
         std::string name;
 
@@ -327,11 +340,13 @@ namespace AST {
 
     class ModuleDeclaration: public Node {
     public:
-        ModuleDeclaration(std::string identifier): identifier(identifier) {};
+        ModuleDeclaration(std::string name): name(name) {};
 
-        std::string identifier;
+        ModuleDeclaration(std::string name, std::vector<AST::Node*> members): name(name), members(members) {};
 
-        std::vector<AST::Node*> nodes;
+        std::string name;
+
+        std::vector<AST::Node*> members;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -428,6 +443,10 @@ namespace AST {
         ReturnStatement() {};
 
         ReturnStatement(AST::Node *expression): expression(expression) {};
+
+        ReturnStatement(AST::Label *label): label(label) {};
+
+        std::optional<AST::Label*> label;
 
         AST::Node *expression;
 
@@ -568,15 +587,15 @@ namespace AST {
         }
 
         void visit(BlockExpression &) override {
-            std::cout << "generating Block" << std::endl;
+            std::cout << "generating BlockExpression" << std::endl;
         }
 
         void visit(BooleanLiteral &) override {
             std::cout << "generating BooleanLiteral" << std::endl;
         }
 
-        void visit(BreakStatement &) override {
-            std::cout << "generating BreakStatement" << std::endl;
+        void visit(BreakExpression &) override {
+            std::cout << "generating BreakExpression" << std::endl;
         }
 
         void visit(CallExpression &) override {
@@ -591,8 +610,8 @@ namespace AST {
             std::cout << "generating ConstantDeclaration" << std::endl;
         }
 
-        void visit(ContinueStatement &) override {
-            std::cout << "generating ContinueStatement" << std::endl;
+        void visit(ContinueExpression &) override {
+            std::cout << "generating ContinueExpression" << std::endl;
         }
 
         void visit(FloatingPointLiteral &) override {
@@ -619,8 +638,8 @@ namespace AST {
             std::cout << "generating IntegerLiteral" << std::endl;
         }
 
-        void visit(LabelStatement &) override {
-            std::cout << "generating LabelStatement" << std::endl;
+        void visit(Label &) override {
+            std::cout << "generating Label" << std::endl;
         }
 
         void visit(EnumerationDeclaration &) override {
@@ -685,6 +704,22 @@ namespace AST {
 
         void visit(WhileLoop &) override {
             std::cout << "generating WhileLoop" << std::endl;
+        }
+
+        void visit(IfStatement &) override {
+            std::cout << "generating IfStatement" << std::endl;
+        }
+
+        void visit(Parameter &) override {
+            std::cout << "generating Parameter" << std::endl;
+        }
+
+        void visit(SubscriptExpression &) override {
+            std::cout << "generating SubscriptExpression" << std::endl;
+        }
+
+        void visit(TypeSignature &) override {
+            std::cout << "generating TypeSignature" << std::endl;
         }
     };
 }
