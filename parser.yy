@@ -170,22 +170,39 @@
 %type <std::string> SUBROUTINE_NAME;
 %type <std::string> TYPE_ALIAS_NAME;
 %type <std::string> UNION_DECLARATION_NAME;
+%type <std::string> PREFIX_OPERATOR;
+%type <std::string> CLOSURE_PARAMETER_NAME SUBROUTINE_PARAMETER_NAME;
 
+%type <std::vector<AST::Node*>*> ARRAY_LITERAL_ITEMS TUPLE_LITERAL_ITEMS;
+
+%type <std::vector<AST::Argument*>*> CALL_ARGUMENT_LIST CALL_ARGUMENT_CLAUSE;
+
+%type <std::vector<AST::Parameter*>*> CLOSURE_PARAMETERS CLOSURE_PARAMETER_CLAUSE SUBROUTINE_PARAMETERS PARAMETER_CLAUSE;
+
+%type <AST::Node*> ARRAY_LITERAL_ITEM TUPLE_LITERAL_ITEM EXPRESSION POSTFIX_EXPRESSION;
+
+%type <Type::Type*> TYPE TYPE_ANNOTATION;
+%type <Type::Type*> CLOSURE_RETURN_TYPE SUBROUTINE_RETURN_TYPE;
+%type <Type::Type*> TYPE_ALIAS_ASSIGNMENT;
+
+%type <AST::Argument*> CALL_ARGUMENT;
 %type <AST::ArrayExpression*> ARRAY_LITERAL;
-%type <std::vector<AST::Node*>*> ARRAY_LITERAL_ITEMS;
-%type <AST::Node*> ARRAY_LITERAL_ITEM;
-
-%type <AST::TupleExpression*> TUPLE_LITERAL;
-%type <std::vector<AST::Node*>*> TUPLE_LITERAL_ITEMS;
-%type <AST::Node*> TUPLE_LITERAL_ITEM;
-
+%type <AST::BinaryExpression*> BINARY_EXPRESSION TYPE_CASTING_OPERATOR;
+%type <AST::BlockExpression*> CLOSURE_BLOCK CODE_BLOCK;
 %type <AST::BooleanLiteral*> BOOLEAN_LITERAL;
+%type <AST::CallExpression*> CALL_EXPRESSION;
+%type <AST::ClosureExpression*> CLOSURE_EXPRESSION;
+%type <AST::EnumerationDeclaration*> ENUMERATION_DECLARATION;
 %type <AST::FloatingPointLiteral*> FLOATING_POINT_LITERAL;
 %type <AST::IntegerLiteral*> INTEGER_LITERAL;
-%type <AST::EnumerationDeclaration*> ENUMERATION_DECLARATION;
+%type <AST::Parameter*> CLOSURE_PARAMETER SUBROUTINE_PARAMETER;
+%type <AST::PrefixExpression*> PREFIX_EXPRESSION;
 %type <AST::RecordDeclaration*> RECORD_DECLARATION;
 %type <AST::SubroutineDeclaration*> SUBROUTINE_DECLARATION;
+%type <AST::SubscriptExpression*> SUBSCRIPT_EXPRESSION;
+%type <AST::TupleExpression*> TUPLE_LITERAL;
 %type <AST::TypeDeclaration*> TYPE_ALIAS_DECLARATION;
+%type <AST::TypeSignature*> CLOSURE_SIGNATURE SUBROUTINE_SIGNATURE;
 %type <AST::UnionDeclaration*> UNION_DECLARATION;
 
 %%
@@ -213,8 +230,6 @@ PREFIX_OPERATOR                         : "¬"
 POSTFIX_OPERATOR                        : "!"
                                         | "?"
                                         ;
-
-
 
 /*
  *  TYPES
@@ -291,7 +306,9 @@ ELEMENT_NAME                            : IDENTIFIER
  *  TYPE ANNOTATION
  */
 
-TYPE_ANNOTATION                         : ":" TYPE
+TYPE_ANNOTATION                         : ":" TYPE {
+                                          $$ = $2;
+                                        }
                                         ;
 
 /*
@@ -349,24 +366,17 @@ GENERIC_ARGUMENT                        : TYPE
 EXPRESSION                              : PREFIX_EXPRESSION 
                                         | PREFIX_EXPRESSION BINARY_EXPRESSIONS
                                         ;
-PREFIX_EXPRESSION                       : POSTFIX_EXPRESSION
-                                        | PREFIX_OPERATOR POSTFIX_EXPRESSION
+PREFIX_EXPRESSION                       : POSTFIX_EXPRESSION {
+                                          $$ = new AST::PrefixExpression($1);
+                                        }
+                                        | PREFIX_OPERATOR POSTFIX_EXPRESSION {
+                                          $$ = new AST::PrefixExpression($1, $2);
+                                        }
                                         ;
-
-BINARY_EXPRESSION                       : BINARY_OPERATOR PREFIX_EXPRESSION
-                                        | ASSIGNMENT_OPERATOR PREFIX_EXPRESSION
-                                        | TYPE_CASTING_OPERATOR
-                                        ;
-                                
-BINARY_EXPRESSIONS                      : BINARY_EXPRESSION 
-                                        | BINARY_EXPRESSION BINARY_EXPRESSIONS
-                                        ;
-
-ASSIGNMENT_OPERATOR                     : "←"
-                                        ;
-
-TYPE_CASTING_OPERATOR                   : "is" TYPE
-                                        | "as" TYPE
+POSTFIX_EXPRESSION                      : PRIMARY_EXPRESSION
+                                        | POSTFIX_EXPRESSION POSTFIX_OPERATOR
+                                        | CALL_EXPRESSION
+                                        | SUBSCRIPT_EXPRESSION
                                         ;
 
 PRIMARY_EXPRESSION                      : IDENTIFIER 
@@ -375,8 +385,55 @@ PRIMARY_EXPRESSION                      : IDENTIFIER
                                         | CLOSURE_EXPRESSION
                                         | PARENTHESIZED_EXPRESSION
                                         | WILDCARD_EXPRESSION
-                                        | EXPLICIT_MEMBER_EXPRESSION
+                                        | MEMBER_EXPRESSION
                                         ;
+
+/*
+ *  CALL EXPRESSION
+ */
+
+CALL_EXPRESSION                         : POSTFIX_EXPRESSION CALL_ARGUMENT_CLAUSE {
+                                          $$ = new AST::CallExpression($1, $2);
+                                        }
+                                        ;
+CALL_ARGUMENT_CLAUSE                    : "(" ")"
+                                        | "(" CALL_ARGUMENT_LIST ")"
+                                        ;
+CALL_ARGUMENT_LIST                      : CALL_ARGUMENT {
+                                          $$ = new std::vector<AST::Argument*>();
+
+                                          $$ -> push_back($1);
+                                        }
+                                        | CALL_ARGUMENT "," CALL_ARGUMENT_LIST {
+                                          std::vector<AST::Argument*> *arguments = $3;
+
+                                          arguments -> push_back($1);
+
+                                          $$ = arguments;                                          
+                                        }
+                                        ;
+CALL_ARGUMENT                           : EXPRESSION {
+                                          $$ = new AST::Argument($1);
+                                        }
+                                        | IDENTIFIER ":" EXPRESSION {
+                                          $$ = new AST::Argument($1, $3);
+                                        }
+                                        ;
+
+BINARY_EXPRESSIONS                      : BINARY_EXPRESSION
+                                        | BINARY_EXPRESSION BINARY_EXPRESSIONS
+                                        ;
+BINARY_EXPRESSION                       : BINARY_OPERATOR PREFIX_EXPRESSION
+                                        | ASSIGNMENT_OPERATOR PREFIX_EXPRESSION 
+                                        | TYPE_CASTING_OPERATOR
+                                        ;
+ASSIGNMENT_OPERATOR                     : "←"
+                                        ;
+TYPE_CASTING_OPERATOR                   : "is" TYPE 
+                                        | "as" TYPE 
+                                        ;
+
+
 
 LITERAL_EXPRESSION                      : LITERAL
                                         | ARRAY_LITERAL
@@ -459,58 +516,88 @@ TUPLE_LITERAL_ITEM                      : EXPRESSION
                                         | IDENTIFIER ":" EXPRESSION
                                         ;
 
-CLOSURE_EXPRESSION                      : CLOSURE_HEAD CLOSURE_SIGNATURE CLOSURE_BLOCK
-                                        | CLOSURE_HEAD CLOSURE_BLOCK
+/*
+ *  CLOSURE EXPRESSION
+ */
+
+CLOSURE_EXPRESSION                      : CLOSURE_HEAD CLOSURE_SIGNATURE CLOSURE_BLOCK {
+                                          $$ = new AST::ClosureExpression($2, $3);
+                                        }
+                                        | CLOSURE_HEAD CLOSURE_BLOCK {
+                                          $$ = new AST::ClosureExpression($2);
+                                        }
                                         ;
 CLOSURE_HEAD                            : "λ"
                                         ;
-CLOSURE_SIGNATURE                       : CLOSURE_PARAMETER_CLAUSE 
-                                        | CLOSURE_PARAMETER_CLAUSE SUBROUTINE_RESULT
+CLOSURE_SIGNATURE                       : CLOSURE_PARAMETER_CLAUSE {
+                                          $$ = new AST::TypeSignature($1);
+                                        }
+                                        | CLOSURE_PARAMETER_CLAUSE CLOSURE_RETURN_TYPE {
+                                          $$ = new AST::TypeSignature($1, $2);
+                                        }
                                         ;
-CLOSURE_PARAMETER_CLAUSE                : "(" ")" 
-                                        | "(" CLOSURE_PARAMETER_LIST ")" 
+CLOSURE_PARAMETER_CLAUSE                : "(" CLOSURE_PARAMETERS ")" 
                                         ;
-CLOSURE_PARAMETER_LIST                  : CLOSURE_PARAMETER 
-                                        | CLOSURE_PARAMETER "," CLOSURE_PARAMETER_LIST
+CLOSURE_PARAMETERS                      : %empty
+                                        | CLOSURE_PARAMETER {
+                                          $$ = new std::vector<AST::Parameter*>();
+
+                                          $$ -> push_back($1);
+                                        }
+                                        | CLOSURE_PARAMETER "," CLOSURE_PARAMETERS {
+                                          std::vector<AST::Parameter*> *parameters = $3;
+
+                                          parameters -> push_back($1);
+
+                                          $$ = parameters;                                           
+                                        }
                                         ;
-CLOSURE_PARAMETER                       : CLOSURE_PARAMETER_NAME
-                                        | CLOSURE_PARAMETER_NAME TYPE_ANNOTATION
-                                        | CLOSURE_PARAMETER_NAME TYPE_ANNOTATION "…"
+CLOSURE_PARAMETER                       : CLOSURE_PARAMETER_NAME {
+                                          $$ = new AST::Parameter($1);
+                                        }
+                                        | CLOSURE_PARAMETER_NAME TYPE_ANNOTATION {
+                                          $$ = new AST::Parameter($1, $2);
+                                        }
+                                        | CLOSURE_PARAMETER_NAME TYPE_ANNOTATION "…" {
+                                          $$ = new AST::Parameter($1, $2);
+                                        }
                                         ;
 CLOSURE_PARAMETER_NAME                  : IDENTIFIER
                                         ;
-CLOSURE_BLOCK                           : "{" "}"
-                                        | "{" STATEMENTS "}"
+CLOSURE_RETURN_TYPE                     : "→" TYPE {
+                                          $$ = $2;
+                                        }
+                                        ;                                        
+CLOSURE_BLOCK                           : "{" "}" {
+                                          $$ = new AST::BlockExpression();
+                                        }
+                                        | "{" STATEMENTS "}" {
+                                          $$ = new AST::BlockExpression();
+                                        }
                                         ;
+
+/*
+ *  PARENTHESIZED EXPRESSION
+ */
 
 PARENTHESIZED_EXPRESSION                : "(" EXPRESSION ")"
                                         ;
 
+/*
+ *  WILDCARD EXPRESSION  
+ */  
+
 WILDCARD_EXPRESSION                     : "_"
                                         ;
 
-POSTFIX_EXPRESSION                      : PRIMARY_EXPRESSION
-                                        | POSTFIX_EXPRESSION POSTFIX_OPERATOR
-                                        | CALL_EXPRESSION
-                                        | SUBSCRIPT_EXPRESSION
+
+
+SUBSCRIPT_EXPRESSION                    : POSTFIX_EXPRESSION "[" CALL_ARGUMENT_LIST "]" {
+                                          $$ = new AST::SubscriptExpression($1, $3);
+                                        }
                                         ;
 
-CALL_EXPRESSION                         : POSTFIX_EXPRESSION CALL_ARGUMENT_CLAUSE
-                                        ;
-CALL_ARGUMENT_CLAUSE                    : "(" ")" 
-                                        | "(" CALL_ARGUMENT_LIST ")"
-                                        ;
-CALL_ARGUMENT_LIST                      : CALL_ARGUMENT 
-                                        | CALL_ARGUMENT "," CALL_ARGUMENT_LIST
-                                        ;
-CALL_ARGUMENT                           : EXPRESSION 
-                                        | IDENTIFIER ":" EXPRESSION
-                                        ;
-
-SUBSCRIPT_EXPRESSION                    : POSTFIX_EXPRESSION "[" CALL_ARGUMENT_LIST "]"
-                                        ;
-
-EXPLICIT_MEMBER_EXPRESSION              : POSTFIX_EXPRESSION "." IDENTIFIER
+MEMBER_EXPRESSION                       : POSTFIX_EXPRESSION "." IDENTIFIER
                                         | POSTFIX_EXPRESSION "." IDENTIFIER GENERIC_ARGUMENT_CLAUSE
                                         | POSTFIX_EXPRESSION "." IDENTIFIER "(" ARGUMENT_NAMES ")"
                                         ;
@@ -631,8 +718,12 @@ TOP_LEVEL_DECLARATION                   :
                                         | STATEMENTS
                                         ;
 
-CODE_BLOCK                              : "{" "}"
-                                        | "{" STATEMENTS "}"
+CODE_BLOCK                              : "{" "}" {
+                                          $$ = new AST::BlockExpression();
+                                        }
+                                        | "{" STATEMENTS "}" {
+                                          $$ = new AST::BlockExpression();
+                                        }
                                         ;
 
 /*
@@ -657,17 +748,19 @@ INITIALIZER                             : "←" EXPRESSION
  */
 
 TYPE_ALIAS_DECLARATION                  : TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME TYPE_ALIAS_ASSIGNMENT {
-                                          $$ = new AST::TypeDeclaration($2);
+                                          $$ = new AST::TypeDeclaration($2, $3);
                                         }
                                         | TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME GENERIC_PARAMETER_CLAUSE TYPE_ALIAS_ASSIGNMENT {
-                                          $$ = new AST::TypeDeclaration($2);
+                                          $$ = new AST::TypeDeclaration($2, $4);
                                         }
                                         ;
 TYPE_ALIAS_DECLARATION_HEAD             : "type"
                                         ;
 TYPE_ALIAS_NAME                         : IDENTIFIER
                                         ;
-TYPE_ALIAS_ASSIGNMENT                   : "←" TYPE
+TYPE_ALIAS_ASSIGNMENT                   : "←" TYPE {
+                                          $$ = $2;
+                                        }
                                         ;
 
 /*
@@ -736,40 +829,62 @@ RECORD_MEMBER_NAME                      : IDENTIFIER
  */
 
 SUBROUTINE_DECLARATION                  : SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE {
-                                          $$ = new AST::SubroutineDeclaration($2);
+                                          $$ = new AST::SubroutineDeclaration($2, $3);
                                         }
                                         | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE SUBROUTINE_BODY {
-                                          $$ = new AST::SubroutineDeclaration($2);
+                                          $$ = new AST::SubroutineDeclaration($2, $3);
                                         }
                                         | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE {
-                                          $$ = new AST::SubroutineDeclaration($2);
+                                          $$ = new AST::SubroutineDeclaration($2, $4);
                                         }
                                         | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE SUBROUTINE_BODY {
-                                          $$ = new AST::SubroutineDeclaration($2);
+                                          $$ = new AST::SubroutineDeclaration($2, $4);
                                         }
                                         ;
 SUBROUTINE_DECLARATION_HEAD             : "subroutine"
                                         ;
 SUBROUTINE_NAME                         : IDENTIFIER 
                                         ;
-SUBROUTINE_SIGNATURE                    : PARAMETER_CLAUSE
-                                        | PARAMETER_CLAUSE SUBROUTINE_RESULT
+SUBROUTINE_SIGNATURE                    : PARAMETER_CLAUSE {
+                                          $$ = new AST::TypeSignature($1);
+                                        }
+                                        | PARAMETER_CLAUSE SUBROUTINE_RETURN_TYPE {
+                                          $$ = new AST::TypeSignature($1, $2);
+                                        }
                                         ;
-SUBROUTINE_RESULT                       : "→" TYPE
+SUBROUTINE_RETURN_TYPE                  : "→" TYPE {
+                                          $$ = $2;
+                                        }
                                         ;
 SUBROUTINE_BODY                         : CODE_BLOCK
                                         ;
-PARAMETER_CLAUSE                        : "(" ")"
-                                        | "(" PARAMETER_LIST ")"
+PARAMETER_CLAUSE                        : "(" SUBROUTINE_PARAMETERS ")"
                                         ;
-PARAMETER_LIST                          : PARAMETER 
-                                        | PARAMETER "," PARAMETER_LIST
+SUBROUTINE_PARAMETERS                   : %empty
+                                        | SUBROUTINE_PARAMETER {
+                                            $$ = new std::vector<AST::Parameter*>();
+
+                                            $$ -> push_back($1);
+                                        }
+                                        | SUBROUTINE_PARAMETER "," SUBROUTINE_PARAMETERS {
+                                          std::vector<AST::Parameter*> *parameters = $3;
+
+                                          parameters -> push_back($1);
+
+                                          $$ = parameters;   
+                                        }
                                         ;
-PARAMETER                               : LOCAL_PARAMETER_NAME TYPE_ANNOTATION
-                                        | LOCAL_PARAMETER_NAME TYPE_ANNOTATION DEFAULT_ARGUMENT_CLAUSE
-                                        | LOCAL_PARAMETER_NAME TYPE_ANNOTATION "…"
+SUBROUTINE_PARAMETER                    : SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION {
+                                          $$ = new AST::Parameter($1, $2);
+                                        }
+                                        | SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION DEFAULT_ARGUMENT_CLAUSE {
+                                          $$ = new AST::Parameter($1, $2);
+                                        }
+                                        | SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION "…" {
+                                          $$ = new AST::Parameter($1, $2);
+                                        }
                                         ;
-LOCAL_PARAMETER_NAME                    : IDENTIFIER
+SUBROUTINE_PARAMETER_NAME               : IDENTIFIER
                                         ;
 DEFAULT_ARGUMENT_CLAUSE                 : "←" EXPRESSION
                                         ;
