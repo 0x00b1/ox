@@ -54,6 +54,10 @@ namespace Type {
     class  F32: public Type {};     // 32-bit Floating-point
     class  F64: public Type {};     // 64-bit Floating-point
 
+    /*
+     *  5.1.3.  UNIT TYPE
+     */
+
     class Unit: public Type {};     // ()
 
     /*
@@ -141,15 +145,15 @@ namespace Type {
 
     class Function: public Type {
     public:
-        Function(std::vector<Type*> *parameters, Type *range): parameters(parameters), range(range) {};
+        Function(std::vector<Type*> *a, Type *b): a(a), b(b) {};
 
-        Function(std::string name, std::vector<Type*> *parameters, Type *range): name(name), parameters(parameters), range(range) {};
+        Function(std::string name, std::vector<Type*> *a, Type *b): name(name), a(a), b(b) {};
 
         std::optional<std::string> name;
 
-        std::vector<Type*> *parameters;
+        std::vector<Type*> *a;
 
-        Type *range;
+        Type *b;
     };
 
     /*

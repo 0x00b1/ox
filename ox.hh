@@ -123,6 +123,8 @@ namespace AST {
 
         std::vector<AST::Node*> *items;
 
+        Type::Array *type;
+
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -159,6 +161,8 @@ namespace AST {
         BooleanLiteral(bool value): value(value) {};
 
         bool value;
+
+        Type::Boolean *type = new Type::Boolean();
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -201,6 +205,8 @@ namespace AST {
 
         AST::BlockExpression *expression;
 
+        Type::Function *type;
+
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -231,6 +237,8 @@ namespace AST {
         EnumerationDeclaration(std::string name): name(name) {};
 
         std::string name;
+
+        Type::Enumerated *type;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -296,6 +304,8 @@ namespace AST {
         IntegerLiteral(std::string value): value(value) {};
 
         std::string value;
+
+        Type::Integer *type;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -393,6 +403,8 @@ namespace AST {
 
         std::vector<AST::RecordField*> *fields;
 
+        Type::Record *record;
+
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -444,6 +456,8 @@ namespace AST {
         std::string name;
 
         AST::TypeSignature *signature;
+
+        Type::Function *type;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -518,6 +532,8 @@ namespace AST {
         std::string name;
 
         std::vector<AST::RecordField*> *fields;
+
+        Type::Union *type;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
