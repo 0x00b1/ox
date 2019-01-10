@@ -16,8 +16,6 @@ namespace AST {
 
     class Node;
 
-    typedef std::vector<AST::Node*> nodes;
-
     class Node {
     public:
         virtual void accept(Visitor &visitor) = 0;
@@ -26,7 +24,6 @@ namespace AST {
     class Argument;
     class GenericParameter;
     class Parameter;
-    class RecordField;
     class Root;
     class TypeSignature;
 
@@ -36,8 +33,9 @@ namespace AST {
     class EnumerationDeclaration;
     class ModuleDeclaration;
     class RecordDeclaration;
+    class RecordFieldDeclaration;
     class SubroutineDeclaration;
-    class TypeDeclaration;
+    class TypeAliasDeclaration;
     class UnionDeclaration;
 
     class ArrayExpression;
@@ -60,7 +58,7 @@ namespace AST {
     class TupleExpression;
     class UnaryOperationExpression;
     class WhileLoopExpression;
-    
+
     class Visitor {
     public:
         virtual void visit(Argument &file) = 0;
@@ -86,14 +84,14 @@ namespace AST {
         virtual void visit(RangeExpression &file) = 0;
         virtual void visit(RecordDeclaration &file) = 0;
         virtual void visit(RecordExpression &file) = 0;
-        virtual void visit(RecordField &file) = 0;
+        virtual void visit(RecordFieldDeclaration &file) = 0;
         virtual void visit(ReturnExpression &file) = 0;
         virtual void visit(Root &file) = 0;
         virtual void visit(SubroutineDeclaration &file) = 0;
         virtual void visit(SubscriptExpression &file) = 0;
         virtual void visit(SwitchExpression &file) = 0;
         virtual void visit(TupleExpression &file) = 0;
-        virtual void visit(TypeDeclaration &file) = 0;
+        virtual void visit(TypeAliasDeclaration &file) = 0;
         virtual void visit(TypeSignature &file) = 0;
         virtual void visit(UnionDeclaration &file) = 0;
         virtual void visit(WhileLoopExpression &file) = 0;
@@ -155,13 +153,26 @@ namespace AST {
 
     class RecordDeclaration: public Node {
     public:
-        RecordDeclaration(std::string name, std::vector<AST::RecordField*> *fields): name(name), fields(fields) {};
+        RecordDeclaration(std::string name, std::vector<AST::RecordFieldDeclaration*> *fields): name(name), fields(fields) {};
 
         std::string name;
 
-        std::vector<AST::RecordField*> *fields;
+        std::vector<AST::RecordFieldDeclaration*> *fields;
 
         Type::Record *record;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    class RecordFieldDeclaration: public Node {
+    public:
+        RecordFieldDeclaration(std::string name, Type::Type *type): name(name), type(type) {};
+
+        std::string name;
+
+        Type::Type *type;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -185,9 +196,9 @@ namespace AST {
         }
     };
 
-    class TypeDeclaration: public Node {
+    class TypeAliasDeclaration: public Node {
     public:
-        TypeDeclaration(std::string name, Type::Type *type): name(name), type(type) {};
+        TypeAliasDeclaration(std::string name, Type::Type *type): name(name), type(type) {};
 
         std::string name;
 
@@ -200,11 +211,11 @@ namespace AST {
 
     class UnionDeclaration: public Node {
     public:
-        UnionDeclaration(std::string name, std::vector<AST::RecordField*> *fields): name(name), fields(fields) {};
+        UnionDeclaration(std::string name, std::vector<AST::RecordFieldDeclaration*> *fields): name(name), fields(fields) {};
 
         std::string name;
 
-        std::vector<AST::RecordField*> *fields;
+        std::vector<AST::RecordFieldDeclaration*> *fields;
 
         Type::Union *type;
 
@@ -530,6 +541,23 @@ namespace AST {
     };
 
     /*
+     *  A switch expression, e.g.
+     *
+     *      switch a {
+     *          case a:
+     *          case b:
+     *          
+     *          default:
+     *      }
+     */
+    class SwitchExpression: public Node {
+    public:
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    /*
      *  A tuple expression, e.g.
      *
      *      ⟨1, 2, 3⟩
@@ -628,19 +656,6 @@ namespace AST {
         }
     };
 
-    class RecordField: public Node {
-    public:
-        RecordField(std::string name, Type::Type *type): name(name), type(type) {};
-
-        std::string name;
-
-        Type::Type *type;
-
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
-    };
-
     class Root: public Node {
     public:
         Root() {};
@@ -653,14 +668,6 @@ namespace AST {
             visitor.visit(*this);
         }
     };
-
-    class SwitchExpression: public Node {
-    public:
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
-    };
-
 
     class TypeSignature: public Node {
     public:
@@ -761,8 +768,8 @@ namespace AST {
             std::cout << "generating RecordDeclaration" << std::endl;
         }
 
-        void visit(RecordField &) override {
-            std::cout << "generating RecordField" << std::endl;
+        void visit(RecordFieldDeclaration &) override {
+            std::cout << "generating RecordFieldDeclaration" << std::endl;
         }
 
         void visit(ReturnExpression &) override {
@@ -782,11 +789,11 @@ namespace AST {
         }
 
         void visit(TupleExpression &) override {
-            std::cout << "generating TypeDeclaration" << std::endl;
+            std::cout << "generating TypeAliasDeclaration" << std::endl;
         }
 
-        void visit(TypeDeclaration &) override {
-            std::cout << "generating TypeDeclaration" << std::endl;
+        void visit(TypeAliasDeclaration &) override {
+            std::cout << "generating TypeAliasDeclaration" << std::endl;
         }
 
         void visit(BinaryOperationExpression &) override {

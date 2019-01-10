@@ -17,15 +17,13 @@ class Compiler {
 public:
     Compiler();
 
-    std::vector<AST::Node*> nodes;
-
     AST::Root* root;
 
     std::map<std::string, int> variables;
 
     int result;
 
-    // Run the parser on file F.  ReturnExpression 0 on success.
+    // Run the parser on file F. Return 0 on success.
     int parse(const std::string& f);
 
     // The name of the file being parsed.

@@ -194,7 +194,7 @@
 %type <AST::UnaryOperationExpression*> PREFIX_EXPRESSION;
 %type <AST::SubscriptExpression*> SUBSCRIPT_EXPRESSION;
 %type <AST::TupleExpression*> TUPLE_LITERAL;
-%type <AST::TypeDeclaration*> TYPE_ALIAS_DECLARATION;
+%type <AST::TypeAliasDeclaration*> TYPE_ALIAS_DECLARATION;
 %type <AST::TypeSignature*> CLOSURE_SIGNATURE SUBROUTINE_SIGNATURE;
 %type <AST::ForLoopExpression*> FOR_IN_STATEMENT;
 %type <AST::WhileLoopExpression*> WHILE_STATEMENT;
@@ -221,13 +221,13 @@
 %type <AST::Node*> DEFAULT_ARGUMENT_CLAUSE;
 
 %type <AST::RecordDeclaration*> RECORD_DECLARATION;
-%type <std::vector<AST::RecordField*>*> RECORD_BODY;
-%type <std::vector<AST::RecordField*>*> RECORD_FIELDS;
-%type <AST::RecordField*> RECORD_FIELD;
+%type <std::vector<AST::RecordFieldDeclaration*>*> RECORD_BODY;
+%type <std::vector<AST::RecordFieldDeclaration*>*> RECORD_FIELDS;
+%type <AST::RecordFieldDeclaration*> RECORD_FIELD;
 %type <std::string> RECORD_FIELD_NAME;
 
 %type <AST::UnionDeclaration*> UNION_DECLARATION;
-%type <std::vector<AST::RecordField*>*> UNION_DECLARATION_BODY;
+%type <std::vector<AST::RecordFieldDeclaration*>*> UNION_DECLARATION_BODY;
 
 %%
 
@@ -235,9 +235,13 @@
 
 ROOT                                    : {
                                           $$ = new AST::Root();
+
+                                          compiler.root = $$;
                                         }
                                         | STATEMENTS {
                                           $$ = new AST::Root($1);
+
+                                          compiler.root = $$;
                                         }
                                         ;
 
@@ -673,10 +677,10 @@ DEFAULT_ARGUMENT_CLAUSE                 : "←" EXPRESSION {
  */
 
 TYPE_ALIAS_DECLARATION                  : TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME TYPE_ALIAS_ASSIGNMENT {
-                                          $$ = new AST::TypeDeclaration($2, $3);
+                                          $$ = new AST::TypeAliasDeclaration($2, $3);
                                         }
                                         | TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME GENERIC_PARAMETER_CLAUSE TYPE_ALIAS_ASSIGNMENT {
-                                          $$ = new AST::TypeDeclaration($2, $4);
+                                          $$ = new AST::TypeAliasDeclaration($2, $4);
                                         }
                                         ;
 TYPE_ALIAS_DECLARATION_HEAD             : "type"
@@ -708,15 +712,15 @@ RECORD_BODY                             : "{" RECORD_FIELDS "}" {
                                         }
                                         ;
 RECORD_FIELDS                           : %empty {
-                                          $$ = new std::vector<AST::RecordField*>();
+                                          $$ = new std::vector<AST::RecordFieldDeclaration*>();
                                         }
                                         | RECORD_FIELD {
-                                          $$ = new std::vector<AST::RecordField*>();
+                                          $$ = new std::vector<AST::RecordFieldDeclaration*>();
 
                                           $$ -> push_back($1);
                                         }
                                         | RECORD_FIELD "," RECORD_FIELDS {
-                                          std::vector<AST::RecordField*> *fields = $3;
+                                          std::vector<AST::RecordFieldDeclaration*> *fields = $3;
 
                                           fields -> push_back($1);
 
@@ -724,7 +728,7 @@ RECORD_FIELDS                           : %empty {
                                         }
                                         ;
 RECORD_FIELD                            : RECORD_FIELD_NAME TYPE_ANNOTATION {
-                                          $$ = new AST::RecordField($1, $2);
+                                          $$ = new AST::RecordFieldDeclaration($1, $2);
                                         }
                                         ;
 RECORD_FIELD_NAME                       : IDENTIFIER
