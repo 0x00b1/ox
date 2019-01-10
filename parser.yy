@@ -144,7 +144,7 @@
   TYPE_KEYWORD                      "type"
   UNION_KEYWORD                     "union"
   UNSIGNED_KEYWORD                  "unsigned"
-  WHILE_KEYWORD                     "while"
+  WHILE_KEYWORD                     "WhileLoopExpression"
 ;
 
 %token <std::string> IDENTIFIER
@@ -182,22 +182,22 @@
 %type <Type::Type*> TYPE_ALIAS_ASSIGNMENT;
 %type <AST::Argument*> CALL_ARGUMENT;
 %type <AST::ArrayExpression*> ARRAY_LITERAL;
-%type <AST::BinaryExpression*> BINARY_EXPRESSION TYPE_CASTING_OPERATOR;
+%type <AST::BinaryOperationExpression*> BINARY_EXPRESSION TYPE_CASTING_OPERATOR;
 %type <AST::BlockExpression*> BLOCK_EXPRESSION;
-%type <AST::BooleanLiteral*> BOOLEAN_LITERAL;
+%type <AST::BooleanLiteralExpression*> BOOLEAN_LITERAL;
 %type <AST::CallExpression*> CALL_EXPRESSION;
 %type <AST::ClosureExpression*> CLOSURE_EXPRESSION;
 %type <AST::EnumerationDeclaration*> ENUMERATION_DECLARATION;
-%type <AST::FloatingPointLiteral*> FLOATING_POINT_LITERAL;
-%type <AST::IntegerLiteral*> INTEGER_LITERAL;
+%type <AST::FloatingPointLiteralExpression*> FLOATING_POINT_LITERAL;
+%type <AST::IntegerLiteralExpression*> INTEGER_LITERAL;
 %type <AST::Parameter*> CLOSURE_PARAMETER SUBROUTINE_PARAMETER;
-%type <AST::PrefixExpression*> PREFIX_EXPRESSION;
+%type <AST::UnaryOperationExpression*> PREFIX_EXPRESSION;
 %type <AST::SubscriptExpression*> SUBSCRIPT_EXPRESSION;
 %type <AST::TupleExpression*> TUPLE_LITERAL;
 %type <AST::TypeDeclaration*> TYPE_ALIAS_DECLARATION;
 %type <AST::TypeSignature*> CLOSURE_SIGNATURE SUBROUTINE_SIGNATURE;
-%type <AST::ForLoop*> FOR_IN_STATEMENT;
-%type <AST::WhileLoop*> WHILE_STATEMENT;
+%type <AST::ForLoopExpression*> FOR_IN_STATEMENT;
+%type <AST::WhileLoopExpression*> WHILE_STATEMENT;
 %type <Pattern::Pattern*> PATTERN;
 
 /*
@@ -206,15 +206,15 @@
 
 %type <AST::BreakExpression*> BREAK_STATEMENT;
 %type <AST::ContinueExpression*> CONTINUE_STATEMENT;
-%type <AST::IfStatement*> IF_STATEMENT;
-%type <AST::Label*> LABELED_STATEMENT
+%type <AST::ConditionalExpression*> IF_STATEMENT;
+%type <AST::LabelStatement*> LABELED_STATEMENT
 %type <AST::Node*> LOOP_STATEMENT;
 %type <AST::Node*> STATEMENT;
-%type <AST::ReturnStatement*> RETURN_STATEMENT;
+%type <AST::ReturnExpression*> RETURN_STATEMENT;
 %type <AST::Root*> ROOT;
-%type <AST::SwitchStatement*> SWITCH_STATEMENT;
+%type <AST::SwitchExpression*> SWITCH_STATEMENT;
 %type <std::string> LABEL_NAME;
-%type <AST::Label*> STATEMENT_LABEL;
+%type <AST::LabelStatement*> STATEMENT_LABEL;
 %type <std::vector<AST::Node*>*> STATEMENTS;
 
 %type <AST::SubroutineDeclaration*> SUBROUTINE_DECLARATION;
@@ -245,10 +245,10 @@ EXPRESSION                              : PREFIX_EXPRESSION
                                         | PREFIX_EXPRESSION BINARY_EXPRESSIONS
                                         ;
 PREFIX_EXPRESSION                       : POSTFIX_EXPRESSION {
-                                          $$ = new AST::PrefixExpression($1);
+                                          $$ = new AST::UnaryOperationExpression($1);
                                         }
                                         | PREFIX_OPERATOR POSTFIX_EXPRESSION {
-                                          $$ = new AST::PrefixExpression($1, $2);
+                                          $$ = new AST::UnaryOperationExpression($1, $2);
                                         }
                                         ;
 POSTFIX_EXPRESSION                      : PRIMARY_EXPRESSION
@@ -351,27 +351,27 @@ LITERAL                                 : BOOLEAN_LITERAL
                                         | NUMERIC_LITERAL
                                         ;
 BOOLEAN_LITERAL                         : "true" {
-                                          $$ = new AST::BooleanLiteral(true);
+                                          $$ = new AST::BooleanLiteralExpression(true);
                                         }
                                         | "false" {
-                                          $$ = new AST::BooleanLiteral(false);
+                                          $$ = new AST::BooleanLiteralExpression(false);
                                         }
                                         ;
 NUMERIC_LITERAL                         : FLOATING_POINT_LITERAL
                                         | INTEGER_LITERAL
                                         ;
 FLOATING_POINT_LITERAL                  : FLOATING_POINT {
-                                          $$ = new AST::FloatingPointLiteral($1);
+                                          $$ = new AST::FloatingPointLiteralExpression($1);
                                         }
                                         | "−" FLOATING_POINT  %prec UNARY_MINUS_SIGN {
-                                          $$ = new AST::FloatingPointLiteral($2);
+                                          $$ = new AST::FloatingPointLiteralExpression($2);
                                         }
                                         ;
 INTEGER_LITERAL                         : INTEGER {
-                                          $$ = new AST::IntegerLiteral($1);
+                                          $$ = new AST::IntegerLiteralExpression($1);
                                         }
                                         | "−" INTEGER         %prec UNARY_MINUS_SIGN {
-                                          $$ = new AST::IntegerLiteral($2);
+                                          $$ = new AST::IntegerLiteralExpression($2);
                                         }
                                         ;
 ARRAY_LITERAL                           : "[" ARRAY_LITERAL_ITEMS "]" {
@@ -834,21 +834,21 @@ LOOP_STATEMENT                          : FOR_IN_STATEMENT
                                         | WHILE_STATEMENT
                                         ;
 FOR_IN_STATEMENT                        : "for" PATTERN "in" EXPRESSION BLOCK_EXPRESSION {
-                                          $$ = new AST::ForLoop($2, $4, $5);
+                                          $$ = new AST::ForLoopExpression($2, $4, $5);
                                         }
                                         ;
-WHILE_STATEMENT                         : "while" EXPRESSION BLOCK_EXPRESSION {
-                                          $$ = new AST::WhileLoop($2, $3);
+WHILE_STATEMENT                         : "WhileLoopExpression" EXPRESSION BLOCK_EXPRESSION {
+                                          $$ = new AST::WhileLoopExpression($2, $3);
                                         }
                                         ;
 BRANCH_STATEMENT                        : IF_STATEMENT
                                         | SWITCH_STATEMENT
                                         ;
 IF_STATEMENT                            : "if" CONDITION_LIST BLOCK_EXPRESSION {
-                                          $$ = new AST::IfStatement();
+                                          $$ = new AST::ConditionalExpression();
                                         }
                                         | "if" CONDITION_LIST BLOCK_EXPRESSION ELSE_CLAUSE {
-                                          $$ = new AST::IfStatement();
+                                          $$ = new AST::ConditionalExpression();
                                         }
                                         ;
 CONDITION_LIST                          : CONDITION 
@@ -863,10 +863,10 @@ ELSE_CLAUSE                             : "else" BLOCK_EXPRESSION
                                         | "else" IF_STATEMENT
                                         ;
 SWITCH_STATEMENT                        : "switch" EXPRESSION "{" "}" {
-                                          $$ = new AST::SwitchStatement();
+                                          $$ = new AST::SwitchExpression();
                                         }
                                         | "switch" EXPRESSION "{" SWITCH_CASES "}" {
-                                          $$ = new AST::SwitchStatement();
+                                          $$ = new AST::SwitchExpression();
                                         }
                                         ;
 SWITCH_CASES                            : SWITCH_CASE 
@@ -893,7 +893,7 @@ LABELED_STATEMENT                       : STATEMENT_LABEL LOOP_STATEMENT
                                         | STATEMENT_LABEL SWITCH_STATEMENT 
                                         ;
 STATEMENT_LABEL                         : LABEL_NAME ":" {
-                                          $$ = new AST::Label($1);
+                                          $$ = new AST::LabelStatement($1);
                                         }
                                         ;
 LABEL_NAME                              : IDENTIFIER
@@ -917,10 +917,10 @@ CONTINUE_STATEMENT                      : "continue" {
                                         }
                                         ;
 RETURN_STATEMENT                        : "return" {
-                                          $$ = new AST::ReturnStatement();
+                                          $$ = new AST::ReturnExpression();
                                         }
                                         | "return" EXPRESSION {
-                                          $$ = new AST::ReturnStatement($2);
+                                          $$ = new AST::ReturnExpression($2);
                                         }
                                         ;
 
