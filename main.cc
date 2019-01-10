@@ -3,7 +3,7 @@
 #include "ox.hh"
 
 int main (int argc, char *argv[]) {
-    int res = 0;
+    int code = 0;
 
     Compiler compiler;
 
@@ -15,17 +15,13 @@ int main (int argc, char *argv[]) {
         } else if (!compiler.parse(argv[i])) {
             std::cout << compiler.result << '\n';
         } else {
-            res = 1;
+            code = 1;
         }
     }
 
-    std::cout << compiler.root -> nodes -> size() << std::endl;
-
     AST::Generator generator;
 
-    for (AST::Node* node: *compiler.root->nodes) {
-        node->accept(generator);
-    }
+    compiler.root->accept(generator);
 
-    return res;
+    return code;
 }

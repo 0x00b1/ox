@@ -97,6 +97,19 @@ namespace AST {
         virtual void visit(WhileLoopExpression &file) = 0;
     };
 
+    class Root: public Node {
+    public:
+        Root() {};
+
+        Root(std::vector<AST::Node*> *nodes): nodes(nodes) {};
+
+        std::vector<AST::Node*> *nodes;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
     class Argument: public Node {
     public:
         Argument(AST::Node *expression): expression(expression) {};
@@ -650,19 +663,6 @@ namespace AST {
         Type::Type *type;
 
         AST::Node *expression;
-
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
-    };
-
-    class Root: public Node {
-    public:
-        Root() {};
-
-        Root(std::vector<AST::Node*> *nodes): nodes(nodes) {};
-
-        std::vector<AST::Node*> *nodes;    
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
