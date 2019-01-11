@@ -13,7 +13,7 @@
 %code requires {
   #include <string>
 
-  #include "../include/ast.hh"
+  #include "include/ast.hh"
 
   class Compiler;
 }
@@ -30,8 +30,8 @@
 %define parse.error verbose
 
 %code {
-    #include "../include/compiler.hh"
-    #include "../include/ast.hh"
+    #include "include/compiler.hh"
+    #include "include/ast.hh"
 }
 
 %define api.token.prefix {TOK_}

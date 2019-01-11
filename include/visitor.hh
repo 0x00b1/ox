@@ -42,6 +42,10 @@ namespace AST {
 
 class Visitor {
 public:
+    Visitor() = default;
+    
+    virtual ~Visitor() = default;
+
     virtual void visit(const AST::Argument &node);
     virtual void visit(const AST::ArrayExpression &node);
     virtual void visit(const AST::BinaryOperationExpression &node);

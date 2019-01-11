@@ -11,7 +11,7 @@
 namespace AST {
     class Root: public Node {
     public:
-        Root() {};
+        Root() = default;
 
         Root(std::vector<Node*> *nodes): nodes(*nodes) {};
 
@@ -197,7 +197,7 @@ namespace AST {
      */
     class BlockExpression: public Node {
     public:
-        BlockExpression() {};
+        BlockExpression() = default;
 
         BlockExpression(std::vector<Node*> *statements): statements(*statements) {};
 
@@ -233,7 +233,7 @@ namespace AST {
      */
     class BreakExpression: public Node {
     public:
-        BreakExpression() {};
+        BreakExpression() = default;
 
         BreakExpression(std::string name): name(name) {};
 
@@ -313,7 +313,7 @@ namespace AST {
      */
     class ContinueExpression: public Node {
     public:
-        ContinueExpression() {};
+        ContinueExpression() = default;
 
         ContinueExpression(LabelDeclaration *label): label(label) {};
 
@@ -432,7 +432,7 @@ namespace AST {
      */
     class ReturnExpression: public Node {
     public:
-        ReturnExpression() {};
+        ReturnExpression() = default;
 
         ReturnExpression(Node *expression): expression(expression) {};
 
@@ -583,7 +583,7 @@ namespace AST {
 
     class TypeSignature: public Node {
     public:
-        TypeSignature() {};
+        TypeSignature() = default;
 
         TypeSignature(std::vector<Parameter*> *parameters): parameters(parameters) {};
 

@@ -6,9 +6,9 @@ class Visitor;
 namespace AST {
     class Node {
     public:
-        Node() {}
+        Node() = default;
 
-        virtual ~Node() {}
+        virtual ~Node() = default;
 
         virtual void accept(Visitor &visitor) = 0;
     };
