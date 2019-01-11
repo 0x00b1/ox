@@ -14,7 +14,7 @@ namespace AST {
     public:
         Root() = default;
 
-        explicit Root(std::vector<gi> nodes): nodes(nodes) {};
+        explicit Root(std::vector<AST::Node*> nodes): nodes(nodes) {};
 
         std::vector<Node*> nodes;
 
