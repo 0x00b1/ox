@@ -8,7 +8,6 @@ namespace Type {
     /*
      *  5.0.    TYPES
      */
-
     class Type {};
 
     /*
@@ -18,13 +17,11 @@ namespace Type {
     /*
      *  5.1.1.  BOOLEAN
      */    
-
-    class Boolean: public Type {};  // Boolean
+    class Boolean: public Type {};
 
     /*
      *  5.1.2.  NUMBER
      */
-
     class Number: public Type {
     public:
         std::uint8_t bits;
@@ -38,17 +35,17 @@ namespace Type {
         bool sign;
     };
 
-    class   U8: public Integer {};     // unsigned   8-bit Integer
-    class  U16: public Integer {};     // unsigned  16-bit Integer
-    class  U32: public Integer {};     // unsigned  32-bit Integer
-    class  U64: public Integer {};     // unsigned  64-bit Integer
-    class U128: public Integer {};     // unsigned 128-bit Integer
+    class   U8: public Integer {};  // unsigned   8-bit Integer
+    class  U16: public Integer {};  // unsigned  16-bit Integer
+    class  U32: public Integer {};  // unsigned  32-bit Integer
+    class  U64: public Integer {};  // unsigned  64-bit Integer
+    class U128: public Integer {};  // unsigned 128-bit Integer
 
-    class   I8: public Integer {};     //   8-bit Integer
-    class  I16: public Integer {};     //  16-bit Integer
-    class  I32: public Integer {};     //  32-bit Integer
-    class  I64: public Integer {};     //  64-bit Integer
-    class I128: public Integer {};     // 128-bit Integer
+    class   I8: public Integer {};  //   8-bit Integer
+    class  I16: public Integer {};  //  16-bit Integer
+    class  I32: public Integer {};  //  32-bit Integer
+    class  I64: public Integer {};  //  64-bit Integer
+    class I128: public Integer {};  // 128-bit Integer
 
     class  F32: public Type {};     // 32-bit Floating-point
     class  F64: public Type {};     // 64-bit Floating-point
@@ -56,13 +53,11 @@ namespace Type {
     /*
      *  5.1.3.  UNIT TYPE
      */
-
     class Unit: public Type {};     // ()
 
     /*
      *  5.1.2.  ARRAY TYPE
      */
-
     class Array: public Type {
     public:
         Array(std::vector<std::string> *shape, Type *type): shape(shape), type(type) {};
@@ -75,13 +70,11 @@ namespace Type {
     /*
      *  5.2.    PRODUCT TYPE
      */
-
     class Product: public Type {};
 
     /*
      *  5.2.1.  TUPLE TYPE
      */
-
     class Tuple: public Product {
     public:
         Tuple(std::vector<Type*> *types): types(types) {}
@@ -92,7 +85,6 @@ namespace Type {
     /*
      *  5.2.2.  RECORD TYPE
      */
-
     class Record: public Product {
     public:
         Record(std::string name): name(name) {};
@@ -107,13 +99,11 @@ namespace Type {
     /*
      *  5.3.    SUM TYPE
      */
-
     class Sum: public Type {};
 
     /*
      *  5.3.1.  TAGGED UNION
      */
-
     class Union: public Sum {
     public:
         Union(std::string name): name(name) {};
@@ -128,7 +118,6 @@ namespace Type {
     /*
      *  5.3.2.  ENUMERATED TYPE
      */
-
     class Enumerated: public Sum {
     public:
         Enumerated(std::string name, std::vector<std::pair<std::string, Type*>> *types): name(name), types(types) {};
@@ -141,7 +130,6 @@ namespace Type {
     /*
      *  5.4.    FUNCTION TYPE
      */
-
     class Function: public Type {
     public:
         Function(std::vector<Type*> *a, Type *b): a(a), b(b) {};
@@ -158,7 +146,6 @@ namespace Type {
     /*
      *  5.5.    REFERENCE TYPE
      */
-
     class Reference: public Type {
     public:
         Reference(Type *referenced): referenced(referenced) {};

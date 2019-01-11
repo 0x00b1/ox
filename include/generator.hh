@@ -11,145 +11,41 @@ public:
 
     virtual ~Generator() {};
 
-    void visit(AST::Node &) override {
-        std::cout << "generating Node" << std::endl;
-    }
-
-    void visit(AST::Root &root) override {
-        std::cout << "generating Root" << std::endl;
-    }
-
-    void visit(AST::Argument &) override {
-        std::cout << "generating Argument" << std::endl;
-    }
-
-    void visit(AST::ArrayExpression &) override {
-        std::cout << "generating ArrayExpression" << std::endl;
-    }
-
-    void visit(AST::UnaryOperationExpression &) override {
-        std::cout << "generating UnaryOperationExpression" << std::endl;
-    }
-
-    void visit(AST::BlockExpression &) override {
-        std::cout << "generating BlockExpression" << std::endl;
-    }
-
-    void visit(AST::BooleanLiteralExpression &) override {
-        std::cout << "generating BooleanLiteralExpression" << std::endl;
-    }
-
-    void visit(AST::BreakExpression &) override {
-        std::cout << "generating BreakExpression" << std::endl;
-    }
-
-    void visit(AST::CallExpression &) override {
-        std::cout << "generating CallExpression" << std::endl;
-    }
-
-    void visit(AST::ClosureExpression &) override {
-        std::cout << "generating ClosureExpression" << std::endl;
-    }
-
-    void visit(AST::ConstantDeclaration &) override {
-        std::cout << "generating ConstantDeclaration" << std::endl;
-    }
-
-    void visit(AST::ContinueExpression &) override {
-        std::cout << "generating ContinueExpression" << std::endl;
-    }
-
-    void visit(AST::FloatingPointLiteralExpression &) override {
-        std::cout << "generating FloatingPointLiteralExpression" << std::endl;
-    }
-
-    void visit(AST::ForLoopExpression &) override {
-        std::cout << "generating FloatingPointLiteralExpression" << std::endl;
-    }
-
-    void visit(AST::GenericParameter &) override {
-        std::cout << "generating GenericParameter" << std::endl;
-    }
-
-    void visit(AST::IntegerLiteralExpression &) override {
-        std::cout << "generating IntegerLiteralExpression" << std::endl;
-    }
-
-    void visit(AST::LabelDeclaration &) override {
-        std::cout << "generating LabelDeclaration" << std::endl;
-    }
-
-    void visit(AST::EnumerationDeclaration &) override {
-        std::cout << "generating EnumerationDeclaration" << std::endl;
-    }
-
-    void visit(AST::ModuleDeclaration &) override {
-        std::cout << "generating ModuleDeclaration" << std::endl;
-    }
-
-    void visit(AST::RangeExpression &) override {
-        std::cout << "generating RangeExpression" << std::endl;
-    }
-
-    void visit(AST::RecordExpression &) override {
-        std::cout << "generating RecordExpression" << std::endl;
-    }
-
-    void visit(AST::RecordDeclaration &) override {
-        std::cout << "generating RecordDeclaration" << std::endl;
-    }
-
-    void visit(AST::RecordFieldDeclaration &) override {
-        std::cout << "generating RecordFieldDeclaration" << std::endl;
-    }
-
-    void visit(AST::ReturnExpression &) override {
-        std::cout << "generating ReturnExpression" << std::endl;
-    }
-
-    void visit(AST::SubroutineDeclaration &) override {
-        std::cout << "generating SubroutineDeclaration" << std::endl;
-    }
-
-    void visit(AST::SwitchExpression &) override {
-        std::cout << "generating SwitchExpression" << std::endl;
-    }
-
-    void visit(AST::TupleExpression &) override {
-        std::cout << "generating TypeAliasDeclaration" << std::endl;
-    }
-
-    void visit(AST::TypeAliasDeclaration &) override {
-        std::cout << "generating TypeAliasDeclaration" << std::endl;
-    }
-
-    void visit(AST::BinaryOperationExpression &) override {
-        std::cout << "generating BinaryOperationExpression" << std::endl;
-    }
-
-    void visit(AST::UnionDeclaration &) override {
-        std::cout << "generating UnionDeclaration" << std::endl;
-    }
-
-    void visit(AST::WhileLoopExpression &) override {
-        std::cout << "generating WhileLoopExpression" << std::endl;
-    }
-
-    void visit(AST::ConditionalExpression &) override {
-        std::cout << "generating ConditionalExpression" << std::endl;
-    }
-
-    void visit(AST::Parameter &) override {
-        std::cout << "generating Parameter" << std::endl;
-    }
-
-    void visit(AST::SubscriptExpression &) override {
-        std::cout << "generating SubscriptExpression" << std::endl;
-    }
-
-    void visit(AST::TypeSignature &) override {
-        std::cout << "generating TypeSignature" << std::endl;
-    }
+    virtual void visit(const AST::Argument &node);
+    virtual void visit(const AST::ArrayExpression &node);
+    virtual void visit(const AST::BinaryOperationExpression &node);
+    virtual void visit(const AST::BlockExpression &node);
+    virtual void visit(const AST::BooleanLiteralExpression &node);
+    virtual void visit(const AST::BreakExpression &node);
+    virtual void visit(const AST::CallExpression &node);
+    virtual void visit(const AST::ClosureExpression &node);
+    virtual void visit(const AST::ConditionalExpression &node);
+    virtual void visit(const AST::ConstantDeclaration &node);
+    virtual void visit(const AST::ContinueExpression &node);
+    virtual void visit(const AST::EnumerationDeclaration &node);
+    virtual void visit(const AST::FloatingPointLiteralExpression &node);
+    virtual void visit(const AST::ForLoopExpression &node);
+    virtual void visit(const AST::GenericParameter &node);
+    virtual void visit(const AST::IntegerLiteralExpression &node);
+    virtual void visit(const AST::LabelDeclaration &node);
+    virtual void visit(const AST::ModuleDeclaration &node);
+    virtual void visit(const AST::Node &node);
+    virtual void visit(const AST::Parameter &node);
+    virtual void visit(const AST::RangeExpression &node);
+    virtual void visit(const AST::RecordDeclaration &node);
+    virtual void visit(const AST::RecordExpression &node);
+    virtual void visit(const AST::RecordFieldDeclaration &node);
+    virtual void visit(const AST::ReturnExpression &node);
+    virtual void visit(const AST::Root &root);
+    virtual void visit(const AST::SubroutineDeclaration &node);
+    virtual void visit(const AST::SubscriptExpression &node);
+    virtual void visit(const AST::SwitchExpression &node);
+    virtual void visit(const AST::TupleExpression &node);
+    virtual void visit(const AST::TypeAliasDeclaration &node);
+    virtual void visit(const AST::TypeSignature &node);
+    virtual void visit(const AST::UnaryOperationExpression &node);
+    virtual void visit(const AST::UnionDeclaration &node);
+    virtual void visit(const AST::WhileLoopExpression &node);
 };
     
 #endif
