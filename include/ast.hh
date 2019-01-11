@@ -13,7 +13,7 @@ namespace AST {
     public:
         Root() = default;
 
-        Root(std::vector<Node*> *nodes): nodes(*nodes) {};
+        explicit Root(std::vector<Node*> *nodes): nodes(*nodes) {};
 
         std::vector<Node*> nodes;
 
@@ -24,9 +24,9 @@ namespace AST {
 
     class Argument: public Node {
     public:
-        Argument(Node *expression): expression(expression) {};
+        explicit Argument(Node *expression): expression(expression) {};
 
-        Argument(std::string name, Node *expression): name(name), expression(expression) {};
+        Argument(std::string name, Node *expression): name(std::move(name)), expression(expression) {};
 
         std::string name;
 
@@ -50,7 +50,7 @@ namespace AST {
 
     class EnumerationDeclaration: public Node {
     public:
-        EnumerationDeclaration(std::string name): name(name) {};
+        explicit EnumerationDeclaration(std::string name): name(std::move(name)) {};
 
         std::string name;
 
@@ -63,9 +63,9 @@ namespace AST {
 
     class ModuleDeclaration: public Node {
     public:
-        ModuleDeclaration(std::string name): name(name) {};
+        explicit ModuleDeclaration(std::string name): name(std::move(name)) {};
 
-        ModuleDeclaration(std::string name, std::vector<Node*> members): name(name), members(members) {};
+        ModuleDeclaration(std::string name, std::vector<Node*> members): name(std::move(name)), members(members) {};
 
         std::string name;
 
@@ -78,7 +78,7 @@ namespace AST {
 
     class RecordDeclaration: public Node {
     public:
-        RecordDeclaration(std::string name, std::vector<RecordFieldDeclaration*> *fields): name(name), fields(*fields) {};
+        RecordDeclaration(std::string name, std::vector<RecordFieldDeclaration*> *fields): name(std::move(name)), fields(*fields) {};
 
         std::string name;
 
@@ -93,7 +93,7 @@ namespace AST {
 
     class RecordFieldDeclaration: public Node {
     public:
-        RecordFieldDeclaration(std::string name, Type::Type *type): name(name), type(type) {};
+        RecordFieldDeclaration(std::string name, Type::Type *type): name(std::move(name)), type(type) {};
 
         std::string name;
 
@@ -106,7 +106,7 @@ namespace AST {
 
     class SubroutineDeclaration: public Node {
     public:
-        SubroutineDeclaration(std::string name, TypeSignature *signature): name(name), signature(signature) {};
+        SubroutineDeclaration(std::string name, TypeSignature *signature): name(std::move(name)), signature(signature) {};
 
         std::string name;
 
@@ -123,7 +123,7 @@ namespace AST {
 
     class TypeAliasDeclaration: public Node {
     public:
-        TypeAliasDeclaration(std::string name, Type::Type *type): name(name), type(type) {};
+        TypeAliasDeclaration(std::string name, Type::Type *type): name(std::move(name)), type(type) {};
 
         std::string name;
 
@@ -136,7 +136,7 @@ namespace AST {
 
     class UnionDeclaration: public Node {
     public:
-        UnionDeclaration(std::string name, std::vector<RecordFieldDeclaration*> *fields): name(name), fields(*fields) {};
+        UnionDeclaration(std::string name, std::vector<RecordFieldDeclaration*> *fields): name(std::move(name)), fields(*fields) {};
 
         std::string name;
 
@@ -160,7 +160,7 @@ namespace AST {
      */
     class ArrayExpression: public Node {
     public:
-        ArrayExpression(std::vector<Node*> *items): items(*items) {};
+        explicit ArrayExpression(std::vector<Node*> *items): items(*items) {};
 
         std::vector<Node*> items;
 
@@ -178,7 +178,7 @@ namespace AST {
      */
     class BinaryOperationExpression: public Node {
     public:
-        BinaryOperationExpression(std::string name, Node *a): name(name), a(a) {};
+        BinaryOperationExpression(std::string name, Node *a): name(std::move(name)), a(a) {};
 
         std::string name;
 
@@ -199,7 +199,7 @@ namespace AST {
     public:
         BlockExpression() = default;
 
-        BlockExpression(std::vector<Node*> *statements): statements(*statements) {};
+        explicit BlockExpression(std::vector<Node*> *statements): statements(*statements) {};
 
         std::vector<Node*> statements;
 
@@ -215,7 +215,7 @@ namespace AST {
      */
     class BooleanLiteralExpression: public Node {
     public:
-        BooleanLiteralExpression(bool value): value(value) {};
+        explicit BooleanLiteralExpression(bool value): value(value) {};
 
         bool value;
 
@@ -235,9 +235,9 @@ namespace AST {
     public:
         BreakExpression() = default;
 
-        BreakExpression(std::string name): name(name) {};
+        explicit BreakExpression(std::string name): name(std::move(name)) {};
 
-        BreakExpression(LabelDeclaration *label): label(label) {};
+        explicit BreakExpression(LabelDeclaration *label): label(label) {};
 
         std::optional<LabelDeclaration*> label;
 
@@ -275,7 +275,7 @@ namespace AST {
      */
     class ClosureExpression: public Node {
     public:
-        ClosureExpression(BlockExpression *expression): expression(expression) {};
+        explicit ClosureExpression(BlockExpression *expression): expression(expression) {};
 
         ClosureExpression(TypeSignature *signature, BlockExpression *expression): signature(signature), expression(expression) {};
 
@@ -283,7 +283,7 @@ namespace AST {
 
         BlockExpression *expression;
 
-        Type::Function *type;
+        Type::Function *type{};
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -315,9 +315,9 @@ namespace AST {
     public:
         ContinueExpression() = default;
 
-        ContinueExpression(LabelDeclaration *label): label(label) {};
+        explicit ContinueExpression(LabelDeclaration *label): label(label) {};
 
-        ContinueExpression(std::string name): name(name) {};
+        explicit ContinueExpression(std::string name): name(std::move(name)) {};
 
         std::optional<LabelDeclaration*> label;
 
@@ -335,7 +335,7 @@ namespace AST {
      */
     class FloatingPointLiteralExpression: public Node {
     public:
-        FloatingPointLiteralExpression(std::string value): value(value) {};
+        explicit FloatingPointLiteralExpression(std::string value): value(std::move(value)) {};
 
         std::string value;
 
@@ -353,7 +353,7 @@ namespace AST {
      */
     class ForLoopExpression: public Node {
     public:
-        ForLoopExpression(std::string name, Node *container, BlockExpression *expression): name(name), container(container), expression(expression) {};
+        ForLoopExpression(std::string name, Node *container, BlockExpression *expression): name(std::move(name)), container(container), expression(expression) {};
 
         std::string name;
 
@@ -373,7 +373,7 @@ namespace AST {
      */
     class IntegerLiteralExpression: public Node {
     public:
-        IntegerLiteralExpression(std::string value): value(value) {};
+        explicit IntegerLiteralExpression(std::string value): value(std::move(value)) {};
 
         std::string value;
 
@@ -412,7 +412,7 @@ namespace AST {
      */
     class RecordExpression: public Node {
     public:
-        RecordExpression(std::vector<Node*> *expressions): expressions(expressions) {};
+        explicit RecordExpression(std::vector<Node*> *expressions): expressions(expressions) {};
 
         RecordExpression(std::vector<Node*> *expressions, Node* expression): expressions(expressions), expression(expression) {};
 
@@ -434,9 +434,9 @@ namespace AST {
     public:
         ReturnExpression() = default;
 
-        ReturnExpression(Node *expression): expression(expression) {};
+        explicit ReturnExpression(Node *expression): expression(expression) {};
 
-        ReturnExpression(LabelDeclaration *label): label(label) {};
+        explicit ReturnExpression(LabelDeclaration *label): label(label) {};
 
         std::optional<LabelDeclaration*> label;
 
@@ -489,7 +489,7 @@ namespace AST {
      */
     class TupleExpression: public Node {
     public:
-        TupleExpression(std::vector<Node*> *items): items(items) {};
+        explicit TupleExpression(std::vector<Node*> *items): items(items) {};
 
         std::vector<Node*> *items;
 
@@ -505,9 +505,9 @@ namespace AST {
      */
     class UnaryOperationExpression: public Node {
     public:
-        UnaryOperationExpression(Node *a): a(a) {};
+        explicit UnaryOperationExpression(Node *a): a(a) {};
 
-        UnaryOperationExpression(std::string operation, Node *a): operation(operation), a(a) {};
+        UnaryOperationExpression(std::string operation, Node *a): operation(std::move(operation)), a(a) {};
 
         Node *a;
 
@@ -547,9 +547,9 @@ namespace AST {
 
     class LabelDeclaration: public Node {
     public:
-        LabelDeclaration(std::string name): name(name) {};
+        explicit LabelDeclaration(std::string name): name(name) {};
 
-        LabelDeclaration(std::string name, Node *statement): name(name), statement(statement) {};
+        LabelDeclaration(std::string name, Node *statement): name(std::move(name)), statement(statement) {};
 
         std::string name;
 
@@ -562,13 +562,13 @@ namespace AST {
 
     class Parameter: public Node {
     public:
-        Parameter(std::string name): name(name) {};
+        explicit Parameter(std::string name): name(name) {};
 
-        Parameter(std::string name, Node *expression): name(name), expression(expression) {};
+        Parameter(std::string name, Node *expression): name(std::move(name)), expression(expression) {};
 
-        Parameter(std::string name, Type::Type *type): name(name), type(type) {};
+        Parameter(std::string name, Type::Type *type): name(std::move(name)), type(type) {};
 
-        Parameter(std::string name, Type::Type *type, Node *expression): name(name), type(type), expression(expression) {};
+        Parameter(std::string name, Type::Type *type, Node *expression): name(std::move(name)), type(type), expression(expression) {};
 
         std::string name;
 
@@ -585,7 +585,7 @@ namespace AST {
     public:
         TypeSignature() = default;
 
-        TypeSignature(std::vector<Parameter*> *parameters): parameters(parameters) {};
+        explicit TypeSignature(std::vector<Parameter*> *parameters): parameters(parameters) {};
 
         TypeSignature(std::vector<Parameter*> *parameters, Type::Type *type): parameters(parameters), type(type) {};
 

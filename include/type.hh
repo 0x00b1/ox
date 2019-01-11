@@ -77,7 +77,7 @@ namespace Type {
      */
     class Tuple: public Product {
     public:
-        Tuple(std::vector<Type*> *types): types(types) {}
+        explicit Tuple(std::vector<Type*> *types): types(types) {}
 
         std::vector<Type*> *types;
     };
@@ -87,7 +87,7 @@ namespace Type {
      */
     class Record: public Product {
     public:
-        Record(std::string name): name(name) {};
+        explicit Record(std::string name): name(name) {};
 
         Record(std::string name, std::vector<std::pair<std::string, Type*>> *types): name(name), types(types) {};
 
@@ -106,7 +106,7 @@ namespace Type {
      */
     class Union: public Sum {
     public:
-        Union(std::string name): name(name) {};
+        explicit Union(std::string name): name(name) {};
 
         Union(std::string name, std::vector<std::pair<std::string, Type*>> *types): name(name), types(types) {};
 
@@ -148,7 +148,7 @@ namespace Type {
      */
     class Reference: public Type {
     public:
-        Reference(Type *referenced): referenced(referenced) {};
+        explicit Reference(Type *referenced): referenced(referenced) {};
 
         Type *referenced;
     };
