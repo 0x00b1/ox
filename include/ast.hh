@@ -4,8 +4,9 @@
 #include <string>
 #include <optional>
 #include <vector>
+#include <iostream>
 
-#include "include/visitor.hh"
+#include "visitor.hh"
 #include "type.hh"
 
 namespace AST {
@@ -13,7 +14,7 @@ namespace AST {
     public:
         Root() = default;
 
-        explicit Root(std::vector<Node*> *nodes): nodes(*nodes) {};
+        explicit Root(std::vector<gi> nodes): nodes(nodes) {};
 
         std::vector<Node*> nodes;
 
@@ -191,7 +192,7 @@ namespace AST {
     public:
         BlockExpression() = default;
 
-        explicit BlockExpression(std::vector<Node*> *statements): statements(*statements) {};
+        explicit BlockExpression(std::vector<Node*> statements): statements(statements) {};
 
         std::vector<Node*> statements;
 

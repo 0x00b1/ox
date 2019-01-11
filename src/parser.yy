@@ -152,7 +152,11 @@
 %token <std::string> FLOATING_POINT 
 
 %printer {
-    yyo << $$;
+    // FIXME:
+    //yyo << "error";
+    auto example = $$;
+
+    yyo << typeid(example).name();
 } <*>;
 
 %left "←"
@@ -199,11 +203,6 @@
 %type <AST::ForLoopExpression*> FOR_IN_STATEMENT;
 %type <AST::WhileLoopExpression*> WHILE_STATEMENT;
 %type <std::string> PATTERN;
-
-/*
- *
- */
-
 %type <AST::BreakExpression*> BREAK_STATEMENT;
 %type <AST::ContinueExpression*> CONTINUE_STATEMENT;
 %type <AST::ConditionalExpression*> IF_STATEMENT;
@@ -211,11 +210,10 @@
 %type <AST::Node*> LOOP_STATEMENT;
 %type <AST::Node*> STATEMENT;
 %type <AST::ReturnExpression*> RETURN_STATEMENT;
-%type <AST::Root*> ROOT;
+
 %type <AST::SwitchExpression*> SWITCH_STATEMENT;
 %type <std::string> LABEL_NAME;
 %type <AST::LabelDeclaration*> STATEMENT_LABEL;
-%type <std::vector<AST::Node*>*> STATEMENTS;
 
 %type <AST::SubroutineDeclaration*> SUBROUTINE_DECLARATION;
 %type <AST::Node*> DEFAULT_ARGUMENT_CLAUSE;
@@ -228,6 +226,9 @@
 
 %type <AST::UnionDeclaration*> UNION_DECLARATION;
 %type <std::vector<AST::RecordFieldDeclaration*>*> UNION_DECLARATION_BODY;
+
+%type <AST::Root*> ROOT;
+%type <std::vector<AST::Node*>> STATEMENTS;
 
 %%
 
@@ -243,6 +244,32 @@ ROOT                                    : {
 
                                           compiler.root = $$;
                                         }
+                                        ;
+
+/*
+ *    Statements
+ */
+
+STATEMENTS                              : STATEMENT {
+                                          $$ = std::vector<AST::Node*>();
+
+                                          $$.push_back($1);
+                                        }
+                                        | STATEMENT STATEMENTS {
+                                          std::vector<AST::Node*> statements = $2;
+
+                                          statements.push_back($1);
+
+                                          $$ = statements;  
+                                        }
+                                        ;
+
+STATEMENT                               : DECLARATION ";"
+                                        | EXPRESSION ";"
+                                        | LOOP_STATEMENT ";"
+                                        | BRANCH_STATEMENT ";"
+                                        | LABELED_STATEMENT ";"
+                                        | CONTROL_TRANSFER_STATEMENT ";"
                                         ;
 
 EXPRESSION                              : PREFIX_EXPRESSION 
@@ -799,31 +826,6 @@ CONSTANT_DECLARATION_HEAD               : "constant"
 CONSTANT_DECLARATION_NAME               : IDENTIFIER
                                         ;
 CONSTANT_DECLARATION_ASSIGNMENT         : "←" EXPRESSION
-                                        ;
-
-/*
- *  3.0   STATEMENTS
- */
-
-STATEMENTS                              : STATEMENT {
-                                          $$ = new std::vector<AST::Node*>();
-
-                                          $$ -> push_back($1);
-                                        }
-                                        | STATEMENT STATEMENTS {
-                                          std::vector<AST::Node*> *statements = $2;
-
-                                          statements -> push_back($1);
-
-                                          $$ = statements;  
-                                        }
-                                        ;
-STATEMENT                               : DECLARATION ";"
-                                        | EXPRESSION ";"
-                                        | LOOP_STATEMENT ";"
-                                        | BRANCH_STATEMENT ";"
-                                        | LABELED_STATEMENT ";"
-                                        | CONTROL_TRANSFER_STATEMENT ";"
                                         ;
 
 /*
