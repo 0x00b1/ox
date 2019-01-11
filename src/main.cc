@@ -1,6 +1,8 @@
 #include <iostream>
-#include "compiler.hh"
-#include "ox.hh"
+
+#include "include/compiler.hh"
+#include "include/ast.hh"
+#include "include/generator.hh"
 
 int main (int argc, char *argv[]) {
     int code = 0;
@@ -19,7 +21,7 @@ int main (int argc, char *argv[]) {
         }
     }
 
-    AST::Generator generator;
+    Generator generator;
 
     compiler.root->accept(generator);
 

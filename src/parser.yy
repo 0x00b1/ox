@@ -13,7 +13,7 @@
 %code requires {
   #include <string>
 
-  #include "ox.hh"
+  #include "../include/ast.hh"
 
   class Compiler;
 }
@@ -30,9 +30,8 @@
 %define parse.error verbose
 
 %code {
-    #include "compiler.hh"
-    #include "ox.hh"
-    #include "type.hh"
+    #include "../include/compiler.hh"
+    #include "../include/ast.hh"
 }
 
 %define api.token.prefix {TOK_}
@@ -173,7 +172,8 @@
 %type <std::string> UNION_DECLARATION_NAME;
 %type <std::string> PREFIX_OPERATOR;
 %type <std::string> CLOSURE_PARAMETER_NAME SUBROUTINE_PARAMETER_NAME;
-%type <std::vector<AST::Node*>*> ARRAY_LITERAL_ITEMS TUPLE_LITERAL_ITEMS;
+%type <std::vector<AST::Node*>*> ARRAY_LITERAL_ITEMS;
+%type <std::vector<AST::Node*>*> TUPLE_LITERAL_ITEMS;
 %type <std::vector<AST::Argument*>*> CALL_ARGUMENTS CALL_ARGUMENT_CLAUSE;
 %type <std::vector<AST::Parameter*>*> CLOSURE_PARAMETERS CLOSURE_PARAMETER_CLAUSE SUBROUTINE_PARAMETERS PARAMETER_CLAUSE;
 %type <AST::Node*> ARRAY_LITERAL_ITEM TUPLE_LITERAL_ITEM EXPRESSION POSTFIX_EXPRESSION;
@@ -198,7 +198,7 @@
 %type <AST::TypeSignature*> CLOSURE_SIGNATURE SUBROUTINE_SIGNATURE;
 %type <AST::ForLoopExpression*> FOR_IN_STATEMENT;
 %type <AST::WhileLoopExpression*> WHILE_STATEMENT;
-%type <Pattern::Pattern*> PATTERN;
+%type <std::string> PATTERN;
 
 /*
  *
@@ -207,14 +207,14 @@
 %type <AST::BreakExpression*> BREAK_STATEMENT;
 %type <AST::ContinueExpression*> CONTINUE_STATEMENT;
 %type <AST::ConditionalExpression*> IF_STATEMENT;
-%type <AST::LabelStatement*> LABELED_STATEMENT
+%type <AST::LabelDeclaration*> LABELED_STATEMENT
 %type <AST::Node*> LOOP_STATEMENT;
 %type <AST::Node*> STATEMENT;
 %type <AST::ReturnExpression*> RETURN_STATEMENT;
 %type <AST::Root*> ROOT;
 %type <AST::SwitchExpression*> SWITCH_STATEMENT;
 %type <std::string> LABEL_NAME;
-%type <AST::LabelStatement*> STATEMENT_LABEL;
+%type <AST::LabelDeclaration*> STATEMENT_LABEL;
 %type <std::vector<AST::Node*>*> STATEMENTS;
 
 %type <AST::SubroutineDeclaration*> SUBROUTINE_DECLARATION;
@@ -897,7 +897,7 @@ LABELED_STATEMENT                       : STATEMENT_LABEL LOOP_STATEMENT
                                         | STATEMENT_LABEL SWITCH_STATEMENT 
                                         ;
 STATEMENT_LABEL                         : LABEL_NAME ":" {
-                                          $$ = new AST::LabelStatement($1);
+                                          $$ = new AST::LabelDeclaration($1);
                                         }
                                         ;
 LABEL_NAME                              : IDENTIFIER

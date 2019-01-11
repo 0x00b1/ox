@@ -1,5 +1,4 @@
 #ifndef OX_TYPE_HH
-
 #define OX_TYPE_HH
 
 #include <optional>

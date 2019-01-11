@@ -4,7 +4,8 @@
     # include <cstdlib>
     # include <cstring> // strerror
     # include <string>
-    # include "compiler.hh"
+
+    # include "../include/compiler.hh"
     # include "parser.hh"
 %}
 

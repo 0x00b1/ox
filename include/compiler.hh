@@ -5,7 +5,7 @@
 #include <map>
 
 #include "parser.hh"
-#include "ox.hh"
+#include "include/ast.hh"
 
 // Give Flex the prototype of yylex we want ...
 #define YY_DECL yy::parser::symbol_type yylex(Compiler& compiler)
