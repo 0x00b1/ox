@@ -84,8 +84,6 @@ namespace AST {
 
         std::vector<RecordFieldDeclaration*> fields;
 
-        Type::Record *record;
-
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -111,10 +109,6 @@ namespace AST {
         std::string name;
 
         TypeSignature *signature;
-
-        Type::Function *type;
-
-        bool variadic;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -142,8 +136,6 @@ namespace AST {
 
         std::vector<RecordFieldDeclaration*> fields;
 
-        Type::Union *type;
-
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -164,8 +156,6 @@ namespace AST {
 
         std::vector<Node*> items;
 
-        Type::Array *type;
-
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -179,6 +169,8 @@ namespace AST {
     class BinaryOperationExpression: public Node {
     public:
         BinaryOperationExpression(std::string name, Node *a): name(std::move(name)), a(a) {};
+
+        BinaryOperationExpression(std::string name, Node *a, Node *b): name(std::move(name)), a(a), b(b) {};
 
         std::string name;
 
@@ -219,8 +211,6 @@ namespace AST {
 
         bool value;
 
-        Type::Boolean *type = new Type::Boolean();
-
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
@@ -240,8 +230,6 @@ namespace AST {
         explicit BreakExpression(LabelDeclaration *label): label(label) {};
 
         std::optional<LabelDeclaration*> label;
-
-        std::optional<Node*> expression;
 
         std::string name;
 
@@ -376,8 +364,6 @@ namespace AST {
         explicit IntegerLiteralExpression(std::string value): value(std::move(value)) {};
 
         std::string value;
-
-        Type::Integer *type;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -547,7 +533,7 @@ namespace AST {
 
     class LabelDeclaration: public Node {
     public:
-        explicit LabelDeclaration(std::string name): name(name) {};
+        explicit LabelDeclaration(std::string name): name(std::move(name)) {};
 
         LabelDeclaration(std::string name, Node *statement): name(std::move(name)), statement(statement) {};
 
@@ -562,7 +548,7 @@ namespace AST {
 
     class Parameter: public Node {
     public:
-        explicit Parameter(std::string name): name(name) {};
+        explicit Parameter(std::string name): name(std::move(name)) {};
 
         Parameter(std::string name, Node *expression): name(std::move(name)), expression(expression) {};
 
