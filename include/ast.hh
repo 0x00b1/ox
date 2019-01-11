@@ -14,9 +14,9 @@ namespace AST {
     public:
         Root() = default;
 
-        explicit Root(std::vector<AST::Node*> nodes): nodes(nodes) {};
+        explicit Root(const std::vector<std::shared_ptr<Node>> &nodes): nodes(nodes) {};
 
-        std::vector<Node*> nodes;
+        std::vector<std::shared_ptr<Node>> nodes;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -25,13 +25,13 @@ namespace AST {
 
     class Argument: public Node {
     public:
-        explicit Argument(Node *expression): expression(expression) {};
+        explicit Argument(std::shared_ptr<Node> expression): expression(expression) {};
 
-        Argument(std::string name, Node *expression): name(std::move(name)), expression(expression) {};
+        Argument(const std::string &name, std::shared_ptr<Node> expression): name(name), expression(expression) {};
 
         std::string name;
 
-        Node *expression;
+        std::shared_ptr<Node> expression;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -51,11 +51,9 @@ namespace AST {
 
     class EnumerationDeclaration: public Node {
     public:
-        explicit EnumerationDeclaration(std::string name): name(std::move(name)) {};
+        explicit EnumerationDeclaration(const std::string &name): name(name) {};
 
         std::string name;
-
-        Type::Enumerated *type;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -64,13 +62,13 @@ namespace AST {
 
     class ModuleDeclaration: public Node {
     public:
-        explicit ModuleDeclaration(std::string name): name(std::move(name)) {};
+        explicit ModuleDeclaration(const std::string &name): name(name) {};
 
-        ModuleDeclaration(std::string name, std::vector<Node*> members): name(std::move(name)), members(members) {};
+        ModuleDeclaration(const std::string &name, const std::vector<std::shared_ptr<Node>> &members): name(name), members(members) {};
 
         std::string name;
 
-        std::vector<Node*> members;
+        std::vector<std::shared_ptr<Node>> members;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -79,7 +77,7 @@ namespace AST {
 
     class RecordDeclaration: public Node {
     public:
-        RecordDeclaration(std::string name, std::vector<RecordFieldDeclaration*> *fields): name(std::move(name)), fields(*fields) {};
+        RecordDeclaration(const std::string &name, std::vector<RecordFieldDeclaration*> *fields): name(name), fields(*fields) {};
 
         std::string name;
 
@@ -92,7 +90,7 @@ namespace AST {
 
     class RecordFieldDeclaration: public Node {
     public:
-        RecordFieldDeclaration(std::string name, Type::Type *type): name(std::move(name)), type(type) {};
+        RecordFieldDeclaration(const std::string &name, Type::Type *type): name(name), type(type) {};
 
         std::string name;
 
@@ -105,7 +103,7 @@ namespace AST {
 
     class SubroutineDeclaration: public Node {
     public:
-        SubroutineDeclaration(std::string name, TypeSignature *signature): name(std::move(name)), signature(signature) {};
+        SubroutineDeclaration(const std::string &name, TypeSignature *signature): name(name), signature(signature) {};
 
         std::string name;
 
@@ -118,7 +116,7 @@ namespace AST {
 
     class TypeAliasDeclaration: public Node {
     public:
-        TypeAliasDeclaration(std::string name, Type::Type *type): name(std::move(name)), type(type) {};
+        TypeAliasDeclaration(const std::string &name, Type::Type *type): name(name), type(type) {};
 
         std::string name;
 
@@ -131,7 +129,7 @@ namespace AST {
 
     class UnionDeclaration: public Node {
     public:
-        UnionDeclaration(std::string name, std::vector<RecordFieldDeclaration*> *fields): name(std::move(name)), fields(*fields) {};
+        UnionDeclaration(const std::string &name, std::vector<RecordFieldDeclaration*> *fields): name(name), fields(*fields) {};
 
         std::string name;
 
@@ -153,9 +151,9 @@ namespace AST {
      */
     class ArrayExpression: public Node {
     public:
-        explicit ArrayExpression(std::vector<Node*> *items): items(*items) {};
+        explicit ArrayExpression(std::vector<std::shared_ptr<Node>> *items): items(*items) {};
 
-        std::vector<Node*> items;
+        std::vector<std::shared_ptr<Node>> items;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -169,9 +167,9 @@ namespace AST {
      */
     class BinaryOperationExpression: public Node {
     public:
-        BinaryOperationExpression(std::string name, Node *a): name(std::move(name)), a(a) {};
+        BinaryOperationExpression(const std::string &name, Node *a): name(name), a(a) {};
 
-        BinaryOperationExpression(std::string name, Node *a, Node *b): name(std::move(name)), a(a), b(b) {};
+        BinaryOperationExpression(const std::string &name, Node *a, Node *b): name(name), a(a), b(b) {};
 
         std::string name;
 
@@ -192,9 +190,9 @@ namespace AST {
     public:
         BlockExpression() = default;
 
-        explicit BlockExpression(std::vector<Node*> statements): statements(statements) {};
+        explicit BlockExpression(std::vector<std::shared_ptr<Node>> statements): statements(statements) {};
 
-        std::vector<Node*> statements;
+        std::vector<std::shared_ptr<Node>> statements;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -226,7 +224,7 @@ namespace AST {
     public:
         BreakExpression() = default;
 
-        explicit BreakExpression(std::string name): name(std::move(name)) {};
+        explicit BreakExpression(const std::string &name): name(name) {};
 
         explicit BreakExpression(LabelDeclaration *label): label(label) {};
 
@@ -246,9 +244,9 @@ namespace AST {
      */
     class CallExpression: public Node {
     public:
-        CallExpression(Node *expression, std::vector<Argument*> *arguments): expression(expression), arguments(arguments) {};
+        CallExpression(std::shared_ptr<Node> expression, std::vector<Argument*> *arguments): expression(expression), arguments(arguments) {};
 
-        Node *expression;
+        std::shared_ptr<Node> expression;
 
         std::vector<Argument*> *arguments;
 
@@ -306,7 +304,7 @@ namespace AST {
 
         explicit ContinueExpression(LabelDeclaration *label): label(label) {};
 
-        explicit ContinueExpression(std::string name): name(std::move(name)) {};
+        explicit ContinueExpression(const std::string &name): name(name) {};
 
         std::optional<LabelDeclaration*> label;
 
@@ -342,13 +340,15 @@ namespace AST {
      */
     class ForLoopExpression: public Node {
     public:
-        ForLoopExpression(std::string name, Node *container, BlockExpression *expression): name(std::move(name)), container(container), expression(expression) {};
+        ForLoopExpression(const std::string &name) {};
+
+        ForLoopExpression(const std::string &name, std::shared_ptr<Node> container, std::shared_ptr<BlockExpression> expression): name(name), container(container), expression(expression) {};
 
         std::string name;
 
-        Node *container;
+        std::shared_ptr<Node> container;
 
-        BlockExpression *expression;
+        std::shared_ptr<BlockExpression> expression;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -385,7 +385,7 @@ namespace AST {
         Node* a;
         Node* b;
 
-        std::optional<Node*> c;
+        std::optional<std::shared_ptr<Node>> c;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -399,13 +399,13 @@ namespace AST {
      */
     class RecordExpression: public Node {
     public:
-        explicit RecordExpression(std::vector<Node*> *expressions): expressions(expressions) {};
+        explicit RecordExpression(std::vector<std::shared_ptr<Node>> *expressions): expressions(expressions) {};
 
-        RecordExpression(std::vector<Node*> *expressions, Node* expression): expressions(expressions), expression(expression) {};
+        RecordExpression(std::vector<std::shared_ptr<Node>> *expressions, Node* expression): expressions(expressions), expression(expression) {};
 
-        std::vector<Node*> *expressions;
+        std::vector<std::shared_ptr<Node>> *expressions;
 
-        std::optional<Node*> expression;
+        std::optional<std::shared_ptr<Node>> expression;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -421,13 +421,13 @@ namespace AST {
     public:
         ReturnExpression() = default;
 
-        explicit ReturnExpression(Node *expression): expression(expression) {};
+        explicit ReturnExpression(std::shared_ptr<Node> expression): expression(expression) {};
 
         explicit ReturnExpression(LabelDeclaration *label): label(label) {};
 
         std::optional<LabelDeclaration*> label;
 
-        Node *expression;
+        std::shared_ptr<Node> expression;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -441,9 +441,9 @@ namespace AST {
      */
     class SubscriptExpression: public Node {
     public:
-        SubscriptExpression(Node *a, std::vector<Argument*> *b): a(a), b(b) {};
+        SubscriptExpression(std::shared_ptr<Node> a, std::vector<Argument*> *b): a(a), b(b) {};
 
-        Node *a;
+        std::shared_ptr<Node> a;
 
         std::vector<Argument*> *b;
 
@@ -476,9 +476,9 @@ namespace AST {
      */
     class TupleExpression: public Node {
     public:
-        explicit TupleExpression(std::vector<Node*> *items): items(items) {};
+        explicit TupleExpression(std::vector<std::shared_ptr<Node>> *items): items(items) {};
 
-        std::vector<Node*> *items;
+        std::vector<std::shared_ptr<Node>> *items;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -492,11 +492,11 @@ namespace AST {
      */
     class UnaryOperationExpression: public Node {
     public:
-        explicit UnaryOperationExpression(Node *a): a(a) {};
+        explicit UnaryOperationExpression(std::shared_ptr<Node> a): a(a) {};
 
-        UnaryOperationExpression(std::string operation, Node *a): operation(std::move(operation)), a(a) {};
+        UnaryOperationExpression(std::string operation, std::shared_ptr<Node> a): operation(std::move(operation)), a(a) {};
 
-        Node *a;
+        std::shared_ptr<Node> a;
 
         std::string operation;
 
@@ -514,11 +514,13 @@ namespace AST {
      */
     class WhileLoopExpression: public Node {
     public:
-        WhileLoopExpression(Node *a, BlockExpression *b): a(a), b(b) {};
+        WhileLoopExpression() = default;
 
-        Node *a;
+        WhileLoopExpression(std::shared_ptr<Node> a, std::shared_ptr<BlockExpression> b): a(a), b(b) {};
 
-        BlockExpression *b;
+        std::shared_ptr<Node> a;
+
+        std::shared_ptr<BlockExpression> b;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -534,9 +536,9 @@ namespace AST {
 
     class LabelDeclaration: public Node {
     public:
-        explicit LabelDeclaration(std::string name): name(std::move(name)) {};
+        explicit LabelDeclaration(const std::string &name): name(name) {};
 
-        LabelDeclaration(std::string name, Node *statement): name(std::move(name)), statement(statement) {};
+        LabelDeclaration(const std::string &name, Node *statement): name(name), statement(statement) {};
 
         std::string name;
 
@@ -549,19 +551,19 @@ namespace AST {
 
     class Parameter: public Node {
     public:
-        explicit Parameter(std::string name): name(std::move(name)) {};
+        explicit Parameter(const std::string &name): name(name) {};
 
-        Parameter(std::string name, Node *expression): name(std::move(name)), expression(expression) {};
+        Parameter(const std::string &name, std::shared_ptr<Node> expression): name(name), expression(expression) {};
 
-        Parameter(std::string name, Type::Type *type): name(std::move(name)), type(type) {};
+        Parameter(const std::string &name, Type::Type *type): name(name), type(type) {};
 
-        Parameter(std::string name, Type::Type *type, Node *expression): name(std::move(name)), type(type), expression(expression) {};
+        Parameter(const std::string &name, Type::Type *type, std::shared_ptr<Node> expression): name(name), type(type), expression(expression) {};
 
         std::string name;
 
         Type::Type *type;
 
-        Node *expression;
+        std::shared_ptr<Node> expression;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);

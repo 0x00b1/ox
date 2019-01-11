@@ -153,10 +153,8 @@
 
 %printer {
     // FIXME:
-    //yyo << "error";
-    auto example = $$;
-
-    yyo << typeid(example).name();
+    //yyo << $$;
+    yyo << typeid($$).name();
 } <*>;
 
 %left "←"
@@ -176,11 +174,11 @@
 %type <std::string> UNION_DECLARATION_NAME;
 %type <std::string> PREFIX_OPERATOR;
 %type <std::string> CLOSURE_PARAMETER_NAME SUBROUTINE_PARAMETER_NAME;
-%type <std::vector<AST::Node*>*> ARRAY_LITERAL_ITEMS;
-%type <std::vector<AST::Node*>*> TUPLE_LITERAL_ITEMS;
+%type <std::vector<std::shared_ptr<AST::Node>>*> ARRAY_LITERAL_ITEMS;
+%type <std::vector<std::shared_ptr<AST::Node>>*> TUPLE_LITERAL_ITEMS;
 %type <std::vector<AST::Argument*>*> CALL_ARGUMENTS CALL_ARGUMENT_CLAUSE;
 %type <std::vector<AST::Parameter*>*> CLOSURE_PARAMETERS CLOSURE_PARAMETER_CLAUSE SUBROUTINE_PARAMETERS PARAMETER_CLAUSE;
-%type <AST::Node*> ARRAY_LITERAL_ITEM TUPLE_LITERAL_ITEM EXPRESSION POSTFIX_EXPRESSION;
+%type <std::shared_ptr<AST::Node>> ARRAY_LITERAL_ITEM TUPLE_LITERAL_ITEM EXPRESSION POSTFIX_EXPRESSION;
 %type <Type::Type*> TYPE TYPE_ANNOTATION;
 %type <Type::Type*> CLOSURE_RETURN_TYPE SUBROUTINE_RETURN_TYPE;
 %type <Type::Type*> TYPE_ALIAS_ASSIGNMENT;
@@ -207,8 +205,8 @@
 %type <AST::ContinueExpression*> CONTINUE_STATEMENT;
 %type <AST::ConditionalExpression*> IF_STATEMENT;
 %type <AST::LabelDeclaration*> LABELED_STATEMENT
-%type <AST::Node*> LOOP_STATEMENT;
-%type <AST::Node*> STATEMENT;
+%type <std::shared_ptr<AST::Node>> LOOP_STATEMENT;
+%type <std::shared_ptr<AST::Node>> STATEMENT;
 %type <AST::ReturnExpression*> RETURN_STATEMENT;
 
 %type <AST::SwitchExpression*> SWITCH_STATEMENT;
@@ -216,7 +214,7 @@
 %type <AST::LabelDeclaration*> STATEMENT_LABEL;
 
 %type <AST::SubroutineDeclaration*> SUBROUTINE_DECLARATION;
-%type <AST::Node*> DEFAULT_ARGUMENT_CLAUSE;
+%type <std::shared_ptr<AST::Node>> DEFAULT_ARGUMENT_CLAUSE;
 
 %type <AST::RecordDeclaration*> RECORD_DECLARATION;
 %type <std::vector<AST::RecordFieldDeclaration*>*> RECORD_BODY;
@@ -228,7 +226,7 @@
 %type <std::vector<AST::RecordFieldDeclaration*>*> UNION_DECLARATION_BODY;
 
 %type <AST::Root*> ROOT;
-%type <std::vector<AST::Node*>> STATEMENTS;
+%type <std::vector<std::shared_ptr<AST::Node>>> STATEMENTS;
 
 %%
 
@@ -251,12 +249,12 @@ ROOT                                    : {
  */
 
 STATEMENTS                              : STATEMENT {
-                                          $$ = std::vector<AST::Node*>();
+                                          $$ = std::vector<std::shared_ptr<AST::Node>>();
 
                                           $$.push_back($1);
                                         }
                                         | STATEMENT STATEMENTS {
-                                          std::vector<AST::Node*> statements = $2;
+                                          std::vector<std::shared_ptr<AST::Node>> statements = $2;
 
                                           statements.push_back($1);
 
@@ -410,15 +408,15 @@ ARRAY_LITERAL                           : "[" ARRAY_LITERAL_ITEMS "]" {
                                         }
                                         ;
 ARRAY_LITERAL_ITEMS                     : %empty {
-                                          $$ = new std::vector<AST::Node*>();
+                                          $$ = new std::vector<std::shared_ptr<AST::Node>>();
                                         }
                                         | ARRAY_LITERAL_ITEM {
-                                          $$ = new std::vector<AST::Node*>();
+                                          $$ = new std::vector<std::shared_ptr<AST::Node>>();
 
                                           $$ -> push_back($1);
                                         }
                                         | ARRAY_LITERAL_ITEM "," ARRAY_LITERAL_ITEMS {
-                                          std::vector<AST::Node*> *items = $3;
+                                          std::vector<std::shared_ptr<AST::Node>> *items = $3;
 
                                           items -> push_back($1);
 
@@ -432,15 +430,15 @@ TUPLE_LITERAL                           : "⟨" TUPLE_LITERAL_ITEMS "⟩" {
                                         }
                                         ;
 TUPLE_LITERAL_ITEMS                     : %empty {
-                                          $$ = new std::vector<AST::Node*>();
+                                          $$ = new std::vector<std::shared_ptr<AST::Node>>();
                                         }
                                         | TUPLE_LITERAL_ITEM {
-                                          $$ = new std::vector<AST::Node*>();
+                                          $$ = new std::vector<std::shared_ptr<AST::Node>>();
 
                                           $$ -> push_back($1);
                                         }
                                         | TUPLE_LITERAL_ITEM "," TUPLE_LITERAL_ITEMS {
-                                          std::vector<AST::Node*> *items = $3;
+                                          std::vector<std::shared_ptr<AST::Node>> *items = $3;
 
                                           items -> push_back($1);
 
@@ -840,11 +838,11 @@ LOOP_STATEMENT                          : FOR_IN_STATEMENT
                                         | WHILE_STATEMENT
                                         ;
 FOR_IN_STATEMENT                        : "for" PATTERN "in" EXPRESSION BLOCK_EXPRESSION {
-                                          $$ = new AST::ForLoopExpression($2, $4, $5);
+                                          $$ = new AST::ForLoopExpression($2);
                                         }
                                         ;
 WHILE_STATEMENT                         : "WhileLoopExpression" EXPRESSION BLOCK_EXPRESSION {
-                                          $$ = new AST::WhileLoopExpression($2, $3);
+                                          $$ = new AST::WhileLoopExpression();
                                         }
                                         ;
 BRANCH_STATEMENT                        : IF_STATEMENT
