@@ -8,8 +8,7 @@ void Generator::visit(const AST::Root &root) {
     std::cout << "generating Root" << std::endl;
 
     for (auto node: root.nodes) {
-        node.get()->accept(*this);
-
+        node->accept(*this);
     }
 }
 

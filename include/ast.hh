@@ -1,10 +1,9 @@
 #ifndef OX_AST_HH
 #define OX_AST_HH
 
-#include <string>
 #include <optional>
+#include <string>
 #include <vector>
-#include <iostream>
 
 #include "visitor.hh"
 #include "type.hh"
@@ -75,12 +74,12 @@ namespace AST {
 
         ModuleDeclaration(
             const std::string &name, 
-            const std::vector<std::shared_ptr<Node>> &members
-        ): name(name), members(members) {};
+            const std::vector<std::shared_ptr<Node>> &items
+        ): name(name), items(items) {};
 
         std::string name;
 
-        std::vector<std::shared_ptr<Node>> members;
+        std::vector<std::shared_ptr<Node>> items;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -91,12 +90,12 @@ namespace AST {
     public:
         RecordDeclaration(
             const std::string &name, 
-            std::vector<std::shared_ptr<RecordFieldDeclaration>> fields
-        ): name(name), fields(fields) {};
+            const std::vector<std::shared_ptr<RecordFieldDeclaration>> &items
+        ): name(name), items(items) {};
 
         std::string name;
 
-        std::vector<std::shared_ptr<RecordFieldDeclaration>> fields;
+        std::vector<std::shared_ptr<RecordFieldDeclaration>> items;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -155,12 +154,12 @@ namespace AST {
     public:
         UnionDeclaration(
             const std::string &name, 
-            std::vector<std::shared_ptr<RecordFieldDeclaration>> fields
-        ): name(name), fields(fields) {};
+            const std::vector<std::shared_ptr<RecordFieldDeclaration>> &items
+        ): name(name), items(items) {};
 
         std::string name;
 
-        std::vector<std::shared_ptr<RecordFieldDeclaration>> fields;
+        std::vector<std::shared_ptr<RecordFieldDeclaration>> items;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -179,7 +178,7 @@ namespace AST {
     class ArrayExpression: public Node {
     public:
         explicit ArrayExpression(
-            std::vector<std::shared_ptr<Node>> items
+            const std::vector<std::shared_ptr<Node>> &items
         ): items(items) {};
 
         std::vector<std::shared_ptr<Node>> items;
@@ -227,7 +226,7 @@ namespace AST {
         BlockExpression() = default;
 
         explicit BlockExpression(
-            std::vector<std::shared_ptr<Node>> statements
+            const std::vector<std::shared_ptr<Node>> &statements
         ): statements(statements) {};
 
         std::vector<std::shared_ptr<Node>> statements;
@@ -286,7 +285,7 @@ namespace AST {
     public:
         CallExpression(
             std::shared_ptr<Node> expression,
-            std::vector<std::shared_ptr<Argument>> arguments
+            const std::vector<std::shared_ptr<Argument>> &arguments
         ): expression(expression), arguments(arguments) {};
 
         std::shared_ptr<Node> expression;
@@ -463,11 +462,11 @@ namespace AST {
     class RecordExpression: public Node {
     public:
         explicit RecordExpression(
-            std::vector<std::shared_ptr<Node>> expressions
+            const std::vector<std::shared_ptr<Node>> &expressions
         ): expressions(expressions) {};
 
         RecordExpression(
-            std::vector<std::shared_ptr<Node>> expressions, 
+            const std::vector<std::shared_ptr<Node>> &expressions, 
             std::shared_ptr<Node> expression
         ): expressions(expressions), expression(expression) {};
 
@@ -515,7 +514,7 @@ namespace AST {
     public:
         SubscriptExpression(
             std::shared_ptr<Node> a, 
-            std::vector<std::shared_ptr<Argument>> b
+            const std::vector<std::shared_ptr<Argument>> &b
         ): a(a), b(b) {};
 
         std::shared_ptr<Node> a;
@@ -552,7 +551,7 @@ namespace AST {
     class TupleExpression: public Node {
     public:
         explicit TupleExpression(
-            std::vector<std::shared_ptr<Node>> items
+            const std::vector<std::shared_ptr<Node>> &items
         ): items(items) {};
 
         std::vector<std::shared_ptr<Node>> items;
@@ -574,7 +573,7 @@ namespace AST {
         UnaryOperationExpression(
             const std::string &operation, 
             std::shared_ptr<Node> a
-        ): operation(std::move(operation)), a(a) {};
+        ): operation(operation), a(a) {};
 
         std::shared_ptr<Node> a;
 
@@ -671,11 +670,11 @@ namespace AST {
         TypeSignature() = default;
 
         explicit TypeSignature(
-            std::vector<std::shared_ptr<Parameter>> parameters
+            const std::vector<std::shared_ptr<Parameter>> &parameters
         ): parameters(parameters) {};
 
         TypeSignature(
-            std::vector<std::shared_ptr<Parameter>> parameters, 
+            const std::vector<std::shared_ptr<Parameter>> &parameters, 
             std::shared_ptr<Type::Type> type
         ): parameters(parameters), type(type) {};
 

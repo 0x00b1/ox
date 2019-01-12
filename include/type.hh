@@ -60,11 +60,14 @@ namespace Type {
      */
     class Array: public Type {
     public:
-        Array(std::vector<std::string> *shape, Type *type): shape(shape), type(type) {};
+        Array(
+            const std::vector<std::string> &shape,
+            std::shared_ptr<Type> type
+        ): shape(shape), type(type) {};
 
-        Type *type;
+       std::shared_ptr<Type> type;
 
-        std::vector<std::string> *shape;
+        std::vector<std::string> shape;
     };
 
     /*
@@ -77,9 +80,11 @@ namespace Type {
      */
     class Tuple: public Product {
     public:
-        explicit Tuple(std::vector<Type*> *types): types(types) {}
+        explicit Tuple(
+            const std::vector<std::shared_ptr<Type>> &types
+        ): types(types) {}
 
-        std::vector<Type*> *types;
+        std::vector<std::shared_ptr<Type>> types;
     };
 
     /*
@@ -89,11 +94,14 @@ namespace Type {
     public:
         explicit Record(std::string name): name(name) {};
 
-        Record(std::string name, std::vector<std::pair<std::string, Type*>> *types): name(name), types(types) {};
+        Record(
+            const std::string &name,
+            const std::vector<std::shared_ptr<Type>> &types
+        ): name(name), types(types) {};
 
         std::string name;
 
-        std::vector<std::pair<std::string, Type*>> *types;
+        std::vector<std::shared_ptr<Type>> types;
     };
 
     /*
@@ -108,11 +116,14 @@ namespace Type {
     public:
         explicit Union(std::string name): name(name) {};
 
-        Union(std::string name, std::vector<std::pair<std::string, Type*>> *types): name(name), types(types) {};
+        Union(
+            const std::string &name,
+            const std::vector<std::shared_ptr<Type>> &types
+        ): name(name), types(types) {};
 
         std::string name;
 
-        std::vector<std::pair<std::string, Type*>> *types;
+        std::vector<std::shared_ptr<Type>> types;
     };
 
     /*
@@ -120,11 +131,14 @@ namespace Type {
      */
     class Enumerated: public Sum {
     public:
-        Enumerated(std::string name, std::vector<std::pair<std::string, Type*>> *types): name(name), types(types) {};
+        Enumerated(
+            const std::string &name,
+            const std::vector<std::shared_ptr<Type>> &types
+        ): name(name), types(types) {};
 
         std::string name;
 
-        std::vector<std::pair<std::string, Type*>> *types;
+        std::vector<std::shared_ptr<Type>> types;
     };
 
     /*
@@ -132,15 +146,22 @@ namespace Type {
      */
     class Function: public Type {
     public:
-        Function(std::vector<Type*> *a, Type *b): a(a), b(b) {};
+        Function(
+            const std::vector<std::shared_ptr<Type>> &a,
+            std::shared_ptr<Type> b
+        ): a(a), b(b) {};
 
-        Function(std::string name, std::vector<Type*> *a, Type *b): name(name), a(a), b(b) {};
+        Function(
+            const std::string &name, 
+            const std::vector<std::shared_ptr<Type>> &a,
+            std::shared_ptr<Type> b
+        ): name(name), a(a), b(b) {};
 
         std::optional<std::string> name;
 
-        std::vector<Type*> *a;
+        std::vector<std::shared_ptr<Type>> a;
 
-        Type *b;
+        std::shared_ptr<Type> b;
     };
 
     /*
@@ -148,9 +169,11 @@ namespace Type {
      */
     class Reference: public Type {
     public:
-        explicit Reference(Type *referenced): referenced(referenced) {};
+        explicit Reference(
+            std::shared_ptr<Type> referenced
+        ): referenced(referenced) {};
 
-        Type *referenced;
+        std::shared_ptr<Type> referenced;
     };
 }
 

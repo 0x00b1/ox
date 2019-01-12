@@ -174,7 +174,8 @@
 
 %type <std::shared_ptr<AST::Argument>> CALL_ARGUMENT;
 %type <std::shared_ptr<AST::ArrayExpression>> ARRAY_LITERAL;
-%type <std::shared_ptr<AST::BinaryOperationExpression>> BINARY_EXPRESSION TYPE_CASTING_OPERATOR;
+%type <std::shared_ptr<AST::BinaryOperationExpression>> BINARY_EXPRESSION;
+%type <std::shared_ptr<AST::BinaryOperationExpression>> TYPE_CASTING_OPERATOR;
 %type <std::shared_ptr<AST::BlockExpression>> BLOCK_EXPRESSION;
 %type <std::shared_ptr<AST::BooleanLiteralExpression>> BOOLEAN_LITERAL;
 %type <std::shared_ptr<AST::BreakExpression>> BREAK_STATEMENT;
@@ -186,13 +187,17 @@
 %type <std::shared_ptr<AST::FloatingPointLiteralExpression>> FLOATING_POINT_LITERAL;
 %type <std::shared_ptr<AST::ForLoopExpression>> FOR_IN_STATEMENT;
 %type <std::shared_ptr<AST::IntegerLiteralExpression>> INTEGER_LITERAL;
-%type <std::shared_ptr<AST::LabelDeclaration>> LABELED_STATEMENT
+%type <std::shared_ptr<AST::LabelDeclaration>> LABELED_STATEMENT;
 %type <std::shared_ptr<AST::LabelDeclaration>> STATEMENT_LABEL;
-%type <std::shared_ptr<AST::Node>> ARRAY_LITERAL_ITEM TUPLE_LITERAL_ITEM EXPRESSION POSTFIX_EXPRESSION;
+%type <std::shared_ptr<AST::Node>> ARRAY_LITERAL_ITEM;
 %type <std::shared_ptr<AST::Node>> DEFAULT_ARGUMENT_CLAUSE;
+%type <std::shared_ptr<AST::Node>> EXPRESSION;
 %type <std::shared_ptr<AST::Node>> LOOP_STATEMENT;
+%type <std::shared_ptr<AST::Node>> POSTFIX_EXPRESSION;
 %type <std::shared_ptr<AST::Node>> STATEMENT;
-%type <std::shared_ptr<AST::Parameter>> CLOSURE_PARAMETER SUBROUTINE_PARAMETER;
+%type <std::shared_ptr<AST::Node>> TUPLE_LITERAL_ITEM;
+%type <std::shared_ptr<AST::Parameter>> CLOSURE_PARAMETER;
+%type <std::shared_ptr<AST::Parameter>> SUBROUTINE_PARAMETER;
 %type <std::shared_ptr<AST::RecordDeclaration>> RECORD_DECLARATION;
 %type <std::shared_ptr<AST::RecordFieldDeclaration>> RECORD_FIELD;
 %type <std::shared_ptr<AST::ReturnExpression>> RETURN_STATEMENT;
@@ -202,15 +207,21 @@
 %type <std::shared_ptr<AST::SwitchExpression>> SWITCH_STATEMENT;
 %type <std::shared_ptr<AST::TupleExpression>> TUPLE_LITERAL;
 %type <std::shared_ptr<AST::TypeAliasDeclaration>> TYPE_ALIAS_DECLARATION;
-%type <std::shared_ptr<AST::TypeSignature>> CLOSURE_SIGNATURE SUBROUTINE_SIGNATURE;
+%type <std::shared_ptr<AST::TypeSignature>> CLOSURE_SIGNATURE;
+%type <std::shared_ptr<AST::TypeSignature>> SUBROUTINE_SIGNATURE;
 %type <std::shared_ptr<AST::UnaryOperationExpression>> PREFIX_EXPRESSION;
 %type <std::shared_ptr<AST::UnionDeclaration>> UNION_DECLARATION;
 %type <std::shared_ptr<AST::WhileLoopExpression>> WHILE_STATEMENT;
 
-%type <std::vector<std::shared_ptr<AST::Argument>>> CALL_ARGUMENTS CALL_ARGUMENT_CLAUSE;
-%type <std::vector<std::shared_ptr<AST::Node>>> ARRAY_LITERAL_ITEMS TUPLE_LITERAL_ITEMS;
+%type <std::vector<std::shared_ptr<AST::Argument>>> CALL_ARGUMENT_CLAUSE;
+%type <std::vector<std::shared_ptr<AST::Argument>>> CALL_ARGUMENTS;
+%type <std::vector<std::shared_ptr<AST::Node>>> ARRAY_LITERAL_ITEMS;
 %type <std::vector<std::shared_ptr<AST::Node>>> STATEMENTS;
-%type <std::vector<std::shared_ptr<AST::Parameter>>> CLOSURE_PARAMETERS CLOSURE_PARAMETER_CLAUSE SUBROUTINE_PARAMETERS PARAMETER_CLAUSE;
+%type <std::vector<std::shared_ptr<AST::Node>>> TUPLE_LITERAL_ITEMS;
+%type <std::vector<std::shared_ptr<AST::Parameter>>> CLOSURE_PARAMETER_CLAUSE;
+%type <std::vector<std::shared_ptr<AST::Parameter>>> CLOSURE_PARAMETERS;
+%type <std::vector<std::shared_ptr<AST::Parameter>>> PARAMETER_CLAUSE;
+%type <std::vector<std::shared_ptr<AST::Parameter>>> SUBROUTINE_PARAMETERS;
 %type <std::vector<std::shared_ptr<AST::RecordFieldDeclaration>>> RECORD_BODY;
 %type <std::vector<std::shared_ptr<AST::RecordFieldDeclaration>>> RECORD_FIELDS;
 %type <std::vector<std::shared_ptr<AST::RecordFieldDeclaration>>> UNION_DECLARATION_BODY;
@@ -244,7 +255,7 @@ ROOT                                    : {
                                         ;
 
 /*
- *    Statements
+ *  Statements
  */
 
 STATEMENTS                              : STATEMENT {
@@ -269,6 +280,10 @@ STATEMENT                               : DECLARATION ";"
                                         | CONTROL_TRANSFER_STATEMENT ";"
                                         ;
 
+/*
+ *  Expressions
+ */
+
 EXPRESSION                              : PREFIX_EXPRESSION 
                                         | PREFIX_EXPRESSION BINARY_EXPRESSIONS
                                         ;
@@ -292,6 +307,12 @@ PRIMARY_EXPRESSION                      : IDENTIFIER
                                         | WILDCARD_EXPRESSION
                                         | MEMBER_EXPRESSION
                                         ;
+
+
+
+
+
+
 GENERIC_ARGUMENT_CLAUSE                 : "⟨" GENERIC_ARGUMENTS "⟩"
                                         ;
 GENERIC_ARGUMENTS                       : GENERIC_ARGUMENT 
