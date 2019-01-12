@@ -22,7 +22,9 @@ public:
     void visit(const AST::ConditionalExpression &node) override;
     void visit(const AST::ConstantDeclaration &node) override;
     void visit(const AST::ContinueExpression &node) override;
+    void visit(const AST::Declaration &node) override;
     void visit(const AST::EnumerationDeclaration &node) override;
+    void visit(const AST::Expression &node) override;
     void visit(const AST::FloatingPointLiteralExpression &node) override;
     void visit(const AST::ForLoopExpression &node) override;
     void visit(const AST::GenericParameter &node) override;
@@ -37,6 +39,7 @@ public:
     void visit(const AST::RecordFieldDeclaration &node) override;
     void visit(const AST::ReturnExpression &node) override;
     void visit(const AST::Root &root) override;
+    void visit(const AST::Statement &node) override;
     void visit(const AST::SubroutineDeclaration &node) override;
     void visit(const AST::SubscriptExpression &node) override;
     void visit(const AST::SwitchExpression &node) override;

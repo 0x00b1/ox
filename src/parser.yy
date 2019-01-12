@@ -184,24 +184,24 @@
 %type <std::shared_ptr<AST::ConditionalExpression>> IF_STATEMENT;
 %type <std::shared_ptr<AST::ContinueExpression>> CONTINUE_STATEMENT;
 %type <std::shared_ptr<AST::EnumerationDeclaration>> ENUMERATION_DECLARATION;
+%type <std::shared_ptr<AST::Expression>> ARRAY_LITERAL_ITEM;
+%type <std::shared_ptr<AST::Expression>> DEFAULT_ARGUMENT_CLAUSE;
+%type <std::shared_ptr<AST::Expression>> EXPRESSION;
+%type <std::shared_ptr<AST::Expression>> LOOP_STATEMENT;
+%type <std::shared_ptr<AST::Expression>> POSTFIX_EXPRESSION;
+%type <std::shared_ptr<AST::Expression>> TUPLE_LITERAL_ITEM;
 %type <std::shared_ptr<AST::FloatingPointLiteralExpression>> FLOATING_POINT_LITERAL;
 %type <std::shared_ptr<AST::ForLoopExpression>> FOR_IN_STATEMENT;
 %type <std::shared_ptr<AST::IntegerLiteralExpression>> INTEGER_LITERAL;
 %type <std::shared_ptr<AST::LabelDeclaration>> LABELED_STATEMENT;
 %type <std::shared_ptr<AST::LabelDeclaration>> STATEMENT_LABEL;
-%type <std::shared_ptr<AST::Node>> ARRAY_LITERAL_ITEM;
-%type <std::shared_ptr<AST::Node>> DEFAULT_ARGUMENT_CLAUSE;
-%type <std::shared_ptr<AST::Node>> EXPRESSION;
-%type <std::shared_ptr<AST::Node>> LOOP_STATEMENT;
-%type <std::shared_ptr<AST::Node>> POSTFIX_EXPRESSION;
-%type <std::shared_ptr<AST::Node>> STATEMENT;
-%type <std::shared_ptr<AST::Node>> TUPLE_LITERAL_ITEM;
 %type <std::shared_ptr<AST::Parameter>> CLOSURE_PARAMETER;
 %type <std::shared_ptr<AST::Parameter>> SUBROUTINE_PARAMETER;
 %type <std::shared_ptr<AST::RecordDeclaration>> RECORD_DECLARATION;
 %type <std::shared_ptr<AST::RecordFieldDeclaration>> RECORD_FIELD;
 %type <std::shared_ptr<AST::ReturnExpression>> RETURN_STATEMENT;
 %type <std::shared_ptr<AST::Root>> ROOT;
+%type <std::shared_ptr<AST::Statement>> STATEMENT;
 %type <std::shared_ptr<AST::SubroutineDeclaration>> SUBROUTINE_DECLARATION;
 %type <std::shared_ptr<AST::SubscriptExpression>> SUBSCRIPT_EXPRESSION;
 %type <std::shared_ptr<AST::SwitchExpression>> SWITCH_STATEMENT;
@@ -215,9 +215,8 @@
 
 %type <std::vector<std::shared_ptr<AST::Argument>>> CALL_ARGUMENT_CLAUSE;
 %type <std::vector<std::shared_ptr<AST::Argument>>> CALL_ARGUMENTS;
-%type <std::vector<std::shared_ptr<AST::Node>>> ARRAY_LITERAL_ITEMS;
-%type <std::vector<std::shared_ptr<AST::Node>>> STATEMENTS;
-%type <std::vector<std::shared_ptr<AST::Node>>> TUPLE_LITERAL_ITEMS;
+%type <std::vector<std::shared_ptr<AST::Expression>>> ARRAY_LITERAL_ITEMS;
+%type <std::vector<std::shared_ptr<AST::Expression>>> TUPLE_LITERAL_ITEMS;
 %type <std::vector<std::shared_ptr<AST::Parameter>>> CLOSURE_PARAMETER_CLAUSE;
 %type <std::vector<std::shared_ptr<AST::Parameter>>> CLOSURE_PARAMETERS;
 %type <std::vector<std::shared_ptr<AST::Parameter>>> PARAMETER_CLAUSE;
@@ -225,6 +224,7 @@
 %type <std::vector<std::shared_ptr<AST::RecordFieldDeclaration>>> RECORD_BODY;
 %type <std::vector<std::shared_ptr<AST::RecordFieldDeclaration>>> RECORD_FIELDS;
 %type <std::vector<std::shared_ptr<AST::RecordFieldDeclaration>>> UNION_DECLARATION_BODY;
+%type <std::vector<std::shared_ptr<AST::Statement>>> STATEMENTS;
 
 %type <std::string> CLOSURE_PARAMETER_NAME 
 %type <std::string> ENUMERATION_DECLARATION_NAME;
@@ -259,12 +259,12 @@ ROOT                                    : {
  */
 
 STATEMENTS                              : STATEMENT {
-                                          $$ = std::vector<std::shared_ptr<AST::Node>>();
+                                          $$ = std::vector<std::shared_ptr<AST::Statement>>();
 
                                           $$.push_back($1);
                                         }
                                         | STATEMENT STATEMENTS {
-                                          std::vector<std::shared_ptr<AST::Node>> statements = $2;
+                                          std::vector<std::shared_ptr<AST::Statement>> statements = $2;
 
                                           statements.push_back($1);
 
@@ -428,15 +428,15 @@ ARRAY_LITERAL                           : "[" ARRAY_LITERAL_ITEMS "]" {
                                         }
                                         ;
 ARRAY_LITERAL_ITEMS                     : %empty {
-                                          $$ = std::vector<std::shared_ptr<AST::Node>>();
+                                          $$ = std::vector<std::shared_ptr<AST::Expression>>();
                                         }
                                         | ARRAY_LITERAL_ITEM {
-                                          $$ = std::vector<std::shared_ptr<AST::Node>>();
+                                          $$ = std::vector<std::shared_ptr<AST::Expression>>();
 
                                           $$.push_back($1);
                                         }
                                         | ARRAY_LITERAL_ITEM "," ARRAY_LITERAL_ITEMS {
-                                          std::vector<std::shared_ptr<AST::Node>> items = $3;
+                                          std::vector<std::shared_ptr<AST::Expression>> items = $3;
 
                                           items.push_back($1);
 
@@ -450,15 +450,15 @@ TUPLE_LITERAL                           : "⟨" TUPLE_LITERAL_ITEMS "⟩" {
                                         }
                                         ;
 TUPLE_LITERAL_ITEMS                     : %empty {
-                                          $$ = std::vector<std::shared_ptr<AST::Node>>();
+                                          $$ = std::vector<std::shared_ptr<AST::Expression>>();
                                         }
                                         | TUPLE_LITERAL_ITEM {
-                                          $$ = std::vector<std::shared_ptr<AST::Node>>();
+                                          $$ = std::vector<std::shared_ptr<AST::Expression>>();
 
                                           $$.push_back($1);
                                         }
                                         | TUPLE_LITERAL_ITEM "," TUPLE_LITERAL_ITEMS {
-                                          std::vector<std::shared_ptr<AST::Node>> items = $3;
+                                          std::vector<std::shared_ptr<AST::Expression>> items = $3;
 
                                           items.push_back($1);
 

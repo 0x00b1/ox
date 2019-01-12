@@ -14,30 +14,41 @@ namespace AST {
         Root() = default;
 
         explicit Root(
-            const std::vector<std::shared_ptr<Node>> &nodes
+            const std::vector<std::shared_ptr<Statement>> &nodes
         ): nodes(nodes) {};
 
-        std::vector<std::shared_ptr<Node>> nodes;
+        std::vector<std::shared_ptr<Statement>> nodes;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
     };
 
-    class Argument: public Node {
+    class Statement: public Node {
+    public:
+        Statement() = default;
+
+        ~Statement() = default;
+
+        void accept(Visitor &visitor) override {
+            visitor.visit(*this);
+        }
+    };
+
+    class Argument: public Statement {
     public:
         explicit Argument(
-            const std::shared_ptr<Node> &expression
+            const std::shared_ptr<Expression> &expression
         ): expression(expression) {};
 
         Argument(
             const std::string &name, 
-            const std::shared_ptr<Node> &expression
+            const std::shared_ptr<Expression> &expression
         ): name(name), expression(expression) {};
 
         std::string name;
 
-        std::shared_ptr<Node> expression;
+        std::shared_ptr<Expression> expression;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -45,48 +56,37 @@ namespace AST {
     };
 
     /*
-     *  DECLARATIONS
+     *  Declarations
      */
 
-    class ConstantDeclaration: public Node {
-    public:
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
-    };
+    class Declaration: public Statement {};
 
-    class EnumerationDeclaration: public Node {
+    class ConstantDeclaration: public Declaration {};
+
+    class EnumerationDeclaration: public Declaration {
     public:
         explicit EnumerationDeclaration(
             const std::string &name
         ): name(name) {};
 
         std::string name;
-
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
     };
 
-    class ModuleDeclaration: public Node {
+    class ModuleDeclaration: public Declaration {
     public:
         explicit ModuleDeclaration(const std::string &name): name(name) {};
 
         ModuleDeclaration(
             const std::string &name, 
-            const std::vector<std::shared_ptr<Node>> &items
+            const std::vector<std::shared_ptr<Declaration>> &items
         ): name(name), items(items) {};
 
         std::string name;
 
-        std::vector<std::shared_ptr<Node>> items;
-
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
+        std::vector<std::shared_ptr<Declaration>> items;
     };
 
-    class RecordDeclaration: public Node {
+    class RecordDeclaration: public Declaration {
     public:
         RecordDeclaration(
             const std::string &name, 
@@ -96,13 +96,9 @@ namespace AST {
         std::string name;
 
         std::vector<std::shared_ptr<RecordFieldDeclaration>> items;
-
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
     };
 
-    class RecordFieldDeclaration: public Node {
+    class RecordFieldDeclaration: public Declaration {
     public:
         RecordFieldDeclaration(
             const std::string &name, 
@@ -112,13 +108,9 @@ namespace AST {
         std::string name;
 
         std::shared_ptr<Type::Type> type;
-
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
     };
 
-    class SubroutineDeclaration: public Node {
+    class SubroutineDeclaration: public Declaration {
     public:
         SubroutineDeclaration(
             const std::string &name, 
@@ -128,13 +120,9 @@ namespace AST {
         std::string name;
 
         std::shared_ptr<TypeSignature> signature;
-
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
     };
 
-    class TypeAliasDeclaration: public Node {
+    class TypeAliasDeclaration: public Declaration {
     public:
         TypeAliasDeclaration(
             const std::string &name, 
@@ -144,13 +132,9 @@ namespace AST {
         std::string name;
 
         std::shared_ptr<Type::Type> type;
-
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
     };
 
-    class UnionDeclaration: public Node {
+    class UnionDeclaration: public Declaration {
     public:
         UnionDeclaration(
             const std::string &name, 
@@ -160,28 +144,26 @@ namespace AST {
         std::string name;
 
         std::vector<std::shared_ptr<RecordFieldDeclaration>> items;
-
-        void accept(Visitor &visitor) override {
-            visitor.visit(*this);
-        }
     };
 
     /*
-     *  EXPRESSIONS
+     *  Expressions
      */
+
+    class Expression: public Statement {};
 
     /*
      *  An array expression, e.g.
      *
      *      [1, 2, 3]
      */
-    class ArrayExpression: public Node {
+    class ArrayExpression: public Expression {
     public:
         explicit ArrayExpression(
-            const std::vector<std::shared_ptr<Node>> &items
+            const std::vector<std::shared_ptr<Expression>> &items
         ): items(items) {};
 
-        std::vector<std::shared_ptr<Node>> items;
+        std::vector<std::shared_ptr<Expression>> items;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -193,23 +175,23 @@ namespace AST {
      *
      *      a + b
      */
-    class BinaryOperationExpression: public Node {
+    class BinaryOperationExpression: public Expression {
     public:
         BinaryOperationExpression(
             const std::string &name, 
-            std::shared_ptr<Node> a
+            std::shared_ptr<Expression> a
         ): name(name), a(a) {};
 
         BinaryOperationExpression(
             const std::string &name, 
-            std::shared_ptr<Node> a, 
-            std::shared_ptr<Node> b
+            std::shared_ptr<Expression> a, 
+            std::shared_ptr<Expression> b
         ): name(name), a(a), b(b) {};
 
         std::string name;
 
-        std::shared_ptr<Node> a;
-        std::shared_ptr<Node> b;
+        std::shared_ptr<Expression> a;
+        std::shared_ptr<Expression> b;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -221,15 +203,15 @@ namespace AST {
      *
      *      { true }
      */
-    class BlockExpression: public Node {
+    class BlockExpression: public Expression {
     public:
         BlockExpression() = default;
 
         explicit BlockExpression(
-            const std::vector<std::shared_ptr<Node>> &statements
+            const std::vector<std::shared_ptr<Statement>> &statements
         ): statements(statements) {};
 
-        std::vector<std::shared_ptr<Node>> statements;
+        std::vector<std::shared_ptr<Statement>> statements;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -241,7 +223,7 @@ namespace AST {
      *
      *      true
      */
-    class BooleanLiteralExpression: public Node {
+    class BooleanLiteralExpression: public Expression {
     public:
         explicit BooleanLiteralExpression(bool value): value(value) {};
 
@@ -257,7 +239,7 @@ namespace AST {
      *
      *      break
      */
-    class BreakExpression: public Node {
+    class BreakExpression: public Expression {
     public:
         BreakExpression() = default;
 
@@ -281,14 +263,14 @@ namespace AST {
      *
      *      f(x)
      */
-    class CallExpression: public Node {
+    class CallExpression: public Expression {
     public:
         CallExpression(
-            std::shared_ptr<Node> expression,
+            std::shared_ptr<Expression> expression,
             const std::vector<std::shared_ptr<Argument>> &arguments
         ): expression(expression), arguments(arguments) {};
 
-        std::shared_ptr<Node> expression;
+        std::shared_ptr<Expression> expression;
 
         std::vector<std::shared_ptr<Argument>> arguments;
 
@@ -302,7 +284,7 @@ namespace AST {
      *
      *      λ (x: 8-bit Integer) → 8-bit Integer { a + 1 }
      */
-    class ClosureExpression: public Node {
+    class ClosureExpression: public Expression {
     public:
         explicit ClosureExpression(
             std::shared_ptr<BlockExpression> expression
@@ -331,7 +313,7 @@ namespace AST {
      *
      *      }
      */
-    class ConditionalExpression: public Node {
+    class ConditionalExpression: public Expression {
     public:
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -343,7 +325,7 @@ namespace AST {
      *
      *      continue
      */
-    class ContinueExpression: public Node {
+    class ContinueExpression: public Expression {
     public:
         ContinueExpression() = default;
 
@@ -367,7 +349,7 @@ namespace AST {
      *
      *      1.0
      */
-    class FloatingPointLiteralExpression: public Node {
+    class FloatingPointLiteralExpression: public Expression {
     public:
         explicit FloatingPointLiteralExpression(
             const std::string &value
@@ -387,19 +369,19 @@ namespace AST {
      *
      *      }
      */
-    class ForLoopExpression: public Node {
+    class ForLoopExpression: public Expression {
     public:
         ForLoopExpression(const std::string &name) {};
 
         ForLoopExpression(
             const std::string &name, 
-            std::shared_ptr<Node> container, 
+            std::shared_ptr<Expression> container, 
             std::shared_ptr<BlockExpression> expression
         ): name(name), container(container), expression(expression) {};
 
         std::string name;
 
-        std::shared_ptr<Node> container;
+        std::shared_ptr<Expression> container;
 
         std::shared_ptr<BlockExpression> expression;
 
@@ -413,7 +395,7 @@ namespace AST {
      *
      *      1
      */
-    class IntegerLiteralExpression: public Node {
+    class IntegerLiteralExpression: public Expression {
     public:
         explicit IntegerLiteralExpression(
             const std::string &value
@@ -431,23 +413,23 @@ namespace AST {
      *
      *      1, 2, … 3
      */
-    class RangeExpression: public Node {
+    class RangeExpression: public Expression {
     public:
         RangeExpression(
-            std::shared_ptr<Node> a, 
-            std::shared_ptr<Node> b
+            std::shared_ptr<Expression> a, 
+            std::shared_ptr<Expression> b
         ): a(a), b(b) {};
 
         RangeExpression(
-            std::shared_ptr<Node> a, 
-            std::shared_ptr<Node> b, 
-            std::shared_ptr<Node> c
+            std::shared_ptr<Expression> a, 
+            std::shared_ptr<Expression> b, 
+            std::shared_ptr<Expression> c
         ): a(a), b(b), c(c) {};
 
-        std::shared_ptr<Node> a;
-        std::shared_ptr<Node> b;
+        std::shared_ptr<Expression> a;
+        std::shared_ptr<Expression> b;
 
-        std::optional<std::shared_ptr<Node>> c;
+        std::optional<std::shared_ptr<Expression>> c;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -459,20 +441,20 @@ namespace AST {
      *
      *      A { a: 1, b: 2 }
      */
-    class RecordExpression: public Node {
+    class RecordExpression: public Expression {
     public:
         explicit RecordExpression(
-            const std::vector<std::shared_ptr<Node>> &expressions
+            const std::vector<std::shared_ptr<Expression>> &expressions
         ): expressions(expressions) {};
 
         RecordExpression(
-            const std::vector<std::shared_ptr<Node>> &expressions, 
-            std::shared_ptr<Node> expression
+            const std::vector<std::shared_ptr<Expression>> &expressions, 
+            std::shared_ptr<Expression> expression
         ): expressions(expressions), expression(expression) {};
 
-        std::vector<std::shared_ptr<Node>> expressions;
+        std::vector<std::shared_ptr<Expression>> expressions;
 
-        std::optional<std::shared_ptr<Node>> expression;
+        std::optional<std::shared_ptr<Expression>> expression;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -484,12 +466,12 @@ namespace AST {
      *
      *      return
      */
-    class ReturnExpression: public Node {
+    class ReturnExpression: public Expression {
     public:
         ReturnExpression() = default;
 
         explicit ReturnExpression(
-            std::shared_ptr<Node> expression
+            std::shared_ptr<Expression> expression
         ): expression(expression) {};
 
         explicit ReturnExpression(
@@ -498,7 +480,7 @@ namespace AST {
 
         std::optional<std::shared_ptr<LabelDeclaration>> label;
 
-        std::shared_ptr<Node> expression;
+        std::shared_ptr<Expression> expression;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -510,14 +492,14 @@ namespace AST {
      *
      *      a[b]
      */
-    class SubscriptExpression: public Node {
+    class SubscriptExpression: public Expression {
     public:
         SubscriptExpression(
-            std::shared_ptr<Node> a, 
+            std::shared_ptr<Expression> a, 
             const std::vector<std::shared_ptr<Argument>> &b
         ): a(a), b(b) {};
 
-        std::shared_ptr<Node> a;
+        std::shared_ptr<Expression> a;
 
         std::vector<std::shared_ptr<Argument>> b;
 
@@ -536,7 +518,7 @@ namespace AST {
      *          default:
      *      }
      */
-    class SwitchExpression: public Node {
+    class SwitchExpression: public Expression {
     public:
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -548,13 +530,13 @@ namespace AST {
      *
      *      ⟨1, 2, 3⟩
      */
-    class TupleExpression: public Node {
+    class TupleExpression: public Expression {
     public:
         explicit TupleExpression(
-            const std::vector<std::shared_ptr<Node>> &items
+            const std::vector<std::shared_ptr<Expression>> &items
         ): items(items) {};
 
-        std::vector<std::shared_ptr<Node>> items;
+        std::vector<std::shared_ptr<Expression>> items;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
@@ -566,16 +548,18 @@ namespace AST {
      *
      *      −a
      */
-    class UnaryOperationExpression: public Node {
+    class UnaryOperationExpression: public Expression {
     public:
-        explicit UnaryOperationExpression(std::shared_ptr<Node> a): a(a) {};
+        explicit UnaryOperationExpression(
+            std::shared_ptr<Expression> a
+        ): a(a) {};
 
         UnaryOperationExpression(
             const std::string &operation, 
-            std::shared_ptr<Node> a
+            std::shared_ptr<Expression> a
         ): operation(operation), a(a) {};
 
-        std::shared_ptr<Node> a;
+        std::shared_ptr<Expression> a;
 
         std::string operation;
 
@@ -591,16 +575,16 @@ namespace AST {
      *
      *      }
      */
-    class WhileLoopExpression: public Node {
+    class WhileLoopExpression: public Expression {
     public:
         WhileLoopExpression() = default;
 
         WhileLoopExpression(
-            std::shared_ptr<Node> a, 
+            std::shared_ptr<Expression> a, 
             std::shared_ptr<BlockExpression> b
         ): a(a), b(b) {};
 
-        std::shared_ptr<Node> a;
+        std::shared_ptr<Expression> a;
 
         std::shared_ptr<BlockExpression> b;
 
@@ -609,38 +593,38 @@ namespace AST {
         }
     };
 
-    class GenericParameter: public Node {
+    class GenericParameter: public Statement {
     public:
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
     };
 
-    class LabelDeclaration: public Node {
+    class LabelDeclaration: public Statement {
     public:
         explicit LabelDeclaration(const std::string &name): name(name) {};
 
         LabelDeclaration(
             const std::string &name, 
-            std::shared_ptr<Node> statement
+            std::shared_ptr<Statement> statement
         ): name(name), statement(statement) {};
 
         std::string name;
 
-        std::shared_ptr<Node> statement;
+        std::shared_ptr<Statement> statement;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
     };
 
-    class Parameter: public Node {
+    class Parameter: public Statement {
     public:
         explicit Parameter(const std::string &name): name(name) {};
 
         Parameter(
             const std::string &name, 
-            std::shared_ptr<Node> expression
+            std::shared_ptr<Expression> expression
         ): name(name), expression(expression) {};
 
         Parameter(
@@ -651,21 +635,21 @@ namespace AST {
         Parameter(
             const std::string &name, 
             std::shared_ptr<Type::Type> type, 
-            std::shared_ptr<Node> expression
+            std::shared_ptr<Expression> expression
         ): name(name), type(type), expression(expression) {};
 
         std::string name;
 
         std::shared_ptr<Type::Type> type;
 
-        std::shared_ptr<Node> expression;
+        std::shared_ptr<Expression> expression;
 
         void accept(Visitor &visitor) override {
             visitor.visit(*this);
         }
     };
 
-    class TypeSignature: public Node {
+    class TypeSignature: public Statement {
     public:
         TypeSignature() = default;
 

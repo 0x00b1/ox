@@ -15,7 +15,9 @@ namespace AST {
     class ConditionalExpression;
     class ConstantDeclaration;
     class ContinueExpression;
+    class Declaration;
     class EnumerationDeclaration;
+    class Expression;
     class FloatingPointLiteralExpression;
     class ForLoopExpression;
     class GenericParameter;
@@ -29,6 +31,7 @@ namespace AST {
     class RecordFieldDeclaration;
     class ReturnExpression;
     class Root;
+    class Statement;
     class SubroutineDeclaration;
     class SubscriptExpression;
     class SwitchExpression;
@@ -57,7 +60,9 @@ public:
     virtual void visit(const AST::ConditionalExpression &node);
     virtual void visit(const AST::ConstantDeclaration &node);
     virtual void visit(const AST::ContinueExpression &node);
+    virtual void visit(const AST::Declaration &node);
     virtual void visit(const AST::EnumerationDeclaration &node);
+    virtual void visit(const AST::Expression &node);
     virtual void visit(const AST::FloatingPointLiteralExpression &node);
     virtual void visit(const AST::ForLoopExpression &node);
     virtual void visit(const AST::GenericParameter &node);
@@ -72,6 +77,7 @@ public:
     virtual void visit(const AST::RecordFieldDeclaration &node);
     virtual void visit(const AST::ReturnExpression &node);
     virtual void visit(const AST::Root &node);
+    virtual void visit(const AST::Statement &node);
     virtual void visit(const AST::SubroutineDeclaration &node);
     virtual void visit(const AST::SubscriptExpression &node);
     virtual void visit(const AST::SwitchExpression &node);

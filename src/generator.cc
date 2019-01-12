@@ -12,6 +12,18 @@ void Generator::visit(const AST::Root &root) {
     }
 }
 
+void Generator::visit(const AST::Statement &node) {
+    std::cout << "generating STATEMENT" << std::endl;
+}
+
+void Generator::visit(const AST::Expression &node) {
+    std::cout << "generating EXPRESSION" << std::endl;
+}
+
+void Generator::visit(const AST::Declaration &node) {
+    std::cout << "generating DECLARATION" << std::endl;
+}
+
 void Generator::visit(const AST::Argument &node) {
     std::cout << "generating Argument" << std::endl;
 }
