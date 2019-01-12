@@ -6,6 +6,11 @@ void Generator::visit(const AST::Node &node) {
 
 void Generator::visit(const AST::Root &root) {
     std::cout << "generating Root" << std::endl;
+
+    for (auto node: root.nodes) {
+        node.get()->accept(*this);
+
+    }
 }
 
 void Generator::visit(const AST::Argument &node) {

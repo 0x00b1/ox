@@ -17,7 +17,7 @@ class Compiler {
 public:
     Compiler();
 
-    AST::Root* root;
+    std::shared_ptr<AST::Root> root;
 
     std::map<std::string, int> variables;
 
