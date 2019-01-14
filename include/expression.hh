@@ -15,7 +15,7 @@ namespace Expression {
 
         std::vector<std::shared_ptr<AST::Expression>> elements;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Array> p{shared_from_this()};
 
             visitor.accept(p);
@@ -30,7 +30,7 @@ namespace Expression {
 
         std::shared_ptr<AST::Expression> expression;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Assignment> p{shared_from_this()};
 
             visitor.accept(p);
@@ -46,7 +46,7 @@ namespace Expression {
         std::shared_ptr<AST::Expression> a;
         std::shared_ptr<AST::Expression> b;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<BinaryOperation> p{shared_from_this()};
 
             visitor.accept(p);
@@ -63,7 +63,7 @@ namespace Expression {
 
         std::optional<AST::Label> label;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Block> p{shared_from_this()};
 
             visitor.accept(p);
@@ -78,7 +78,7 @@ namespace Expression {
 
         std::string value;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<BooleanLiteral> p{shared_from_this()};
 
             visitor.accept(p);
@@ -99,7 +99,7 @@ namespace Expression {
 
         std::optional<std::shared_ptr<AST::Expression>> expression;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Break> p{shared_from_this()};
 
             visitor.accept(p);
@@ -114,7 +114,7 @@ namespace Expression {
 
         std::vector<std::shared_ptr<AST::Expression>> arguments;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Call> p{shared_from_this()};
 
             visitor.accept(p);
@@ -129,7 +129,7 @@ namespace Expression {
 
         std::shared_ptr<AST::Expression> expression;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Closure> p{shared_from_this()};
 
             visitor.accept(p);
@@ -148,7 +148,7 @@ namespace Expression {
 
         std::optional<std::shared_ptr<AST::Expression>> alternate;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Conditional> p{shared_from_this()};
 
             visitor.accept(p);
@@ -163,7 +163,7 @@ namespace Expression {
 
         std::optional<AST::Label> label;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Continue> p{shared_from_this()};
 
             visitor.accept(p);
@@ -178,7 +178,7 @@ namespace Expression {
 
         std::string value;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<FloatingPointLiteral> p{shared_from_this()};
 
             visitor.accept(p);
@@ -199,7 +199,7 @@ namespace Expression {
 
         std::optional<AST::Label> label;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<ForLoop> p{shared_from_this()};
 
             visitor.accept(p);
@@ -214,7 +214,7 @@ namespace Expression {
 
         std::shared_ptr<AST::Node> subscript;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Index> p{shared_from_this()};
 
             visitor.accept(p);
@@ -229,7 +229,7 @@ namespace Expression {
 
         std::string value;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<IntegerLiteral> p{shared_from_this()};
 
             visitor.accept(p);
@@ -238,7 +238,7 @@ namespace Expression {
 
     class Member: public AST::Expression, public std::enable_shared_from_this<Member> {
     public:
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Member> p{shared_from_this()};
 
             visitor.accept(p);
@@ -247,7 +247,7 @@ namespace Expression {
 
     class Range: public AST::Expression, public std::enable_shared_from_this<Range> {
     public:
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Range> p{shared_from_this()};
 
             visitor.accept(p);
@@ -262,7 +262,7 @@ namespace Expression {
 
         std::vector<AST::Field> fields;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Record> p{shared_from_this()};
 
             visitor.accept(p);
@@ -275,7 +275,7 @@ namespace Expression {
 
         std::shared_ptr<AST::Expression> expression;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Reference> p{shared_from_this()};
 
             visitor.accept(p);
@@ -290,7 +290,7 @@ namespace Expression {
 
         std::optional<std::shared_ptr<AST::Expression>> expression;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Return> p{shared_from_this()};
 
             visitor.accept(p);
@@ -299,7 +299,7 @@ namespace Expression {
 
     class Switch: public AST::Expression, public std::enable_shared_from_this<Switch> {
     public:
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Switch> p{shared_from_this()};
 
             visitor.accept(p);
@@ -312,7 +312,7 @@ namespace Expression {
 
         std::vector<std::shared_ptr<AST::Expression>> elements;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Tuple> p{shared_from_this()};
 
             visitor.accept(p);
@@ -327,7 +327,7 @@ namespace Expression {
 
         std::shared_ptr<AST::Expression> expression;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<UnaryOperation> p{shared_from_this()};
 
             visitor.accept(p);
@@ -346,7 +346,7 @@ namespace Expression {
 
         std::optional<AST::Label> label;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<WhileLoop> p{shared_from_this()};
 
             visitor.accept(p);

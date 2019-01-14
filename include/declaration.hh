@@ -19,7 +19,7 @@ namespace Declaration {
 
         std::shared_ptr<AST::Type> type;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Constant> p{shared_from_this()};
 
             visitor.accept(p);
@@ -32,7 +32,7 @@ namespace Declaration {
 
         AST::Identifier identifier;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Enumeration> p{shared_from_this()};
 
             visitor.accept(p);
@@ -47,7 +47,7 @@ namespace Declaration {
 
         AST::Identifier identifier;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Module> p{shared_from_this()};
 
             visitor.accept(p);
@@ -62,7 +62,7 @@ namespace Declaration {
 
         std::shared_ptr<AST::Variant> variant;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Record> p{shared_from_this()};
 
             visitor.accept(p);
@@ -79,7 +79,7 @@ namespace Declaration {
 
         AST::Identifier identifier;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Subroutine> p{shared_from_this()};
 
             visitor.accept(p);
@@ -94,7 +94,7 @@ namespace Declaration {
 
         std::vector<std::shared_ptr<AST::Variant>> variants;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<TaggedUnion> p{shared_from_this()};
 
             visitor.accept(p);
@@ -109,7 +109,7 @@ namespace Declaration {
 
         std::shared_ptr<AST::Type> type;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<TypeAlias> p{shared_from_this()};
 
             visitor.accept(p);

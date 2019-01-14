@@ -14,7 +14,7 @@ namespace AST {
 
         std::shared_ptr<Expression> expression;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<AnonymousConstant> p{shared_from_this()};
 
             visitor.accept(p);
@@ -29,7 +29,7 @@ namespace AST {
 
         std::shared_ptr<Type> type;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Argument> p{shared_from_this()};
 
             visitor.accept(p);
@@ -40,7 +40,7 @@ namespace AST {
     public:
         std::vector<Statement> statements;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Block> p{shared_from_this()};
 
             visitor.accept(p);
@@ -61,7 +61,7 @@ namespace AST {
 
         std::shared_ptr<Node> expression;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Field> p{shared_from_this()};
 
             visitor.accept(p);
@@ -78,7 +78,7 @@ namespace AST {
 
         bool variadic;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<FunctionPrototype> p{shared_from_this()};
 
             visitor.accept(p);
@@ -89,7 +89,7 @@ namespace AST {
     public:
         std::optional<std::shared_ptr<Type>> type;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<GenericParameter> p{shared_from_this()};
 
             visitor.accept(p);
@@ -98,7 +98,7 @@ namespace AST {
 
     class Identifier: public Node, public std::enable_shared_from_this<Identifier> {
     public:
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Identifier> p{shared_from_this()};
 
             visitor.accept(p);
@@ -107,7 +107,7 @@ namespace AST {
 
     class Label: public Node, public std::enable_shared_from_this<Label> {
     public:
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Label> p{shared_from_this()};
 
             visitor.accept(p);
@@ -116,7 +116,7 @@ namespace AST {
 
     class Path: public Node, public std::enable_shared_from_this<Path> {
     public:
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Path> p{shared_from_this()};
 
             visitor.accept(p);
@@ -125,7 +125,7 @@ namespace AST {
 
     class Pattern: public Node, public std::enable_shared_from_this<Pattern> {
     public:
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Pattern> p{shared_from_this()};
 
             visitor.accept(p);
@@ -142,7 +142,7 @@ namespace AST {
 
         std::shared_ptr<Type> type;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<RecordField> p{shared_from_this()};
 
             visitor.accept(p);

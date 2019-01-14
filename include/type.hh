@@ -32,7 +32,7 @@ namespace Type {
 
         std::shared_ptr<AST::Type> type;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Array> p{shared_from_this()};
 
             visitor.accept(p);
@@ -43,7 +43,7 @@ namespace Type {
     public:
         Primitive primitive = Primitive::i2;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Boolean> p{shared_from_this()};
 
             visitor.accept(p);
@@ -52,7 +52,7 @@ namespace Type {
 
     class Bottom: public AST::Type, public std::enable_shared_from_this<Bottom> {
     public:
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Bottom> p{shared_from_this()};
 
             visitor.accept(p);
@@ -63,7 +63,7 @@ namespace Type {
     public:
         Primitive primitive;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<FloatingPoint> p{shared_from_this()};
 
             visitor.accept(p);
@@ -76,7 +76,7 @@ namespace Type {
 
         std::shared_ptr<AST::FunctionPrototype> function_prototype;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Function> p{shared_from_this()};
 
             visitor.accept(p);
@@ -87,7 +87,7 @@ namespace Type {
     public:
         Primitive primitive;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Integer> p{shared_from_this()};
 
             visitor.accept(p);
@@ -98,7 +98,7 @@ namespace Type {
     public:
         AST::Path path;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Path> p{shared_from_this()};
 
             visitor.accept(p);
@@ -111,7 +111,7 @@ namespace Type {
 
         std::vector<std::shared_ptr<AST::Type>> types;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Product> p{shared_from_this()};
 
             visitor.accept(p);
@@ -124,7 +124,7 @@ namespace Type {
 
         std::shared_ptr<AST::Type> type;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Reference> p{shared_from_this()};
 
             visitor.accept(p);
@@ -139,7 +139,7 @@ namespace Type {
 
         std::shared_ptr<AST::FunctionPrototype> function_prototype;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Subroutine> p{shared_from_this()};
 
             visitor.accept(p);
@@ -148,7 +148,7 @@ namespace Type {
 
     class Top: public AST::Type, public std::enable_shared_from_this<Top> {
     public:
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Top> p{shared_from_this()};
 
             visitor.accept(p);

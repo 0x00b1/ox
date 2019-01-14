@@ -12,7 +12,7 @@ namespace Statement {
 
         std::shared_ptr<AST::Declaration> declaration;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Declaration> p{shared_from_this()};
 
             visitor.accept(p);
@@ -25,7 +25,7 @@ namespace Statement {
 
         std::shared_ptr<AST::Expression> expression;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Expression> p{shared_from_this()};
 
             visitor.accept(p);

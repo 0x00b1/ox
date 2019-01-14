@@ -12,7 +12,7 @@ namespace Variant {
 
         std::vector<AST::RecordField> fields;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Record> p{shared_from_this()};
 
             visitor.accept(p);
@@ -25,7 +25,7 @@ namespace Variant {
 
         std::vector<AST::RecordField> fields;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Tuple> p{shared_from_this()};
 
             visitor.accept(p);
@@ -36,7 +36,7 @@ namespace Variant {
     public:
         Unit() = default;
 
-        virtual void accept(Visitor &visitor) override {
+        void accept(Visitor &visitor) override {
             std::shared_ptr<Unit> p{shared_from_this()};
 
             visitor.accept(p);
