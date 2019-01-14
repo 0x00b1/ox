@@ -134,6 +134,14 @@ namespace AST {
 
     class RecordField: public Node, public std::enable_shared_from_this<RecordField> {
     public:
+        RecordField(const Identifier &identifier, std::shared_ptr<Type> type): identifier(identifier), type(type) {}
+
+        RecordField(std::shared_ptr<Type> type): type(type) {}
+
+        std::optional<Identifier> identifier;
+
+        std::shared_ptr<Type> type;
+
         virtual void accept(Visitor &visitor) override {
             std::shared_ptr<RecordField> p{shared_from_this()};
 
