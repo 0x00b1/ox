@@ -15,4 +15,4 @@ ADD_FLEX_BISON_DEPENDENCY(SCANNER PARSER)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(.)
 
-add_executable(ox src/main.cc src/compiler.cc ${BISON_PARSER_OUTPUTS} ${FLEX_SCANNER_OUTPUTS} include/compiler.hh src/ast.cc include/ast.hh src/node.cc include/node.hh src/visitor.cc include/visitor.hh src/generator.cc include/generator.hh)
+add_executable(ox src/main.cc src/compiler.cc ${BISON_PARSER_OUTPUTS} ${FLEX_SCANNER_OUTPUTS} include/compiler.hh include/ast.hh include/visitor.hh include/generator.hh include/variant.hh include/statement.hh include/type.hh include/expression.hh include/declaration.hh include/syntax.hh)

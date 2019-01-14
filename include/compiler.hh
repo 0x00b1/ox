@@ -5,7 +5,6 @@
 #include <map>
 
 #include "parser.hh"
-#include "include/ast.hh"
 
 // Give Flex the prototype of yylex we want ...
 #define YY_DECL yy::parser::symbol_type yylex(Compiler& compiler)
@@ -16,8 +15,6 @@ YY_DECL;
 class Compiler {
 public:
     Compiler();
-
-    std::shared_ptr<AST::Root> root;
 
     std::map<std::string, int> variables;
 

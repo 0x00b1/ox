@@ -1,179 +1,158 @@
 #ifndef OX_TYPE_HH
 #define OX_TYPE_HH
 
-#include <optional>
-#include <vector>
+#include <memory>
+
+#include "visitor.hh"
 
 namespace Type {
-    /*
-     *  5.0.    TYPES
-     */
-    class Type {};
-
-    /*
-     *  5.1.    PRIMITIVE TYPES
-     */
-
-    /*
-     *  5.1.1.  BOOLEAN
-     */    
-    class Boolean: public Type {};
-
-    /*
-     *  5.1.2.  NUMBER
-     */
-    class Number: public Type {
-    public:
-        std::uint8_t bits;
-
-        std::int64_t minimum;
-        std::int64_t maximum;
+    enum Primitive {
+         fp16,  //           16-bit Floating-point
+         fp32,  //           32-bit Floating-point
+         fp64,  //           64-bit Floating-point
+        fp128,  //          128-bit Floating-point
+           i2,  //                  Boolean
+           i8,  //            8-bit Integer
+          i16,  //           16-bit Integer
+          i32,  //           32-bit Integer
+          i64,  //           64-bit Integer
+         i128,  //          128-bit Integer
+           u8,  // unsigned   8-bit Integer
+          u16,  // unsigned  16-bit Integer
+          u32,  // unsigned  32-bit Integer
+          u64,  // unsigned  64-bit Integer
+         u128   // unsigned 128-bit Integer
     };
 
-    class Integer: public Number {
+    class Array: public AST::Type, public std::enable_shared_from_this<Array> {
     public:
-        bool sign;
+        Array(const AST::AnonymousConstant &shape, std::shared_ptr<AST::Type> type): shape(shape), type(type) {}
+
+        AST::AnonymousConstant shape;
+
+        std::shared_ptr<AST::Type> type;
+
+        virtual void accept(Visitor &visitor) override {
+            std::shared_ptr<Array> p{shared_from_this()};
+
+            visitor.accept(p);
+        }
     };
 
-    class   U8: public Integer {};  // unsigned   8-bit Integer
-    class  U16: public Integer {};  // unsigned  16-bit Integer
-    class  U32: public Integer {};  // unsigned  32-bit Integer
-    class  U64: public Integer {};  // unsigned  64-bit Integer
-    class U128: public Integer {};  // unsigned 128-bit Integer
-
-    class   I8: public Integer {};  //   8-bit Integer
-    class  I16: public Integer {};  //  16-bit Integer
-    class  I32: public Integer {};  //  32-bit Integer
-    class  I64: public Integer {};  //  64-bit Integer
-    class I128: public Integer {};  // 128-bit Integer
-
-    class  F32: public Type {};     // 32-bit Floating-point
-    class  F64: public Type {};     // 64-bit Floating-point
-
-    /*
-     *  5.1.3.  UNIT TYPE
-     */
-    class Unit: public Type {};     // ()
-
-    /*
-     *  5.1.2.  ARRAY TYPE
-     */
-    class Array: public Type {
+    class Boolean: public AST::Type, public std::enable_shared_from_this<Boolean> {
     public:
-        Array(
-            const std::vector<std::string> &shape,
-            std::shared_ptr<Type> type
-        ): shape(shape), type(type) {};
+        Primitive primitive = Primitive::i2;
 
-       std::shared_ptr<Type> type;
+        virtual void accept(Visitor &visitor) override {
+            std::shared_ptr<Boolean> p{shared_from_this()};
 
-        std::vector<std::string> shape;
+            visitor.accept(p);
+        }
     };
 
-    /*
-     *  5.2.    PRODUCT TYPE
-     */
-    class Product: public Type {};
-
-    /*
-     *  5.2.1.  TUPLE TYPE
-     */
-    class Tuple: public Product {
+    class Bottom: public AST::Type, public std::enable_shared_from_this<Bottom> {
     public:
-        explicit Tuple(
-            const std::vector<std::shared_ptr<Type>> &types
-        ): types(types) {}
+        virtual void accept(Visitor &visitor) override {
+            std::shared_ptr<Bottom> p{shared_from_this()};
 
-        std::vector<std::shared_ptr<Type>> types;
+            visitor.accept(p);
+        }
     };
 
-    /*
-     *  5.2.2.  RECORD TYPE
-     */
-    class Record: public Product {
+    class FloatingPoint: public AST::Type, public std::enable_shared_from_this<FloatingPoint> {
     public:
-        explicit Record(std::string name): name(name) {};
+        Primitive primitive;
 
-        Record(
-            const std::string &name,
-            const std::vector<std::shared_ptr<Type>> &types
-        ): name(name), types(types) {};
+        virtual void accept(Visitor &visitor) override {
+            std::shared_ptr<FloatingPoint> p{shared_from_this()};
 
-        std::string name;
-
-        std::vector<std::shared_ptr<Type>> types;
+            visitor.accept(p);
+        }
     };
 
-    /*
-     *  5.3.    SUM TYPE
-     */
-    class Sum: public Type {};
-
-    /*
-     *  5.3.1.  TAGGED UNION
-     */
-    class Union: public Sum {
+    class Function: public AST::Type, public std::enable_shared_from_this<Function> {
     public:
-        explicit Union(std::string name): name(name) {};
+        Function(std::shared_ptr<AST::FunctionPrototype> function_prototype): function_prototype(function_prototype) {}
 
-        Union(
-            const std::string &name,
-            const std::vector<std::shared_ptr<Type>> &types
-        ): name(name), types(types) {};
+        std::shared_ptr<AST::FunctionPrototype> function_prototype;
 
-        std::string name;
+        virtual void accept(Visitor &visitor) override {
+            std::shared_ptr<Function> p{shared_from_this()};
 
-        std::vector<std::shared_ptr<Type>> types;
+            visitor.accept(p);
+        }
     };
 
-    /*
-     *  5.3.2.  ENUMERATED TYPE
-     */
-    class Enumerated: public Sum {
+    class Integer: public AST::Type, public std::enable_shared_from_this<Integer> {
     public:
-        Enumerated(
-            const std::string &name,
-            const std::vector<std::shared_ptr<Type>> &types
-        ): name(name), types(types) {};
+        Primitive primitive;
 
-        std::string name;
+        virtual void accept(Visitor &visitor) override {
+            std::shared_ptr<Integer> p{shared_from_this()};
 
-        std::vector<std::shared_ptr<Type>> types;
+            visitor.accept(p);
+        }
     };
 
-    /*
-     *  5.4.    FUNCTION TYPE
-     */
-    class Function: public Type {
+    class Path: public AST::Type, public std::enable_shared_from_this<Path> {
     public:
-        Function(
-            const std::vector<std::shared_ptr<Type>> &a,
-            std::shared_ptr<Type> b
-        ): a(a), b(b) {};
+        AST::Path path;
 
-        Function(
-            const std::string &name, 
-            const std::vector<std::shared_ptr<Type>> &a,
-            std::shared_ptr<Type> b
-        ): name(name), a(a), b(b) {};
+        virtual void accept(Visitor &visitor) override {
+            std::shared_ptr<Path> p{shared_from_this()};
 
-        std::optional<std::string> name;
-
-        std::vector<std::shared_ptr<Type>> a;
-
-        std::shared_ptr<Type> b;
+            visitor.accept(p);
+        }
     };
 
-    /*
-     *  5.5.    REFERENCE TYPE
-     */
-    class Reference: public Type {
+    class Product: public AST::Type, public std::enable_shared_from_this<Product> {
     public:
-        explicit Reference(
-            std::shared_ptr<Type> referenced
-        ): referenced(referenced) {};
+        Product(const std::vector<std::shared_ptr<AST::Type>> &types): types(types) {}
 
-        std::shared_ptr<Type> referenced;
+        std::vector<std::shared_ptr<AST::Type>> types;
+
+        virtual void accept(Visitor &visitor) override {
+            std::shared_ptr<Product> p{shared_from_this()};
+
+            visitor.accept(p);
+        }
+    };
+
+    class Reference: public AST::Type, public std::enable_shared_from_this<Reference> {
+    public:
+        Reference(std::shared_ptr<AST::Type> type): type(type) {}
+
+        std::shared_ptr<AST::Type> type;
+
+        virtual void accept(Visitor &visitor) override {
+            std::shared_ptr<Reference> p{shared_from_this()};
+
+            visitor.accept(p);
+        }
+    };
+
+    class Subroutine: public AST::Type, public std::enable_shared_from_this<Subroutine> {
+    public:
+        Subroutine(const std::vector<AST::GenericParameter> &generic_parameters, std::shared_ptr<AST::FunctionPrototype> function_prototype): generic_parameters(generic_parameters), function_prototype(function_prototype) {}
+
+        std::vector<AST::GenericParameter> generic_parameters;
+
+        std::shared_ptr<AST::FunctionPrototype> function_prototype;
+
+        virtual void accept(Visitor &visitor) override {
+            std::shared_ptr<Subroutine> p{shared_from_this()};
+
+            visitor.accept(p);
+        }
+    };
+
+    class Top: public AST::Type, public std::enable_shared_from_this<Top> {
+    public:
+        virtual void accept(Visitor &visitor) override {
+            std::shared_ptr<Top> p{shared_from_this()};
+
+            visitor.accept(p);
+        }
     };
 }
 

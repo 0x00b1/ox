@@ -2,53 +2,72 @@
 #define OX_GENERATOR_HH
 
 #include <iostream>
+#include <memory>
 
-#include "ast.hh"
+#include "visitor.hh"
 
 class Generator: public Visitor {
 public:
-    Generator() = default;
+    void accept(std::shared_ptr<AST::AnonymousConstant> node) override {}
+    void accept(std::shared_ptr<AST::Argument> node) override {}
+    void accept(std::shared_ptr<AST::Block> node) override {}
+    void accept(std::shared_ptr<AST::Declaration> node) override {}
+    void accept(std::shared_ptr<AST::Expression> node) override {}
+    void accept(std::shared_ptr<AST::Field> node) override {}
+    void accept(std::shared_ptr<AST::FunctionPrototype> node) override {}
+    void accept(std::shared_ptr<AST::GenericParameter> node) override {}
+    void accept(std::shared_ptr<AST::Identifier> node) override {}
+    void accept(std::shared_ptr<AST::Label> node) override {}
+    void accept(std::shared_ptr<AST::Path> node) override {}
+    void accept(std::shared_ptr<AST::Pattern> node) override {}
+    void accept(std::shared_ptr<AST::RecordField> node) override {}
+    void accept(std::shared_ptr<AST::Statement> node) override {}
+    void accept(std::shared_ptr<AST::Type> node) override {}
+    void accept(std::shared_ptr<AST::Variant> node) override {}
+    void accept(std::shared_ptr<Declaration::Constant> node) override {}
+    void accept(std::shared_ptr<Declaration::Enumeration> node) override {}
+    void accept(std::shared_ptr<Declaration::Module> node) override {}
+    void accept(std::shared_ptr<Declaration::Record> node) override {}
+    void accept(std::shared_ptr<Declaration::Subroutine> node) override {}
+    void accept(std::shared_ptr<Declaration::TaggedUnion> node) override {}
+    void accept(std::shared_ptr<Declaration::TypeAlias> node) override {}
 
-    ~Generator() override = default;
+    void accept(std::shared_ptr<Expression::Array> node) override {
+        for (const auto &element: node->elements) {
+            element->accept(*this);
+        }
+    }
 
-    void visit(const AST::Argument &node) override;
-    void visit(const AST::ArrayExpression &node) override;
-    void visit(const AST::BinaryOperationExpression &node) override;
-    void visit(const AST::BlockExpression &node) override;
-    void visit(const AST::BooleanLiteralExpression &node) override;
-    void visit(const AST::BreakExpression &node) override;
-    void visit(const AST::CallExpression &node) override;
-    void visit(const AST::ClosureExpression &node) override;
-    void visit(const AST::ConditionalExpression &node) override;
-    void visit(const AST::ConstantDeclaration &node) override;
-    void visit(const AST::ContinueExpression &node) override;
-    void visit(const AST::Declaration &node) override;
-    void visit(const AST::EnumerationDeclaration &node) override;
-    void visit(const AST::Expression &node) override;
-    void visit(const AST::FloatingPointLiteralExpression &node) override;
-    void visit(const AST::ForLoopExpression &node) override;
-    void visit(const AST::GenericParameter &node) override;
-    void visit(const AST::IntegerLiteralExpression &node) override;
-    void visit(const AST::LabelDeclaration &node) override;
-    void visit(const AST::ModuleDeclaration &node) override;
-    void visit(const AST::Node &node) override;
-    void visit(const AST::Parameter &node) override;
-    void visit(const AST::RangeExpression &node) override;
-    void visit(const AST::RecordDeclaration &node) override;
-    void visit(const AST::RecordExpression &node) override;
-    void visit(const AST::RecordFieldDeclaration &node) override;
-    void visit(const AST::ReturnExpression &node) override;
-    void visit(const AST::Root &root) override;
-    void visit(const AST::Statement &node) override;
-    void visit(const AST::SubroutineDeclaration &node) override;
-    void visit(const AST::SubscriptExpression &node) override;
-    void visit(const AST::SwitchExpression &node) override;
-    void visit(const AST::TupleExpression &node) override;
-    void visit(const AST::TypeAliasDeclaration &node) override;
-    void visit(const AST::TypeSignature &node) override;
-    void visit(const AST::UnaryOperationExpression &node) override;
-    void visit(const AST::UnionDeclaration &node) override;
-    void visit(const AST::WhileLoopExpression &node) override;
+    void accept(std::shared_ptr<Expression::Assignment> node) override {}
+    void accept(std::shared_ptr<Expression::BinaryOperation> node) override {}
+    void accept(std::shared_ptr<Expression::Block> node) override {}
+    void accept(std::shared_ptr<Expression::BooleanLiteral> node) override {}
+    void accept(std::shared_ptr<Expression::Break> node) override {}
+    void accept(std::shared_ptr<Expression::Call> node) override {}
+    void accept(std::shared_ptr<Expression::Closure> node) override {}
+    void accept(std::shared_ptr<Expression::Conditional> node) override {}
+    void accept(std::shared_ptr<Expression::Continue> node) override {}
+    void accept(std::shared_ptr<Expression::FloatingPointLiteral> node) override {}
+    void accept(std::shared_ptr<Expression::ForLoop> node) override {}
+    void accept(std::shared_ptr<Expression::Index> node) override {}
+    void accept(std::shared_ptr<Expression::IntegerLiteral> node) override {}
+    void accept(std::shared_ptr<Expression::Member> node) override {}
+    void accept(std::shared_ptr<Expression::Range> node) override {}
+    void accept(std::shared_ptr<Expression::Record> node) override {}
+    void accept(std::shared_ptr<Expression::Reference> node) override {}
+    void accept(std::shared_ptr<Expression::Return> node) override {}
+    void accept(std::shared_ptr<Expression::Switch> node) override {}
+    void accept(std::shared_ptr<Expression::Tuple> node) override {}
+    void accept(std::shared_ptr<Expression::UnaryOperation> node) override {}
+    void accept(std::shared_ptr<Expression::WhileLoop> node) override {}
+    void accept(std::shared_ptr<Statement::Declaration> node) override {}
+    void accept(std::shared_ptr<Statement::Expression> node) override {}
+    void accept(std::shared_ptr<Type::Boolean> node) override {}
+    void accept(std::shared_ptr<Type::FloatingPoint> node) override {}
+    void accept(std::shared_ptr<Type::Integer> node) override {}
+    void accept(std::shared_ptr<Variant::Record> node) override {}
+    void accept(std::shared_ptr<Variant::Tuple> node) override {}
+    void accept(std::shared_ptr<Variant::Unit> node) override {}
 };
 
 #endif

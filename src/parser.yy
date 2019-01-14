@@ -167,109 +167,16 @@
 %left ":" ";" "," "."
 %left "⟨" "⟩"
 
-%type <std::shared_ptr<Type::Type>> CLOSURE_RETURN_TYPE 
-%type <std::shared_ptr<Type::Type>> SUBROUTINE_RETURN_TYPE;
-%type <std::shared_ptr<Type::Type>> TYPE TYPE_ANNOTATION;
-%type <std::shared_ptr<Type::Type>> TYPE_ALIAS_ASSIGNMENT;
-
-%type <std::shared_ptr<AST::Argument>> CALL_ARGUMENT;
-%type <std::shared_ptr<AST::ArrayExpression>> ARRAY_LITERAL;
-%type <std::shared_ptr<AST::BinaryOperationExpression>> BINARY_EXPRESSION;
-%type <std::shared_ptr<AST::BinaryOperationExpression>> TYPE_CASTING_OPERATOR;
-%type <std::shared_ptr<AST::BlockExpression>> BLOCK_EXPRESSION;
-%type <std::shared_ptr<AST::BooleanLiteralExpression>> BOOLEAN_LITERAL;
-%type <std::shared_ptr<AST::BreakExpression>> BREAK_STATEMENT;
-%type <std::shared_ptr<AST::CallExpression>> CALL_EXPRESSION;
-%type <std::shared_ptr<AST::ClosureExpression>> CLOSURE_EXPRESSION;
-%type <std::shared_ptr<AST::ConditionalExpression>> IF_STATEMENT;
-%type <std::shared_ptr<AST::ContinueExpression>> CONTINUE_STATEMENT;
-%type <std::shared_ptr<AST::EnumerationDeclaration>> ENUMERATION_DECLARATION;
-%type <std::shared_ptr<AST::Expression>> ARRAY_LITERAL_ITEM;
-%type <std::shared_ptr<AST::Expression>> DEFAULT_ARGUMENT_CLAUSE;
-%type <std::shared_ptr<AST::Expression>> EXPRESSION;
-%type <std::shared_ptr<AST::Expression>> LOOP_STATEMENT;
-%type <std::shared_ptr<AST::Expression>> POSTFIX_EXPRESSION;
-%type <std::shared_ptr<AST::Expression>> TUPLE_LITERAL_ITEM;
-%type <std::shared_ptr<AST::FloatingPointLiteralExpression>> FLOATING_POINT_LITERAL;
-%type <std::shared_ptr<AST::ForLoopExpression>> FOR_IN_STATEMENT;
-%type <std::shared_ptr<AST::IntegerLiteralExpression>> INTEGER_LITERAL;
-%type <std::shared_ptr<AST::LabelDeclaration>> LABELED_STATEMENT;
-%type <std::shared_ptr<AST::LabelDeclaration>> STATEMENT_LABEL;
-%type <std::shared_ptr<AST::Parameter>> CLOSURE_PARAMETER;
-%type <std::shared_ptr<AST::Parameter>> SUBROUTINE_PARAMETER;
-%type <std::shared_ptr<AST::RecordDeclaration>> RECORD_DECLARATION;
-%type <std::shared_ptr<AST::RecordFieldDeclaration>> RECORD_FIELD;
-%type <std::shared_ptr<AST::ReturnExpression>> RETURN_STATEMENT;
-%type <std::shared_ptr<AST::Root>> ROOT;
-%type <std::shared_ptr<AST::Statement>> STATEMENT;
-%type <std::shared_ptr<AST::SubroutineDeclaration>> SUBROUTINE_DECLARATION;
-%type <std::shared_ptr<AST::SubscriptExpression>> SUBSCRIPT_EXPRESSION;
-%type <std::shared_ptr<AST::SwitchExpression>> SWITCH_STATEMENT;
-%type <std::shared_ptr<AST::TupleExpression>> TUPLE_LITERAL;
-%type <std::shared_ptr<AST::TypeAliasDeclaration>> TYPE_ALIAS_DECLARATION;
-%type <std::shared_ptr<AST::TypeSignature>> CLOSURE_SIGNATURE;
-%type <std::shared_ptr<AST::TypeSignature>> SUBROUTINE_SIGNATURE;
-%type <std::shared_ptr<AST::UnaryOperationExpression>> PREFIX_EXPRESSION;
-%type <std::shared_ptr<AST::UnionDeclaration>> UNION_DECLARATION;
-%type <std::shared_ptr<AST::WhileLoopExpression>> WHILE_STATEMENT;
-
-%type <std::vector<std::shared_ptr<AST::Argument>>> CALL_ARGUMENT_CLAUSE;
-%type <std::vector<std::shared_ptr<AST::Argument>>> CALL_ARGUMENTS;
-%type <std::vector<std::shared_ptr<AST::Expression>>> ARRAY_LITERAL_ITEMS;
-%type <std::vector<std::shared_ptr<AST::Expression>>> TUPLE_LITERAL_ITEMS;
-%type <std::vector<std::shared_ptr<AST::Parameter>>> CLOSURE_PARAMETER_CLAUSE;
-%type <std::vector<std::shared_ptr<AST::Parameter>>> CLOSURE_PARAMETERS;
-%type <std::vector<std::shared_ptr<AST::Parameter>>> PARAMETER_CLAUSE;
-%type <std::vector<std::shared_ptr<AST::Parameter>>> SUBROUTINE_PARAMETERS;
-%type <std::vector<std::shared_ptr<AST::RecordFieldDeclaration>>> RECORD_BODY;
-%type <std::vector<std::shared_ptr<AST::RecordFieldDeclaration>>> RECORD_FIELDS;
-%type <std::vector<std::shared_ptr<AST::RecordFieldDeclaration>>> UNION_DECLARATION_BODY;
-%type <std::vector<std::shared_ptr<AST::Statement>>> STATEMENTS;
-
-%type <std::string> CLOSURE_PARAMETER_NAME 
-%type <std::string> ENUMERATION_DECLARATION_NAME;
-%type <std::string> LABEL_NAME;
-%type <std::string> PATTERN;
-%type <std::string> PREFIX_OPERATOR;
-%type <std::string> RECORD_DECLARATION_NAME;
-%type <std::string> RECORD_FIELD_NAME;
-%type <std::string> SUBROUTINE_NAME;
-%type <std::string> SUBROUTINE_PARAMETER_NAME;
-%type <std::string> TYPE_ALIAS_NAME;
-%type <std::string> UNION_DECLARATION_NAME;
-
 %%
 
 %start ROOT;
 
-ROOT                                    : {
-                                          $$ = std::make_shared<AST::Root>();
-
-                                          compiler.root = $$;
-                                        }
-                                        | STATEMENTS {
-                                          $$ = std::make_shared<AST::Root>($1);
-
-                                          compiler.root = $$;
-                                        }
+ROOT                                    : 
+                                        | STATEMENTS
                                         ;
 
-/*
- *  Statements
- */
-
-STATEMENTS                              : STATEMENT {
-                                          $$ = std::vector<std::shared_ptr<AST::Statement>>();
-
-                                          $$.push_back($1);
-                                        }
-                                        | STATEMENT STATEMENTS {
-                                          std::vector<std::shared_ptr<AST::Statement>> statements = $2;
-
-                                          statements.push_back($1);
-
-                                          $$ = statements;  
-                                        }
+STATEMENTS                              : STATEMENT
+                                        | STATEMENT STATEMENTS
                                         ;
 
 STATEMENT                               : DECLARATION ";"
@@ -280,19 +187,11 @@ STATEMENT                               : DECLARATION ";"
                                         | CONTROL_TRANSFER_STATEMENT ";"
                                         ;
 
-/*
- *  Expressions
- */
-
 EXPRESSION                              : PREFIX_EXPRESSION 
                                         | PREFIX_EXPRESSION BINARY_EXPRESSIONS
                                         ;
-PREFIX_EXPRESSION                       : POSTFIX_EXPRESSION {
-                                          $$ = std::make_shared<AST::UnaryOperationExpression>($1);
-                                        }
-                                        | PREFIX_OPERATOR POSTFIX_EXPRESSION {
-                                          $$ = std::make_shared<AST::UnaryOperationExpression>($1, $2);
-                                        }
+PREFIX_EXPRESSION                       : POSTFIX_EXPRESSION
+                                        | PREFIX_OPERATOR POSTFIX_EXPRESSION
                                         ;
 POSTFIX_EXPRESSION                      : PRIMARY_EXPRESSION
                                         | POSTFIX_EXPRESSION POSTFIX_OPERATOR
@@ -348,9 +247,7 @@ FUNCTION_TYPE_ARGUMENT                  : TYPE
                                         ;
 ARGUMENT_LABEL                          : IDENTIFIER
                                         ;
-TYPE_ANNOTATION                         : ":" TYPE {
-                                          $$ = $2;
-                                        }
+TYPE_ANNOTATION                         : ":" TYPE
                                         ;
 TYPE_IDENTIFIER                         : TYPE_NAME
                                         | TYPE_NAME GENERIC_ARGUMENT_CLAUSE  
@@ -399,128 +296,58 @@ LITERAL_EXPRESSION                      : LITERAL
 LITERAL                                 : BOOLEAN_LITERAL 
                                         | NUMERIC_LITERAL
                                         ;
-BOOLEAN_LITERAL                         : "true" {
-                                          $$ = std::make_shared<AST::BooleanLiteralExpression>(true);
-                                        }
-                                        | "false" {
-                                          $$ = std::make_shared<AST::BooleanLiteralExpression>(false);
-                                        }
+BOOLEAN_LITERAL                         : "true"
+                                        | "false"
                                         ;
 NUMERIC_LITERAL                         : FLOATING_POINT_LITERAL
                                         | INTEGER_LITERAL
                                         ;
-FLOATING_POINT_LITERAL                  : FLOATING_POINT {
-                                          $$ = std::make_shared<AST::FloatingPointLiteralExpression>($1);
-                                        }
-                                        | "−" FLOATING_POINT  %prec UNARY_MINUS_SIGN {
-                                          $$ = std::make_shared<AST::FloatingPointLiteralExpression>($2);
-                                        }
+FLOATING_POINT_LITERAL                  : FLOATING_POINT
+                                        | "−" FLOATING_POINT  %prec UNARY_MINUS_SIGN
                                         ;
-INTEGER_LITERAL                         : INTEGER {
-                                          $$ = std::make_shared<AST::IntegerLiteralExpression>($1);
-                                        }
-                                        | "−" INTEGER         %prec UNARY_MINUS_SIGN {
-                                          $$ = std::make_shared<AST::IntegerLiteralExpression>($2);
-                                        }
+INTEGER_LITERAL                         : INTEGER
+                                        | "−" INTEGER         %prec UNARY_MINUS_SIGN
                                         ;
-ARRAY_LITERAL                           : "[" ARRAY_LITERAL_ITEMS "]" {
-                                          $$ = std::make_shared<AST::ArrayExpression>($2);
-                                        }
+ARRAY_LITERAL                           : "[" ARRAY_LITERAL_ITEMS "]"
                                         ;
-ARRAY_LITERAL_ITEMS                     : %empty {
-                                          $$ = std::vector<std::shared_ptr<AST::Expression>>();
-                                        }
-                                        | ARRAY_LITERAL_ITEM {
-                                          $$ = std::vector<std::shared_ptr<AST::Expression>>();
-
-                                          $$.push_back($1);
-                                        }
-                                        | ARRAY_LITERAL_ITEM "," ARRAY_LITERAL_ITEMS {
-                                          std::vector<std::shared_ptr<AST::Expression>> items = $3;
-
-                                          items.push_back($1);
-
-                                          $$ = items;
-                                        }
+ARRAY_LITERAL_ITEMS                     : %empty
+                                        | ARRAY_LITERAL_ITEM
+                                        | ARRAY_LITERAL_ITEM "," ARRAY_LITERAL_ITEMS
                                         ;
 ARRAY_LITERAL_ITEM                      : EXPRESSION
                                         ;
-TUPLE_LITERAL                           : "⟨" TUPLE_LITERAL_ITEMS "⟩" {
-                                          $$ = std::make_shared<AST::TupleExpression>($2);
-                                        }
+TUPLE_LITERAL                           : "⟨" TUPLE_LITERAL_ITEMS "⟩"
                                         ;
-TUPLE_LITERAL_ITEMS                     : %empty {
-                                          $$ = std::vector<std::shared_ptr<AST::Expression>>();
-                                        }
-                                        | TUPLE_LITERAL_ITEM {
-                                          $$ = std::vector<std::shared_ptr<AST::Expression>>();
-
-                                          $$.push_back($1);
-                                        }
-                                        | TUPLE_LITERAL_ITEM "," TUPLE_LITERAL_ITEMS {
-                                          std::vector<std::shared_ptr<AST::Expression>> items = $3;
-
-                                          items.push_back($1);
-
-                                          $$ = items;
-                                        }
+TUPLE_LITERAL_ITEMS                     : %empty
+                                        | TUPLE_LITERAL_ITEM
+                                        | TUPLE_LITERAL_ITEM "," TUPLE_LITERAL_ITEMS
                                         ;
 TUPLE_LITERAL_ITEM                      : EXPRESSION
                                         | IDENTIFIER ":" EXPRESSION
                                         ;
-CLOSURE_EXPRESSION                      : CLOSURE_HEAD CLOSURE_SIGNATURE BLOCK_EXPRESSION {
-                                          $$ = std::make_shared<AST::ClosureExpression>($2, $3);
-                                        }
-                                        | CLOSURE_HEAD BLOCK_EXPRESSION {
-                                          $$ = std::make_shared<AST::ClosureExpression>($2);
-                                        }
+CLOSURE_EXPRESSION                      : CLOSURE_HEAD CLOSURE_SIGNATURE BLOCK_EXPRESSION
+                                        | CLOSURE_HEAD BLOCK_EXPRESSION
                                         ;
 CLOSURE_HEAD                            : "λ"
                                         ;
-CLOSURE_SIGNATURE                       : CLOSURE_PARAMETER_CLAUSE {
-                                          $$ = std::make_shared<AST::TypeSignature>($1);
-                                        }
-                                        | CLOSURE_PARAMETER_CLAUSE CLOSURE_RETURN_TYPE {
-                                          $$ = std::make_shared<AST::TypeSignature>($1, $2);
-                                        }
+CLOSURE_SIGNATURE                       : CLOSURE_PARAMETER_CLAUSE
+                                        | CLOSURE_PARAMETER_CLAUSE CLOSURE_RETURN_TYPE
                                         ;
 CLOSURE_PARAMETER_CLAUSE                : "(" CLOSURE_PARAMETERS ")" 
                                         ;
 CLOSURE_PARAMETERS                      : %empty
-                                        | CLOSURE_PARAMETER {
-                                          $$ = std::vector<std::shared_ptr<AST::Parameter>>();
-
-                                          $$.push_back($1);
-                                        }
-                                        | CLOSURE_PARAMETER "," CLOSURE_PARAMETERS {
-                                          std::vector<std::shared_ptr<AST::Parameter>> parameters = $3;
-
-                                          parameters.push_back($1);
-
-                                          $$ = parameters;                                           
-                                        }
+                                        | CLOSURE_PARAMETER
+                                        | CLOSURE_PARAMETER "," CLOSURE_PARAMETERS
                                         ;
-CLOSURE_PARAMETER                       : CLOSURE_PARAMETER_NAME {
-                                          $$ = std::make_shared<AST::Parameter>($1);
-                                        }
-                                        | CLOSURE_PARAMETER_NAME TYPE_ANNOTATION {
-                                          $$ = std::make_shared<AST::Parameter>($1, $2);
-                                        }
-                                        | CLOSURE_PARAMETER_NAME TYPE_ANNOTATION "…" {
-                                          $$ = std::make_shared<AST::Parameter>($1, $2);
-                                        }
+CLOSURE_PARAMETER                       : CLOSURE_PARAMETER_NAME
+                                        | CLOSURE_PARAMETER_NAME TYPE_ANNOTATION
+                                        | CLOSURE_PARAMETER_NAME TYPE_ANNOTATION "…"
                                         ;
 CLOSURE_PARAMETER_NAME                  : IDENTIFIER
                                         ;
-CLOSURE_RETURN_TYPE                     : "→" TYPE {
-                                          $$ = $2;
-                                        }
-BLOCK_EXPRESSION                        : "{" "}" {
-                                          $$ = std::make_shared<AST::BlockExpression>();
-                                        }
-                                        | "{" STATEMENTS "}" {
-                                          $$ = std::make_shared<AST::BlockExpression>($2);
-                                        }
+CLOSURE_RETURN_TYPE                     : "→" TYPE
+BLOCK_EXPRESSION                        : "{" "}"
+                                        | "{" STATEMENTS "}"
                                         ;
                                         ;
 PARENTHESIZED_EXPRESSION                : "(" EXPRESSION ")"
@@ -539,36 +366,18 @@ ARGUMENT_NAME                           : IDENTIFIER ":"
 POSTFIX_OPERATOR                        : "!"
                                         | "?"
                                         ;
-CALL_EXPRESSION                         : POSTFIX_EXPRESSION CALL_ARGUMENT_CLAUSE {
-                                          $$ = std::make_shared<AST::CallExpression>($1, $2);
-                                        }
+CALL_EXPRESSION                         : POSTFIX_EXPRESSION CALL_ARGUMENT_CLAUSE
                                         ;
 CALL_ARGUMENT_CLAUSE                    : "(" ")"
                                         | "(" CALL_ARGUMENTS ")"
                                         ;
-CALL_ARGUMENTS                          : CALL_ARGUMENT {
-                                          $$ = std::vector<std::shared_ptr<AST::Argument>>();
-
-                                          $$.push_back($1);
-                                        }
-                                        | CALL_ARGUMENT "," CALL_ARGUMENTS {
-                                          std::vector<std::shared_ptr<AST::Argument>> arguments = $3;
-
-                                          arguments.push_back($1);
-
-                                          $$ = arguments;
-                                        }
+CALL_ARGUMENTS                          : CALL_ARGUMENT
+                                        | CALL_ARGUMENT "," CALL_ARGUMENTS
                                         ;
-CALL_ARGUMENT                           : EXPRESSION {
-                                          $$ = std::make_shared<AST::Argument>($1);
-                                        }
-                                        | IDENTIFIER ":" EXPRESSION {
-                                          $$ = std::make_shared<AST::Argument>($1, $3);
-                                        }
+CALL_ARGUMENT                           : EXPRESSION
+                                        | IDENTIFIER ":" EXPRESSION
                                         ;
-SUBSCRIPT_EXPRESSION                    : POSTFIX_EXPRESSION "[" CALL_ARGUMENTS "]" {
-                                          $$ = std::make_shared<AST::SubscriptExpression>($1, $3);
-                                        }
+SUBSCRIPT_EXPRESSION                    : POSTFIX_EXPRESSION "[" CALL_ARGUMENTS "]"
                                         ;
 BINARY_EXPRESSIONS                      : BINARY_EXPRESSION
                                         | BINARY_EXPRESSION BINARY_EXPRESSIONS
@@ -654,127 +463,69 @@ GENERIC_PARAMETER                       : TYPE_NAME
  *  2.1   SUBROUTINE
  */
 
-SUBROUTINE_DECLARATION                  : SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE {
-                                          $$ = std::make_shared<AST::SubroutineDeclaration>($2, $3);
-                                        }
-                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE SUBROUTINE_BODY {
-                                          $$ = std::make_shared<AST::SubroutineDeclaration>($2, $3);
-                                        }
-                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE {
-                                          $$ = std::make_shared<AST::SubroutineDeclaration>($2, $4);
-                                        }
-                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE SUBROUTINE_BODY {
-                                          $$ = std::make_shared<AST::SubroutineDeclaration>($2, $4);
-                                        }
+SUBROUTINE_DECLARATION                  : SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE
+                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE SUBROUTINE_BODY
+                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE
+                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE SUBROUTINE_BODY
                                         ;
 SUBROUTINE_DECLARATION_HEAD             : "subroutine"
                                         ;
 SUBROUTINE_NAME                         : IDENTIFIER 
                                         ;
-SUBROUTINE_SIGNATURE                    : PARAMETER_CLAUSE {
-                                          $$ = std::make_shared<AST::TypeSignature>($1);
-                                        }
-                                        | PARAMETER_CLAUSE SUBROUTINE_RETURN_TYPE {
-                                          $$ = std::make_shared<AST::TypeSignature>($1, $2);
-                                        }
+SUBROUTINE_SIGNATURE                    : PARAMETER_CLAUSE
+                                        | PARAMETER_CLAUSE SUBROUTINE_RETURN_TYPE
                                         ;
-SUBROUTINE_RETURN_TYPE                  : "→" TYPE {
-                                          $$ = $2;
-                                        }
+SUBROUTINE_RETURN_TYPE                  : "→" TYPE
                                         ;
 SUBROUTINE_BODY                         : BLOCK_EXPRESSION
                                         ;
 PARAMETER_CLAUSE                        : "(" SUBROUTINE_PARAMETERS ")"
                                         ;
 SUBROUTINE_PARAMETERS                   : %empty
-                                        | SUBROUTINE_PARAMETER {
-                                            $$ = std::vector<std::shared_ptr<AST::Parameter>>();
-
-                                            $$.push_back($1);
-                                        }
-                                        | SUBROUTINE_PARAMETER "," SUBROUTINE_PARAMETERS {
-                                          std::vector<std::shared_ptr<AST::Parameter>> parameters = $3;
-
-                                          parameters.push_back($1);
-
-                                          $$ = parameters;   
-                                        }
+                                        | SUBROUTINE_PARAMETER
+                                        | SUBROUTINE_PARAMETER "," SUBROUTINE_PARAMETERS
                                         ;
-SUBROUTINE_PARAMETER                    : SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION {
-                                          $$ = std::make_shared<AST::Parameter>($1, $2);
-                                        }
-                                        | SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION DEFAULT_ARGUMENT_CLAUSE {
-                                          $$ = std::make_shared<AST::Parameter>($1, $2);
-                                        }
-                                        | SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION "…" {
-                                          $$ = std::make_shared<AST::Parameter>($1, $2);
-                                        }
+SUBROUTINE_PARAMETER                    : SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION
+                                        | SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION DEFAULT_ARGUMENT_CLAUSE
+                                        | SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION "…"
                                         ;
 SUBROUTINE_PARAMETER_NAME               : IDENTIFIER
                                         ;
-DEFAULT_ARGUMENT_CLAUSE                 : "←" EXPRESSION {
-                                          $$ = $2;
-                                        }
+DEFAULT_ARGUMENT_CLAUSE                 : "←" EXPRESSION
                                         ;
 
 /*
  *  2.2   TYPE ALIAS
  */
 
-TYPE_ALIAS_DECLARATION                  : TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME TYPE_ALIAS_ASSIGNMENT {
-                                          $$ = std::make_shared<AST::TypeAliasDeclaration>($2, $3);
-                                        }
-                                        | TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME GENERIC_PARAMETER_CLAUSE TYPE_ALIAS_ASSIGNMENT {
-                                          $$ = std::make_shared<AST::TypeAliasDeclaration>($2, $4);
-                                        }
+TYPE_ALIAS_DECLARATION                  : TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME TYPE_ALIAS_ASSIGNMENT
+                                        | TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME GENERIC_PARAMETER_CLAUSE TYPE_ALIAS_ASSIGNMENT
                                         ;
 TYPE_ALIAS_DECLARATION_HEAD             : "type"
                                         ;
 TYPE_ALIAS_NAME                         : IDENTIFIER
                                         ;
-TYPE_ALIAS_ASSIGNMENT                   : "←" TYPE {
-                                          $$ = $2;
-                                        }
+TYPE_ALIAS_ASSIGNMENT                   : "←" TYPE
                                         ;
 
 /*
  *  2.3   RECORD 
  */
 
-RECORD_DECLARATION                      : RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME RECORD_BODY {
-                                          $$ = std::make_shared<AST::RecordDeclaration>($2, $3);
-                                        }
-                                        | RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE RECORD_BODY {
-                                          $$ = std::make_shared<AST::RecordDeclaration>($2, $4);
-                                        }
+RECORD_DECLARATION                      : RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME RECORD_BODY
+                                        | RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE RECORD_BODY
                                         ;
 RECORD_DECLARATION_HEAD                 : "record"
                                         ;
 RECORD_DECLARATION_NAME                 : IDENTIFIER
                                         ;
-RECORD_BODY                             : "{" RECORD_FIELDS "}" {
-                                          $$ = $2;
-                                        }
+RECORD_BODY                             : "{" RECORD_FIELDS "}"
                                         ;
-RECORD_FIELDS                           : %empty {
-                                          $$ = std::vector<std::shared_ptr<AST::RecordFieldDeclaration>>();
-                                        }
-                                        | RECORD_FIELD {
-                                          $$ = std::vector<std::shared_ptr<AST::RecordFieldDeclaration>>();
-
-                                          $$.push_back($1);
-                                        }
-                                        | RECORD_FIELD "," RECORD_FIELDS {
-                                          std::vector<std::shared_ptr<AST::RecordFieldDeclaration>> fields = $3;
-
-                                          fields.push_back($1);
-
-                                          $$ = fields;
-                                        }
+RECORD_FIELDS                           : %empty
+                                        | RECORD_FIELD
+                                        | RECORD_FIELD "," RECORD_FIELDS
                                         ;
-RECORD_FIELD                            : RECORD_FIELD_NAME TYPE_ANNOTATION {
-                                          $$ = std::make_shared<AST::RecordFieldDeclaration>($1, $2);
-                                        }
+RECORD_FIELD                            : RECORD_FIELD_NAME TYPE_ANNOTATION
                                         ;
 RECORD_FIELD_NAME                       : IDENTIFIER
                                         ;
@@ -783,12 +534,8 @@ RECORD_FIELD_NAME                       : IDENTIFIER
  *  2.4   ENUMERATION 
  */
 
-ENUMERATION_DECLARATION                 : ENUMERATION_DECLARATION_HEAD ENUMERATION_DECLARATION_NAME ENUMERATION_DECLARATION_BODY {
-                                          $$ = std::make_shared<AST::EnumerationDeclaration>($2);
-                                        }
-                                        | ENUMERATION_DECLARATION_HEAD ENUMERATION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE ENUMERATION_DECLARATION_BODY {
-                                          $$ = std::make_shared<AST::EnumerationDeclaration>($2);
-                                        }
+ENUMERATION_DECLARATION                 : ENUMERATION_DECLARATION_HEAD ENUMERATION_DECLARATION_NAME ENUMERATION_DECLARATION_BODY
+                                        | ENUMERATION_DECLARATION_HEAD ENUMERATION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE ENUMERATION_DECLARATION_BODY
                                         ;
 ENUMERATION_DECLARATION_HEAD            : "enumeration"
                                         ;
@@ -817,20 +564,14 @@ ENUMERATION_DECLARATION_ASSIGNMENT      : "←" EXPRESSION
  *  2.5   UNION
  */
 
-UNION_DECLARATION                       : UNION_DECLARATION_HEAD UNION_DECLARATION_NAME UNION_DECLARATION_BODY {
-                                          $$ = std::make_shared<AST::UnionDeclaration>($2, $3);
-                                        }
-                                        | UNION_DECLARATION_HEAD UNION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE UNION_DECLARATION_BODY {
-                                          $$ = std::make_shared<AST::UnionDeclaration>($2, $4);
-                                        }
+UNION_DECLARATION                       : UNION_DECLARATION_HEAD UNION_DECLARATION_NAME UNION_DECLARATION_BODY
+                                        | UNION_DECLARATION_HEAD UNION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE UNION_DECLARATION_BODY
                                         ;
 UNION_DECLARATION_HEAD                  : "union"
                                         ;
 UNION_DECLARATION_NAME                  : IDENTIFIER
                                         ;
-UNION_DECLARATION_BODY                  : "{" RECORD_FIELDS "}" {
-                                          $$ = $2;
-                                        }
+UNION_DECLARATION_BODY                  : "{" RECORD_FIELDS "}"
                                         ;
 
 /*
@@ -857,23 +598,15 @@ CONSTANT_DECLARATION_ASSIGNMENT         : "←" EXPRESSION
 LOOP_STATEMENT                          : FOR_IN_STATEMENT
                                         | WHILE_STATEMENT
                                         ;
-FOR_IN_STATEMENT                        : "for" PATTERN "in" EXPRESSION BLOCK_EXPRESSION {
-                                          $$ = std::make_shared<AST::ForLoopExpression>($2);
-                                        }
+FOR_IN_STATEMENT                        : "for" PATTERN "in" EXPRESSION BLOCK_EXPRESSION
                                         ;
-WHILE_STATEMENT                         : "WhileLoopExpression" EXPRESSION BLOCK_EXPRESSION {
-                                          $$ = std::make_shared<AST::WhileLoopExpression>();
-                                        }
+WHILE_STATEMENT                         : "WhileLoopExpression" EXPRESSION BLOCK_EXPRESSION
                                         ;
 BRANCH_STATEMENT                        : IF_STATEMENT
                                         | SWITCH_STATEMENT
                                         ;
-IF_STATEMENT                            : "if" CONDITION_LIST BLOCK_EXPRESSION {
-                                          $$ = std::make_shared<AST::ConditionalExpression>();
-                                        }
-                                        | "if" CONDITION_LIST BLOCK_EXPRESSION ELSE_CLAUSE {
-                                          $$ = std::make_shared<AST::ConditionalExpression>();
-                                        }
+IF_STATEMENT                            : "if" CONDITION_LIST BLOCK_EXPRESSION
+                                        | "if" CONDITION_LIST BLOCK_EXPRESSION ELSE_CLAUSE
                                         ;
 CONDITION_LIST                          : CONDITION 
                                         | CONDITION "," CONDITION_LIST
@@ -886,12 +619,8 @@ CASE_CONDITION                          : "case" PATTERN
 ELSE_CLAUSE                             : "else" BLOCK_EXPRESSION 
                                         | "else" IF_STATEMENT
                                         ;
-SWITCH_STATEMENT                        : "switch" EXPRESSION "{" "}" {
-                                          $$ = std::make_shared<AST::SwitchExpression>();
-                                        }
-                                        | "switch" EXPRESSION "{" SWITCH_CASES "}" {
-                                          $$ = std::make_shared<AST::SwitchExpression>();
-                                        }
+SWITCH_STATEMENT                        : "switch" EXPRESSION "{" "}"
+                                        | "switch" EXPRESSION "{" SWITCH_CASES "}"
                                         ;
 SWITCH_CASES                            : SWITCH_CASE 
                                         | SWITCH_CASE SWITCH_CASES
@@ -916,9 +645,7 @@ LABELED_STATEMENT                       : STATEMENT_LABEL LOOP_STATEMENT
                                         | STATEMENT_LABEL IF_STATEMENT 
                                         | STATEMENT_LABEL SWITCH_STATEMENT 
                                         ;
-STATEMENT_LABEL                         : LABEL_NAME ":" {
-                                          $$ = std::make_shared<AST::LabelDeclaration>($1);
-                                        }
+STATEMENT_LABEL                         : LABEL_NAME ":"
                                         ;
 LABEL_NAME                              : IDENTIFIER
                                         ;
@@ -926,26 +653,14 @@ CONTROL_TRANSFER_STATEMENT              : BREAK_STATEMENT
                                         | CONTINUE_STATEMENT
                                         | RETURN_STATEMENT
                                         ;
-BREAK_STATEMENT                         : "break" {
-                                          $$ = std::make_shared<AST::BreakExpression>();
-                                        }
-                                        | "break" LABEL_NAME {
-                                          $$ = std::make_shared<AST::BreakExpression>($2);
-                                        }
+BREAK_STATEMENT                         : "break"
+                                        | "break" LABEL_NAME
                                         ;
-CONTINUE_STATEMENT                      : "continue" {
-                                          $$ = std::make_shared<AST::ContinueExpression>();
-                                        }
-                                        | "continue" LABEL_NAME {
-                                          $$ = std::make_shared<AST::ContinueExpression>($2);
-                                        }
+CONTINUE_STATEMENT                      : "continue"
+                                        | "continue" LABEL_NAME
                                         ;
-RETURN_STATEMENT                        : "return" {
-                                          $$ = std::make_shared<AST::ReturnExpression>();
-                                        }
-                                        | "return" EXPRESSION {
-                                          $$ = std::make_shared<AST::ReturnExpression>($2);
-                                        }
+RETURN_STATEMENT                        : "return"
+                                        | "return" EXPRESSION
                                         ;
 
 %%

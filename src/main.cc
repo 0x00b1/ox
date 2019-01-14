@@ -1,10 +1,9 @@
 #include <iostream>
 
 #include "include/compiler.hh"
-#include "include/ast.hh"
-#include "include/generator.hh"
+#include "include/syntax.hh"
 
-int main (int argc, char *argv[]) {
+int main(int argc, const char * argv[]) {
     int code = 0;
 
     Compiler compiler;
@@ -21,9 +20,26 @@ int main (int argc, char *argv[]) {
         }
     }
 
+    /*
+     * Example compiler pass
+     */
     Generator generator;
 
-    compiler.root->accept(generator);
+    std::vector<std::shared_ptr<AST::Expression>> elements;
+
+    std::shared_ptr<Expression::IntegerLiteral> a(new Expression::IntegerLiteral("1"));
+    std::shared_ptr<Expression::IntegerLiteral> b(new Expression::IntegerLiteral("2"));
+    std::shared_ptr<Expression::IntegerLiteral> c(new Expression::IntegerLiteral("3"));
+
+    elements.push_back(a);
+    elements.push_back(b);
+    elements.push_back(c);
+
+    std::shared_ptr<Expression::Array> x(new Expression::Array(elements));
+
+    x->accept(generator);
+
+    std::cout << std::endl;
 
     return code;
 }
