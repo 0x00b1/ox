@@ -8,9 +8,13 @@
 namespace Variant {
     class Record: public AST::Variant, public std::enable_shared_from_this<Record> {
     public:
-        Record(const std::vector<AST::RecordField> &fields): fields(fields) {}
+        Record(const AST::Identifier &identifier, const std::vector<AST::RecordField> &fields): identifier(identifier), fields(fields) {}
+
+        std::optional<AST::AnonymousConstant> discriminant;
 
         std::vector<AST::RecordField> fields;
+
+        AST::Identifier identifier;
 
         void accept(Visitor &visitor) override {
             std::shared_ptr<Record> p{shared_from_this()};
@@ -21,9 +25,13 @@ namespace Variant {
 
     class Tuple: public AST::Variant, public std::enable_shared_from_this<Tuple> {
     public:
-        Tuple(const std::vector<AST::RecordField> &fields): fields(fields) {}
+        Tuple(const AST::Identifier &identifier, const std::vector<AST::RecordField> &fields): identifier(identifier), fields(fields) {}
+
+        std::optional<AST::AnonymousConstant> discriminant;
 
         std::vector<AST::RecordField> fields;
+
+        AST::Identifier identifier;
 
         void accept(Visitor &visitor) override {
             std::shared_ptr<Tuple> p{shared_from_this()};
@@ -34,7 +42,13 @@ namespace Variant {
 
     class Unit: public AST::Variant, public std::enable_shared_from_this<Unit> {
     public:
-        Unit() = default;
+        Unit(const AST::Identifier &identifier): identifier(identifier) {}
+
+        Unit(const AST::Identifier &identifier, std::optional<AST::AnonymousConstant> discriminant): identifier(identifier), discriminant(discriminant) {}
+
+        std::optional<AST::AnonymousConstant> discriminant;
+
+        AST::Identifier identifier;
 
         void accept(Visitor &visitor) override {
             std::shared_ptr<Unit> p{shared_from_this()};

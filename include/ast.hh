@@ -98,6 +98,10 @@ namespace AST {
 
     class Identifier: public Node, public std::enable_shared_from_this<Identifier> {
     public:
+        Identifier(const std::string &identifier): identifier(identifier) {}
+
+        std::string identifier;
+
         void accept(Visitor &visitor) override {
             std::shared_ptr<Identifier> p{shared_from_this()};
 
@@ -159,9 +163,6 @@ namespace AST {
 
     class Variant: public Node {
     public:
-        Identifier identifier;
-
-        std::optional<AnonymousConstant> discriminant;
     };
 }
 
