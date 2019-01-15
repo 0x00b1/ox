@@ -1,5 +1,9 @@
 # Ox
 
+    /*
+     *  Tagged union
+     */
+
     union A {};
 
     union A {
