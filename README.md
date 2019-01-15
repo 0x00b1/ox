@@ -45,11 +45,7 @@ In the aforementioned example, `A.a` is a tuple-like tagged union variant and `A
     b: 8-bit Integer ← A.b as 8-bit Integer; # b = 2
     c: 8-bit Integer ← A.c as 8-bit Integer; # c = 3
 
-    union A {
-        a: 16-bit Integer,
-        b: 32-bit Integer,
-        c: 64-bit Integer
-    };
+### Option type
 
     union Option ⟨T⟩ {
         None,
