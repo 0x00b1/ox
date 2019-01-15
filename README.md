@@ -33,7 +33,7 @@
         c: 3
     };
 
-In the aforementioned example, `A.a` is a tuple-like tagged union variant and `A.b` is a record-like tagged union variant. Tagged union elements have a discriminant, an integer that’s used to determine its variant. If there’s no variant attached to any of the elements of a tagged union, then the discriminant can be directly chosen and accessed.
+In the aforementioned example, `A.a` is a tuple-like tagged union variant and `A.b` is a record-like tagged union variant. Tagged union elements have a discriminant, an integer that’s used to determine its variant. If there’s no variant attached to any of the elements of a tagged union, then the discriminant can be directly chosen and accessed:
 
     union A {
         a ← 1,
