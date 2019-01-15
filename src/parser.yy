@@ -171,6 +171,196 @@
 
 %start ROOT;
 
+/*
+ *  DECLARATIONS
+ */
+
+/*
+ *  CONSTANT DECLARATION
+ */
+
+CONSTANT_DECLARATION                    : CONSTANT_DECLARATION_HEAD CONSTANT_DECLARATION_NAME TYPE_ANNOTATION CONSTANT_DECLARATION_ASSIGNMENT
+                                        ;
+CONSTANT_DECLARATION_HEAD               : "constant"
+                                        ;
+CONSTANT_DECLARATION_NAME               : IDENTIFIER
+                                        ;
+CONSTANT_DECLARATION_ASSIGNMENT         : "←" EXPRESSION
+                                        ;
+
+/*
+ *  ENUMERATION DECLARATION
+ */
+
+ENUMERATION_DECLARATION                 : ENUMERATION_DECLARATION_HEAD ENUMERATION_DECLARATION_NAME ENUMERATION_DECLARATION_BODY
+                                        | ENUMERATION_DECLARATION_HEAD ENUMERATION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE ENUMERATION_DECLARATION_BODY
+                                        ;
+ENUMERATION_DECLARATION_HEAD            : "enumeration"
+                                        ;
+ENUMERATION_DECLARATION_NAME            : IDENTIFIER
+                                        ;
+ENUMERATION_DECLARATION_BODY            : "{" ENUMERATION_DECLARATION_FIELDS "}"
+                                        ; 
+ENUMERATION_DECLARATION_FIELDS          : ENUMERATION_DECLARATION_FIELD
+                                        | ENUMERATION_DECLARATION_FIELD "," ENUMERATION_DECLARATION_FIELDS
+                                        ;
+ENUMERATION_DECLARATION_FIELD           : ENUMERATION_DECLARATION_FIELD_NAME
+                                        | ENUMERATION_DECLARATION_FIELD_NAME ENUMERATION_DECLARATION_TUPLE
+                                        | ENUMERATION_DECLARATION_FIELD_NAME ENUMERATION_DECLARATION_RECORD
+                                        | ENUMERATION_DECLARATION_FIELD_NAME ENUMERATION_DECLARATION_ASSIGNMENT
+                                        ;
+ENUMERATION_DECLARATION_FIELD_NAME      : IDENTIFIER
+                                        ;
+ENUMERATION_DECLARATION_TUPLE           : "⟨" TUPLE_TYPE_ELEMENTS "⟩"
+                                        ;
+ENUMERATION_DECLARATION_RECORD          : "{" RECORD_FIELDS "}"
+                                        ;                                      
+ENUMERATION_DECLARATION_ASSIGNMENT      : "←" EXPRESSION
+                                        ;
+
+/*
+ *  RECORD DECLARATION
+ */
+
+RECORD_DECLARATION                      : RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME RECORD_BODY
+                                        | RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE RECORD_BODY
+                                        ;
+RECORD_DECLARATION_HEAD                 : "record"
+                                        ;
+RECORD_DECLARATION_NAME                 : IDENTIFIER
+                                        ;
+RECORD_BODY                             : "{" RECORD_FIELDS "}"
+                                        ;
+RECORD_FIELDS                           : %empty
+                                        | RECORD_FIELD
+                                        | RECORD_FIELD "," RECORD_FIELDS
+                                        ;
+RECORD_FIELD                            : RECORD_FIELD_NAME TYPE_ANNOTATION
+                                        ;
+RECORD_FIELD_NAME                       : IDENTIFIER
+                                        ;
+
+/*
+ *  SUBROUTINE DECLARATION
+ */
+
+SUBROUTINE_DECLARATION                  : SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE
+                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE SUBROUTINE_BODY
+                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE
+                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE SUBROUTINE_BODY
+                                        ;
+SUBROUTINE_DECLARATION_HEAD             : "subroutine"
+                                        ;
+SUBROUTINE_NAME                         : IDENTIFIER 
+                                        ;
+SUBROUTINE_SIGNATURE                    : PARAMETER_CLAUSE
+                                        | PARAMETER_CLAUSE SUBROUTINE_RETURN_TYPE
+                                        ;
+SUBROUTINE_RETURN_TYPE                  : "→" TYPE
+                                        ;
+SUBROUTINE_BODY                         : BLOCK_EXPRESSION
+                                        ;
+PARAMETER_CLAUSE                        : "(" SUBROUTINE_PARAMETERS ")"
+                                        ;
+SUBROUTINE_PARAMETERS                   : %empty
+                                        | SUBROUTINE_PARAMETER
+                                        | SUBROUTINE_PARAMETER "," SUBROUTINE_PARAMETERS
+                                        ;
+SUBROUTINE_PARAMETER                    : SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION
+                                        | SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION DEFAULT_ARGUMENT_CLAUSE
+                                        | SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION "…"
+                                        ;
+SUBROUTINE_PARAMETER_NAME               : IDENTIFIER
+                                        ;
+DEFAULT_ARGUMENT_CLAUSE                 : "←" EXPRESSION
+                                        ;
+
+/*
+ *  TAGGED UNION DECLARATION
+ */
+
+TAGGED_UNION_DECLARATION                : TAGGED_UNION_DECLARATION_HEAD TAGGED_UNION_DECLARATION_NAME TAGGED_UNION_DECLARATION_BODY
+                                        | TAGGED_UNION_DECLARATION_HEAD TAGGED_UNION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE TAGGED_UNION_DECLARATION_BODY
+                                        ;
+TAGGED_UNION_DECLARATION_HEAD           : "union"
+                                        ;
+TAGGED_UNION_DECLARATION_NAME           : IDENTIFIER
+                                        ;
+TAGGED_UNION_DECLARATION_BODY           : "{" TAGGED_UNION_FIELDS "}"
+                                        ;
+TAGGED_UNION_FIELDS                     : %empty
+                                        | TAGGED_UNION_FIELD
+                                        | TAGGED_UNION_FIELD "," TAGGED_UNION_FIELDS
+                                        ;
+TAGGED_UNION_FIELD                      : TAGGED_UNION_FIELD_NAME TAGGED_UNION_FIELD_BODY
+                                        ;
+TAGGED_UNION_FIELD_NAME                 : IDENTIFIER
+                                        ;
+TAGGED_UNION_FIELD_BODY                 : TAGGED_UNION_FIELD_TYPE
+                                        | VARIANT
+                                        ;                                        
+TAGGED_UNION_FIELD_TYPE                 : ":" TYPE
+                                        ;
+
+/*
+ *  TYPE ALIAS DECLARATION
+ */
+
+TYPE_ALIAS_DECLARATION                  : TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME TYPE_ALIAS_ASSIGNMENT
+                                        | TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME GENERIC_PARAMETER_CLAUSE TYPE_ALIAS_ASSIGNMENT
+                                        ;
+TYPE_ALIAS_DECLARATION_HEAD             : "type"
+                                        ;
+TYPE_ALIAS_NAME                         : IDENTIFIER
+                                        ;
+TYPE_ALIAS_ASSIGNMENT                   : "←" TYPE
+                                        ;
+
+/*
+ *  VARIANTS
+ */
+
+VARIANT                                 : RECORD_VARIANT
+                                        | TUPLE_VARIANT
+                                        ;
+
+/*
+ *  RECORD VARIANT
+ */
+
+RECORD_VARIANT                          : "{" RECORD_VARIANT_FIELDS "}"
+                                        ;
+RECORD_VARIANT_FIELDS                   : %empty
+                                        | RECORD_VARIANT_FIELD
+                                        | RECORD_VARIANT_FIELD "," RECORD_VARIANT_FIELDS
+                                        ;
+RECORD_VARIANT_FIELD                    : RECORD_VARIANT_NAME RECORD_VARIANT_TYPE
+                                        ;
+RECORD_VARIANT_NAME                     : IDENTIFIER
+                                        ;
+RECORD_VARIANT_TYPE                     : ":" TYPE
+                                        ;
+
+/*
+ *  TUPLE VARIANT
+ */
+
+TUPLE_VARIANT                           : "⟨" TUPLE_VARIANT_FIELDS "⟩"
+                                        ;
+TUPLE_VARIANT_FIELDS                    : %empty
+                                        | TUPLE_VARIANT_FIELD
+                                        | TUPLE_VARIANT_FIELD "×" TUPLE_VARIANT_FIELDS
+                                        ;
+TUPLE_VARIANT_FIELD                     : TYPE
+                                        ;
+
+
+
+
+
+
+
+
 ROOT                                    : 
                                         | STATEMENTS
                                         ;
@@ -408,7 +598,7 @@ PREFIX_OPERATOR                         : "¬"
 DECLARATION                             : CONSTANT_DECLARATION
                                         | TYPE_ALIAS_DECLARATION
                                         | SUBROUTINE_DECLARATION
-                                        | UNION_DECLARATION
+                                        | TAGGED_UNION_DECLARATION
                                         | ENUMERATION_DECLARATION
                                         | RECORD_DECLARATION
                                         ;
@@ -455,145 +645,11 @@ GENERIC_PARAMETER                       : TYPE_NAME
                                         ;
 
 
-/*
- *  2.0   DECLARATIONS
- */
 
-/*
- *  2.1   SUBROUTINE
- */
-
-SUBROUTINE_DECLARATION                  : SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE
-                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME SUBROUTINE_SIGNATURE SUBROUTINE_BODY
-                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE
-                                        | SUBROUTINE_DECLARATION_HEAD SUBROUTINE_NAME GENERIC_PARAMETER_CLAUSE SUBROUTINE_SIGNATURE SUBROUTINE_BODY
-                                        ;
-SUBROUTINE_DECLARATION_HEAD             : "subroutine"
-                                        ;
-SUBROUTINE_NAME                         : IDENTIFIER 
-                                        ;
-SUBROUTINE_SIGNATURE                    : PARAMETER_CLAUSE
-                                        | PARAMETER_CLAUSE SUBROUTINE_RETURN_TYPE
-                                        ;
-SUBROUTINE_RETURN_TYPE                  : "→" TYPE
-                                        ;
-SUBROUTINE_BODY                         : BLOCK_EXPRESSION
-                                        ;
-PARAMETER_CLAUSE                        : "(" SUBROUTINE_PARAMETERS ")"
-                                        ;
-SUBROUTINE_PARAMETERS                   : %empty
-                                        | SUBROUTINE_PARAMETER
-                                        | SUBROUTINE_PARAMETER "," SUBROUTINE_PARAMETERS
-                                        ;
-SUBROUTINE_PARAMETER                    : SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION
-                                        | SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION DEFAULT_ARGUMENT_CLAUSE
-                                        | SUBROUTINE_PARAMETER_NAME TYPE_ANNOTATION "…"
-                                        ;
-SUBROUTINE_PARAMETER_NAME               : IDENTIFIER
-                                        ;
-DEFAULT_ARGUMENT_CLAUSE                 : "←" EXPRESSION
-                                        ;
-
-/*
- *  2.2   TYPE ALIAS
- */
-
-TYPE_ALIAS_DECLARATION                  : TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME TYPE_ALIAS_ASSIGNMENT
-                                        | TYPE_ALIAS_DECLARATION_HEAD TYPE_ALIAS_NAME GENERIC_PARAMETER_CLAUSE TYPE_ALIAS_ASSIGNMENT
-                                        ;
-TYPE_ALIAS_DECLARATION_HEAD             : "type"
-                                        ;
-TYPE_ALIAS_NAME                         : IDENTIFIER
-                                        ;
-TYPE_ALIAS_ASSIGNMENT                   : "←" TYPE
-                                        ;
-
-/*
- *  2.3   RECORD 
- */
-
-RECORD_DECLARATION                      : RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME RECORD_BODY
-                                        | RECORD_DECLARATION_HEAD RECORD_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE RECORD_BODY
-                                        ;
-RECORD_DECLARATION_HEAD                 : "record"
-                                        ;
-RECORD_DECLARATION_NAME                 : IDENTIFIER
-                                        ;
-RECORD_BODY                             : "{" RECORD_FIELDS "}"
-                                        ;
-RECORD_FIELDS                           : %empty
-                                        | RECORD_FIELD
-                                        | RECORD_FIELD "," RECORD_FIELDS
-                                        ;
-RECORD_FIELD                            : RECORD_FIELD_NAME TYPE_ANNOTATION
-                                        ;
-RECORD_FIELD_NAME                       : IDENTIFIER
-                                        ;
-
-/*
- *  2.4   ENUMERATION 
- */
-
-ENUMERATION_DECLARATION                 : ENUMERATION_DECLARATION_HEAD ENUMERATION_DECLARATION_NAME ENUMERATION_DECLARATION_BODY
-                                        | ENUMERATION_DECLARATION_HEAD ENUMERATION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE ENUMERATION_DECLARATION_BODY
-                                        ;
-ENUMERATION_DECLARATION_HEAD            : "enumeration"
-                                        ;
-ENUMERATION_DECLARATION_NAME            : IDENTIFIER
-                                        ;
-ENUMERATION_DECLARATION_BODY            : "{" ENUMERATION_DECLARATION_FIELDS "}"
-                                        ; 
-ENUMERATION_DECLARATION_FIELDS          : ENUMERATION_DECLARATION_FIELD
-                                        | ENUMERATION_DECLARATION_FIELD "," ENUMERATION_DECLARATION_FIELDS
-                                        ;
-ENUMERATION_DECLARATION_FIELD           : ENUMERATION_DECLARATION_FIELD_NAME
-                                        | ENUMERATION_DECLARATION_FIELD_NAME ENUMERATION_DECLARATION_TUPLE
-                                        | ENUMERATION_DECLARATION_FIELD_NAME ENUMERATION_DECLARATION_RECORD
-                                        | ENUMERATION_DECLARATION_FIELD_NAME ENUMERATION_DECLARATION_ASSIGNMENT
-                                        ;
-ENUMERATION_DECLARATION_FIELD_NAME      : IDENTIFIER
-                                        ;
-ENUMERATION_DECLARATION_TUPLE           : "⟨" TUPLE_TYPE_ELEMENTS "⟩"
-                                        ;
-ENUMERATION_DECLARATION_RECORD          : "{" RECORD_FIELDS "}"
-                                        ;                                      
-ENUMERATION_DECLARATION_ASSIGNMENT      : "←" EXPRESSION
-                                        ;
-
-/*
- *  2.5   UNION
- */
-
-UNION_DECLARATION                       : UNION_DECLARATION_HEAD UNION_DECLARATION_NAME UNION_DECLARATION_BODY
-                                        | UNION_DECLARATION_HEAD UNION_DECLARATION_NAME GENERIC_PARAMETER_CLAUSE UNION_DECLARATION_BODY
-                                        ;
-UNION_DECLARATION_HEAD                  : "union"
-                                        ;
-UNION_DECLARATION_NAME                  : IDENTIFIER
-                                        ;
-UNION_DECLARATION_BODY                  : "{" RECORD_FIELDS "}"
-                                        ;
-
-/*
- *  2.6   CONSTANT
- */
-
-CONSTANT_DECLARATION                    : CONSTANT_DECLARATION_HEAD CONSTANT_DECLARATION_NAME TYPE_ANNOTATION CONSTANT_DECLARATION_ASSIGNMENT
-                                        ;
-CONSTANT_DECLARATION_HEAD               : "constant"
-                                        ;
-CONSTANT_DECLARATION_NAME               : IDENTIFIER
-                                        ;
-CONSTANT_DECLARATION_ASSIGNMENT         : "←" EXPRESSION
-                                        ;
 
 /*
  *  4.0   EXPRESSIONS
  */
-
-
-
-
 
 LOOP_STATEMENT                          : FOR_IN_STATEMENT
                                         | WHILE_STATEMENT

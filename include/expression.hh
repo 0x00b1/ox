@@ -256,7 +256,7 @@ namespace Expression {
 
     class Record: public AST::Expression, public std::enable_shared_from_this<Record> {
     public:
-        Record(AST::Path path, std::vector<AST::Field> fields): path(path), fields(fields) {}
+        Record(const AST::Path &path, const std::vector<AST::Field> &fields): path(path), fields(fields) {}
 
         AST::Path path;
 

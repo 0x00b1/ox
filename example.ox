@@ -10,11 +10,7 @@ enumeration A {
 };
 
 enumeration A {
-    a ← 1, b
-};
-
-enumeration A ⟨T⟩ {
-    a,
+    a ← 1,
     b
 };
 
@@ -39,6 +35,16 @@ union A {
 };
 
 union A {
+    a: 8-bit Integer,
+    b: 8-bit Integer
+};
+
+union A {
+    A ⟨8-bit Integer × 8-bit Integer⟩,
+    B {
+        a: 8-bit Integer, 
+        b: 8-bit Integer 
+    },
     a: 8-bit Integer,
     b: 8-bit Integer
 };

@@ -1,20 +1,60 @@
 # Ox
 
-## Lexical Syntax
+    union A {};
 
-## Concrete Syntax 
+    union A {
+        a,
+        b,
+        c
+    };
 
-## Abstract Syntax
+    union A {
+        a: (),
+        b: (),
+        c: ()
+    };
 
-## Typed Abstract Syntax
+    union A: 8-bit Integer {
+        a ← 1,
+        b
+    };
 
-## Ox Intermediate Language
+    union A {
+        a: 16-bit Integer,
+        b: 32-bit Integer,
+        c: 64-bit Integer
+    };
 
-## Influences
+    a ← A.a(1);
+    b ← A.b(2);
+    c ← A.c(3);
 
-[Crystal Programming Language](https://crystal-lang.org/docs/)
-[D Programming Language Speci􏰀cation](https://dlang.org/spec/spec.html)
-[Go Programming Language Specification, The](https://golang.org/ref/spec)
-[Nim Manual](https://nim-lang.org/docs/manual.html)
-[Rust Reference, The](https://doc.rust-lang.org/reference/index.html)
-[Swift Programming Language, The](https://docs.swift.org/swift-book/)
+    union A {
+        a: 8-bit Integer,
+        b: (8-bit Integer × 8-bit Integer × 8-bit Integer)
+    };
+
+    a ← A.a(1);
+    b ← A.b(1, 2, 3);
+
+    union A {
+        a: 8-bit Integer,
+        b: {
+            a: 8-bit Integer,
+            b: 8-bit Integer,
+            c: 8-bit Integer
+        }
+    };
+
+    a ← A.a(1);
+
+    b ← A.b {
+        a: 1,
+        b: 2,
+        c: 3
+    };
+
+    union Option ⟨T⟩ {
+        None,
+        Some: (T)
+    };
