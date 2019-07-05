@@ -25,7 +25,7 @@ int main(int argc, const char * argv[]) {
     /*
      * Example compiler pass
      */
-    std::shared_ptr<Expression::IntegerLiteral> example(new Expression::IntegerLiteral("100"));
+    std::shared_ptr<Expression::Integer> example(new Expression::Integer("100"));
 
     example->accept(generator);
 

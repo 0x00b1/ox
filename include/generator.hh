@@ -7,7 +7,7 @@
 
 class Generator: public Visitor {
 public:
-    void accept(std::shared_ptr<Expression::IntegerLiteral> node) override {
+    void accept(std::shared_ptr<Expression::Integer> node) override {
         std::cout << node->value << std::endl;
     }
 };

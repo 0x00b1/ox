@@ -8,14 +8,16 @@
 #include "visitor.hh"
 
 namespace Expression {
-    class IntegerLiteral: public AST::Expression, public std::enable_shared_from_this<IntegerLiteral> {
+    class Integer: public AST::Expression, public std::enable_shared_from_this<Integer> {
     public:
-        explicit IntegerLiteral(std::string value): value(std::move(value)) {}
+        explicit Integer(std::string value) {
+            this->value = std::move(value);
+        }
 
         std::string value;
 
         void accept(Visitor &visitor) override {
-            std::shared_ptr<IntegerLiteral> p{shared_from_this()};
+            std::shared_ptr<Integer> p{shared_from_this()};
 
             visitor.accept(p);
         }

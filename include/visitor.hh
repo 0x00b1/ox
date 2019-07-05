@@ -17,12 +17,12 @@ namespace AST {
 }
 
 namespace Expression {
-    class IntegerLiteral;
+    class Integer;
 }
 
 class Visitor {
 public:
-    virtual void accept(std::shared_ptr<Expression::IntegerLiteral>) = 0;
+    virtual void accept(std::shared_ptr<Expression::Integer>) = 0;
 };
 
 #endif
