@@ -20,16 +20,14 @@ int main(int argc, const char * argv[]) {
         }
     }
 
-    Generator generator;
-
     /*
      * Example compiler pass
      */
-    std::shared_ptr<Expression::Integer> example(new Expression::Integer("100"));
+    Generator generator;
 
-    example->accept(generator);
+    std::shared_ptr<Expression::Integer> integer(new Expression::Integer("100"));
 
-    std::cout << std::endl;
+    integer->accept(generator);
 
     return code;
 }
