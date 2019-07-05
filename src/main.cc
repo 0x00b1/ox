@@ -20,24 +20,14 @@ int main(int argc, const char * argv[]) {
         }
     }
 
+    Generator generator;
+
     /*
      * Example compiler pass
      */
-    Generator generator;
+    std::shared_ptr<Expression::IntegerLiteral> example(new Expression::IntegerLiteral("100"));
 
-    std::vector<std::shared_ptr<AST::Expression>> elements;
-
-    std::shared_ptr<Expression::IntegerLiteral> a(new Expression::IntegerLiteral("1"));
-    std::shared_ptr<Expression::IntegerLiteral> b(new Expression::IntegerLiteral("2"));
-    std::shared_ptr<Expression::IntegerLiteral> c(new Expression::IntegerLiteral("3"));
-
-    elements.push_back(a);
-    elements.push_back(b);
-    elements.push_back(c);
-
-    std::shared_ptr<Expression::Array> x(new Expression::Array(elements));
-
-    x->accept(generator);
+    example->accept(generator);
 
     std::cout << std::endl;
 

@@ -68,10 +68,7 @@
 
 %option noyywrap nounput noinput batch debug
 
-id              [a-zA-Z][a-zA-Z_0-9]*
 INTEGER         [0-9]*
-FLOATING_POINT  [0-9]*\.[0-9]+
-blank           [ \t]
 
 %{
   // Code run each time a pattern is matched.
@@ -90,101 +87,7 @@ blank           [ \t]
   location.step();
 %}
 
-{blank}+   location.step();
-
-\n+ {
-    location.lines(yyleng);
-
-    location.step();
-}
-
-"8-bit"           return yy::parser::make_EIGHT_BIT_KEYWORD(location);
-"16-bit"          return yy::parser::make_SIXTEEN_BIT_KEYWORD(location);
-"32-bit"          return yy::parser::make_THIRTY_TWO_BIT_KEYWORD(location);
-"64-bit"          return yy::parser::make_SIXTY_FOUR_BIT_KEYWORD(location);
-
-"Boolean"         return yy::parser::make_BOOLEAN_KEYWORD(location);
-"Floating-point"  return yy::parser::make_FLOATING_POINT_KEYWORD(location);
-"Integer"         return yy::parser::make_INTEGER_KEYWORD(location);
-
-"as"              return yy::parser::make_AS_KEYWORD(location);
-"break"           return yy::parser::make_BREAK_KEYWORD(location);
-"case"            return yy::parser::make_CASE_KEYWORD(location);
-"closure"         return yy::parser::make_CLOSURE_KEYWORD(location);
-"constant"        return yy::parser::make_CONSTANT_KEYWORD(location);
-"continue"        return yy::parser::make_CONTINUE_KEYWORD(location);
-"coroutine"       return yy::parser::make_COROUTINE_KEYWORD(location);
-"default"         return yy::parser::make_DEFAULT_KEYWORD(location);
-"else"            return yy::parser::make_ELSE_KEYWORD(location);
-"enumeration"     return yy::parser::make_ENUMERATION_KEYWORD(location);
-"false"           return yy::parser::make_FALSE_KEYWORD(location);
-"for"             return yy::parser::make_FOR_KEYWORD(location);
-"goto"            return yy::parser::make_GOTO_KEYWORD(location);
-"if"              return yy::parser::make_IF_KEYWORD(location);
-"immutable"       return yy::parser::make_IMMUTABLE_KEYWORD(location);
-"in"              return yy::parser::make_IN_KEYWORD(location);
-"infix"           return yy::parser::make_INFIX_KEYWORD(location);
-"is"              return yy::parser::make_IS_KEYWORD(location);
-"label"           return yy::parser::make_LABEL_KEYWORD(location);
-"module"          return yy::parser::make_MODULE_KEYWORD(location);
-"mutable"         return yy::parser::make_MUTABLE_KEYWORD(location);
-"operator"        return yy::parser::make_OPERATOR_KEYWORD(location);
-"postfix"         return yy::parser::make_POSTFIX_KEYWORD(location);
-"prefix"          return yy::parser::make_PREFIX_KEYWORD(location);
-"record"          return yy::parser::make_RECORD_KEYWORD(location);
-"reference"       return yy::parser::make_REFERENCE_KEYWORD(location);
-"return"          return yy::parser::make_RETURN_KEYWORD(location);
-"subroutine"      return yy::parser::make_SUBROUTINE_KEYWORD(location);
-"switch"          return yy::parser::make_SWITCH_KEYWORD(location);
-"true"            return yy::parser::make_TRUE_KEYWORD(location);
-"type"            return yy::parser::make_TYPE_KEYWORD(location);
-"union"           return yy::parser::make_UNION_KEYWORD(location);
-"unsigned"        return yy::parser::make_UNSIGNED_KEYWORD(location);
-"while"           return yy::parser::make_WHILE_KEYWORD(location);
-
-"+" return yy::parser::make_PLUS_SIGN(location);
-"×" return yy::parser::make_MULTIPLICATION_SIGN(location);
-"÷" return yy::parser::make_DIVISION_SIGN(location);
-"−" return yy::parser::make_MINUS_SIGN(location);
-
-"," return yy::parser::make_COMMA(location);
-":" return yy::parser::make_COLON(location);
-";" return yy::parser::make_SEMICOLON(location);
-"…" return yy::parser::make_HORIZONTAL_ELLIPSIS(location);
-
-"←" return yy::parser::make_LEFTWARDS_ARROW(location);
-"→" return yy::parser::make_RIGHTWARDS_ARROW(location);
-
-"λ" return yy::parser::make_GREEK_SMALL_LETTER_LAMBDA(location);
-
-"′" return yy::parser::make_PRIME(location);
-
-"_" return yy::parser::make_WILDCARD(location);
-
-"(" return yy::parser::make_LEFT_PARENTHESIS(location);
-")" return yy::parser::make_RIGHT_PARENTHESIS(location);
-"[" return yy::parser::make_LEFT_SQUARE_BRACKET(location);
-"]" return yy::parser::make_RIGHT_SQUARE_BRACKET(location);
-"{" return yy::parser::make_LEFT_CURLY_BRACKET(location);
-"}" return yy::parser::make_RIGHT_CURLY_BRACKET(location);
-"⟨" return yy::parser::make_MATHEMATICAL_LEFT_ANGLE_BRACKET(location);
-"⟩" return yy::parser::make_MATHEMATICAL_RIGHT_ANGLE_BRACKET(location);
-
-"<" return yy::parser::make_LESS_THAN_SIGN(location);
-"=" return yy::parser::make_EQUALS_SIGN(location);
-">" return yy::parser::make_GREATER_THAN_SIGN(location);
-"≠" return yy::parser::make_NOT_EQUAL_TO(location);
-"≤" return yy::parser::make_LESS_THAN_OR_EQUAL_TO(location);
-"≥" return yy::parser::make_GREATER_THAN_OR_EQUAL_TO(location);
-
-"¬" return yy::parser::make_NOT_AND(location);
-"∧" return yy::parser::make_LOGICAL_AND(location);
-"∨" return yy::parser::make_LOGICAL_OR(location);
-"⊻" return yy::parser::make_XOR(location);
-
-{INTEGER}         return yy::parser::make_INTEGER(yytext, location);
-{FLOATING_POINT}  return yy::parser::make_FLOATING_POINT(yytext, location);
-{id}              return yy::parser::make_IDENTIFIER(yytext, location);
+{INTEGER} return yy::parser::make_INTEGER(yytext, location);
 
 . {
     throw yy::parser::syntax_error(location, "invalid character: " + std::string(yytext));
