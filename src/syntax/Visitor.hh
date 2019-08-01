@@ -13,6 +13,7 @@ namespace Node {
 }
 
 namespace Node {
+  class AnonymousConstant;
   class Argument;
   class ArrayExpression;
   class ArrayType;
@@ -51,6 +52,7 @@ namespace Node {
 
 class Visitor {
 public:
+  virtual void accept(std::shared_ptr<Node::AnonymousConstant>) = 0;
   virtual void accept(std::shared_ptr<Node::Argument>) = 0;
   virtual void accept(std::shared_ptr<Node::ArrayExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::ArrayType>) = 0;
