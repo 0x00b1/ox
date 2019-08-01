@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::FloatingPointType : public Node::Node, public std::enable_shared_from_this<FloatingPointType> {
+class Node::FloatingPointType: public Node::Node, public std::enable_shared_from_this<FloatingPointType> {
 public:
   FloatingPointType();
 

@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::Expression : public Node::Node, public std::enable_shared_from_this<Expression> {
+class Node::Expression: public Node::Node, public std::enable_shared_from_this<Expression> {
 public:
   Expression();
 

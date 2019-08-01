@@ -8,7 +8,7 @@
 #include "Visitor.hh"
 
 
-class Node::Identifier : public Node::Node, public std::enable_shared_from_this<Identifier> {
+class Node::Identifier: public Node::Node, public std::enable_shared_from_this<Identifier> {
 public:
   explicit Identifier(std::string value);
 

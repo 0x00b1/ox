@@ -7,8 +7,7 @@
 
 #include "Visitor.hh"
 
-
-class Node::Item : public Node::Node, public std::enable_shared_from_this<Item> {
+class Node::Item: public Node::Node, public std::enable_shared_from_this<Item> {
 public:
   explicit Item(std::string value);
 

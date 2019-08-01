@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::FloatingPointLiteral : public Node::Node, public std::enable_shared_from_this<FloatingPointLiteral> {
+class Node::FloatingPointLiteral: public Node::Node, public std::enable_shared_from_this<FloatingPointLiteral> {
 public:
   FloatingPointLiteral();
 

@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::IntegerLiteral : public Node::Node, public std::enable_shared_from_this<IntegerLiteral> {
+class Node::IntegerLiteral: public Node::Node, public std::enable_shared_from_this<IntegerLiteral> {
 public:
   IntegerLiteral();
 

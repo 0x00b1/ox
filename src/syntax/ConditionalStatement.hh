@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::ConditionalStatement : public Node::Node, public std::enable_shared_from_this<ConditionalStatement> {
+class Node::ConditionalStatement: public Node::Node, public std::enable_shared_from_this<ConditionalStatement> {
 public:
   explicit ConditionalStatement(std::string value);
 
