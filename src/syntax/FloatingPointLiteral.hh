@@ -9,7 +9,9 @@
 
 class Node::FloatingPointLiteral: public Node::Node, public std::enable_shared_from_this<FloatingPointLiteral> {
 public:
-  FloatingPointLiteral();
+  FloatingPointLiteral(std::string value);
+
+  std::string value;
 
   void accept(Visitor &visitor) override;
 };

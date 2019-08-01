@@ -9,7 +9,9 @@
 
 class Node::IntegerLiteral: public Node::Node, public std::enable_shared_from_this<IntegerLiteral> {
 public:
-  IntegerLiteral();
+  explicit IntegerLiteral(std::string value);
+
+  std::string value;
 
   void accept(Visitor &visitor) override;
 };

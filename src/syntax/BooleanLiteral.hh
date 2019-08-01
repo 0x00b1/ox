@@ -9,7 +9,9 @@
 
 class Node::BooleanLiteral: public Node::Node, public std::enable_shared_from_this<BooleanLiteral> {
 public:
-  BooleanLiteral();
+  explicit BooleanLiteral(bool value);
+
+  bool value;
 
   void accept(Visitor &visitor) override;
 };
