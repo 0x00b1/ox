@@ -1,10 +1,6 @@
 #include "IndexExpression.hh"
 
-
-Node::IndexExpression::IndexExpression(
-    std::shared_ptr<Expression> container,
-    std::shared_ptr<Expression> index
-) {
+Node::IndexExpression::IndexExpression(std::shared_ptr<Expression> container, std::shared_ptr<Expression> index) {
   this->container = std::move(container);
 
   this->container = std::move(index);

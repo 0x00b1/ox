@@ -1,6 +1,5 @@
 #include "BlockStatement.hh"
 
-
 Node::BlockStatement::BlockStatement(std::vector<Statement> statements) {
   this->statements = std::move(statements);
 }

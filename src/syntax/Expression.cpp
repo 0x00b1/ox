@@ -1,6 +1,5 @@
 #include "Expression.hh"
 
-
 Node::Expression::Expression() {}
 
 void Node::Expression::accept(Visitor &visitor) {

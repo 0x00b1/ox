@@ -1,6 +1,5 @@
 #include "Identifier.hh"
 
-
 Node::Identifier::Identifier(std::string value) {
   this->value = std::move(value);
 }

@@ -1,6 +1,5 @@
 #include "ConstantItem.hh"
 
-
 Node::ConstantItem::ConstantItem(std::string value) {
   this->value = std::move(value);
 }

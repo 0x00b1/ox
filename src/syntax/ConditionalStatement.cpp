@@ -1,6 +1,5 @@
 #include "ConditionalStatement.hh"
 
-
 Node::ConditionalStatement::ConditionalStatement(std::string value) {
   this->value = std::move(value);
 }
