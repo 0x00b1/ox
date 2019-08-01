@@ -52,6 +52,7 @@ namespace Node {
   class Statement;
   class SubroutineItem;
   class Type;
+  class WildcardPattern;
 }
 
 class Visitor {
@@ -95,6 +96,7 @@ public:
   virtual void accept(std::shared_ptr<Node::Statement>) = 0;
   virtual void accept(std::shared_ptr<Node::SubroutineItem>) = 0;
   virtual void accept(std::shared_ptr<Node::Type>) = 0;
+  virtual void accept(std::shared_ptr<Node::WildcardPattern>) = 0;
 };
 
 #endif
