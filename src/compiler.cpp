@@ -1,4 +1,4 @@
-#include "include/compiler.hh"
+#include "compiler.hh"
 #include "parser.hh"
 
 Compiler::Compiler(): trace_parsing(false), trace_scanning(false) {

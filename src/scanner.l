@@ -5,7 +5,7 @@
     # include <cstring> // strerror
     # include <string>
 
-    # include "../include/compiler.hh"
+    # include "compiler.hh"
     # include "parser.hh"
 %}
 
@@ -68,7 +68,10 @@
 
 %option noyywrap nounput noinput batch debug
 
+FLOATING_POINT  [0-9]*\.[0-9]+
+IDENTIFIER      [a-zA-Z][a-zA-Z_0-9]*
 INTEGER         [0-9]*
+WHITESPACE      [ \t]
 
 %{
   // Code run each time a pattern is matched.
@@ -87,14 +90,59 @@ INTEGER         [0-9]*
   location.step();
 %}
 
-{INTEGER} return yy::parser::make_INTEGER(yytext, location);
+{WHITESPACE}+ {
+  location.step();
+}
+
+\n+ {
+  location.lines(yyleng);
+
+  location.step();
+}
+
+ "8-bit"          return yy::parser::make_KEYWORD__8_BIT(location);
+"16-bit"          return yy::parser::make_KEYWORD_16_BIT(location);
+"32-bit"          return yy::parser::make_KEYWORD_32_BIT(location);
+"64-bit"          return yy::parser::make_KEYWORD_64_BIT(location);
+"Boolean"         return yy::parser::make_KEYWORD_BOOLEAN(location);
+"constant"        return yy::parser::make_KEYWORD_CONSTANT(location);
+"else"            return yy::parser::make_KEYWORD_ELSE(location);
+"False"           return yy::parser::make_KEYWORD_FALSE(location);
+"Floating-point"  return yy::parser::make_KEYWORD_FLOATING_POINT(location);
+"if"              return yy::parser::make_KEYWORD_IF(location);
+"Integer"         return yy::parser::make_KEYWORD_INTEGER(location);
+"reference"       return yy::parser::make_KEYWORD_REFERENCE(location);
+"return"          return yy::parser::make_KEYWORD_RETURN(location);
+"shared"          return yy::parser::make_KEYWORD_SHARED(location);
+"Size"            return yy::parser::make_KEYWORD_SIZE(location);
+"subroutine"      return yy::parser::make_KEYWORD_SUBROUTINE(location);
+"True"            return yy::parser::make_KEYWORD_TRUE(location);
+"unsigned"        return yy::parser::make_KEYWORD_UNSIGNED(location);
+
+{FLOATING_POINT}  return yy::parser::make_LITERAL_FLOATING_POINT(yytext, location);
+{INTEGER}         return yy::parser::make_LITERAL_INTEGER(yytext, location);
+
+","               return yy::parser::make_PUNCTUATION_COMMA(location);
+";"               return yy::parser::make_PUNCTUATION_SEMICOLON(location);
+":"               return yy::parser::make_PUNCTUATION_COLON(location);
+"("               return yy::parser::make_PUNCTUATION_LEFT_PARENTHESIS(location);
+")"               return yy::parser::make_PUNCTUATION_RIGHT_PARENTHESIS(location);
+"["               return yy::parser::make_PUNCTUATION_LEFT_SQUARE_BRACKET(location);
+"]"               return yy::parser::make_PUNCTUATION_RIGHT_SQUARE_BRACKET(location);
+"{"               return yy::parser::make_PUNCTUATION_LEFT_CURLY_BRACKET(location);
+"}"               return yy::parser::make_PUNCTUATION_RIGHT_CURLY_BRACKET(location);
+"←"               return yy::parser::make_PUNCTUATION_LEFTWARDS_ARROW(location);
+"→"               return yy::parser::make_PUNCTUATION_RIGHTWARDS_ARROW(location);
+"×"               return yy::parser::make_PUNCTUATION_MULTIPLICATION_SIGN(location);
+
+{IDENTIFIER}      return yy::parser::make_IDENTIFIER(yytext, location);
 
 . {
-    throw yy::parser::syntax_error(location, "invalid character: " + std::string(yytext));
+  throw yy::parser::syntax_error(location, "invalid character: " + std::string(yytext));
 }
 
 <<EOF>> {
-    return yy::parser::make_END(location);
+  return yy::parser::make_END(location);
 }
 
 %%

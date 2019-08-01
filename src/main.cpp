@@ -1,7 +1,8 @@
 #include <iostream>
 
-#include "include/compiler.hh"
-#include "include/syntax.hh"
+#include "compiler.hh"
+#include "syntax/Node.hh"
+#include "generator.hh"
 
 int main(int argc, const char * argv[]) {
     int code = 0;
@@ -23,11 +24,7 @@ int main(int argc, const char * argv[]) {
     /*
      * Example compiler pass
      */
-    Generator generator;
-
-    std::shared_ptr<Expression::Integer> integer(new Expression::Integer("100"));
-
-    integer->accept(generator);
+//    Generator generator;
 
     return code;
 }
