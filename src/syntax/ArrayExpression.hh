@@ -10,9 +10,7 @@
 
 class Node::ArrayExpression: public Node::Node, public std::enable_shared_from_this<ArrayExpression> {
 public:
-  explicit ArrayExpression(
-      std::vector<std::shared_ptr<Expression>> elements
-  );
+  explicit ArrayExpression(std::vector<std::shared_ptr<Expression>> elements);
 
   std::vector<std::shared_ptr<Expression>> elements;
 

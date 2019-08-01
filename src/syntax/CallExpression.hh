@@ -10,10 +10,7 @@
 
 class Node::CallExpression: public Node::Node, public std::enable_shared_from_this<CallExpression> {
 public:
-  CallExpression(
-      std::shared_ptr<Expression> subroutine,
-      std::vector<std::shared_ptr<Expression>> parameters
-  );
+  CallExpression(std::shared_ptr<Expression> subroutine, std::vector<std::shared_ptr<Expression>> parameters);
 
   std::shared_ptr<Expression> subroutine;
 

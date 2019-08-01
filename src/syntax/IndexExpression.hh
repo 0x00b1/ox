@@ -10,10 +10,7 @@
 
 class Node::IndexExpression: public Node::Node, public std::enable_shared_from_this<IndexExpression> {
 public:
-  IndexExpression(
-      std::shared_ptr<Expression> container,
-      std::shared_ptr<Expression> index
-  );
+  IndexExpression(std::shared_ptr<Expression> container, std::shared_ptr<Expression> index);
 
   std::shared_ptr<Expression> container;
 
