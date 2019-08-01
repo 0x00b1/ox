@@ -110,7 +110,7 @@ add_executable(
     src/syntax/SubroutineItem.hh
     src/syntax/Type.cpp
     src/syntax/Type.hh
-)
+        src/syntax/LiteralPattern.cpp src/syntax/LiteralPattern.hh)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 

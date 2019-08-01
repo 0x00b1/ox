@@ -39,6 +39,7 @@ namespace Node {
   class ItemStatement;
   class Literal;
   class LiteralExpression;
+  class LiteralPattern;
   class Name;
   class Parameter;
   class PathType;
@@ -80,6 +81,7 @@ public:
   virtual void accept(std::shared_ptr<Node::ItemStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::Literal>) = 0;
   virtual void accept(std::shared_ptr<Node::LiteralExpression>) = 0;
+  virtual void accept(std::shared_ptr<Node::LiteralPattern>) = 0;
   virtual void accept(std::shared_ptr<Node::Name>) = 0;
   virtual void accept(std::shared_ptr<Node::Parameter>) = 0;
   virtual void accept(std::shared_ptr<Node::PathType>) = 0;
