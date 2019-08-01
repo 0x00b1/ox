@@ -1,9 +1,7 @@
 #include "SubroutineItem.hh"
 
-Node::SubroutineItem::SubroutineItem(std::vector<Argument> arguments, std::shared_ptr<Type> type, std::shared_ptr<BlockStatement> block_statement) {
-  this->arguments = std::move(arguments);
-
-  this->type = std::move(type);
+Node::SubroutineItem::SubroutineItem(std::shared_ptr<FunctionDeclaration> declaration, std::shared_ptr<BlockStatement> block_statement) {
+  this->declaration = std::move(declaration);
 
   this->block_statement = std::move(block_statement);
 }

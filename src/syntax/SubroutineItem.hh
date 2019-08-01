@@ -6,17 +6,13 @@
 #include <utility>
 #include <vector>
 
-#include "Argument.hh"
-#include "BlockStatement.hh"
-#include "Type.hh"
+#include "Visitor.hh"
 
 class Node::SubroutineItem: public Node::Node, public std::enable_shared_from_this<SubroutineItem> {
 public:
-  SubroutineItem(std::vector<Argument> arguments, std::shared_ptr<Type> type, std::shared_ptr<BlockStatement> block_statement);
+  SubroutineItem(std::shared_ptr<FunctionDeclaration> declaration, std::shared_ptr<BlockStatement> block_statement);
 
-  std::vector<Argument> arguments;
-
-  std::shared_ptr<Type> type;
+  std::shared_ptr<FunctionDeclaration> declaration;
 
   std::shared_ptr<BlockStatement> block_statement;
 
@@ -24,4 +20,3 @@ public:
 };
 
 #endif
-

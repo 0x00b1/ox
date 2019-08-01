@@ -33,10 +33,84 @@ add_executable(
     src/main.cpp
     ${BISON_PARSER_OUTPUTS}
     ${FLEX_SCANNER_OUTPUTS}
-        src/syntax/Node.cpp
-        src/generator.cpp
     src/compiler.cpp
-        src/syntax/Type.cpp src/syntax/Type.hh src/syntax/Statement.cpp src/syntax/Statement.hh src/syntax/Pattern.cpp src/syntax/Pattern.hh src/syntax/Literal.cpp src/syntax/Literal.hh src/syntax/Item.cpp src/syntax/Item.hh src/syntax/Identifier.cpp src/syntax/Identifier.hh src/syntax/BlockStatement.cpp src/syntax/BlockStatement.hh src/syntax/Expression.cpp src/syntax/Expression.hh src/syntax/Name.cpp src/syntax/Name.hh src/syntax/Parameter.cpp src/syntax/Parameter.hh src/syntax/SubroutineItem.cpp src/syntax/SubroutineItem.hh src/syntax/ConstantItem.cpp src/syntax/ConstantItem.hh src/syntax/ArrayExpression.cpp src/syntax/ArrayExpression.hh src/syntax/IndexExpression.cpp src/syntax/IndexExpression.hh src/syntax/LiteralExpression.cpp src/syntax/LiteralExpression.hh src/syntax/CallExpression.cpp src/syntax/CallExpression.hh src/syntax/ItemStatement.cpp src/syntax/ItemStatement.hh src/syntax/ExpressionStatement.cpp src/syntax/ExpressionStatement.hh src/syntax/Argument.cpp src/syntax/Argument.hh src/syntax/ReturnStatement.cpp src/syntax/ReturnStatement.hh src/syntax/ConditionalStatement.cpp src/syntax/ConditionalStatement.hh src/syntax/AssignmentStatement.cpp src/syntax/AssignmentStatement.hh src/syntax/IntegerLiteral.cpp src/syntax/IntegerLiteral.hh src/syntax/FloatingPointLiteral.cpp src/syntax/FloatingPointLiteral.hh src/syntax/FloatingPointType.cpp src/syntax/FloatingPointType.hh src/syntax/IntegerType.cpp src/syntax/IntegerType.hh src/syntax/BooleanLiteral.cpp src/syntax/BooleanLiteral.hh src/syntax/BooleanType.cpp src/syntax/BooleanType.hh src/syntax/SliceType.cpp src/syntax/SliceType.hh src/syntax/ArrayType.cpp src/syntax/ArrayType.hh src/syntax/BottomType.cpp src/syntax/BottomType.hh src/syntax/PointerType.cpp src/syntax/PointerType.hh src/syntax/ReferenceType.cpp src/syntax/ReferenceType.hh src/syntax/PathType.cpp src/syntax/PathType.hh src/syntax/AnonymousConstant.cpp src/syntax/AnonymousConstant.hh src/syntax/FunctionType.cpp src/syntax/FunctionType.hh)
+    src/generator.cpp
+    src/syntax/AnonymousConstant.cpp
+    src/syntax/AnonymousConstant.hh
+    src/syntax/Argument.cpp
+    src/syntax/Argument.hh
+    src/syntax/ArrayExpression.cpp
+    src/syntax/ArrayExpression.hh
+    src/syntax/ArrayType.cpp
+    src/syntax/ArrayType.hh
+    src/syntax/AssignmentStatement.cpp
+    src/syntax/AssignmentStatement.hh
+    src/syntax/BlockStatement.cpp
+    src/syntax/BlockStatement.hh
+    src/syntax/BooleanLiteral.cpp
+    src/syntax/BooleanLiteral.hh
+    src/syntax/BooleanType.cpp
+    src/syntax/BooleanType.hh
+    src/syntax/BottomType.cpp
+    src/syntax/BottomType.hh
+    src/syntax/CallExpression.cpp
+    src/syntax/CallExpression.hh
+    src/syntax/ConditionalStatement.cpp
+    src/syntax/ConditionalStatement.hh
+    src/syntax/ConstantItem.cpp
+    src/syntax/ConstantItem.hh
+    src/syntax/Expression.cpp
+    src/syntax/Expression.hh
+    src/syntax/ExpressionStatement.cpp
+    src/syntax/ExpressionStatement.hh
+    src/syntax/FloatingPointLiteral.cpp
+    src/syntax/FloatingPointLiteral.hh
+    src/syntax/FloatingPointType.cpp
+    src/syntax/FloatingPointType.hh
+    src/syntax/FunctionDeclaration.cpp
+    src/syntax/FunctionDeclaration.hh
+    src/syntax/FunctionType.cpp
+    src/syntax/FunctionType.hh
+    src/syntax/Identifier.cpp
+    src/syntax/Identifier.hh
+    src/syntax/IndexExpression.cpp
+    src/syntax/IndexExpression.hh
+    src/syntax/IntegerLiteral.cpp
+    src/syntax/IntegerLiteral.hh
+    src/syntax/IntegerType.cpp
+    src/syntax/IntegerType.hh
+    src/syntax/Item.cpp
+    src/syntax/Item.hh
+    src/syntax/ItemStatement.cpp
+    src/syntax/ItemStatement.hh
+    src/syntax/Literal.cpp
+    src/syntax/Literal.hh
+    src/syntax/LiteralExpression.cpp
+    src/syntax/LiteralExpression.hh
+    src/syntax/Name.cpp
+    src/syntax/Name.hh
+    src/syntax/Node.cpp
+    src/syntax/Parameter.cpp
+    src/syntax/Parameter.hh
+    src/syntax/PathType.cpp
+    src/syntax/PathType.hh
+    src/syntax/Pattern.cpp
+    src/syntax/Pattern.hh
+    src/syntax/PointerType.cpp
+    src/syntax/PointerType.hh
+    src/syntax/ReferenceType.cpp
+    src/syntax/ReferenceType.hh
+    src/syntax/ReturnStatement.cpp
+    src/syntax/ReturnStatement.hh
+    src/syntax/SliceType.cpp
+    src/syntax/SliceType.hh
+    src/syntax/Statement.cpp
+    src/syntax/Statement.hh
+    src/syntax/SubroutineItem.cpp
+    src/syntax/SubroutineItem.hh
+    src/syntax/Type.cpp
+    src/syntax/Type.hh
+)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 
