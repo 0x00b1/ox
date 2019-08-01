@@ -7,9 +7,11 @@
 
 #include "Visitor.hh"
 
-class Node::ArrayType : public Node, public std::enable_shared_from_this<ArrayType> {
+class Node::ArrayType: public Node, public std::enable_shared_from_this<ArrayType> {
 public:
-  ArrayType();
+  explicit ArrayType(std::shared_ptr<Type> type);
+
+  std::shared_ptr<Type> type;
 
   void accept(Visitor &visitor) override;
 };

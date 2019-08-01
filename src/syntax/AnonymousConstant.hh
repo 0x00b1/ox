@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::AnonymousConstant: public Node::Node, public std::enable_shared_from_this<AnonymousConstant> {
+class Node::AnonymousConstant: public Node, public std::enable_shared_from_this<AnonymousConstant> {
 public:
   explicit AnonymousConstant(std::shared_ptr<Expression> expression);
 
