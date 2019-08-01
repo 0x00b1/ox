@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::LiteralPattern: public Node, public std::enable_shared_from_this<Expression> {
+class Node::LiteralPattern: public Node, public std::enable_shared_from_this<LiteralPattern> {
 public:
   explicit LiteralPattern(std::shared_ptr<Expression> expression);
 

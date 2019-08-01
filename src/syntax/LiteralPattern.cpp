@@ -5,7 +5,7 @@ Node::LiteralPattern::LiteralPattern(std::shared_ptr<Expression> expression) {
 };
 
 void Node::LiteralPattern::accept(Visitor &visitor) {
-  std::shared_ptr<Expression> p{shared_from_this()};
+  std::shared_ptr<LiteralPattern> p{shared_from_this()};
 
   visitor.accept(p);
 }

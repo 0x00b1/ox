@@ -47,6 +47,7 @@ namespace Node {
   class PointerType;
   class ReferenceType;
   class ReturnStatement;
+  class SlicePattern;
   class SliceType;
   class Statement;
   class SubroutineItem;
@@ -89,6 +90,7 @@ public:
   virtual void accept(std::shared_ptr<Node::PointerType>) = 0;
   virtual void accept(std::shared_ptr<Node::ReferenceType>) = 0;
   virtual void accept(std::shared_ptr<Node::ReturnStatement>) = 0;
+  virtual void accept(std::shared_ptr<Node::SlicePattern>) = 0;
   virtual void accept(std::shared_ptr<Node::SliceType>) = 0;
   virtual void accept(std::shared_ptr<Node::Statement>) = 0;
   virtual void accept(std::shared_ptr<Node::SubroutineItem>) = 0;
