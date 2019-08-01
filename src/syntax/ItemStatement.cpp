@@ -1,6 +1,5 @@
 #include "ItemStatement.hh"
 
-
 Node::ItemStatement::ItemStatement(std::string value) {
   this->value = std::move(value);
 }

@@ -1,6 +1,5 @@
 #include "Parameter.hh"
 
-
 Node::Parameter::Parameter(std::string value) {
   this->value = std::move(value);
 }

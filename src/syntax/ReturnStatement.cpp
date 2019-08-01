@@ -1,6 +1,5 @@
 #include "ReturnStatement.hh"
 
-
 Node::ReturnStatement::ReturnStatement() {}
 
 Node::ReturnStatement::ReturnStatement(std::shared_ptr<Expression> expression) {

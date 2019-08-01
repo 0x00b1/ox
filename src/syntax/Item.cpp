@@ -1,6 +1,5 @@
 #include "Item.hh"
 
-
 Node::Item::Item(std::string value) {
   this->value = std::move(value);
 }

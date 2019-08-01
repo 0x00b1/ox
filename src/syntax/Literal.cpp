@@ -1,6 +1,5 @@
 #include "Literal.hh"
 
-
 Node::Literal::Literal(std::string value) {
   this->value = std::move(value);
 }

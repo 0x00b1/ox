@@ -1,6 +1,5 @@
 #include "Pattern.hh"
 
-
 Node::Pattern::Pattern(std::string value) {
   this->value = std::move(value);
 }

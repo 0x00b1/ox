@@ -1,6 +1,5 @@
 #include "Statement.hh"
 
-
 Node::Statement::Statement(std::string value) {
   this->value = std::move(value);
 }

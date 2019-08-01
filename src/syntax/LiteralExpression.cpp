@@ -1,6 +1,5 @@
 #include "LiteralExpression.hh"
 
-
 Node::LiteralExpression::LiteralExpression(std::string value) {
   this->value = std::move(value);
 }
