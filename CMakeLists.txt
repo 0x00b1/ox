@@ -61,8 +61,12 @@ add_executable(
     src/syntax/ConditionalStatement.hh
     src/syntax/ConstantItem.cpp
     src/syntax/ConstantItem.hh
+    src/syntax/Expression.cpp 
+    src/syntax/Expression.hh 
     src/syntax/ExpressionStatement.cpp
     src/syntax/ExpressionStatement.hh
+    src/syntax/ExternalPackageItem.cpp 
+    src/syntax/ExternalPackageItem.hh 
     src/syntax/FloatingPointLiteral.cpp
     src/syntax/FloatingPointLiteral.hh
     src/syntax/FloatingPointType.cpp
@@ -79,6 +83,8 @@ add_executable(
     src/syntax/IntegerLiteral.hh
     src/syntax/IntegerType.cpp
     src/syntax/IntegerType.hh
+    src/syntax/Item.cpp 
+    src/syntax/Item.hh 
     src/syntax/ItemStatement.cpp
     src/syntax/ItemStatement.hh
     src/syntax/Literal.cpp
@@ -87,16 +93,22 @@ add_executable(
     src/syntax/LiteralExpression.hh
     src/syntax/LiteralPattern.cpp 
     src/syntax/LiteralPattern.hh 
+    src/syntax/ModuleItem.cpp 
+    src/syntax/ModuleItem.hh 
     src/syntax/Name.cpp
     src/syntax/Name.hh
-        src/syntax/Parameter.cpp
+    src/syntax/Parameter.cpp
     src/syntax/Parameter.hh
     src/syntax/PathPattern.cpp 
     src/syntax/PathPattern.hh 
     src/syntax/PathType.cpp
     src/syntax/PathType.hh
+    src/syntax/Pattern.cpp 
+    src/syntax/Pattern.hh 
     src/syntax/PointerType.cpp
     src/syntax/PointerType.hh
+    src/syntax/Position.cpp 
+    src/syntax/Position.hh 
     src/syntax/ReferenceType.cpp
     src/syntax/ReferenceType.hh
     src/syntax/ReturnStatement.cpp
@@ -105,6 +117,8 @@ add_executable(
     src/syntax/SlicePattern.hh 
     src/syntax/SliceType.cpp
     src/syntax/SliceType.hh
+    src/syntax/Statement.cpp 
+    src/syntax/Statement.hh 
     src/syntax/SubroutineItem.cpp
     src/syntax/SubroutineItem.hh
     src/syntax/TupleExpression.cpp 
@@ -113,9 +127,13 @@ add_executable(
     src/syntax/TuplePattern.hh
     src/syntax/TupleType.cpp 
     src/syntax/TupleType.hh 
+    src/syntax/Type.cpp 
+    src/syntax/Type.hh
+    src/syntax/TypeItem.cpp 
+    src/syntax/TypeItem.hh 
     src/syntax/WildcardPattern.cpp 
     src/syntax/WildcardPattern.hh
-        src/syntax/Position.cpp src/syntax/Position.hh src/syntax/ModuleItem.cpp src/syntax/ModuleItem.hh src/syntax/ExternalPackageItem.cpp src/syntax/ExternalPackageItem.hh src/syntax/TypeItem.cpp src/syntax/TypeItem.hh src/syntax/Expression.cpp src/syntax/Expression.hh src/syntax/Pattern.cpp src/syntax/Pattern.hh src/syntax/Item.cpp src/syntax/Item.hh src/syntax/Statement.cpp src/syntax/Statement.hh src/syntax/Type.cpp src/syntax/Type.hh)
+)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 

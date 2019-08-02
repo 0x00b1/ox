@@ -1,6 +1,6 @@
 #include "ArrayType.hh"
 
-Node::ArrayType::ArrayType(std::shared_ptr<Type> type, AnonymousConstant size) {
+Node::ArrayType::ArrayType(std::shared_ptr<Type> type) {
   this->type = std::move(type);
 };
 
