@@ -116,7 +116,7 @@ add_executable(
     src/syntax/TupleType.hh 
     src/syntax/WildcardPattern.cpp 
     src/syntax/WildcardPattern.hh
-        src/syntax/Position.cpp src/syntax/Position.hh)
+        src/syntax/Position.cpp src/syntax/Position.hh src/syntax/ModuleItem.cpp src/syntax/ModuleItem.hh src/syntax/ExternalPackageItem.cpp src/syntax/ExternalPackageItem.hh src/syntax/TypeItem.cpp src/syntax/TypeItem.hh)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 

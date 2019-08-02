@@ -2,7 +2,6 @@
 #define OX_VISITOR_HH
 
 #include <memory>
-#include <variant>
 
 #include "Position.hh"
 
@@ -32,6 +31,7 @@ namespace Node {
   class ConditionalStatement;
   class ConstantItem;
   class ExpressionStatement;
+  class ExternalPackageItem;
   class FloatingPointLiteral;
   class FloatingPointType;
   class FunctionDeclaration;
@@ -44,6 +44,7 @@ namespace Node {
   class Literal;
   class LiteralExpression;
   class LiteralPattern;
+  class ModuleItem;
   class Name;
   class Parameter;
   class PathPattern;
@@ -57,6 +58,7 @@ namespace Node {
   class TupleExpression;
   class TuplePattern;
   class TupleType;
+  class TypeItem;
   class WildcardPattern;
 }
 
@@ -72,7 +74,7 @@ namespace Node {
   class Pattern: public Node {
   public:
   };
-  
+
   class Statement: public Node {
   public:
   };
@@ -98,6 +100,7 @@ public:
   virtual void accept(std::shared_ptr<Node::ConditionalStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::ConstantItem>) = 0;
   virtual void accept(std::shared_ptr<Node::ExpressionStatement>) = 0;
+  virtual void accept(std::shared_ptr<Node::ExternalPackageItem>) = 0;
   virtual void accept(std::shared_ptr<Node::FloatingPointLiteral>) = 0;
   virtual void accept(std::shared_ptr<Node::FloatingPointType>) = 0;
   virtual void accept(std::shared_ptr<Node::FunctionDeclaration>) = 0;
@@ -110,6 +113,7 @@ public:
   virtual void accept(std::shared_ptr<Node::Literal>) = 0;
   virtual void accept(std::shared_ptr<Node::LiteralExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::LiteralPattern>) = 0;
+  virtual void accept(std::shared_ptr<Node::ModuleItem>) = 0;
   virtual void accept(std::shared_ptr<Node::Name>) = 0;
   virtual void accept(std::shared_ptr<Node::Parameter>) = 0;
   virtual void accept(std::shared_ptr<Node::PathPattern>) = 0;
@@ -123,6 +127,7 @@ public:
   virtual void accept(std::shared_ptr<Node::TupleExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::TuplePattern>) = 0;
   virtual void accept(std::shared_ptr<Node::TupleType>) = 0;
+  virtual void accept(std::shared_ptr<Node::TypeItem>) = 0;
   virtual void accept(std::shared_ptr<Node::WildcardPattern>) = 0;
 };
 
