@@ -30,6 +30,7 @@ void Generator::accept(std::shared_ptr<Node::LiteralPattern> node) {}
 void Generator::accept(std::shared_ptr<Node::ModuleItem> node) {}
 void Generator::accept(std::shared_ptr<Node::Name> node) {}
 void Generator::accept(std::shared_ptr<Node::Parameter> node) {}
+void Generator::accept(std::shared_ptr<Node::PathExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::PathPattern> node) {}
 void Generator::accept(std::shared_ptr<Node::PathType> node) {}
 void Generator::accept(std::shared_ptr<Node::PointerType> node) {}

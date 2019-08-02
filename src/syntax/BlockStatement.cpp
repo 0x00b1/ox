@@ -1,6 +1,6 @@
 #include "BlockStatement.hh"
 
-Node::BlockStatement::BlockStatement(std::vector<Statement> statements) {
+Node::BlockStatement::BlockStatement(std::vector<std::shared_ptr<Statement>> statements) {
   this->statements = std::move(statements);
 }
 

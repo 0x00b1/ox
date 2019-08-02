@@ -78,7 +78,32 @@
 
 %token <std::string> IDENTIFIER
 
+%type <std::vector<std::shared_ptr<Node::Statement>>> STATEMENTS;
+
 %type <std::shared_ptr<Node::Statement>> STATEMENT;
+
+%type <std::shared_ptr<Node::AssignmentStatement>> ASSIGNMENT_STATEMENT;
+%type <std::shared_ptr<Node::BlockStatement>> BLOCK_STATEMENT;
+%type <std::shared_ptr<Node::ConditionalStatement>> CONDITIONAL_STATEMENT;
+%type <std::shared_ptr<Node::ExpressionStatement>> EXPRESSION_STATEMENT;
+%type <std::shared_ptr<Node::ReturnStatement>> RETURN_STATEMENT;
+
+%type <std::shared_ptr<Node::Expression>> EXPRESSION;
+
+%type <std::shared_ptr<Node::ArrayExpression>> ARRAY_EXPRESSION;
+%type <std::shared_ptr<Node::CallExpression>> CALL_EXPRESSION;
+%type <std::shared_ptr<Node::IndexExpression>> INDEX_EXPRESSION;
+%type <std::shared_ptr<Node::LiteralExpression>> LITERAL_EXPRESSION;
+%type <std::shared_ptr<Node::PathExpression>> PATH_EXPRESSION;
+
+%type <std::shared_ptr<Node::Type>> TYPE;
+%type <std::shared_ptr<Node::ArrayType>> ARRAY_TYPE;
+%type <std::shared_ptr<Node::BooleanType>> BOOLEAN_TYPE;
+%type <std::shared_ptr<Node::FloatingPointType>> FLOATING_POINT_TYPE;
+%type <std::shared_ptr<Node::FunctionType>> FUNCTION_TYPE;
+%type <std::shared_ptr<Node::IntegerType>> INTEGER_TYPE;
+%type <std::shared_ptr<Node::ReferenceType>> REFERENCE_TYPE;
+%type <std::shared_ptr<Node::SliceType>> SLICE_TYPE;
 
 %printer {
     // FIXME:
@@ -95,13 +120,21 @@ UNIT                        : STATEMENTS
 STATEMENTS                  : STATEMENT
                             | STATEMENTS STATEMENT
                             ;
-STATEMENT                   : BLOCK_STATEMENT
+STATEMENT                   : ASSIGNMENT_STATEMENT
+                            | BLOCK_STATEMENT
                             | CONDITIONAL_STATEMENT
                             | DECLARATION_STATEMENT
                             | EXPRESSION_STATEMENT
                             | RETURN_STATEMENT
                             ;
-BLOCK_STATEMENT             : "{" STATEMENTS "}" 
+ASSIGNMENT_STATEMENT        : IDENTIFIER "←" EXPRESSION
+                            | IDENTIFIER ":" TYPE "←" EXPRESSION
+                            ;
+BLOCK_STATEMENT             : "{" STATEMENTS "}" {
+                              std::shared_ptr<Node::BlockStatement> x(new Node::BlockStatement($2));
+
+                              $$ = x;
+                            }
                             ;
 CONDITIONAL_STATEMENT       : "if" EXPRESSION BLOCK_STATEMENT
                             | "if" EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT
@@ -109,15 +142,9 @@ CONDITIONAL_STATEMENT       : "if" EXPRESSION BLOCK_STATEMENT
 DECLARATION_STATEMENT       : DECLARATION ";"
                             ;
 DECLARATION                 : SUBROUTINE_DECLARATION
-                            | VARIABLE_DECLARATION
                             ;
 SUBROUTINE_DECLARATION      : "subroutine" IDENTIFIER FUNCTION_TYPE
                             | "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT
-                            ;
-VARIABLE_DECLARATION        : IDENTIFIER "←" EXPRESSION
-                            | IDENTIFIER ":" TYPE "←" EXPRESSION
-                            | "constant" IDENTIFIER "←" EXPRESSION
-                            | "constant" IDENTIFIER ":" TYPE "←" EXPRESSION
                             ;
 EXPRESSION_STATEMENT        : EXPRESSION ";"
                             ;
@@ -148,17 +175,25 @@ LITERAL_EXPRESSION          : BOOLEAN_EXPRESSION
                             | FLOATING_POINT_EXPRESSION
                             | INTEGER_EXPRESSION
                             ;
-BOOLEAN_EXPRESSION          : "True" 
+BOOLEAN_EXPRESSION          : "True"
                             | "False"
                             ;
 FLOATING_POINT_EXPRESSION   : LITERAL_FLOATING_POINT
                             ;
 INTEGER_EXPRESSION          : LITERAL_INTEGER
                             ;
-PATH_EXPRESSION             : IDENTIFIER
+PATH_EXPRESSION             : IDENTIFIER 
                             ;
-RETURN_STATEMENT            : "return" ";"
-                            | "return" EXPRESSION ";"
+RETURN_STATEMENT            : "return" ";" {
+                              std::shared_ptr<Node::ReturnStatement> x(new Node::ReturnStatement());
+
+                              $$ = x;
+                            }
+                            | "return" EXPRESSION ";" {
+                              std::shared_ptr<Node::ReturnStatement> x(new Node::ReturnStatement($2));
+
+                              $$ = x;                              
+                            }
                             ;
 TYPE                        : ARRAY_TYPE
                             | BOOLEAN_TYPE
@@ -173,7 +208,11 @@ ARRAY_TYPE                  : "[" TYPE "×" SIZES "]"
 SIZES                       : EXPRESSION
                             | SIZES "×" EXPRESSION
                             ;
-BOOLEAN_TYPE                : "Boolean" 
+BOOLEAN_TYPE                : "Boolean" {
+                              std::shared_ptr<Node::BooleanType> x(new Node::BooleanType());
+
+                              $$ = x;
+                            }
                             ;
 FLOATING_POINT_TYPE         : "32-bit" "Floating-point" 
                             | "64-bit" "Floating-point" 

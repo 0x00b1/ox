@@ -37,6 +37,7 @@ public:
   void accept(std::shared_ptr<Node::ModuleItem> node) override;
   void accept(std::shared_ptr<Node::Name> node) override;
   void accept(std::shared_ptr<Node::Parameter> node) override;
+  void accept(std::shared_ptr<Node::PathExpression> node) override;
   void accept(std::shared_ptr<Node::PathPattern> node) override;
   void accept(std::shared_ptr<Node::PathType> node) override;
   void accept(std::shared_ptr<Node::PointerType> node) override;

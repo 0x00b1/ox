@@ -36,6 +36,7 @@ namespace Node {
   class ModuleItem;
   class Name;
   class Parameter;
+  class PathExpression;
   class PathPattern;
   class PathType;
   class PointerType;
@@ -83,6 +84,7 @@ public:
   virtual void accept(std::shared_ptr<Node::ModuleItem>) = 0;
   virtual void accept(std::shared_ptr<Node::Name>) = 0;
   virtual void accept(std::shared_ptr<Node::Parameter>) = 0;
+  virtual void accept(std::shared_ptr<Node::PathExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::PathPattern>) = 0;
   virtual void accept(std::shared_ptr<Node::PathType>) = 0;
   virtual void accept(std::shared_ptr<Node::PointerType>) = 0;

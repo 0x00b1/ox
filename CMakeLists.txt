@@ -86,7 +86,7 @@ add_executable(
     src/syntax/Type.cpp
     src/syntax/TypeItem.cpp
     src/syntax/WildcardPattern.cpp
-        include/compiler/compiler.h)
+        include/compiler/compiler.h src/syntax/PathExpression.cpp src/syntax/PathExpression.h)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 
