@@ -52,6 +52,7 @@ namespace Node {
   class SliceType;
   class Statement;
   class SubroutineItem;
+  class TupleExpression;
   class Type;
   class WildcardPattern;
 }
@@ -97,6 +98,7 @@ public:
   virtual void accept(std::shared_ptr<Node::SliceType>) = 0;
   virtual void accept(std::shared_ptr<Node::Statement>) = 0;
   virtual void accept(std::shared_ptr<Node::SubroutineItem>) = 0;
+  virtual void accept(std::shared_ptr<Node::TupleExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::Type>) = 0;
   virtual void accept(std::shared_ptr<Node::WildcardPattern>) = 0;
 };
