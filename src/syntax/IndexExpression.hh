@@ -8,7 +8,7 @@
 #include "Visitor.hh"
 
 
-class Node::IndexExpression: public Node, public std::enable_shared_from_this<IndexExpression> {
+class Node::IndexExpression: public Expression, public std::enable_shared_from_this<IndexExpression> {
 public:
   IndexExpression(std::shared_ptr<Expression> container, std::shared_ptr<Expression> index);
 

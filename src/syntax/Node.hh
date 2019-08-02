@@ -8,7 +8,6 @@
 #include "CallExpression.hh"
 #include "ConditionalStatement.hh"
 #include "ConstantItem.hh"
-#include "Expression.hh"
 #include "ExpressionStatement.hh"
 #include "Identifier.hh"
 #include "IndexExpression.hh"
@@ -20,6 +19,5 @@
 #include "Parameter.hh"
 #include "ReturnStatement.hh"
 #include "SubroutineItem.hh"
-#include "Type.hh"
 
 #endif

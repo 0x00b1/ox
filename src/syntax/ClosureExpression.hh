@@ -8,7 +8,7 @@
 
 #include "Visitor.hh"
 
-class Node::ClosureExpression: public Node, public std::enable_shared_from_this<ClosureExpression> {
+class Node::ClosureExpression: public Expression, public std::enable_shared_from_this<ClosureExpression> {
 public:
   ClosureExpression(std::shared_ptr<FunctionDeclaration> declaration, std::shared_ptr<Expression> expression);
 

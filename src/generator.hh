@@ -14,7 +14,6 @@ public:
   void accept(std::shared_ptr<Node::CallExpression> node) override;
   void accept(std::shared_ptr<Node::ConditionalStatement> node) override;
   void accept(std::shared_ptr<Node::ConstantItem> node) override;
-  void accept(std::shared_ptr<Node::Expression> node) override;
   void accept(std::shared_ptr<Node::ExpressionStatement> node) override;
   void accept(std::shared_ptr<Node::Identifier> node) override;
   void accept(std::shared_ptr<Node::IndexExpression> node) override;
@@ -25,7 +24,6 @@ public:
   void accept(std::shared_ptr<Node::Parameter> node) override;
   void accept(std::shared_ptr<Node::ReturnStatement> node) override;
   void accept(std::shared_ptr<Node::SubroutineItem> node) override;
-  void accept(std::shared_ptr<Node::Type> node) override;
 };
 
 #endif

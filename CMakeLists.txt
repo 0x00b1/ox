@@ -59,9 +59,7 @@ add_executable(
     src/syntax/ConditionalStatement.hh
     src/syntax/ConstantItem.cpp
     src/syntax/ConstantItem.hh
-    src/syntax/Expression.cpp
-    src/syntax/Expression.hh
-    src/syntax/ExpressionStatement.cpp
+        src/syntax/ExpressionStatement.cpp
     src/syntax/ExpressionStatement.hh
     src/syntax/FloatingPointLiteral.cpp
     src/syntax/FloatingPointLiteral.hh
@@ -102,8 +100,6 @@ add_executable(
     src/syntax/SliceType.hh
         src/syntax/SubroutineItem.cpp
     src/syntax/SubroutineItem.hh
-    src/syntax/Type.cpp
-    src/syntax/Type.hh
         src/syntax/LiteralPattern.cpp src/syntax/LiteralPattern.hh src/syntax/SlicePattern.cpp src/syntax/SlicePattern.hh src/syntax/WildcardPattern.cpp src/syntax/WildcardPattern.hh src/syntax/PathPattern.cpp src/syntax/PathPattern.hh src/syntax/TupleExpression.cpp src/syntax/TupleExpression.hh src/syntax/ClosureExpression.cpp src/syntax/ClosureExpression.hh)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )

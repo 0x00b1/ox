@@ -12,6 +12,10 @@ namespace Node {
     virtual void accept(Visitor &visitor) = 0;
   };
 
+  class Expression: public Node {
+  public:
+  };
+
   class Item: public Node {
   public:
   };
@@ -21,6 +25,10 @@ namespace Node {
   };
 
   class Statement: public Node {
+  public:
+  };
+
+  class Type: public Node {
   public:
   };
 }
@@ -39,7 +47,6 @@ namespace Node {
   class ClosureExpression;
   class ConditionalStatement;
   class ConstantItem;
-  class Expression;
   class ExpressionStatement;
   class FloatingPointLiteral;
   class FloatingPointType;
@@ -64,7 +71,6 @@ namespace Node {
   class SliceType;
   class SubroutineItem;
   class TupleExpression;
-  class Type;
   class WildcardPattern;
 }
 
@@ -83,7 +89,6 @@ public:
   virtual void accept(std::shared_ptr<Node::ClosureExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::ConditionalStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::ConstantItem>) = 0;
-  virtual void accept(std::shared_ptr<Node::Expression>) = 0;
   virtual void accept(std::shared_ptr<Node::ExpressionStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::FloatingPointLiteral>) = 0;
   virtual void accept(std::shared_ptr<Node::FloatingPointType>) = 0;
@@ -108,7 +113,6 @@ public:
   virtual void accept(std::shared_ptr<Node::SliceType>) = 0;
   virtual void accept(std::shared_ptr<Node::SubroutineItem>) = 0;
   virtual void accept(std::shared_ptr<Node::TupleExpression>) = 0;
-  virtual void accept(std::shared_ptr<Node::Type>) = 0;
   virtual void accept(std::shared_ptr<Node::WildcardPattern>) = 0;
 };
 

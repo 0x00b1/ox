@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::ArrayType: public Node, public std::enable_shared_from_this<ArrayType> {
+class Node::ArrayType: public Type, public std::enable_shared_from_this<ArrayType> {
 public:
   explicit ArrayType(std::shared_ptr<Type> type);
 

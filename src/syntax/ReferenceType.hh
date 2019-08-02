@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::ReferenceType: public Node, public std::enable_shared_from_this<ReferenceType> {
+class Node::ReferenceType: public Type, public std::enable_shared_from_this<ReferenceType> {
 public:
   ReferenceType();
 

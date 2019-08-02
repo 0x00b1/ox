@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::FunctionDeclaration: public Node, public std::enable_shared_from_this<FunctionDeclaration> {
+class Node::FunctionDeclaration: public Type, public std::enable_shared_from_this<FunctionDeclaration> {
 public:
   FunctionDeclaration();
 

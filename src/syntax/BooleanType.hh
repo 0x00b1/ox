@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::BooleanType: public Node, public std::enable_shared_from_this<BooleanType> {
+class Node::BooleanType: public Type, public std::enable_shared_from_this<BooleanType> {
 public:
   BooleanType();
 
