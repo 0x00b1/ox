@@ -1,5 +1,5 @@
-#ifndef OXC_POINTER_TYPE_HH
-#define OXC_POINTER_TYPE_HH
+#ifndef OXC_POINTER_TYPE_H
+#define OXC_POINTER_TYPE_H
 
 #include <memory>
 #include <string>

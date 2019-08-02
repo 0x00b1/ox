@@ -1,5 +1,5 @@
-#ifndef OXC_CLOSURE_EXPRESSION_HH
-#define OXC_CLOSURE_EXPRESSION_HH
+#ifndef OXC_CLOSURE_EXPRESSION_H
+#define OXC_CLOSURE_EXPRESSION_H
 
 #include <memory>
 #include <string>

@@ -1,5 +1,5 @@
-#ifndef OXC_FUNCTION_DECLARATION_HH
-#define OXC_FUNCTION_DECLARATION_HH
+#ifndef OXC_FUNCTION_DECLARATION_H
+#define OXC_FUNCTION_DECLARATION_H
 
 #include <memory>
 #include <string>

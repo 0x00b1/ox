@@ -1,5 +1,5 @@
-#ifndef OXC_CALL_EXPRESSION_HH
-#define OXC_CALL_EXPRESSION_HH
+#ifndef OXC_CALL_EXPRESSION_H
+#define OXC_CALL_EXPRESSION_H
 
 #include <memory>
 #include <string>

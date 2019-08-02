@@ -1,5 +1,5 @@
-#ifndef OXC_INDEX_EXPRESSION_HH
-#define OXC_INDEX_EXPRESSION_HH
+#ifndef OXC_INDEX_EXPRESSION_H
+#define OXC_INDEX_EXPRESSION_H
 
 #include <memory>
 #include <string>

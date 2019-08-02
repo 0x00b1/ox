@@ -1,5 +1,5 @@
-#ifndef OXC_FLOATING_POINT_LITERAL_HH
-#define OXC_FLOATING_POINT_LITERAL_HH
+#ifndef OXC_FLOATING_POINT_LITERAL_H
+#define OXC_FLOATING_POINT_LITERAL_H
 
 #include <memory>
 #include <string>

@@ -1,5 +1,5 @@
-#ifndef OXC_ITEM_STATEMENT_HH
-#define OXC_ITEM_STATEMENT_HH
+#ifndef OXC_ITEM_STATEMENT_H
+#define OXC_ITEM_STATEMENT_H
 
 #include <memory>
 #include <string>

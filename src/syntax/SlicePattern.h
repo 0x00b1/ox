@@ -1,5 +1,5 @@
-#ifndef OXC_SLICE_PATTERN_HH
-#define OXC_SLICE_PATTERN_HH
+#ifndef OXC_SLICE_PATTERN_H
+#define OXC_SLICE_PATTERN_H
 
 #include <memory>
 #include <string>

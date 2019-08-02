@@ -1,5 +1,5 @@
-#ifndef OX_VISITOR_HH
-#define OX_VISITOR_HH
+#ifndef OX_VISITOR_H
+#define OX_VISITOR_H
 
 #include <memory>
 

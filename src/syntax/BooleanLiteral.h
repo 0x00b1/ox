@@ -1,5 +1,5 @@
-#ifndef OXC_BOOLEAN_LITERAL_HH
-#define OXC_BOOLEAN_LITERAL_HH
+#ifndef OXC_BOOLEAN_LITERAL_H
+#define OXC_BOOLEAN_LITERAL_H
 
 #include <memory>
 #include <string>

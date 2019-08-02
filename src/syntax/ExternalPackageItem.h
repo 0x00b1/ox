@@ -1,5 +1,5 @@
-#ifndef OXC_EXTERNAL_PACKAGE_ITEM_HH
-#define OXC_EXTERNAL_PACKAGE_ITEM_HH
+#ifndef OXC_EXTERNAL_PACKAGE_ITEM_H
+#define OXC_EXTERNAL_PACKAGE_ITEM_H
 
 #include <memory>
 #include <string>

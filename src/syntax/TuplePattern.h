@@ -1,5 +1,5 @@
-#ifndef OXC_TUPLE_PATTERN_HH
-#define OXC_TUPLE_PATTERN_HH
+#ifndef OXC_TUPLE_PATTERN_H
+#define OXC_TUPLE_PATTERN_H
 
 #include <memory>
 #include <string>

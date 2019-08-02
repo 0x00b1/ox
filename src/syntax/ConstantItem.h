@@ -1,5 +1,5 @@
-#ifndef OXC_CONSTANT_ITEM_HH
-#define OXC_CONSTANT_ITEM_HH
+#ifndef OXC_CONSTANT_ITEM_H
+#define OXC_CONSTANT_ITEM_H
 
 #include <memory>
 #include <string>

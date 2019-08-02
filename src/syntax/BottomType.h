@@ -1,5 +1,5 @@
-#ifndef OXC_BOTTOM_TYPE_HH
-#define OXC_BOTTOM_TYPE_HH
+#ifndef OXC_BOTTOM_TYPE_H
+#define OXC_BOTTOM_TYPE_H
 
 #include <memory>
 #include <string>

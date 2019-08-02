@@ -1,5 +1,5 @@
-#ifndef OXC_RETURN_STATEMENT_HH
-#define OXC_RETURN_STATEMENT_HH
+#ifndef OXC_RETURN_STATEMENT_H
+#define OXC_RETURN_STATEMENT_H
 
 #include <memory>
 #include <optional>

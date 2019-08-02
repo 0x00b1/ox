@@ -1,5 +1,5 @@
-#ifndef OXC_CONDITIONAL_STATEMENT_HH
-#define OXC_CONDITIONAL_STATEMENT_HH
+#ifndef OXC_CONDITIONAL_STATEMENT_H
+#define OXC_CONDITIONAL_STATEMENT_H
 
 #include <memory>
 #include <optional>

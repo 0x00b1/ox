@@ -1,5 +1,5 @@
-#ifndef OXC_ASSIGNMENT_STATEMENT_HH
-#define OXC_ASSIGNMENT_STATEMENT_HH
+#ifndef OXC_ASSIGNMENT_STATEMENT_H
+#define OXC_ASSIGNMENT_STATEMENT_H
 
 #include <memory>
 #include <string>

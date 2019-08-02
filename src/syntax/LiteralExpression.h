@@ -1,5 +1,5 @@
-#ifndef OXC_LITERAL_EXPRESSION_HH
-#define OXC_LITERAL_EXPRESSION_HH
+#ifndef OXC_LITERAL_EXPRESSION_H
+#define OXC_LITERAL_EXPRESSION_H
 
 #include <memory>
 #include <string>

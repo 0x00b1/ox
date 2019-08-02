@@ -1,5 +1,5 @@
-#ifndef OXC_ANONYMOUS_CONSTANT_HH
-#define OXC_ANONYMOUS_CONSTANT_HH
+#ifndef OXC_ANONYMOUS_CONSTANT_H
+#define OXC_ANONYMOUS_CONSTANT_H
 
 #include <memory>
 #include <string>

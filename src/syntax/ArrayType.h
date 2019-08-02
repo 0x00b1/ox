@@ -1,5 +1,5 @@
-#ifndef OXC_ARRAY_TYPE_HH
-#define OXC_ARRAY_TYPE_HH
+#ifndef OXC_ARRAY_TYPE_H
+#define OXC_ARRAY_TYPE_H
 
 #include <memory>
 #include <string>

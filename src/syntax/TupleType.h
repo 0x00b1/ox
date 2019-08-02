@@ -1,5 +1,5 @@
-#ifndef OXC_TUPLE_TYPE_HH
-#define OXC_TUPLE_TYPE_HH
+#ifndef OXC_TUPLE_TYPE_H
+#define OXC_TUPLE_TYPE_H
 
 #include <memory>
 #include <string>
