@@ -26,6 +26,8 @@ FLEX_TARGET(
 ADD_FLEX_BISON_DEPENDENCY(SCANNER PARSER)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+include_directories(include)
 include_directories(src)
 
 add_executable(
@@ -36,103 +38,54 @@ add_executable(
     src/compiler.cpp
     src/generator.cpp
     src/syntax/AnonymousConstant.cpp
-    src/syntax/AnonymousConstant.hh
     src/syntax/Argument.cpp
-    src/syntax/Argument.hh
     src/syntax/ArrayExpression.cpp
-    src/syntax/ArrayExpression.hh
     src/syntax/ArrayType.cpp
-    src/syntax/ArrayType.hh
     src/syntax/AssignmentStatement.cpp
-    src/syntax/AssignmentStatement.hh
     src/syntax/BlockStatement.cpp
-    src/syntax/BlockStatement.hh
     src/syntax/BooleanLiteral.cpp
-    src/syntax/BooleanLiteral.hh
     src/syntax/BooleanType.cpp
-    src/syntax/BooleanType.hh
     src/syntax/BottomType.cpp
-    src/syntax/BottomType.hh
     src/syntax/CallExpression.cpp
-    src/syntax/CallExpression.hh
-    src/syntax/ClosureExpression.cpp 
-    src/syntax/ClosureExpression.hh 
+    src/syntax/ClosureExpression.cpp
     src/syntax/ConditionalStatement.cpp
-    src/syntax/ConditionalStatement.hh
     src/syntax/ConstantItem.cpp
-    src/syntax/ConstantItem.hh
-    src/syntax/Expression.cpp 
-    src/syntax/Expression.hh 
+    src/syntax/Expression.cpp
     src/syntax/ExpressionStatement.cpp
-    src/syntax/ExpressionStatement.hh
-    src/syntax/ExternalPackageItem.cpp 
-    src/syntax/ExternalPackageItem.hh 
+    src/syntax/ExternalPackageItem.cpp
     src/syntax/FloatingPointLiteral.cpp
-    src/syntax/FloatingPointLiteral.hh
     src/syntax/FloatingPointType.cpp
-    src/syntax/FloatingPointType.hh
     src/syntax/FunctionDeclaration.cpp
-    src/syntax/FunctionDeclaration.hh
     src/syntax/FunctionType.cpp
-    src/syntax/FunctionType.hh
     src/syntax/Identifier.cpp
-    src/syntax/Identifier.hh
     src/syntax/IndexExpression.cpp
-    src/syntax/IndexExpression.hh
     src/syntax/IntegerLiteral.cpp
-    src/syntax/IntegerLiteral.hh
     src/syntax/IntegerType.cpp
-    src/syntax/IntegerType.hh
-    src/syntax/Item.cpp 
-    src/syntax/Item.hh 
+    src/syntax/Item.cpp
     src/syntax/ItemStatement.cpp
-    src/syntax/ItemStatement.hh
     src/syntax/Literal.cpp
-    src/syntax/Literal.hh
     src/syntax/LiteralExpression.cpp
-    src/syntax/LiteralExpression.hh
-    src/syntax/LiteralPattern.cpp 
-    src/syntax/LiteralPattern.hh 
-    src/syntax/ModuleItem.cpp 
-    src/syntax/ModuleItem.hh 
+    src/syntax/LiteralPattern.cpp
+    src/syntax/ModuleItem.cpp
     src/syntax/Name.cpp
-    src/syntax/Name.hh
     src/syntax/Parameter.cpp
-    src/syntax/Parameter.hh
-    src/syntax/PathPattern.cpp 
-    src/syntax/PathPattern.hh 
+    src/syntax/PathPattern.cpp
     src/syntax/PathType.cpp
-    src/syntax/PathType.hh
-    src/syntax/Pattern.cpp 
-    src/syntax/Pattern.hh 
+    src/syntax/Pattern.cpp
     src/syntax/PointerType.cpp
-    src/syntax/PointerType.hh
-    src/syntax/Position.cpp 
-    src/syntax/Position.hh 
+    src/syntax/Position.cpp
     src/syntax/ReferenceType.cpp
-    src/syntax/ReferenceType.hh
     src/syntax/ReturnStatement.cpp
-    src/syntax/ReturnStatement.hh
-    src/syntax/SlicePattern.cpp 
-    src/syntax/SlicePattern.hh 
+    src/syntax/SlicePattern.cpp
     src/syntax/SliceType.cpp
-    src/syntax/SliceType.hh
-    src/syntax/Statement.cpp 
-    src/syntax/Statement.hh 
+    src/syntax/Statement.cpp
     src/syntax/SubroutineItem.cpp
-    src/syntax/SubroutineItem.hh
-    src/syntax/TupleExpression.cpp 
-    src/syntax/TupleExpression.hh 
-    src/syntax/TuplePattern.cpp 
-    src/syntax/TuplePattern.hh
-    src/syntax/TupleType.cpp 
-    src/syntax/TupleType.hh 
-    src/syntax/Type.cpp 
-    src/syntax/Type.hh
-    src/syntax/TypeItem.cpp 
-    src/syntax/TypeItem.hh 
-    src/syntax/WildcardPattern.cpp 
-    src/syntax/WildcardPattern.hh
+    src/syntax/TupleExpression.cpp
+    src/syntax/TuplePattern.cpp
+    src/syntax/TupleType.cpp
+    src/syntax/Type.cpp
+    src/syntax/TypeItem.cpp
+    src/syntax/WildcardPattern.cpp
 )
 
 include_directories( ${LLVM_INCLUDE_DIRS} )

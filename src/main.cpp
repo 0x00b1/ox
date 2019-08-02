@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "compiler.hh"
-#include "syntax/Node.hh"
+#include "syntax/syntax.h"
 #include "generator.hh"
 
 int main(int argc, const char * argv[]) {

@@ -5,10 +5,10 @@
 #include <string>
 #include <utility>
 
-#include "Statement.hh"
+#include "Node.hh"
 #include "Visitor.hh"
 
-class Node::FunctionDeclaration: public Statement, public std::enable_shared_from_this<FunctionDeclaration> {
+class Node::FunctionDeclaration: public Node, public std::enable_shared_from_this<FunctionDeclaration> {
 public:
   FunctionDeclaration();
 

@@ -13,7 +13,7 @@
 %code requires {
   #include <string>
 
-  #include "syntax/node/Node.hh"
+  #include "syntax/syntax.h"
 
   class Compiler;
 }
@@ -31,7 +31,6 @@
 
 %code {
     #include "compiler.hh"
-    #include "syntax/node/Node.hh"
 }
 
 %define api.token.prefix {TOK_}
@@ -78,6 +77,8 @@
 ;
 
 %token <std::string> IDENTIFIER
+
+%type <std::shared_ptr<Node::Statement>> STATEMENT;
 
 %printer {
     // FIXME:
