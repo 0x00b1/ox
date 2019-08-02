@@ -5,13 +5,18 @@
 #include <string>
 #include <utility>
 
+#include "Pattern.h"
+#include "Position.h"
+#include "Type.h"
 #include "Visitor.h"
 
 class Node::Parameter: public Node, public std::enable_shared_from_this<Parameter> {
 public:
-  explicit Parameter(std::string value);
+  Parameter(std::string pattern, std::shared_ptr<Type> type);
 
-  std::string value;
+  std::string pattern;
+
+  std::shared_ptr<Type> type;
 
   void accept(Visitor &visitor) override;
 };

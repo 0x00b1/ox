@@ -1,7 +1,9 @@
 #include "Parameter.h"
 
-Node::Parameter::Parameter(std::string value) {
-  this->value = std::move(value);
+Node::Parameter::Parameter(std::string pattern, std::shared_ptr<Type> type) {
+  this->pattern = std::move(pattern);
+
+  this->type = std::move(type);
 }
 
 void Node::Parameter::accept(Visitor &visitor) {
