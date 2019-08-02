@@ -36,7 +36,7 @@ add_executable(
     ${BISON_PARSER_OUTPUTS}
     ${FLEX_SCANNER_OUTPUTS}
     src/compiler.cpp
-    src/generator.cpp
+    src/generator/Generator.cpp
     src/syntax/AnonymousConstant.cpp
     src/syntax/Argument.cpp
     src/syntax/ArrayExpression.cpp
@@ -86,7 +86,7 @@ add_executable(
     src/syntax/Type.cpp
     src/syntax/TypeItem.cpp
     src/syntax/WildcardPattern.cpp
-)
+        include/compiler/compiler.h)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 

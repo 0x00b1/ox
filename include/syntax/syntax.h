@@ -48,6 +48,7 @@
 #include "syntax/TupleType.hh"
 #include "syntax/Type.hh"
 #include "syntax/TypeItem.hh"
+#include "syntax/Visitor.hh"
 #include "syntax/WildcardPattern.hh"
 
 #endif

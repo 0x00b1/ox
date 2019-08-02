@@ -2,7 +2,7 @@
 
 #include "compiler.hh"
 #include "syntax/syntax.h"
-#include "generator.hh"
+#include "compiler/compiler.h"
 
 int main(int argc, const char * argv[]) {
     int code = 0;
@@ -24,7 +24,7 @@ int main(int argc, const char * argv[]) {
     /*
      * Example compiler pass
      */
-//    Generator generator;
+    Generator generator;
 
     return code;
 }
