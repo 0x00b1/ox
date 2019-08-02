@@ -18,7 +18,6 @@ public:
   void accept(std::shared_ptr<Node::ExpressionStatement> node) override;
   void accept(std::shared_ptr<Node::Identifier> node) override;
   void accept(std::shared_ptr<Node::IndexExpression> node) override;
-  void accept(std::shared_ptr<Node::Item> node) override;
   void accept(std::shared_ptr<Node::ItemStatement> node) override;
   void accept(std::shared_ptr<Node::Literal> node) override;
   void accept(std::shared_ptr<Node::LiteralExpression> node) override;

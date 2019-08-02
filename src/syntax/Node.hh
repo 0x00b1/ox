@@ -12,7 +12,6 @@
 #include "ExpressionStatement.hh"
 #include "Identifier.hh"
 #include "IndexExpression.hh"
-#include "Item.hh"
 #include "ItemStatement.hh"
 #include "Literal.hh"
 #include "LiteralExpression.hh"

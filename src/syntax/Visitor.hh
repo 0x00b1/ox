@@ -12,18 +12,18 @@ namespace Node {
     virtual void accept(Visitor &visitor) = 0;
   };
 
+  class Item: public Node {
+  public:
+  };
+
   class Pattern: public Node {
   public:
-    virtual void accept(Visitor &visitor) = 0;
   };
 
-  class Statement {
+  class Statement: public Node {
   public:
-    virtual void accept(Visitor &visitor) = 0;
   };
 }
-
-
 
 namespace Node {
   class AnonymousConstant;
@@ -49,7 +49,6 @@ namespace Node {
   class IndexExpression;
   class IntegerLiteral;
   class IntegerType;
-  class Item;
   class ItemStatement;
   class Literal;
   class LiteralExpression;
@@ -58,7 +57,6 @@ namespace Node {
   class Parameter;
   class PathPattern;
   class PathType;
-  class Pattern;
   class PointerType;
   class ReferenceType;
   class ReturnStatement;
@@ -95,7 +93,6 @@ public:
   virtual void accept(std::shared_ptr<Node::IndexExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::IntegerLiteral>) = 0;
   virtual void accept(std::shared_ptr<Node::IntegerType>) = 0;
-  virtual void accept(std::shared_ptr<Node::Item>) = 0;
   virtual void accept(std::shared_ptr<Node::ItemStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::Literal>) = 0;
   virtual void accept(std::shared_ptr<Node::LiteralExpression>) = 0;

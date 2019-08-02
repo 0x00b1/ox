@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::ExpressionStatement: public Node, public std::enable_shared_from_this<ExpressionStatement> {
+class Node::ExpressionStatement: public Statement, public std::enable_shared_from_this<ExpressionStatement> {
 public:
   explicit ExpressionStatement(std::string value);
 

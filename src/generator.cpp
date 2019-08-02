@@ -11,7 +11,6 @@ void Generator::accept(std::shared_ptr<Node::Expression> node) {}
 void Generator::accept(std::shared_ptr<Node::ExpressionStatement> node) {}
 void Generator::accept(std::shared_ptr<Node::Identifier> node) {}
 void Generator::accept(std::shared_ptr<Node::IndexExpression> node) {}
-void Generator::accept(std::shared_ptr<Node::Item> node) {}
 void Generator::accept(std::shared_ptr<Node::ItemStatement> node) {}
 void Generator::accept(std::shared_ptr<Node::Literal> node) {}
 void Generator::accept(std::shared_ptr<Node::LiteralExpression> node) {}

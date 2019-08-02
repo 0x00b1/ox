@@ -79,9 +79,7 @@ add_executable(
     src/syntax/IntegerLiteral.hh
     src/syntax/IntegerType.cpp
     src/syntax/IntegerType.hh
-    src/syntax/Item.cpp
-    src/syntax/Item.hh
-    src/syntax/ItemStatement.cpp
+        src/syntax/ItemStatement.cpp
     src/syntax/ItemStatement.hh
     src/syntax/Literal.cpp
     src/syntax/Literal.hh
