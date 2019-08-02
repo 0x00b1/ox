@@ -2,6 +2,7 @@
 #define OXC_CONDITIONAL_STATEMENT_HH
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 
@@ -9,9 +10,15 @@
 
 class Node::ConditionalStatement: public Node::Node, public std::enable_shared_from_this<ConditionalStatement> {
 public:
-  explicit ConditionalStatement(std::string value);
+  ConditionalStatement(std::shared_ptr<Expression> predicate, std::shared_ptr<BlockStatement> consequent);
 
-  std::string value;
+  ConditionalStatement(std::shared_ptr<Expression> predicate, std::shared_ptr<BlockStatement> consequent, std::optional<std::shared_ptr<BlockStatement>> alternate);
+
+  std::shared_ptr<Expression> predicate;
+
+  std::shared_ptr<BlockStatement> consequent;
+
+  std::optional<std::shared_ptr<BlockStatement>> alternate;
 
   void accept(Visitor &visitor) override;
 };
