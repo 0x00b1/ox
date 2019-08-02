@@ -12,25 +12,11 @@ namespace Node {
     virtual void accept(Visitor &visitor) = 0;
   };
 
-  class Expression: public Node {
-  public:
-  };
-
-  class Item: public Node {
-  public:
-  };
-
-  class Pattern: public Node {
-  public:
-  };
-
-  class Statement: public Node {
-  public:
-  };
-
-  class Type: public Node {
-  public:
-  };
+  class Expression: public Node {};
+  class Item: public Node {};
+  class Pattern: public Node {};
+  class Statement: public Node {};
+  class Type: public Node {};
 }
 
 namespace Node {
