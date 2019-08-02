@@ -10,9 +10,7 @@
 
 class Node::FunctionType: public Type, public std::enable_shared_from_this<FunctionType> {
 public:
-  explicit FunctionType(std::shared_ptr<FunctionDeclaration> declaration);
-
-  std::shared_ptr<FunctionDeclaration> declaration;
+  FunctionType();
 
   void accept(Visitor &visitor) override;
 };
