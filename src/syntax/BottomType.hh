@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::BottomType: public Node::Node, public std::enable_shared_from_this<BottomType> {
+class Node::BottomType: public Node, public std::enable_shared_from_this<BottomType> {
 public:
   BottomType();
 

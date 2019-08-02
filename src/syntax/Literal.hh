@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::Literal: public Node::Node, public std::enable_shared_from_this<Literal> {
+class Node::Literal: public Node, public std::enable_shared_from_this<Literal> {
 public:
   explicit Literal(std::string value);
 

@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::Pattern: public Node::Node, public std::enable_shared_from_this<Pattern> {
+class Node::Pattern: public Node, public std::enable_shared_from_this<Pattern> {
 public:
   explicit Pattern(std::string value);
 

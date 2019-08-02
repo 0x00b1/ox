@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::ConstantItem: public Node::Node, public std::enable_shared_from_this<ConstantItem> {
+class Node::ConstantItem: public Node, public std::enable_shared_from_this<ConstantItem> {
 public:
   explicit ConstantItem(std::string value);
 

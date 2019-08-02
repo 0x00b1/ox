@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::Parameter: public Node::Node, public std::enable_shared_from_this<Parameter> {
+class Node::Parameter: public Node, public std::enable_shared_from_this<Parameter> {
 public:
   explicit Parameter(std::string value);
 

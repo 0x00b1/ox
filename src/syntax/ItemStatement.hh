@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::ItemStatement: public Node::Node, public std::enable_shared_from_this<ItemStatement> {
+class Node::ItemStatement: public Node, public std::enable_shared_from_this<ItemStatement> {
 public:
   explicit ItemStatement(std::string value);
 

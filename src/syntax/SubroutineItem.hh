@@ -8,7 +8,7 @@
 
 #include "Visitor.hh"
 
-class Node::SubroutineItem: public Node::Node, public std::enable_shared_from_this<SubroutineItem> {
+class Node::SubroutineItem: public Node, public std::enable_shared_from_this<SubroutineItem> {
 public:
   SubroutineItem(std::shared_ptr<FunctionDeclaration> declaration, std::shared_ptr<BlockStatement> block_statement);
 

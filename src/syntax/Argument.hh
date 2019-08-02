@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::Argument: public Node::Node, public std::enable_shared_from_this<Argument> {
+class Node::Argument: public Node, public std::enable_shared_from_this<Argument> {
 public:
   Argument(std::shared_ptr<Pattern> pattern, std::shared_ptr<Type> type);
 

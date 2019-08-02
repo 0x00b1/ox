@@ -8,7 +8,7 @@
 
 #include "Visitor.hh"
 
-class Node::TupleExpression: public Node::Node, public std::enable_shared_from_this<TupleExpression> {
+class Node::TupleExpression: public Node, public std::enable_shared_from_this<TupleExpression> {
 public:
   explicit TupleExpression(std::vector<std::shared_ptr<Expression>> elements);
 

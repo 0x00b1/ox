@@ -8,7 +8,7 @@
 
 #include "Visitor.hh"
 
-class Node::ReturnStatement: public Node::Node, public std::enable_shared_from_this<ReturnStatement> {
+class Node::ReturnStatement: public Node, public std::enable_shared_from_this<ReturnStatement> {
 public:
   explicit ReturnStatement();
 

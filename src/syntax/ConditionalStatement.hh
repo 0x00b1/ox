@@ -8,7 +8,7 @@
 
 #include "Visitor.hh"
 
-class Node::ConditionalStatement: public Node::Node, public std::enable_shared_from_this<ConditionalStatement> {
+class Node::ConditionalStatement: public Node, public std::enable_shared_from_this<ConditionalStatement> {
 public:
   ConditionalStatement(std::shared_ptr<Expression> predicate, std::shared_ptr<BlockStatement> consequent);
 

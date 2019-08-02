@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::BooleanLiteral: public Node::Node, public std::enable_shared_from_this<BooleanLiteral> {
+class Node::BooleanLiteral: public Node, public std::enable_shared_from_this<BooleanLiteral> {
 public:
   explicit BooleanLiteral(bool value);
 

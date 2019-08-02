@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::Type: public Node::Node, public std::enable_shared_from_this<Type> {
+class Node::Type: public Node, public std::enable_shared_from_this<Type> {
 public:
   explicit Type(std::string value);
 
