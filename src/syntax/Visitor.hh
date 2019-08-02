@@ -23,6 +23,7 @@ namespace Node {
   class BooleanType;
   class BottomType;
   class CallExpression;
+  class ClosureExpression;
   class ConditionalStatement;
   class ConstantItem;
   class Expression;
@@ -69,6 +70,7 @@ public:
   virtual void accept(std::shared_ptr<Node::BooleanType>) = 0;
   virtual void accept(std::shared_ptr<Node::BottomType>) = 0;
   virtual void accept(std::shared_ptr<Node::CallExpression>) = 0;
+  virtual void accept(std::shared_ptr<Node::ClosureExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::ConditionalStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::ConstantItem>) = 0;
   virtual void accept(std::shared_ptr<Node::Expression>) = 0;
