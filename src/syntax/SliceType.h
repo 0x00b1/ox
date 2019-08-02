@@ -10,7 +10,9 @@
 
 class Node::SliceType: public Type, public std::enable_shared_from_this<SliceType> {
 public:
-  SliceType();
+  explicit SliceType(std::shared_ptr<Type> type);
+
+  std::shared_ptr<Type> type;
 
   void accept(Visitor &visitor) override;
 };
