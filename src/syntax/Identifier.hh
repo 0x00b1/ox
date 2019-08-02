@@ -5,14 +5,14 @@
 #include <string>
 #include <utility>
 
+#include "Position.hh"
 #include "Visitor.hh"
-
 
 class Node::Identifier: public Node, public std::enable_shared_from_this<Identifier> {
 public:
-  explicit Identifier(std::string value);
+  Identifier();
 
-  std::string value;
+  Position position;
 
   void accept(Visitor &visitor) override;
 };

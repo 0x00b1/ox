@@ -4,6 +4,8 @@
 #include <memory>
 #include <variant>
 
+#include "Position.hh"
+
 class Visitor;
 
 namespace Node {
@@ -11,12 +13,6 @@ namespace Node {
   public:
     virtual void accept(Visitor &visitor) = 0;
   };
-
-  class Expression: public Node {};
-  class Item: public Node {};
-  class Pattern: public Node {};
-  class Statement: public Node {};
-  class Type: public Node {};
 }
 
 namespace Node {
@@ -60,6 +56,31 @@ namespace Node {
   class TuplePattern;
   class TupleType;
   class WildcardPattern;
+}
+
+namespace Node {
+  class Expression: public Node {
+  public:
+  };
+
+  class Item: public Node {
+  public:
+    Position position;
+  };
+
+  class Pattern: public Node {
+  public:
+    Position position;
+  };
+
+  class Statement: public Node {
+  public:
+  };
+
+  class Type: public Node {
+  public:
+    Position position;
+  };
 }
 
 class Visitor {

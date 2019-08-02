@@ -55,11 +55,13 @@ add_executable(
     src/syntax/BottomType.hh
     src/syntax/CallExpression.cpp
     src/syntax/CallExpression.hh
+    src/syntax/ClosureExpression.cpp 
+    src/syntax/ClosureExpression.hh 
     src/syntax/ConditionalStatement.cpp
     src/syntax/ConditionalStatement.hh
     src/syntax/ConstantItem.cpp
     src/syntax/ConstantItem.hh
-        src/syntax/ExpressionStatement.cpp
+    src/syntax/ExpressionStatement.cpp
     src/syntax/ExpressionStatement.hh
     src/syntax/FloatingPointLiteral.cpp
     src/syntax/FloatingPointLiteral.hh
@@ -77,30 +79,44 @@ add_executable(
     src/syntax/IntegerLiteral.hh
     src/syntax/IntegerType.cpp
     src/syntax/IntegerType.hh
-        src/syntax/ItemStatement.cpp
+    src/syntax/ItemStatement.cpp
     src/syntax/ItemStatement.hh
     src/syntax/Literal.cpp
     src/syntax/Literal.hh
     src/syntax/LiteralExpression.cpp
     src/syntax/LiteralExpression.hh
+    src/syntax/LiteralPattern.cpp 
+    src/syntax/LiteralPattern.hh 
     src/syntax/Name.cpp
     src/syntax/Name.hh
     src/syntax/Node.cpp
     src/syntax/Parameter.cpp
     src/syntax/Parameter.hh
+    src/syntax/PathPattern.cpp 
+    src/syntax/PathPattern.hh 
     src/syntax/PathType.cpp
     src/syntax/PathType.hh
-        src/syntax/PointerType.cpp
+    src/syntax/PointerType.cpp
     src/syntax/PointerType.hh
     src/syntax/ReferenceType.cpp
     src/syntax/ReferenceType.hh
     src/syntax/ReturnStatement.cpp
     src/syntax/ReturnStatement.hh
+    src/syntax/SlicePattern.cpp 
+    src/syntax/SlicePattern.hh 
     src/syntax/SliceType.cpp
     src/syntax/SliceType.hh
-        src/syntax/SubroutineItem.cpp
+    src/syntax/SubroutineItem.cpp
     src/syntax/SubroutineItem.hh
-        src/syntax/LiteralPattern.cpp src/syntax/LiteralPattern.hh src/syntax/SlicePattern.cpp src/syntax/SlicePattern.hh src/syntax/WildcardPattern.cpp src/syntax/WildcardPattern.hh src/syntax/PathPattern.cpp src/syntax/PathPattern.hh src/syntax/TupleExpression.cpp src/syntax/TupleExpression.hh src/syntax/ClosureExpression.cpp src/syntax/ClosureExpression.hh src/syntax/TupleType.cpp src/syntax/TupleType.hh src/syntax/TuplePattern.cpp src/syntax/TuplePattern.hh)
+    src/syntax/TupleExpression.cpp 
+    src/syntax/TupleExpression.hh 
+    src/syntax/TuplePattern.cpp 
+    src/syntax/TuplePattern.hh
+    src/syntax/TupleType.cpp 
+    src/syntax/TupleType.hh 
+    src/syntax/WildcardPattern.cpp 
+    src/syntax/WildcardPattern.hh
+        src/syntax/Position.cpp src/syntax/Position.hh)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 
