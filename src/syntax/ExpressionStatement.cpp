@@ -1,7 +1,7 @@
 #include "ExpressionStatement.h"
 
-Node::ExpressionStatement::ExpressionStatement(std::string value) {
-  this->value = std::move(value);
+Node::ExpressionStatement::ExpressionStatement(std::shared_ptr<Expression> expression) {
+  this->expression = std::move(expression);
 }
 
 void Node::ExpressionStatement::accept(Visitor &visitor) {

@@ -5,14 +5,15 @@
 #include <string>
 #include <utility>
 
+#include "Expression.h"
 #include "Statement.h"
 #include "Visitor.h"
 
 class Node::ExpressionStatement: public Statement, public std::enable_shared_from_this<ExpressionStatement> {
 public:
-  explicit ExpressionStatement(std::string value);
+  explicit ExpressionStatement(std::shared_ptr<Expression> expression);
 
-  std::string value;
+  std::shared_ptr<Expression> expression;
 
   void accept(Visitor &visitor) override;
 };

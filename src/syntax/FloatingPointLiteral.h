@@ -9,7 +9,7 @@
 
 class Node::FloatingPointLiteral: public Node, public std::enable_shared_from_this<FloatingPointLiteral> {
 public:
-  FloatingPointLiteral(std::string value);
+  explicit FloatingPointLiteral(std::string value);
 
   std::string value;
 
