@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 
+#include "Type.hh"
 #include "Visitor.hh"
 
 class Node::FunctionType: public Type, public std::enable_shared_from_this<FunctionType> {

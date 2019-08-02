@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 
+#include "Statement.hh"
 #include "Visitor.hh"
 
 class Node::AssignmentStatement: public Statement, public std::enable_shared_from_this<AssignmentStatement> {

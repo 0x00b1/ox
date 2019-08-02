@@ -6,6 +6,7 @@
 #include <utility>
 #include <vector>
 
+#include "Expression.hh"
 #include "Visitor.hh"
 
 class Node::ArrayExpression: public Expression, public std::enable_shared_from_this<ArrayExpression> {

@@ -6,6 +6,8 @@
 #include <string>
 #include <utility>
 
+#include "Expression.hh"
+#include "Statement.hh"
 #include "Visitor.hh"
 
 class Node::ConditionalStatement: public Statement, public std::enable_shared_from_this<ConditionalStatement> {

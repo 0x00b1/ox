@@ -5,6 +5,8 @@
 #include <string>
 #include <utility>
 
+#include "Expression.hh"
+#include "Pattern.hh"
 #include "Visitor.hh"
 
 class Node::LiteralPattern: public Pattern, public std::enable_shared_from_this<LiteralPattern> {

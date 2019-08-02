@@ -3,18 +3,7 @@
 
 #include <memory>
 
-#include "Position.hh"
-
-class Visitor;
-
-namespace Node {
-  class Node {
-  public:
-    Position position;
-
-    virtual void accept(Visitor &visitor) = 0;
-  };
-}
+#include "Node.hh"
 
 namespace Node {
   class AnonymousConstant;
@@ -60,28 +49,6 @@ namespace Node {
   class TupleType;
   class TypeItem;
   class WildcardPattern;
-}
-
-namespace Node {
-  class Expression: public Node {
-  public:
-  };
-
-  class Item: public Node {
-  public:
-  };
-
-  class Pattern: public Node {
-  public:
-  };
-
-  class Statement: public Node {
-  public:
-  };
-
-  class Type: public Node {
-  public:
-  };
 }
 
 class Visitor {

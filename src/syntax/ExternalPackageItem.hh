@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 
+#include "Item.hh"
 #include "Visitor.hh"
 
 class Node::ExternalPackageItem: public Item, public std::enable_shared_from_this<ExternalPackageItem> {

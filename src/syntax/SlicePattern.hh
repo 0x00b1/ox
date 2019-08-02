@@ -6,6 +6,7 @@
 #include <utility>
 #include <vector>
 
+#include "Pattern.hh"
 #include "Visitor.hh"
 
 class Node::SlicePattern: public Pattern, public std::enable_shared_from_this<SlicePattern> {

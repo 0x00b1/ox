@@ -89,8 +89,7 @@ add_executable(
     src/syntax/LiteralPattern.hh 
     src/syntax/Name.cpp
     src/syntax/Name.hh
-    src/syntax/Node.cpp
-    src/syntax/Parameter.cpp
+        src/syntax/Parameter.cpp
     src/syntax/Parameter.hh
     src/syntax/PathPattern.cpp 
     src/syntax/PathPattern.hh 
@@ -116,7 +115,7 @@ add_executable(
     src/syntax/TupleType.hh 
     src/syntax/WildcardPattern.cpp 
     src/syntax/WildcardPattern.hh
-        src/syntax/Position.cpp src/syntax/Position.hh src/syntax/ModuleItem.cpp src/syntax/ModuleItem.hh src/syntax/ExternalPackageItem.cpp src/syntax/ExternalPackageItem.hh src/syntax/TypeItem.cpp src/syntax/TypeItem.hh)
+        src/syntax/Position.cpp src/syntax/Position.hh src/syntax/ModuleItem.cpp src/syntax/ModuleItem.hh src/syntax/ExternalPackageItem.cpp src/syntax/ExternalPackageItem.hh src/syntax/TypeItem.cpp src/syntax/TypeItem.hh src/syntax/Expression.cpp src/syntax/Expression.hh src/syntax/Pattern.cpp src/syntax/Pattern.hh src/syntax/Item.cpp src/syntax/Item.hh src/syntax/Statement.cpp src/syntax/Statement.hh src/syntax/Type.cpp src/syntax/Type.hh)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 

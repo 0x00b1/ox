@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 
+#include "Expression.hh"
 #include "Visitor.hh"
 
 class Node::LiteralExpression: public Expression, public std::enable_shared_from_this<LiteralExpression> {

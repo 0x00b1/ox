@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 
+#include "Statement.hh"
 #include "Visitor.hh"
 
 class Node::ItemStatement: public Statement, public std::enable_shared_from_this<ItemStatement> {

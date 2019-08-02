@@ -6,6 +6,7 @@
 #include <utility>
 #include <vector>
 
+#include "Statement.hh"
 #include "Visitor.hh"
 
 class Node::BlockStatement: public Statement, public std::enable_shared_from_this<BlockStatement> {

@@ -5,9 +5,9 @@
 #include <string>
 #include <utility>
 
-#include "Visitor.hh"
-
 #include "AnonymousConstant.hh"
+#include "Type.hh"
+#include "Visitor.hh"
 
 class Node::ArrayType: public Type, public std::enable_shared_from_this<ArrayType> {
 public:

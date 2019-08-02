@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 
+#include "Pattern.hh"
 #include "Visitor.hh"
 
 class Node::TuplePattern: public Pattern, public std::enable_shared_from_this<TuplePattern> {
