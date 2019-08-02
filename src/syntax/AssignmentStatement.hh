@@ -7,7 +7,7 @@
 
 #include "Visitor.hh"
 
-class Node::AssignmentStatement: public Node, public std::enable_shared_from_this<AssignmentStatement> {
+class Node::AssignmentStatement: public Statement, public std::enable_shared_from_this<AssignmentStatement> {
 public:
   explicit AssignmentStatement(std::string value);
 

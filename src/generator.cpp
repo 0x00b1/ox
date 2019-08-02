@@ -19,6 +19,5 @@ void Generator::accept(std::shared_ptr<Node::Name> node) {}
 void Generator::accept(std::shared_ptr<Node::Parameter> node) {}
 void Generator::accept(std::shared_ptr<Node::Pattern> node) {}
 void Generator::accept(std::shared_ptr<Node::ReturnStatement> node) {}
-void Generator::accept(std::shared_ptr<Node::Statement> node) {}
 void Generator::accept(std::shared_ptr<Node::SubroutineItem> node) {}
 void Generator::accept(std::shared_ptr<Node::Type> node) {}

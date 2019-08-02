@@ -10,6 +10,11 @@ namespace Node {
   public:
     virtual void accept(Visitor &visitor) = 0;
   };
+
+  class Statement {
+  public:
+    virtual void accept(Visitor &visitor) = 0;
+  };
 }
 
 namespace Node {
@@ -51,7 +56,6 @@ namespace Node {
   class ReturnStatement;
   class SlicePattern;
   class SliceType;
-  class Statement;
   class SubroutineItem;
   class TupleExpression;
   class Type;
@@ -98,7 +102,6 @@ public:
   virtual void accept(std::shared_ptr<Node::ReturnStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::SlicePattern>) = 0;
   virtual void accept(std::shared_ptr<Node::SliceType>) = 0;
-  virtual void accept(std::shared_ptr<Node::Statement>) = 0;
   virtual void accept(std::shared_ptr<Node::SubroutineItem>) = 0;
   virtual void accept(std::shared_ptr<Node::TupleExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::Type>) = 0;

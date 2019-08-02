@@ -104,9 +104,7 @@ add_executable(
     src/syntax/ReturnStatement.hh
     src/syntax/SliceType.cpp
     src/syntax/SliceType.hh
-    src/syntax/Statement.cpp
-    src/syntax/Statement.hh
-    src/syntax/SubroutineItem.cpp
+        src/syntax/SubroutineItem.cpp
     src/syntax/SubroutineItem.hh
     src/syntax/Type.cpp
     src/syntax/Type.hh

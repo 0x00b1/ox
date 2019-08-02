@@ -21,7 +21,6 @@
 #include "Parameter.hh"
 #include "Pattern.hh"
 #include "ReturnStatement.hh"
-#include "Statement.hh"
 #include "SubroutineItem.hh"
 #include "Type.hh"
 
