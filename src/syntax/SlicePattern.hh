@@ -8,7 +8,7 @@
 
 #include "Visitor.hh"
 
-class Node::SlicePattern: public Node, public std::enable_shared_from_this<SlicePattern> {
+class Node::SlicePattern: public Pattern, public std::enable_shared_from_this<SlicePattern> {
 public:
   explicit SlicePattern(std::vector<std::shared_ptr<Pattern>> patterns);
 

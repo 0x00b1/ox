@@ -2,6 +2,7 @@
 #define OX_VISITOR_HH
 
 #include <memory>
+#include <variant>
 
 class Visitor;
 
@@ -11,11 +12,18 @@ namespace Node {
     virtual void accept(Visitor &visitor) = 0;
   };
 
+  class Pattern: public Node {
+  public:
+    virtual void accept(Visitor &visitor) = 0;
+  };
+
   class Statement {
   public:
     virtual void accept(Visitor &visitor) = 0;
   };
 }
+
+
 
 namespace Node {
   class AnonymousConstant;
@@ -96,7 +104,6 @@ public:
   virtual void accept(std::shared_ptr<Node::Parameter>) = 0;
   virtual void accept(std::shared_ptr<Node::PathPattern>) = 0;
   virtual void accept(std::shared_ptr<Node::PathType>) = 0;
-  virtual void accept(std::shared_ptr<Node::Pattern>) = 0;
   virtual void accept(std::shared_ptr<Node::PointerType>) = 0;
   virtual void accept(std::shared_ptr<Node::ReferenceType>) = 0;
   virtual void accept(std::shared_ptr<Node::ReturnStatement>) = 0;

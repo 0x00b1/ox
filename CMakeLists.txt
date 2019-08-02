@@ -94,9 +94,7 @@ add_executable(
     src/syntax/Parameter.hh
     src/syntax/PathType.cpp
     src/syntax/PathType.hh
-    src/syntax/Pattern.cpp
-    src/syntax/Pattern.hh
-    src/syntax/PointerType.cpp
+        src/syntax/PointerType.cpp
     src/syntax/PointerType.hh
     src/syntax/ReferenceType.cpp
     src/syntax/ReferenceType.hh

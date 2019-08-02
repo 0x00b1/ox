@@ -8,7 +8,7 @@
 
 #include "Visitor.hh"
 
-class Node::BlockStatement: public Node, public std::enable_shared_from_this<BlockStatement> {
+class Node::BlockStatement: public Statement, public std::enable_shared_from_this<BlockStatement> {
 public:
   explicit BlockStatement(std::vector<Statement> statements);
 

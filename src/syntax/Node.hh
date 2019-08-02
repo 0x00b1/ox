@@ -19,7 +19,6 @@
 #include "Name.hh"
 #include "Node.hh"
 #include "Parameter.hh"
-#include "Pattern.hh"
 #include "ReturnStatement.hh"
 #include "SubroutineItem.hh"
 #include "Type.hh"

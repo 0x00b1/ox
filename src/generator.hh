@@ -24,7 +24,6 @@ public:
   void accept(std::shared_ptr<Node::LiteralExpression> node) override;
   void accept(std::shared_ptr<Node::Name> node) override;
   void accept(std::shared_ptr<Node::Parameter> node) override;
-  void accept(std::shared_ptr<Node::Pattern> node) override;
   void accept(std::shared_ptr<Node::ReturnStatement> node) override;
   void accept(std::shared_ptr<Node::SubroutineItem> node) override;
   void accept(std::shared_ptr<Node::Type> node) override;
