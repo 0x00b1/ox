@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 
+#include "Position.hh"
 #include "Visitor.hh"
 
 class Node::Argument: public Node, public std::enable_shared_from_this<Argument> {

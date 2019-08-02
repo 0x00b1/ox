@@ -11,6 +11,8 @@ class Visitor;
 namespace Node {
   class Node {
   public:
+    Position position;
+
     virtual void accept(Visitor &visitor) = 0;
   };
 }
@@ -65,21 +67,18 @@ namespace Node {
 
   class Item: public Node {
   public:
-    Position position;
   };
 
   class Pattern: public Node {
   public:
-    Position position;
   };
-
+  
   class Statement: public Node {
   public:
   };
 
   class Type: public Node {
   public:
-    Position position;
   };
 }
 

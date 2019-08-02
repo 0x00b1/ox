@@ -7,9 +7,11 @@
 
 #include "Visitor.hh"
 
+#include "AnonymousConstant.hh"
+
 class Node::ArrayType: public Type, public std::enable_shared_from_this<ArrayType> {
 public:
-  explicit ArrayType(std::shared_ptr<Type> type);
+  ArrayType(std::shared_ptr<Type> type, AnonymousConstant size);
 
   std::shared_ptr<Type> type;
 
