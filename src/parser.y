@@ -98,6 +98,7 @@
 
 %type <std::shared_ptr<Node::Type>> TYPE;
 %type <std::shared_ptr<Node::ArrayType>> ARRAY_TYPE;
+%type <std::shared_ptr<Node::AnonymousConstant>> ANONYMOUS_CONSTANT;
 %type <std::shared_ptr<Node::BooleanType>> BOOLEAN_TYPE;
 %type <std::shared_ptr<Node::FloatingPointType>> FLOATING_POINT_TYPE;
 %type <std::shared_ptr<Node::FunctionType>> FUNCTION_TYPE;
@@ -203,10 +204,17 @@ TYPE                        : ARRAY_TYPE
                             | REFERENCE_TYPE
                             | SLICE_TYPE
                             ;
-ARRAY_TYPE                  : "[" TYPE "×" SIZES "]" 
+ARRAY_TYPE                  : "[" TYPE "×" ANONYMOUS_CONSTANT "]" {
+                              std::shared_ptr<Node::ArrayType> x(new Node::ArrayType($2));
+
+                              $$ = x;
+                            }
                             ;
-SIZES                       : EXPRESSION
-                            | SIZES "×" EXPRESSION
+ANONYMOUS_CONSTANT          : EXPRESSION {
+                              std::shared_ptr<Node::AnonymousConstant> x(new Node::AnonymousConstant($1));
+
+                              $$ = x;
+                            }
                             ;
 BOOLEAN_TYPE                : "Boolean" {
                               std::shared_ptr<Node::BooleanType> x(new Node::BooleanType());
@@ -248,4 +256,3 @@ SLICE_TYPE                  : "[" TYPE "]"
 void yy::parser::error(const location_type& l, const std::string& m) {
   std::cerr << l << ": " << m << '\n';
 }
-
