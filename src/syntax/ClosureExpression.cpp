@@ -1,4 +1,4 @@
-#include "ClosureExpression.hh"
+#include "ClosureExpression.h"
 
 Node::ClosureExpression::ClosureExpression(std::shared_ptr<FunctionDeclaration> declaration, std::shared_ptr<Expression> expression) {
   this->declaration = std::move(declaration);

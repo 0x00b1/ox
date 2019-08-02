@@ -1,4 +1,4 @@
-#include "BooleanLiteral.hh"
+#include "BooleanLiteral.h"
 
 Node::BooleanLiteral::BooleanLiteral(bool value) {
   this->value = std::move(value);

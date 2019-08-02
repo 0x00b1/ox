@@ -1,0 +1,20 @@
+#ifndef OXC_FUNCTION_TYPE_HH
+#define OXC_FUNCTION_TYPE_HH
+
+#include <memory>
+#include <string>
+#include <utility>
+
+#include "Type.h"
+#include "Visitor.h"
+
+class Node::FunctionType: public Type, public std::enable_shared_from_this<FunctionType> {
+public:
+  explicit FunctionType(std::shared_ptr<FunctionDeclaration> declaration);
+
+  std::shared_ptr<FunctionDeclaration> declaration;
+
+  void accept(Visitor &visitor) override;
+};
+
+#endif

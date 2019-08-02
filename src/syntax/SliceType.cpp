@@ -1,4 +1,4 @@
-#include "SliceType.hh"
+#include "SliceType.h"
 
 Node::SliceType::SliceType() = default;
 

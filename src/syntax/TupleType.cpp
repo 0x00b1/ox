@@ -1,4 +1,4 @@
-#include "TupleType.hh"
+#include "TupleType.h"
 
 Node::TupleType::TupleType(std::vector<std::shared_ptr<Type>> types) {
   this->types = std::move(types);

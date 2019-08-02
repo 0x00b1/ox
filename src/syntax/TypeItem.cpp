@@ -1,4 +1,4 @@
-#include "TypeItem.hh"
+#include "TypeItem.h"
 
 Node::TypeItem::TypeItem() = default;
 

@@ -1,4 +1,4 @@
-#include "ExternalPackageItem.hh"
+#include "ExternalPackageItem.h"
 
 Node::ExternalPackageItem::ExternalPackageItem() = default;
 

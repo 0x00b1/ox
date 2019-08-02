@@ -1,4 +1,4 @@
-#include "TuplePattern.hh"
+#include "TuplePattern.h"
 
 Node::TuplePattern::TuplePattern() {}
 

@@ -1,4 +1,4 @@
-#include "WildcardPattern.hh"
+#include "WildcardPattern.h"
 
 Node::WildcardPattern::WildcardPattern() {}
 

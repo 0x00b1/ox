@@ -1,4 +1,4 @@
-#include "ReturnStatement.hh"
+#include "ReturnStatement.h"
 
 Node::ReturnStatement::ReturnStatement() {}
 

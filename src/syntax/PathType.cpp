@@ -1,4 +1,4 @@
-#include "PathType.hh"
+#include "PathType.h"
 
 Node::PathType::PathType() = default;
 

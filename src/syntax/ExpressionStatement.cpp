@@ -1,4 +1,4 @@
-#include "ExpressionStatement.hh"
+#include "ExpressionStatement.h"
 
 Node::ExpressionStatement::ExpressionStatement(std::string value) {
   this->value = std::move(value);

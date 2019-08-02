@@ -1,7 +1,7 @@
 #ifndef OXC_NODE_HH
 #define OXC_NODE_HH
 
-#include "Position.hh"
+#include "Position.h"
 
 class Visitor;
 

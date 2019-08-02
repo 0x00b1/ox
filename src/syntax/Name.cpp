@@ -1,4 +1,4 @@
-#include "Name.hh"
+#include "Name.h"
 
 Node::Name::Name() = default;
 

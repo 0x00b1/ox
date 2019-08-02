@@ -1,4 +1,4 @@
-#include "Parameter.hh"
+#include "Parameter.h"
 
 Node::Parameter::Parameter(std::string value) {
   this->value = std::move(value);

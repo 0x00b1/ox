@@ -1,4 +1,4 @@
-#include "SlicePattern.hh"
+#include "SlicePattern.h"
 
 Node::SlicePattern::SlicePattern(std::vector<std::shared_ptr<Pattern>> patterns) {
   this->patterns = std::move(patterns);

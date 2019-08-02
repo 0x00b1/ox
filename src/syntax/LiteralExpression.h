@@ -1,0 +1,20 @@
+#ifndef OXC_LITERAL_EXPRESSION_HH
+#define OXC_LITERAL_EXPRESSION_HH
+
+#include <memory>
+#include <string>
+#include <utility>
+
+#include "Expression.h"
+#include "Visitor.h"
+
+class Node::LiteralExpression: public Expression, public std::enable_shared_from_this<LiteralExpression> {
+public:
+  explicit LiteralExpression(std::string value);
+
+  std::string value;
+
+  void accept(Visitor &visitor) override;
+};
+
+#endif

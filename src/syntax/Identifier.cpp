@@ -1,4 +1,4 @@
-#include "Identifier.hh"
+#include "Identifier.h"
 
 Node::Identifier::Identifier() = default;
 

@@ -1,4 +1,4 @@
-#include "Literal.hh"
+#include "Literal.h"
 
 Node::Literal::Literal(std::string value) {
   this->value = std::move(value);

@@ -1,4 +1,4 @@
-#include "LiteralExpression.hh"
+#include "LiteralExpression.h"
 
 Node::LiteralExpression::LiteralExpression(std::string value) {
   this->value = std::move(value);

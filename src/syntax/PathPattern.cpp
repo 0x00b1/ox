@@ -1,4 +1,4 @@
-#include "PathPattern.hh"
+#include "PathPattern.h"
 
 Node::PathPattern::PathPattern() {}
 

@@ -1,4 +1,4 @@
-#include "FloatingPointLiteral.hh"
+#include "FloatingPointLiteral.h"
 
 Node::FloatingPointLiteral::FloatingPointLiteral(std::string value) {
   this->value = std::move(value);

@@ -1,4 +1,4 @@
-#include "FunctionDeclaration.hh"
+#include "FunctionDeclaration.h"
 
 Node::FunctionDeclaration::FunctionDeclaration() = default;
 

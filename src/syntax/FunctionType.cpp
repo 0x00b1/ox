@@ -1,4 +1,4 @@
-#include "FunctionType.hh"
+#include "FunctionType.h"
 
 Node::FunctionType::FunctionType(std::shared_ptr<FunctionDeclaration> declaration) {
   this->declaration = std::move(declaration);

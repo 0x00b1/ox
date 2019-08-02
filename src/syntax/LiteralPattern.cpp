@@ -1,4 +1,4 @@
-#include "LiteralPattern.hh"
+#include "LiteralPattern.h"
 
 Node::LiteralPattern::LiteralPattern(std::shared_ptr<Expression> expression) {
   this->expression = std::move(expression);

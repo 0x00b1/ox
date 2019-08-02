@@ -1,4 +1,4 @@
-#include "ArrayType.hh"
+#include "ArrayType.h"
 
 Node::ArrayType::ArrayType(std::shared_ptr<Type> type) {
   this->type = std::move(type);

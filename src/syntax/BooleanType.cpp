@@ -1,4 +1,4 @@
-#include "BooleanType.hh"
+#include "BooleanType.h"
 
 Node::BooleanType::BooleanType() = default;
 

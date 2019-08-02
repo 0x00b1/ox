@@ -1,4 +1,4 @@
-#include "IntegerLiteral.hh"
+#include "IntegerLiteral.h"
 
 Node::IntegerLiteral::IntegerLiteral(std::string value) {
   this->value = std::move(value);

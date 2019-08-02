@@ -1,4 +1,4 @@
-#include "BottomType.hh"
+#include "BottomType.h"
 
 Node::BottomType::BottomType() = default;
 

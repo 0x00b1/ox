@@ -1,4 +1,4 @@
-#include "ConditionalStatement.hh"
+#include "ConditionalStatement.h"
 
 Node::ConditionalStatement::ConditionalStatement(std::shared_ptr<Expression> predicate, std::shared_ptr<BlockStatement> consequent) {
   this->predicate = std::move(predicate);

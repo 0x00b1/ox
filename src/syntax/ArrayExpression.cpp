@@ -1,4 +1,4 @@
-#include "ArrayExpression.hh"
+#include "ArrayExpression.h"
 
 Node::ArrayExpression::ArrayExpression(std::vector<std::shared_ptr<Expression>> elements) {
   this->elements = std::move(elements);

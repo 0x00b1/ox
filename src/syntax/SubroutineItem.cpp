@@ -1,4 +1,4 @@
-#include "SubroutineItem.hh"
+#include "SubroutineItem.h"
 
 Node::SubroutineItem::SubroutineItem(std::shared_ptr<FunctionDeclaration> declaration, std::shared_ptr<BlockStatement> block_statement) {
   this->declaration = std::move(declaration);

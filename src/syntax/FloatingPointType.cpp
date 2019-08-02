@@ -1,4 +1,4 @@
-#include "FloatingPointType.hh"
+#include "FloatingPointType.h"
 
 Node::FloatingPointType::FloatingPointType() = default;
 

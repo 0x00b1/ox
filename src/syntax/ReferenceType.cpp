@@ -1,4 +1,4 @@
-#include "ReferenceType.hh"
+#include "ReferenceType.h"
 
 Node::ReferenceType::ReferenceType() = default;
 

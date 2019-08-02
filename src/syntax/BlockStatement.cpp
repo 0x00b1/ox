@@ -1,4 +1,4 @@
-#include "BlockStatement.hh"
+#include "BlockStatement.h"
 
 Node::BlockStatement::BlockStatement(std::vector<std::shared_ptr<Statement>> statements) {
   this->statements = std::move(statements);

@@ -1,4 +1,4 @@
-#include "PointerType.hh"
+#include "PointerType.h"
 
 Node::PointerType::PointerType() = default;
 

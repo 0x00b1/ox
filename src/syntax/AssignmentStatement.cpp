@@ -1,4 +1,4 @@
-#include "AssignmentStatement.hh"
+#include "AssignmentStatement.h"
 
 Node::AssignmentStatement::AssignmentStatement(std::string value) {
   this->value = std::move(value);

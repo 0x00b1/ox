@@ -1,4 +1,4 @@
-#include "AnonymousConstant.hh"
+#include "AnonymousConstant.h"
 
 Node::AnonymousConstant::AnonymousConstant(std::shared_ptr<Expression> expression) {
   this->expression = std::move(expression);

@@ -1,4 +1,4 @@
-#include "IntegerType.hh"
+#include "IntegerType.h"
 
 Node::IntegerType::IntegerType() = default;
 

@@ -1,4 +1,4 @@
-#include "Argument.hh"
+#include "Argument.h"
 
 Node::Argument::Argument(std::shared_ptr<Pattern> pattern, std::shared_ptr<Type> type) {
   this->pattern = std::move(pattern);
