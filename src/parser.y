@@ -116,6 +116,9 @@
 %type <std::shared_ptr<Node::Item>> ITEM;
 %type <std::shared_ptr<Node::ModuleItem>> MODULE_ITEM;
 %type <std::vector<std::shared_ptr<Node::Item>>> ITEMS;
+%type <std::shared_ptr<Node::ExternalPackageItem>> EXTERNAL_PACKAGE_ITEM;
+%type <std::shared_ptr<Node::ConstantItem>> CONSTANT_ITEM;
+%type <std::shared_ptr<Node::TypeItem>> TYPE_ITEM;
 %type <std::shared_ptr<Node::ConditionalStatement>> CONDITIONAL_STATEMENT;
 %type <std::shared_ptr<Node::ReturnStatement>> RETURN_STATEMENT;
 %type <std::shared_ptr<Node::BlockStatement>> BLOCK_STATEMENT;
@@ -376,18 +379,26 @@ ITEMS                             : ITEMS ITEM {
                                   }
                                   ;
 EXTERNAL_PACKAGE_ITEM             : "external" "package" IDENTIFIER "as" IDENTIFIER ";" {
+                                    std::shared_ptr<Node::ExternalPackageItem> external_package_item(new Node::ExternalPackageItem($3, $5));
 
+                                    $$ = external_package_item;
                                   }
                                   | "external" "package" IDENTIFIER ";" {
+                                    std::shared_ptr<Node::ExternalPackageItem> external_package_item(new Node::ExternalPackageItem($3));
 
+                                    $$ = external_package_item;
                                   }
                                   ;
 CONSTANT_ITEM                     : "constant" IDENTIFIER ":" TYPE "←" OPERATOR_EXPRESSION ";" {
+                                    std::shared_ptr<Node::ConstantItem> constant_item(new Node::ConstantItem($2, $4. $6));
 
+                                    $$ = constant_item;
                                   }
                                   ;
 TYPE_ITEM                         : "type" IDENTIFIER "←" TYPE ";" {
+                                    std::shared_ptr<Node::TypeItem> type_item(new Node::TypeItem($2, $4));
 
+                                    $$ = type_item;
                                   }
                                   ;
 SUBROUTINE_ITEM                   : "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT {
