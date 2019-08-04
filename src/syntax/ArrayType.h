@@ -11,9 +11,11 @@
 
 class Node::ArrayType: public Type, public std::enable_shared_from_this<ArrayType> {
 public:
-  explicit ArrayType(std::shared_ptr<Type> type);
+  ArrayType(std::shared_ptr<Type> type, std::shared_ptr<AnonymousConstant> anonymous_constant);
 
   std::shared_ptr<Type> type;
+
+  std::shared_ptr<AnonymousConstant> anonymous_constant;
 
   void accept(Visitor &visitor) override;
 };
