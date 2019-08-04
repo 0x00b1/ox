@@ -36,6 +36,7 @@ namespace Node {
   class LiteralPattern;
   class ModuleItem;
   class Name;
+  class OperatorExpression;
   class Parameter;
   class PathExpression;
   class PathPattern;
@@ -87,6 +88,7 @@ public:
   virtual void accept(std::shared_ptr<Node::LiteralPattern>) = 0;
   virtual void accept(std::shared_ptr<Node::ModuleItem>) = 0;
   virtual void accept(std::shared_ptr<Node::Name>) = 0;
+  virtual void accept(std::shared_ptr<Node::OperatorExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::Parameter>) = 0;
   virtual void accept(std::shared_ptr<Node::PathExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::PathPattern>) = 0;

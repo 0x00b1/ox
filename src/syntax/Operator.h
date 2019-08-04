@@ -1,9 +1,6 @@
 #ifndef OXC_OPERATOR_H
 #define OXC_OPERATOR_H
 
-#include <map>
-#include <string>
-
 namespace Node {
   enum Operator {
     PUNCTUATION_COLON,

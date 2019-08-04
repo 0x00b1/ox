@@ -1,6 +1,6 @@
 #include "ExpressionStatement.h"
 
-Node::ExpressionStatement::ExpressionStatement(std::shared_ptr<Expression> expression) {
+Node::ExpressionStatement::ExpressionStatement(std::shared_ptr<OperatorExpression> expression) {
   this->expression = std::move(expression);
 }
 

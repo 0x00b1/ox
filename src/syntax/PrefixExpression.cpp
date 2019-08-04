@@ -1,10 +1,10 @@
 #include "PrefixExpression.h"
 
-Node::PrefixExpression::PrefixExpression(std::shared_ptr<Expression> expression) {
+Node::PrefixExpression::PrefixExpression(std::shared_ptr<PostfixExpression> expression) {
   this->expression = std::move(expression);
 }
 
-Node::PrefixExpression::PrefixExpression(Operator operation, std::shared_ptr<Expression> expression) {
+Node::PrefixExpression::PrefixExpression(Operator operation, std::shared_ptr<PostfixExpression> expression) {
   this->operation = std::move(operation);
 
   this->expression = std::move(expression);

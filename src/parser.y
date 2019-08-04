@@ -91,8 +91,9 @@
 %type <std::vector<std::shared_ptr<Node::Statement>>> STATEMENTS;
 %type <std::shared_ptr<Node::Statement>> STATEMENT;
 %type <std::shared_ptr<Node::ExpressionStatement>> EXPRESSION_STATEMENT;
+%type <std::shared_ptr<Node::OperatorExpression>> OPERATOR_EXPRESSION;
 %type <std::shared_ptr<Node::PrefixExpression>> PREFIX_EXPRESSION;
-%type <std::string> OPERATOR;
+%type <Node::Operator> OPERATOR;
 %type <std::shared_ptr<Node::PostfixExpression>> POSTFIX_EXPRESSION;
 %type <std::shared_ptr<Node::PathExpression>> PATH_EXPRESSION;
 %type <std::shared_ptr<Node::LiteralExpression>> LITERAL_EXPRESSION;
@@ -162,21 +163,25 @@ STATEMENT                   : EXPRESSION_STATEMENT
                             | RETURN_STATEMENT
                             | BLOCK_STATEMENT
                             ;
-EXPRESSION_STATEMENT        : EXPRESSION ";" {
+EXPRESSION_STATEMENT        : OPERATOR_EXPRESSION ";" {
                               std::shared_ptr<Node::ExpressionStatement> expression(new Node::ExpressionStatement($1));
 
                               $$ = expression;
                             }
                             ;
-EXPRESSION                  : PREFIX_EXPRESSION INFIX_EXPRESSIONS {
+OPERATOR_EXPRESSION         : PREFIX_EXPRESSION INFIX_EXPRESSIONS {
+                              std::shared_ptr<Node::OperatorExpression> expression(new Node::OperatorExpression($1, $2));
 
+                              $$ = expression;
                             }
                             | PREFIX_EXPRESSION {
+                              std::shared_ptr<Node::OperatorExpression> expression(new Node::OperatorExpression($1));
 
+                              $$ = expression;
                             }
                             ;
 PREFIX_EXPRESSION           : OPERATOR POSTFIX_EXPRESSION {
-                              std::shared_ptr<Node::PrefixExpression> expression(new Node::PrefixExpression($1, $2));
+                              std::shared_ptr<Node::PrefixExpression> expression(new Node::PrefixExpression($2));
 
                               $$ = expression;
                             }
@@ -186,30 +191,14 @@ PREFIX_EXPRESSION           : OPERATOR POSTFIX_EXPRESSION {
                               $$ = expression;
                             }
                             ;
-OPERATOR                    : "+" { 
-                              $$ = Operator.PUNCTUATION_PLUS_SIGN; 
-                            }
-                            | "÷" { 
-                              $$ = Operator.PUNCTUATION_DIVISION_SIGN; 
-                            }
-                            | "×" { 
-                              $$ = Operator.PUNCTUATION_MULTIPLICATION_SIGN; 
-                            }
-                            | "<" { 
-                              $$ = Operator.PUNCTUATION_LESS_THAN_SIGN; 
-                            }
-                            | ">" { 
-                              $$ = Operator.PUNCTUATION_GREATER_THAN_SIGN; 
-                            }
-                            | "−" { 
-                              $$ = Operator.PUNCTUATION_MINUS_SIGN; 
-                            }
-                            | "≤" { 
-                              $$ = Operator.PUNCTUATION_LESS_THAN_OR_EQUAL_TO; 
-                            }
-                            | "≥" { 
-                              $$ = Operator.PUNCTUATION_GREATER_THAN_OR_EQUAL_TO; 
-                            }
+OPERATOR                    : "+"
+                            | "÷"
+                            | "×"
+                            | "<"
+                            | ">"
+                            | "−"
+                            | "≤"
+                            | "≥"
                             ;
 POSTFIX_EXPRESSION          : PATH_EXPRESSION
                             | LITERAL_EXPRESSION
@@ -236,29 +225,39 @@ INTEGER_LITERAL             : LITERAL_INTEGER
                             ;
 ARRAY_EXPRESSION            : "[" ARRAY_EXPRESSION_ELEMENTS "]"
                             ;
-ARRAY_EXPRESSION_ELEMENTS   : ARRAY_EXPRESSION_ELEMENTS "," EXPRESSION 
-                            | EXPRESSION 
+ARRAY_EXPRESSION_ELEMENTS   : ARRAY_EXPRESSION_ELEMENTS "," OPERATOR_EXPRESSION
+                            | OPERATOR_EXPRESSION
                             ;
 CLOSURE_EXPRESSION          :
                             ;
-GROUPED_EXPRESSION          : "(" EXPRESSION ")"
+GROUPED_EXPRESSION          : "(" OPERATOR_EXPRESSION ")"
                             ;
 TUPLE_EXPRESSION            : "(" TUPLE_EXPRESSION_ELEMENTS ")"
                             ;
-TUPLE_EXPRESSION_ELEMENTS   : TUPLE_EXPRESSION_ELEMENTS "," EXPRESSION
-                            | EXPRESSION
+TUPLE_EXPRESSION_ELEMENTS   : TUPLE_EXPRESSION_ELEMENTS "," OPERATOR_EXPRESSION
+                            | OPERATOR_EXPRESSION
                             ;
-CALL_EXPRESSION             : EXPRESSION "(" CALL_EXPRESSION_ARGUMENTS ")"
+CALL_EXPRESSION             : OPERATOR_EXPRESSION "(" CALL_EXPRESSION_ARGUMENTS ")"
                             ;
 CALL_EXPRESSION_ARGUMENTS   : CALL_EXPRESSION_ARGUMENTS "," CALL_EXPRESSION_ARGUMENT
                             | CALL_EXPRESSION_ARGUMENT
                             ;
-CALL_EXPRESSION_ARGUMENT    : EXPRESSION
+CALL_EXPRESSION_ARGUMENT    : OPERATOR_EXPRESSION
                             ;
-INDEX_EXPRESSION            : EXPRESSION "[" EXPRESSION "]"
+INDEX_EXPRESSION            : OPERATOR_EXPRESSION "[" OPERATOR_EXPRESSION "]"
                             ;
-INFIX_EXPRESSIONS           : INFIX_EXPRESSIONS INFIX_EXPRESSION
-                            | INFIX_EXPRESSION
+INFIX_EXPRESSIONS           : INFIX_EXPRESSIONS INFIX_EXPRESSION {
+                              std::vector<std::shared_ptr<Node::InfixExpression>> infix_expressions = $1;
+
+                              infix_expressions.push_back($2);
+
+                              $$ = infix_expressions;
+                            }
+                            | INFIX_EXPRESSION {
+                              $$ = std::vector<std::shared_ptr<Node::InfixExpression>>();
+
+                              $$.push_back($1);
+                            }
                             ;
 INFIX_EXPRESSION            : OPERATOR PREFIX_EXPRESSION {
                               std::shared_ptr<Node::InfixExpression> expression(new Node::InfixExpression($1, $2));
@@ -266,7 +265,7 @@ INFIX_EXPRESSION            : OPERATOR PREFIX_EXPRESSION {
                               $$ = expression;
                             }
                             ;
-ASSIGNMENT_STATEMENT        : PATTERN ":" TYPE "←" EXPRESSION
+ASSIGNMENT_STATEMENT        : PATTERN ":" TYPE "←" OPERATOR_EXPRESSION ";"
                             ;
 ITEM_STATEMENT              : ITEM
                             ;
@@ -285,17 +284,17 @@ ITEMS                       : ITEMS ITEM
 EXTERNAL_PACKAGE_ITEM       : "external" "package" IDENTIFIER "as" IDENTIFIER ";"
                             | "external" "package" IDENTIFIER ";"
                             ;
-CONSTANT_ITEM               : "constant" IDENTIFIER ":" TYPE "←" EXPRESSION ";"
+CONSTANT_ITEM               : "constant" IDENTIFIER ":" TYPE "←" OPERATOR_EXPRESSION ";"
                             ;
 TYPE_ITEM                   : "type" IDENTIFIER "←" TYPE ";"
                             ;
 SUBROUTINE_ITEM             : "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT
                             ;
-CONDITIONAL_STATEMENT       : "if" EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT ";"
-                            | "if" EXPRESSION BLOCK_STATEMENT ";"
+CONDITIONAL_STATEMENT       : "if" OPERATOR_EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT ";"
+                            | "if" OPERATOR_EXPRESSION BLOCK_STATEMENT ";"
                             ;
 RETURN_STATEMENT            : "return" ";"
-                            | "return" EXPRESSION ";"
+                            | "return" OPERATOR_EXPRESSION ";"
                             ;
 BLOCK_STATEMENT             : "{" STATEMENTS "}"
                             ;
@@ -342,7 +341,7 @@ FUNCTION_TYPE_PARAMETER     : IDENTIFIER ":" TYPE
                             ;
 ARRAY_TYPE                  : "[" TYPE "×" ANONYMOUS_CONSTANT "]"
                             ;
-ANONYMOUS_CONSTANT          : EXPRESSION
+ANONYMOUS_CONSTANT          : OPERATOR_EXPRESSION
                             ;
 BOOLEAN_TYPE                : "Boolean"
                             ;

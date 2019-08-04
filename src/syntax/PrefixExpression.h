@@ -8,15 +8,16 @@
 
 #include "Expression.h"
 #include "Operator.h"
+#include "PostfixExpression.h"
 #include "Visitor.h"
 
 class Node::PrefixExpression: public Expression, public std::enable_shared_from_this<PrefixExpression> {
 public:
-  explicit PrefixExpression(std::shared_ptr<Expression> expression);
+  explicit PrefixExpression(std::shared_ptr<PostfixExpression> expression);
 
-  PrefixExpression(Operator operation, std::shared_ptr<Expression> expression);
+  PrefixExpression(Operator operation, std::shared_ptr<PostfixExpression> expression);
 
-  std::shared_ptr<Expression> expression;
+  std::shared_ptr<PostfixExpression> expression;
 
   std::optional<Operator> operation;
 
