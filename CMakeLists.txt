@@ -86,7 +86,7 @@ add_executable(
     src/syntax/Type.cpp
     src/syntax/TypeItem.cpp
     src/syntax/WildcardPattern.cpp
-        include/compiler/compiler.h src/syntax/PathExpression.cpp src/syntax/PathExpression.h src/syntax/PrefixExpression.cpp src/syntax/PrefixExpression.h src/syntax/InfixExpression.cpp src/syntax/InfixExpression.h src/syntax/PostfixExpression.cpp src/syntax/PostfixExpression.h src/syntax/Operator.cpp src/syntax/Operator.h src/syntax/OperatorExpression.cpp src/syntax/OperatorExpression.h src/syntax/GroupedExpression.cpp src/syntax/GroupedExpression.h src/syntax/SizeType.cpp src/syntax/SizeType.h src/syntax/ModuleSymbol.cpp src/syntax/ModuleSymbol.h src/syntax/SubroutineSymbol.cpp src/syntax/SubroutineSymbol.h)
+        include/compiler/compiler.h src/syntax/PathExpression.cpp src/syntax/PathExpression.h src/syntax/PrefixExpression.cpp src/syntax/PrefixExpression.h src/syntax/InfixExpression.cpp src/syntax/InfixExpression.h src/syntax/PostfixExpression.cpp src/syntax/PostfixExpression.h src/syntax/Operator.cpp src/syntax/Operator.h src/syntax/OperatorExpression.cpp src/syntax/OperatorExpression.h src/syntax/GroupedExpression.cpp src/syntax/GroupedExpression.h src/syntax/SizeType.cpp src/syntax/SizeType.h src/syntax/ModuleSymbol.cpp src/syntax/ModuleSymbol.h src/syntax/SubroutineSymbolTable.cpp src/syntax/SubroutineSymbolTable.h src/syntax/ClassSymbol.cpp src/syntax/ClassSymbol.h src/syntax/SymbolTable.cpp src/syntax/SymbolTable.h)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 
