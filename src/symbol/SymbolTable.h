@@ -1,5 +1,5 @@
-#ifndef OXC_SYMBOL_TABLE_H
-#define OXC_SYMBOL_TABLE_H
+#ifndef OXC_SYMBOL_SYMBOL_TABLE_H
+#define OXC_SYMBOL_SYMBOL_TABLE_H
 
 #include <vector>
 

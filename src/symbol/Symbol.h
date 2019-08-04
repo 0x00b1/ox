@@ -1,5 +1,5 @@
-#ifndef OXC_SYMBOL_H
-#define OXC_SYMBOL_H
+#ifndef OXC_SYMBOL_SYMBOL_H
+#define OXC_SYMBOL_SYMBOL_H
 
 #include <string>
 
