@@ -21,6 +21,7 @@ void Generator::accept(std::shared_ptr<Node::FunctionDeclaration> node) {}
 void Generator::accept(std::shared_ptr<Node::FunctionType> node) {}
 void Generator::accept(std::shared_ptr<Node::Identifier> node) {}
 void Generator::accept(std::shared_ptr<Node::IndexExpression> node) {}
+void Generator::accept(std::shared_ptr<Node::InfixOperatorExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::IntegerLiteral> node) {}
 void Generator::accept(std::shared_ptr<Node::IntegerType> node) {}
 void Generator::accept(std::shared_ptr<Node::ItemStatement> node) {}
@@ -34,6 +35,8 @@ void Generator::accept(std::shared_ptr<Node::PathExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::PathPattern> node) {}
 void Generator::accept(std::shared_ptr<Node::PathType> node) {}
 void Generator::accept(std::shared_ptr<Node::PointerType> node) {}
+void Generator::accept(std::shared_ptr<Node::PostfixOperatorExpression> node) {}
+void Generator::accept(std::shared_ptr<Node::PrefixOperatorExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::ReferenceType> node) {}
 void Generator::accept(std::shared_ptr<Node::ReturnStatement> node) {}
 void Generator::accept(std::shared_ptr<Node::SlicePattern> node) {}

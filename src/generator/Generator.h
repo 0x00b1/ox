@@ -28,6 +28,7 @@ public:
   void accept(std::shared_ptr<Node::FunctionType> node) override;
   void accept(std::shared_ptr<Node::Identifier> node) override;
   void accept(std::shared_ptr<Node::IndexExpression> node) override;
+  void accept(std::shared_ptr<Node::InfixOperatorExpression> node) override;
   void accept(std::shared_ptr<Node::IntegerLiteral> node) override;
   void accept(std::shared_ptr<Node::IntegerType> node) override;
   void accept(std::shared_ptr<Node::ItemStatement> node) override;
@@ -41,6 +42,8 @@ public:
   void accept(std::shared_ptr<Node::PathPattern> node) override;
   void accept(std::shared_ptr<Node::PathType> node) override;
   void accept(std::shared_ptr<Node::PointerType> node) override;
+  void accept(std::shared_ptr<Node::PostfixOperatorExpression> node) override;
+  void accept(std::shared_ptr<Node::PrefixOperatorExpression> node) override;
   void accept(std::shared_ptr<Node::ReferenceType> node) override;
   void accept(std::shared_ptr<Node::ReturnStatement> node) override;
   void accept(std::shared_ptr<Node::SlicePattern> node) override;

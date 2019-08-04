@@ -79,29 +79,33 @@
 %token <std::string> IDENTIFIER
 
 %type <std::vector<std::shared_ptr<Node::Statement>>> STATEMENTS;
-
 %type <std::shared_ptr<Node::Statement>> STATEMENT;
-
 %type <std::shared_ptr<Node::AssignmentStatement>> ASSIGNMENT_STATEMENT;
 %type <std::shared_ptr<Node::BlockStatement>> BLOCK_STATEMENT;
 %type <std::shared_ptr<Node::ConditionalStatement>> CONDITIONAL_STATEMENT;
 %type <std::shared_ptr<Node::ExpressionStatement>> EXPRESSION_STATEMENT;
-%type <std::shared_ptr<Node::ReturnStatement>> RETURN_STATEMENT;
-
 %type <std::shared_ptr<Node::Expression>> EXPRESSION;
-
 %type <std::shared_ptr<Node::ArrayExpression>> ARRAY_EXPRESSION;
+%type <std::vector<std::shared_ptr<Node::Expression>>> ELEMENTS;
+%type <std::shared_ptr<Node::Expression>> ELEMENT;
 %type <std::shared_ptr<Node::CallExpression>> CALL_EXPRESSION;
+%type <std::vector<std::shared_ptr<Node::Expression>>> ARGUMENTS;
+%type <std::shared_ptr<Node::Expression>> ARGUMENT;
 %type <std::shared_ptr<Node::IndexExpression>> INDEX_EXPRESSION;
 %type <std::shared_ptr<Node::LiteralExpression>> LITERAL_EXPRESSION;
+%type <std::shared_ptr<Node::BooleanLiteral>> BOOLEAN_LITERAL;
+%type <std::shared_ptr<Node::FloatingPointLiteral>> FLOATING_POINT_LITERAL;
+%type <std::shared_ptr<Node::IntegerLiteral>> INTEGER_LITERAL;
 %type <std::shared_ptr<Node::PathExpression>> PATH_EXPRESSION;
-
+%type <std::shared_ptr<Node::ReturnStatement>> RETURN_STATEMENT;
 %type <std::shared_ptr<Node::Type>> TYPE;
 %type <std::shared_ptr<Node::ArrayType>> ARRAY_TYPE;
 %type <std::shared_ptr<Node::AnonymousConstant>> ANONYMOUS_CONSTANT;
 %type <std::shared_ptr<Node::BooleanType>> BOOLEAN_TYPE;
 %type <std::shared_ptr<Node::FloatingPointType>> FLOATING_POINT_TYPE;
 %type <std::shared_ptr<Node::FunctionType>> FUNCTION_TYPE;
+%type <std::vector<std::shared_ptr<Node::Parameter>>> PARAMETERS;
+%type <std::shared_ptr<Node::Parameter>> PARAMETER;
 %type <std::shared_ptr<Node::IntegerType>> INTEGER_TYPE;
 %type <std::shared_ptr<Node::ReferenceType>> REFERENCE_TYPE;
 %type <std::shared_ptr<Node::SliceType>> SLICE_TYPE;
@@ -116,74 +120,192 @@
 
 %start UNIT;
 
+OPERATOR                    : "×"
+                            ;
 UNIT                        : STATEMENTS
                             ;
 STATEMENTS                  : STATEMENT
                             | STATEMENTS STATEMENT
                             ;
-STATEMENT                   : ASSIGNMENT_STATEMENT
-                            | BLOCK_STATEMENT
-                            | CONDITIONAL_STATEMENT
-                            | DECLARATION_STATEMENT
+STATEMENT                   : ITEM_STATEMENT
+                            | ASSIGNMENT_STATEMENT
                             | EXPRESSION_STATEMENT
                             | RETURN_STATEMENT
+                            | BLOCK_STATEMENT
+                            | CONDITIONAL_STATEMENT
                             ;
-ASSIGNMENT_STATEMENT        : IDENTIFIER "←" EXPRESSION
-                            | IDENTIFIER ":" TYPE "←" EXPRESSION
+ITEM_STATEMENT              : ITEM
                             ;
-BLOCK_STATEMENT             : "{" STATEMENTS "}" {
-                              std::shared_ptr<Node::BlockStatement> x(new Node::BlockStatement($2));
+ITEM                        : MODULE_ITEM
+                            | EXTERNAL_PACKAGE_ITEM
+                            | SUBROUTINE_ITEM
+                            | TYPE_ITEM
+                            | CONSTANT_ITEM
+                            ;
+MODULE_ITEM                 : "module" IDENTIFIER ";"
+                            | "module" IDENTIFIER "{" ITEMS "}" ";"
+                            ;
+ITEMS                       : ITEM
+                            | ITEMS ITEM
+                            ;
+EXTERNAL_PACKAGE_ITEM       : "external" "package" IDENTIFIER ";"
+                            | "external" "package" IDENTIFIER "as" IDENTIFIER ";"
+                            ;
+SUBROUTINE_ITEM             : "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT
+                            ;
+TYPE_ITEM                   : "type" IDENTIFIER "←" TYPE ";"
+                            ;
+CONSTANT_ITEM               : "constant" IDENTIFIER ":" TYPE "←" EXPRESSION ";"
+                            ;
+ASSIGNMENT_STATEMENT        : PATTERN ":" TYPE "←" EXPRESSION
+                            ;
+PATTERN                     : LITERAL_PATTERN
+                            | IDENTIFIER_PATTERN
+                            | WILDCARD_PATTERN
+                            | REFERENCE_PATTERN
+                            | TUPLE_PATTERN
+                            | SLICE_PATTERN
+                            | PATH_PATTERN
+                            ;
+LITERAL_PATTERN             :
+                            ;
+IDENTIFIER_PATTERN          : IDENTIFIER
+                            ;
+WILDCARD_PATTERN            : "_"
+                            ;
+REFERENCE_PATTERN           : "reference" PATTERN
+                            ;
+TUPLE_PATTERN               : "(" TUPLE_PATTERN_ITEMS ")"
+                            ;
+TUPLE_PATTERN_ITEMS         : %empty
+                            | PATTERN
+                            | TUPLE_PATTERN_ITEMS "," PATTERN
+                            ;
+SLICE_PATTERN               : "[" SLICE_PATTERN_ITEMS "]"
+                            ;
+SLICE_PATTERN_ITEMS         : PATTERN
+                            | SLICE_PATTERN_ITEMS "," PATTERN
+                            ;
+PATH_PATTERN                : 
+                            ;
+EXPRESSION_STATEMENT        : EXPRESSION ";" {
+                              std::shared_ptr<Node::ExpressionStatement> x(new Node::ExpressionStatement($1));
 
                               $$ = x;
                             }
                             ;
-CONDITIONAL_STATEMENT       : "if" EXPRESSION BLOCK_STATEMENT
-                            | "if" EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT
+PREFIX_EXPRESSION           :
                             ;
-DECLARATION_STATEMENT       : DECLARATION ";"
+BINARY_EXPRESSIONS          : BINARY_EXPRESSIONS BINARY_EXPRESSION
                             ;
-DECLARATION                 : SUBROUTINE_DECLARATION
+BINARY_EXPRESSION           :
                             ;
-SUBROUTINE_DECLARATION      : "subroutine" IDENTIFIER FUNCTION_TYPE
-                            | "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT
+PREFIX_OPERATOR_EXPRESSION  : POSTFIX_OPERATOR_EXPRESSION
+                            | OPERATOR POSTFIX_OPERATOR_EXPRESSION
                             ;
-EXPRESSION_STATEMENT        : EXPRESSION ";"
+INFIX_OPERATOR_EXPRESSION   : OPERATOR PREFIX_OPERATOR_EXPRESSION
                             ;
-EXPRESSION                  : "(" EXPRESSION ")"
-                            | ARRAY_EXPRESSION
+POSTFIX_OPERATOR_EXPRESSION : POSTFIX_OPERATOR_EXPRESSION OPERATOR
                             | CALL_EXPRESSION
                             | INDEX_EXPRESSION
-                            | LITERAL_EXPRESSION
+                            ;
+EXPRESSION                  : LITERAL_EXPRESSION
                             | PATH_EXPRESSION
+                            | GROUPED_EXPRESSION
+                            | ARRAY_EXPRESSION
+                            | INDEX_EXPRESSION
+                            | TUPLE_EXPRESSION
+                            | CALL_EXPRESSION
+                            | CLOSURE_EXPRESSION
                             ;
-ARRAY_EXPRESSION            : "[" ELEMENTS "]"
+LITERAL_EXPRESSION          : BOOLEAN_LITERAL
+                            | FLOATING_POINT_LITERAL
+                            | INTEGER_LITERAL
                             ;
-ELEMENTS                    : ELEMENT
-                            | ELEMENTS "," ELEMENT
+BOOLEAN_LITERAL             : "True" {
+                              std::shared_ptr<Node::BooleanLiteral> x(new Node::BooleanLiteral(true));
+
+                              $$ = x;
+                            }
+                            | "False" {
+                              std::shared_ptr<Node::BooleanLiteral> x(new Node::BooleanLiteral(false));
+
+                              $$ = x;
+                            }
+                            ;
+FLOATING_POINT_LITERAL      : LITERAL_FLOATING_POINT {
+                              std::shared_ptr<Node::FloatingPointLiteral> x(new Node::FloatingPointLiteral($1));
+
+                              $$ = x;
+                            }
+                            ;
+INTEGER_LITERAL             : LITERAL_INTEGER {
+                              std::shared_ptr<Node::IntegerLiteral> x(new Node::IntegerLiteral($1));
+
+                              $$ = x;
+                            }
+                            ;
+PATH_EXPRESSION             : IDENTIFIER 
+                            ;
+GROUPED_EXPRESSION          : "(" EXPRESSION ")"
+                            ;
+ARRAY_EXPRESSION            : "[" ELEMENTS "]" {
+                              std::shared_ptr<Node::ArrayExpression> x(new Node::ArrayExpression($2));
+
+                              $$ = x;
+                            }
+                            ;
+ELEMENTS                    : %empty {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+                            }
+                            | ELEMENT {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+
+                              $$.push_back($1);
+                            }
+                            | ELEMENTS "," ELEMENT {
+                              std::vector<std::shared_ptr<Node::Expression>> elements = $1;
+
+                              elements.push_back($3);
+
+                              $$ = elements;
+                            }
                             ;
 ELEMENT                     : EXPRESSION
                             ;
-CALL_EXPRESSION             : EXPRESSION "(" ARGUMENTS ")"
+INDEX_EXPRESSION            : EXPRESSION "[" EXPRESSION "]" {
+                              std::shared_ptr<Node::IndexExpression> x(new Node::IndexExpression($1, $3));
+
+                              $$ = x;
+                            }
                             ;
-ARGUMENTS                   : ARGUMENT
-                            | ARGUMENTS "," ARGUMENT
+TUPLE_EXPRESSION            :
+                            ;
+CALL_EXPRESSION             : EXPRESSION "(" ARGUMENTS ")" {
+                              std::shared_ptr<Node::CallExpression> x(new Node::CallExpression($1, $3));
+
+                              $$ = x;
+                            }
+                            ;
+ARGUMENTS                   : %empty {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+                            }
+                            | ARGUMENT {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+
+                              $$.push_back($1);
+                            }
+                            | ARGUMENTS "," ARGUMENT {
+                              std::vector<std::shared_ptr<Node::Expression>> arguments = $1;
+
+                              arguments.push_back($3);
+
+                              $$ = arguments;
+                            }
                             ;
 ARGUMENT                    : EXPRESSION
                             ;
-INDEX_EXPRESSION            : EXPRESSION "[" EXPRESSION "]"
-                            ;
-LITERAL_EXPRESSION          : BOOLEAN_EXPRESSION
-                            | FLOATING_POINT_EXPRESSION
-                            | INTEGER_EXPRESSION
-                            ;
-BOOLEAN_EXPRESSION          : "True"
-                            | "False"
-                            ;
-FLOATING_POINT_EXPRESSION   : LITERAL_FLOATING_POINT
-                            ;
-INTEGER_EXPRESSION          : LITERAL_INTEGER
-                            ;
-PATH_EXPRESSION             : IDENTIFIER 
+CLOSURE_EXPRESSION          :
                             ;
 RETURN_STATEMENT            : "return" ";" {
                               std::shared_ptr<Node::ReturnStatement> x(new Node::ReturnStatement());
@@ -222,33 +344,117 @@ BOOLEAN_TYPE                : "Boolean" {
                               $$ = x;
                             }
                             ;
-FLOATING_POINT_TYPE         : "32-bit" "Floating-point" 
-                            | "64-bit" "Floating-point" 
+FLOATING_POINT_TYPE         : "32-bit" "Floating-point" {
+                              std::shared_ptr<Node::FloatingPointType> x(new Node::FloatingPointType());
+
+                              $$ = x;
+                            }
+                            | "64-bit" "Floating-point" {
+                              std::shared_ptr<Node::FloatingPointType> x(new Node::FloatingPointType());
+
+                              $$ = x;
+                            }
                             ;
-FUNCTION_TYPE               : "(" PARAMETERS ")" "→" TYPE
+FUNCTION_TYPE               : "(" PARAMETERS ")" "→" TYPE {
+                              std::shared_ptr<Node::FunctionType> x(new Node::FunctionType());
+
+                              $$ = x;
+                            }
                             ;
-PARAMETERS                  : 
-                            | PARAMETER
-                            | PARAMETERS "," PARAMETER
+PARAMETERS                  : %empty {
+                              $$ = std::vector<std::shared_ptr<Node::Parameter>>();
+                            }
+                            | PARAMETER {
+                              $$ = std::vector<std::shared_ptr<Node::Parameter>>();
+
+                              $$.push_back($1);
+                            }
+                            | PARAMETERS "," PARAMETER {
+                              std::vector<std::shared_ptr<Node::Parameter>> parameters = $1;
+
+                              parameters.push_back($3);
+
+                              $$ = parameters;
+                            }
                             ;
-PARAMETER                   : TYPE
-                            | IDENTIFIER ":" TYPE
+PARAMETER                   : IDENTIFIER ":" TYPE {
+                              std::shared_ptr<Node::Parameter> x(new Node::Parameter($1, $3));
+
+                              $$ = x;
+                            }
                             ;
-INTEGER_TYPE                : "unsigned"  "8-bit" "Integer"
-                            | "unsigned" "16-bit" "Integer"
-                            | "unsigned" "32-bit" "Integer"
-                            | "unsigned" "64-bit" "Integer"
-                            |             "8-bit" "Integer"
-                            |            "16-bit" "Integer"
-                            |            "32-bit" "Integer"
-                            |            "64-bit" "Integer"
-                            | "unsigned" "Size"
-                            |            "Size" 
+INTEGER_TYPE                : "unsigned" "8-bit" "Integer" {
+                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
+
+                              $$ = x;
+                            }
+                            | "unsigned" "16-bit" "Integer" {
+                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
+
+                              $$ = x;
+                            }
+                            | "unsigned" "32-bit" "Integer" {
+                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
+
+                              $$ = x;
+                            }
+                            | "unsigned" "64-bit" "Integer" {
+                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
+
+                              $$ = x;
+                            }
+                            | "8-bit" "Integer" {
+                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
+
+                              $$ = x;
+                            }
+                            | "16-bit" "Integer" {
+                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
+
+                              $$ = x;
+                            }
+                            | "32-bit" "Integer" {
+                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
+
+                              $$ = x;
+                            }
+                            | "64-bit" "Integer" {
+                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
+
+                              $$ = x;
+                            }
+                            | "unsigned" "Size" {
+                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
+
+                              $$ = x;
+                            }
+                            | "Size" {
+                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
+
+                              $$ = x;
+                            }
                             ;
 REFERENCE_TYPE              : "reference" TYPE
                             | "shared" "reference" TYPE
                             ;
-SLICE_TYPE                  : "[" TYPE "]"
+SLICE_TYPE                  : "[" TYPE "]" {
+                              std::shared_ptr<Node::SliceType> x(new Node::SliceType($2));
+
+                              $$ = x;
+                            }
+                            ;
+BLOCK_STATEMENT             : "{" STATEMENTS "}" {
+                              std::shared_ptr<Node::BlockStatement> x(new Node::BlockStatement($2));
+
+                              $$ = x;
+                            }
+                            ;
+CONDITIONAL_STATEMENT       : "if" EXPRESSION BLOCK_STATEMENT {
+
+                            }
+                            | "if" EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT {
+
+                            }
                             ;
 
 %%
