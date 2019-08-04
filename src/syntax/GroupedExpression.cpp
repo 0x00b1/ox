@@ -1,7 +1,7 @@
 #include "GroupedExpression.h"
 
-Node::GroupedExpression::GroupedExpression(std::shared_ptr<Expression> expression) {
-  this->expression = std::move(expression);
+Node::GroupedExpression::GroupedExpression(std::shared_ptr<OperatorExpression> operator_expression) {
+  this->operator_expression = std::move(operator_expression);
 }
 
 void Node::GroupedExpression::accept(Visitor &visitor) {

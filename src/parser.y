@@ -103,6 +103,7 @@
 %type <std::shared_ptr<Node::ArrayExpression>> ARRAY_EXPRESSION;
 %type <std::vector<std::shared_ptr<Node::Expression>>> ARRAY_EXPRESSION_ELEMENTS;
 %type <std::shared_ptr<Node::ClosureExpression>> CLOSURE_EXPRESSION;
+%type <std::shared_ptr<Node::GroupedExpression>> GROUPED_EXPRESSION;
 %type <std::shared_ptr<Node::TupleExpression>> TUPLE_EXPRESSION;
 %type <std::vector<std::shared_ptr<Node::Expression>>> TUPLE_EXPRESSION_ELEMENTS;
 %type <std::shared_ptr<Node::CallExpression>> CALL_EXPRESSION;
@@ -216,35 +217,99 @@ LITERAL_EXPRESSION          : BOOLEAN_LITERAL
                             | FLOATING_POINT_LITERAL
                             | INTEGER_LITERAL
                             ;
-BOOLEAN_LITERAL             : "True"
-                            | "False"
+BOOLEAN_LITERAL             : "True" {
+                              std::shared_ptr<Node::BooleanLiteral> boolean_literal(new Node::BooleanLiteral(true));
+
+                              $$ = boolean_literal;
+                            }
+                            | "False" {
+                              std::shared_ptr<Node::BooleanLiteral> boolean_literal(new Node::BooleanLiteral(false));
+
+                              $$ = boolean_literal;
+                            }
                             ;
-FLOATING_POINT_LITERAL      : LITERAL_FLOATING_POINT
+FLOATING_POINT_LITERAL      : LITERAL_FLOATING_POINT {
+                              std::shared_ptr<Node::FloatingPointLiteral> floating_point_literal(new Node::FloatingPointLiteral($1));
+
+                              $$ = floating_point_literal;
+                            }
                             ;
-INTEGER_LITERAL             : LITERAL_INTEGER
+INTEGER_LITERAL             : LITERAL_INTEGER {
+                              std::shared_ptr<Node::IntegerLiteral> integer_literal(new Node::IntegerLiteral($1));
+
+                              $$ = integer_literal;
+                            }
                             ;
-ARRAY_EXPRESSION            : "[" ARRAY_EXPRESSION_ELEMENTS "]"
+ARRAY_EXPRESSION            : "[" ARRAY_EXPRESSION_ELEMENTS "]" {
+                              std::shared_ptr<Node::ArrayExpression> array_expression(new Node::ArrayExpression($2));
+
+                              $$ = array_expression;
+                            }
                             ;
-ARRAY_EXPRESSION_ELEMENTS   : ARRAY_EXPRESSION_ELEMENTS "," OPERATOR_EXPRESSION
-                            | OPERATOR_EXPRESSION
+ARRAY_EXPRESSION_ELEMENTS   : ARRAY_EXPRESSION_ELEMENTS "," OPERATOR_EXPRESSION {
+                              std::vector<std::shared_ptr<Node::Expression>> expressions = $1;
+
+                              expressions.push_back($3);
+
+                              $$ = expressions;
+                            }
+                            | OPERATOR_EXPRESSION {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+
+                              $$.push_back($1);
+                            }
                             ;
 CLOSURE_EXPRESSION          :
                             ;
-GROUPED_EXPRESSION          : "(" OPERATOR_EXPRESSION ")"
+GROUPED_EXPRESSION          : "(" OPERATOR_EXPRESSION ")" {
+                              std::shared_ptr<Node::GroupedExpression> grouped_expression(new Node::GroupedExpression($2));
+
+                              $$ = grouped_expression;
+                            }
                             ;
-TUPLE_EXPRESSION            : "(" TUPLE_EXPRESSION_ELEMENTS ")"
+TUPLE_EXPRESSION            : "(" TUPLE_EXPRESSION_ELEMENTS ")" {
+                              std::shared_ptr<Node::TupleExpression> tuple_expression(new Node::TupleExpression($2));
+
+                              $$ = tuple_expression;
+                            }
                             ;
-TUPLE_EXPRESSION_ELEMENTS   : TUPLE_EXPRESSION_ELEMENTS "," OPERATOR_EXPRESSION
-                            | OPERATOR_EXPRESSION
+TUPLE_EXPRESSION_ELEMENTS   : TUPLE_EXPRESSION_ELEMENTS "," OPERATOR_EXPRESSION {
+                              std::vector<std::shared_ptr<Node::Expression>> expressions = $1;
+
+                              expressions.push_back($3);
+
+                              $$ = expressions;
+                            }
+                            | OPERATOR_EXPRESSION {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+
+                              $$.push_back($1);
+                            }
                             ;
-CALL_EXPRESSION             : OPERATOR_EXPRESSION "(" CALL_EXPRESSION_ARGUMENTS ")"
+CALL_EXPRESSION             : OPERATOR_EXPRESSION "(" CALL_EXPRESSION_ARGUMENTS ")" {
+                              std::shared_ptr<Node::CallExpression> call_expression(new Node::CallExpression($1, $3));
+
+                              $$ = call_expression;
+                            }
                             ;
-CALL_EXPRESSION_ARGUMENTS   : CALL_EXPRESSION_ARGUMENTS "," CALL_EXPRESSION_ARGUMENT
-                            | CALL_EXPRESSION_ARGUMENT
+CALL_EXPRESSION_ARGUMENTS   : CALL_EXPRESSION_ARGUMENTS "," OPERATOR_EXPRESSION {
+                              std::vector<std::shared_ptr<Node::Expression>> expressions = $1;
+
+                              expressions.push_back($3);
+
+                              $$ = expressions;
+                            }
+                            | OPERATOR_EXPRESSION {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+
+                              $$.push_back($1);
+                            }
                             ;
-CALL_EXPRESSION_ARGUMENT    : OPERATOR_EXPRESSION
-                            ;
-INDEX_EXPRESSION            : OPERATOR_EXPRESSION "[" OPERATOR_EXPRESSION "]"
+INDEX_EXPRESSION            : OPERATOR_EXPRESSION "[" OPERATOR_EXPRESSION "]" {
+                              std::shared_ptr<Node::IndexExpression> index_expression(new Node::IndexExpression($1, $3));
+
+                              $$ = index_expression;
+                            }
                             ;
 INFIX_EXPRESSIONS           : INFIX_EXPRESSIONS INFIX_EXPRESSION {
                               std::vector<std::shared_ptr<Node::InfixExpression>> infix_expressions = $1;
@@ -265,9 +330,13 @@ INFIX_EXPRESSION            : OPERATOR PREFIX_EXPRESSION {
                               $$ = expression;
                             }
                             ;
-ASSIGNMENT_STATEMENT        : PATTERN ":" TYPE "←" OPERATOR_EXPRESSION ";"
+ASSIGNMENT_STATEMENT        : PATTERN ":" TYPE "←" OPERATOR_EXPRESSION ";" {
+
+                            }
                             ;
-ITEM_STATEMENT              : ITEM
+ITEM_STATEMENT              : ITEM {
+
+                            }
                             ;
 ITEM                        : MODULE_ITEM
                             | EXTERNAL_PACKAGE_ITEM
@@ -275,28 +344,56 @@ ITEM                        : MODULE_ITEM
                             | TYPE_ITEM
                             | SUBROUTINE_ITEM
                             ;
-MODULE_ITEM                 : "module" IDENTIFIER "{" ITEMS "}" ";"
-                            | "module" IDENTIFIER ";"
+MODULE_ITEM                 : "module" IDENTIFIER "{" ITEMS "}" ";" {
+
+                            }
+                            | "module" IDENTIFIER ";" {
+
+                            }
                             ;
-ITEMS                       : ITEMS ITEM
-                            | ITEM
+ITEMS                       : ITEMS ITEM {
+
+                            }
+                            | ITEM {
+
+                            }
                             ;
-EXTERNAL_PACKAGE_ITEM       : "external" "package" IDENTIFIER "as" IDENTIFIER ";"
-                            | "external" "package" IDENTIFIER ";"
+EXTERNAL_PACKAGE_ITEM       : "external" "package" IDENTIFIER "as" IDENTIFIER ";" {
+
+                            }
+                            | "external" "package" IDENTIFIER ";" {
+
+                            }
                             ;
-CONSTANT_ITEM               : "constant" IDENTIFIER ":" TYPE "←" OPERATOR_EXPRESSION ";"
+CONSTANT_ITEM               : "constant" IDENTIFIER ":" TYPE "←" OPERATOR_EXPRESSION ";" {
+
+                            }
                             ;
-TYPE_ITEM                   : "type" IDENTIFIER "←" TYPE ";"
+TYPE_ITEM                   : "type" IDENTIFIER "←" TYPE ";" {
+
+                            }
                             ;
-SUBROUTINE_ITEM             : "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT
+SUBROUTINE_ITEM             : "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT {
+
+                            }
                             ;
-CONDITIONAL_STATEMENT       : "if" OPERATOR_EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT ";"
-                            | "if" OPERATOR_EXPRESSION BLOCK_STATEMENT ";"
+CONDITIONAL_STATEMENT       : "if" OPERATOR_EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT ";" {
+
+                            }
+                            | "if" OPERATOR_EXPRESSION BLOCK_STATEMENT ";" {
+
+                            }
                             ;
-RETURN_STATEMENT            : "return" ";"
-                            | "return" OPERATOR_EXPRESSION ";"
+RETURN_STATEMENT            : "return" OPERATOR_EXPRESSION ";" {
+
+                            }
+                            | "return" ";" {
+
+                            }
                             ;
-BLOCK_STATEMENT             : "{" STATEMENTS "}"
+BLOCK_STATEMENT             : "{" STATEMENTS "}" {
+
+                            }
                             ;
 PATTERN                     : WILDCARD_PATTERN
                             | IDENTIFIER_PATTERN
@@ -305,64 +402,130 @@ PATTERN                     : WILDCARD_PATTERN
                             | REFERENCE_PATTERN
                             | SLICE_PATTERN
                             ;
-WILDCARD_PATTERN            : "_"
+WILDCARD_PATTERN            : "_" {
+
+                            }
                             ;
-IDENTIFIER_PATTERN          : IDENTIFIER
+IDENTIFIER_PATTERN          : IDENTIFIER {
+
+                            }
                             ;
-REFERENCE_PATTERN           : "reference" PATTERN
+REFERENCE_PATTERN           : "reference" PATTERN {
+
+                            }
                             ;
-TUPLE_PATTERN               : "(" TUPLE_PATTERN_ITEMS ")"
+TUPLE_PATTERN               : "(" TUPLE_PATTERN_ITEMS ")" {
+
+                            }
                             ;
-TUPLE_PATTERN_ITEMS         : TUPLE_PATTERN_ITEMS "," PATTERN
-                            | PATTERN
+TUPLE_PATTERN_ITEMS         : TUPLE_PATTERN_ITEMS "," PATTERN {
+
+                            }
+                            | PATTERN {
+
+                            }
                             ;
 LITERAL_PATTERN             :
                             ;
-SLICE_PATTERN               : "[" SLICE_PATTERN_ITEMS "]"
+SLICE_PATTERN               : "[" SLICE_PATTERN_ITEMS "]" {
+
+                            }
                             ;
-SLICE_PATTERN_ITEMS         : SLICE_PATTERN_ITEMS "," PATTERN
-                            | PATTERN
+SLICE_PATTERN_ITEMS         : SLICE_PATTERN_ITEMS "," PATTERN {
+
+                            }
+                            | PATTERN {
+
+                            }
                             ;
 TYPE                        : FUNCTION_TYPE
                             | ARRAY_TYPE
                             | BOOLEAN_TYPE
                             | FLOATING_POINT_TYPE
                             | INTEGER_TYPE
+                            | SIZE_TYPE
                             | REFERENCE_TYPE
                             | SLICE_TYPE
                             ;
-FUNCTION_TYPE               : "(" FUNCTION_TYPE_PARAMETERS ")" "→" TYPE
+FUNCTION_TYPE               : "(" FUNCTION_TYPE_PARAMETERS ")" "→" TYPE {
+
+                            }
                             ;
-FUNCTION_TYPE_PARAMETERS    : FUNCTION_TYPE_PARAMETERS "," FUNCTION_TYPE_PARAMETER
-                            | FUNCTION_TYPE_PARAMETER
-                            | %empty
+FUNCTION_TYPE_PARAMETERS    : FUNCTION_TYPE_PARAMETERS "," FUNCTION_TYPE_PARAMETER {
+
+                            }
+                            | FUNCTION_TYPE_PARAMETER {
+
+                            }
+                            | %empty {
+
+                            }
                             ;
-FUNCTION_TYPE_PARAMETER     : IDENTIFIER ":" TYPE
+FUNCTION_TYPE_PARAMETER     : IDENTIFIER ":" TYPE {
+
+                            }
                             ;
-ARRAY_TYPE                  : "[" TYPE "×" ANONYMOUS_CONSTANT "]"
+ARRAY_TYPE                  : "[" TYPE "×" ANONYMOUS_CONSTANT "]" {
+
+                            }
                             ;
-ANONYMOUS_CONSTANT          : OPERATOR_EXPRESSION
+ANONYMOUS_CONSTANT          : OPERATOR_EXPRESSION {
+
+                            }
                             ;
-BOOLEAN_TYPE                : "Boolean"
+BOOLEAN_TYPE                : "Boolean" {
+
+                            }
                             ;
-FLOATING_POINT_TYPE         : "32-bit" "Floating-point"
-                            | "64-bit" "Floating-point"
+FLOATING_POINT_TYPE         : "32-bit" "Floating-point" {
+
+                            }
+                            | "64-bit" "Floating-point" {
+
+                            }
                             ;
-INTEGER_TYPE                : "unsigned"  "8-bit" "Integer"
-                            |             "8-bit" "Integer"
-                            | "unsigned" "16-bit" "Integer"
-                            |            "16-bit" "Integer"
-                            | "unsigned" "32-bit" "Integer"
-                            |            "32-bit" "Integer"
-                            | "unsigned" "64-bit" "Integer"
-                            |            "64-bit" "Integer"
-                            | "unsigned"          "Size"
-                            |                     "Size"
+INTEGER_TYPE                : "unsigned"  "8-bit" "Integer" {
+
+                            }
+                            |             "8-bit" "Integer" {
+
+                            }
+                            | "unsigned" "16-bit" "Integer" {
+
+                            }
+                            |            "16-bit" "Integer" {
+
+                            }
+                            | "unsigned" "32-bit" "Integer" {
+
+                            }
+                            |            "32-bit" "Integer" {
+
+                            }
+                            | "unsigned" "64-bit" "Integer" {
+
+                            }
+                            |            "64-bit" "Integer" {
+
+                            }
                             ;
-REFERENCE_TYPE              : "reference" TYPE
-                            | "shared" "reference" TYPE
+SIZE_TYPE                   : "unsigned"          "Size" {
+
+                            }
+                            |                     "Size"  {
+
+                            }
                             ;
-SLICE_TYPE                  : "[" TYPE "]"
+REFERENCE_TYPE              : "reference" TYPE {
+
+                            }
+                            | "shared" "reference" TYPE {
+
+                            }
+                            ;
+SLICE_TYPE                  : "[" TYPE "]" {
+
+                            }
                             ;
 
 %%
