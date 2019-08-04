@@ -5,14 +5,20 @@
 #include <string>
 #include <utility>
 
+#include "Expression.h"
 #include "Item.h"
+#include "Type.h"
 #include "Visitor.h"
 
 class Node::ConstantItem: public Item, public std::enable_shared_from_this<ConstantItem> {
 public:
-  explicit ConstantItem(std::string value);
+  ConstantItem(std::string identifier, std::shared_ptr<Type> type, std::shared_ptr<Expression> expression);
 
-  std::string value;
+  std::string identifier;
+
+  std::shared_ptr<Type> type;
+
+  std::shared_ptr<Expression> expression;
 
   void accept(Visitor &visitor) override;
 };

@@ -6,11 +6,16 @@
 #include <utility>
 
 #include "Item.h"
+#include "Type.h"
 #include "Visitor.h"
 
 class Node::TypeItem: public Item, public std::enable_shared_from_this<TypeItem> {
 public:
-  TypeItem();
+  TypeItem(std::string identifier, std::shared_ptr<Type> type);
+
+  std::string identifier;
+
+  std::shared_ptr<Type> type;
 
   void accept(Visitor &visitor) override;
 };
