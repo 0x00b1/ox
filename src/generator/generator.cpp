@@ -19,6 +19,7 @@ void Generator::accept(std::shared_ptr<Node::FloatingPointLiteral> node) {}
 void Generator::accept(std::shared_ptr<Node::FloatingPointType> node) {}
 void Generator::accept(std::shared_ptr<Node::FunctionDeclaration> node) {}
 void Generator::accept(std::shared_ptr<Node::FunctionType> node) {}
+void Generator::accept(std::shared_ptr<Node::GroupedExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::Identifier> node) {}
 void Generator::accept(std::shared_ptr<Node::IndexExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::InfixExpression> node) {}

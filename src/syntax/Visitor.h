@@ -25,6 +25,7 @@ namespace Node {
   class FloatingPointType;
   class FunctionDeclaration;
   class FunctionType;
+  class GroupedExpression;
   class Identifier;
   class IndexExpression;
   class InfixExpression;
@@ -77,6 +78,7 @@ public:
   virtual void accept(std::shared_ptr<Node::FloatingPointType>) = 0;
   virtual void accept(std::shared_ptr<Node::FunctionDeclaration>) = 0;
   virtual void accept(std::shared_ptr<Node::FunctionType>) = 0;
+  virtual void accept(std::shared_ptr<Node::GroupedExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::Identifier>) = 0;
   virtual void accept(std::shared_ptr<Node::IndexExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::InfixExpression>) = 0;
