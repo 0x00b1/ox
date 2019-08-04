@@ -7,6 +7,7 @@
 
 class Generator: public Visitor {
 public:
+  void accept(std::shared_ptr<Node::SizeType> node) override;
   void accept(std::shared_ptr<Node::AnonymousConstant> node) override;
   void accept(std::shared_ptr<Node::Argument> node) override;
   void accept(std::shared_ptr<Node::ArrayExpression> node) override;

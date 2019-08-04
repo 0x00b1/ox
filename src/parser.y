@@ -85,7 +85,7 @@
   PUNCTUATION_LESS_THAN_SIGN            "<"
 ;
 
-%token <std::string> IDENTIFIER
+%token <std::string> IDENTIFIER;
 
 %type <std::vector<std::shared_ptr<Node::Node>>> UNIT;
 %type <std::vector<std::shared_ptr<Node::Statement>>> STATEMENTS;
@@ -114,6 +114,7 @@
 %type <std::shared_ptr<Node::AssignmentStatement>> ASSIGNMENT_STATEMENT;
 %type <std::shared_ptr<Node::ItemStatement>> ITEM_STATEMENT;
 %type <std::shared_ptr<Node::Item>> ITEM;
+%type <std::shared_ptr<Node::ModuleItem>> MODULE_ITEM;
 %type <std::vector<std::shared_ptr<Node::Item>>> ITEMS;
 %type <std::shared_ptr<Node::ConditionalStatement>> CONDITIONAL_STATEMENT;
 %type <std::shared_ptr<Node::ReturnStatement>> RETURN_STATEMENT;
@@ -130,6 +131,7 @@
 %type <std::shared_ptr<Node::BooleanType>> BOOLEAN_TYPE;
 %type <std::shared_ptr<Node::FloatingPointType>> FLOATING_POINT_TYPE;
 %type <std::shared_ptr<Node::IntegerType>> INTEGER_TYPE;
+%type <std::shared_ptr<Node::SizeType>> SIZE_TYPE;
 %type <std::shared_ptr<Node::ReferenceType>> REFERENCE_TYPE;
 %type <std::shared_ptr<Node::SliceType>> SLICE_TYPE;
 
@@ -332,7 +334,9 @@ INFIX_EXPRESSION                  : OPERATOR PREFIX_EXPRESSION {
                                   }
                                   ;
 ASSIGNMENT_STATEMENT              : PATTERN ":" TYPE "←" OPERATOR_EXPRESSION ";" {
+                                    std::shared_ptr<Node::AssignmentStatement> assignment_statement(new Node::AssignmentStatement($1, $3, $5));
 
+                                    $$ = assignment_statement;
                                   }
                                   ;
 ITEM_STATEMENT                    : ITEM {
@@ -348,10 +352,14 @@ ITEM                              : MODULE_ITEM
                                   | SUBROUTINE_ITEM
                                   ;
 MODULE_ITEM                       : "module" IDENTIFIER "{" ITEMS "}" ";" {
+                                    std::shared_ptr<Node::ModuleItem> module_item(new Node::ModuleItem($2, $4));
 
+                                    $$ = module_item;
                                   }
                                   | "module" IDENTIFIER ";" {
+                                    std::shared_ptr<Node::ModuleItem> module_item(new Node::ModuleItem($2));
 
+                                    $$ = module_item;
                                   }
                                   ;
 ITEMS                             : ITEMS ITEM {
@@ -557,10 +565,14 @@ INTEGER_TYPE                      : "unsigned"  "8-bit" "Integer" {
                                   }
                                   ;
 SIZE_TYPE                         : "unsigned"          "Size" {
+                                    std::shared_ptr<Node::SizeType> size_type(new Node::SizeType());
 
+                                    $$ = size_type;
                                   }
                                   |                     "Size"  {
+                                    std::shared_ptr<Node::SizeType> size_type(new Node::SizeType());
 
+                                    $$ = size_type;
                                   }
                                   ;
 REFERENCE_TYPE                    : "reference" TYPE {

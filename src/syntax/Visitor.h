@@ -47,6 +47,7 @@ namespace Node {
   class PrefixExpression;
   class ReferenceType;
   class ReturnStatement;
+  class SizeType;
   class SlicePattern;
   class SliceType;
   class SubroutineItem;
@@ -100,6 +101,7 @@ public:
   virtual void accept(std::shared_ptr<Node::PrefixExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::ReferenceType>) = 0;
   virtual void accept(std::shared_ptr<Node::ReturnStatement>) = 0;
+  virtual void accept(std::shared_ptr<Node::SizeType>) = 0;
   virtual void accept(std::shared_ptr<Node::SlicePattern>) = 0;
   virtual void accept(std::shared_ptr<Node::SliceType>) = 0;
   virtual void accept(std::shared_ptr<Node::SubroutineItem>) = 0;

@@ -10,9 +10,11 @@
 
 class Node::Identifier: public Node, public std::enable_shared_from_this<Identifier> {
 public:
-  Identifier();
+  explicit Identifier(std::string value);
 
   Position position;
+
+  std::string value;
 
   void accept(Visitor &visitor) override;
 };

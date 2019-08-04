@@ -41,6 +41,7 @@ void Generator::accept(std::shared_ptr<Node::PostfixExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::PrefixExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::ReferenceType> node) {}
 void Generator::accept(std::shared_ptr<Node::ReturnStatement> node) {}
+void Generator::accept(std::shared_ptr<Node::SizeType> node) {}
 void Generator::accept(std::shared_ptr<Node::SlicePattern> node) {}
 void Generator::accept(std::shared_ptr<Node::SliceType> node) {}
 void Generator::accept(std::shared_ptr<Node::SubroutineItem> node) {}

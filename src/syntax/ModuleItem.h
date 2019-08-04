@@ -4,13 +4,20 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "Item.h"
 #include "Visitor.h"
 
 class Node::ModuleItem: public Item, public std::enable_shared_from_this<ModuleItem> {
 public:
-  ModuleItem();
+  explicit ModuleItem(std::string identifier);
+
+  ModuleItem(std::string identifier, std::vector<std::shared_ptr<Item>> items);
+
+  std::string identifier;
+
+  std::vector<std::shared_ptr<Item>> items;
 
   void accept(Visitor &visitor) override;
 };
