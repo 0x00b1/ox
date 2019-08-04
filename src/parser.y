@@ -137,6 +137,7 @@
 %type <std::shared_ptr<Node::SizeType>> SIZE_TYPE;
 %type <std::shared_ptr<Node::ReferenceType>> REFERENCE_TYPE;
 %type <std::shared_ptr<Node::SliceType>> SLICE_TYPE;
+%type <std::vector<std::shared_ptr<Node::Pattern>>> TUPLE_PATTERN_ITEMS
 
 %printer {
     // FIXME:
@@ -434,9 +435,7 @@ BLOCK_STATEMENT                   : "{" STATEMENTS "}" {
                                   }
                                   ;
 PATTERN                           : WILDCARD_PATTERN
-                                  | IDENTIFIER_PATTERN
                                   | TUPLE_PATTERN
-                                  | LITERAL_PATTERN
                                   | REFERENCE_PATTERN
                                   | SLICE_PATTERN
                                   ;
@@ -446,16 +445,10 @@ WILDCARD_PATTERN                  : "_" {
                                     $$ = wildcard_pattern;
                                   }
                                   ;
-IDENTIFIER_PATTERN                : IDENTIFIER {
-
-                                  }
-                                  ;
-REFERENCE_PATTERN                 : "reference" PATTERN {
-
-                                  }
-                                  ;
 TUPLE_PATTERN                     : "(" TUPLE_PATTERN_ITEMS ")" {
+                                    std::shared_ptr<Node::TuplePattern> tuple_pattern(new Node::TuplePattern($2));
 
+                                    $$ = tuple_pattern;
                                   }
                                   ;
 TUPLE_PATTERN_ITEMS               : TUPLE_PATTERN_ITEMS "," PATTERN {
@@ -465,7 +458,9 @@ TUPLE_PATTERN_ITEMS               : TUPLE_PATTERN_ITEMS "," PATTERN {
 
                                   }
                                   ;
-LITERAL_PATTERN                   :
+REFERENCE_PATTERN                 : "reference" PATTERN {
+
+                                  }
                                   ;
 SLICE_PATTERN                     : "[" SLICE_PATTERN_ITEMS "]" {
 
