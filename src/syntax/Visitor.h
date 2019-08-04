@@ -27,7 +27,7 @@ namespace Node {
   class FunctionType;
   class Identifier;
   class IndexExpression;
-  class InfixOperatorExpression;
+  class InfixExpression;
   class IntegerLiteral;
   class IntegerType;
   class ItemStatement;
@@ -41,8 +41,8 @@ namespace Node {
   class PathPattern;
   class PathType;
   class PointerType;
-  class PostfixOperatorExpression;
-  class PrefixOperatorExpression;
+  class PostfixExpression;
+  class PrefixExpression;
   class ReferenceType;
   class ReturnStatement;
   class SlicePattern;
@@ -78,7 +78,7 @@ public:
   virtual void accept(std::shared_ptr<Node::FunctionType>) = 0;
   virtual void accept(std::shared_ptr<Node::Identifier>) = 0;
   virtual void accept(std::shared_ptr<Node::IndexExpression>) = 0;
-  virtual void accept(std::shared_ptr<Node::InfixOperatorExpression>) = 0;
+  virtual void accept(std::shared_ptr<Node::InfixExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::IntegerLiteral>) = 0;
   virtual void accept(std::shared_ptr<Node::IntegerType>) = 0;
   virtual void accept(std::shared_ptr<Node::ItemStatement>) = 0;
@@ -92,8 +92,8 @@ public:
   virtual void accept(std::shared_ptr<Node::PathPattern>) = 0;
   virtual void accept(std::shared_ptr<Node::PathType>) = 0;
   virtual void accept(std::shared_ptr<Node::PointerType>) = 0;
-  virtual void accept(std::shared_ptr<Node::PostfixOperatorExpression>) = 0;
-  virtual void accept(std::shared_ptr<Node::PrefixOperatorExpression>) = 0;
+  virtual void accept(std::shared_ptr<Node::PostfixExpression>) = 0;
+  virtual void accept(std::shared_ptr<Node::PrefixExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::ReferenceType>) = 0;
   virtual void accept(std::shared_ptr<Node::ReturnStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::SlicePattern>) = 0;

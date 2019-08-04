@@ -104,6 +104,7 @@ WHITESPACE      [ \t]
 "16-bit"          return yy::parser::make_KEYWORD_16_BIT(location);
 "32-bit"          return yy::parser::make_KEYWORD_32_BIT(location);
 "64-bit"          return yy::parser::make_KEYWORD_64_BIT(location);
+"as"              return yy::parser::make_KEYWORD_AS(location);
 "Boolean"         return yy::parser::make_KEYWORD_BOOLEAN(location);
 "constant"        return yy::parser::make_KEYWORD_CONSTANT(location);
 "else"            return yy::parser::make_KEYWORD_ELSE(location);

@@ -8,9 +8,9 @@
 #include "Expression.h"
 #include "Visitor.h"
 
-class Node::PrefixOperatorExpression: public Expression, public std::enable_shared_from_this<PrefixOperatorExpression> {
+class Node::PrefixExpression: public Expression, public std::enable_shared_from_this<PrefixExpression> {
 public:
-  PrefixOperatorExpression();
+  PrefixExpression();
 
   void accept(Visitor &visitor) override;
 };

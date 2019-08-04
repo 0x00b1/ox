@@ -8,9 +8,9 @@
 #include "Expression.h"
 #include "Visitor.h"
 
-class Node::InfixOperatorExpression: public Expression, public std::enable_shared_from_this<InfixOperatorExpression> {
+class Node::InfixExpression: public Expression, public std::enable_shared_from_this<InfixExpression> {
 public:
-  InfixOperatorExpression();
+  InfixExpression();
 
   void accept(Visitor &visitor) override;
 };

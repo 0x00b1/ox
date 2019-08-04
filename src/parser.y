@@ -42,6 +42,7 @@
   KEYWORD_16_BIT                        "16-bit"
   KEYWORD_32_BIT                        "32-bit"
   KEYWORD_64_BIT                        "64-bit"
+  KEYWORD_AS                            "as"
   KEYWORD_BOOLEAN                       "Boolean"
   KEYWORD_CONSTANT                      "constant"
   KEYWORD_ELSE                          "else"
@@ -78,37 +79,43 @@
 
 %token <std::string> IDENTIFIER
 
-%type <std::vector<std::shared_ptr<Node::Statement>>> STATEMENTS;
-%type <std::shared_ptr<Node::Statement>> STATEMENT;
+%type <std::shared_ptr<Node::AnonymousConstant>> ANONYMOUS_CONSTANT;
+%type <std::shared_ptr<Node::ArrayExpression>> ARRAY_EXPRESSION;
+%type <std::shared_ptr<Node::ArrayType>> ARRAY_TYPE;
 %type <std::shared_ptr<Node::AssignmentStatement>> ASSIGNMENT_STATEMENT;
 %type <std::shared_ptr<Node::BlockStatement>> BLOCK_STATEMENT;
-%type <std::shared_ptr<Node::ConditionalStatement>> CONDITIONAL_STATEMENT;
-%type <std::shared_ptr<Node::ExpressionStatement>> EXPRESSION_STATEMENT;
-%type <std::shared_ptr<Node::Expression>> EXPRESSION;
-%type <std::shared_ptr<Node::ArrayExpression>> ARRAY_EXPRESSION;
-%type <std::vector<std::shared_ptr<Node::Expression>>> ELEMENTS;
-%type <std::shared_ptr<Node::Expression>> ELEMENT;
-%type <std::shared_ptr<Node::CallExpression>> CALL_EXPRESSION;
-%type <std::vector<std::shared_ptr<Node::Expression>>> ARGUMENTS;
-%type <std::shared_ptr<Node::Expression>> ARGUMENT;
-%type <std::shared_ptr<Node::IndexExpression>> INDEX_EXPRESSION;
-%type <std::shared_ptr<Node::LiteralExpression>> LITERAL_EXPRESSION;
 %type <std::shared_ptr<Node::BooleanLiteral>> BOOLEAN_LITERAL;
-%type <std::shared_ptr<Node::FloatingPointLiteral>> FLOATING_POINT_LITERAL;
-%type <std::shared_ptr<Node::IntegerLiteral>> INTEGER_LITERAL;
-%type <std::shared_ptr<Node::PathExpression>> PATH_EXPRESSION;
-%type <std::shared_ptr<Node::ReturnStatement>> RETURN_STATEMENT;
-%type <std::shared_ptr<Node::Type>> TYPE;
-%type <std::shared_ptr<Node::ArrayType>> ARRAY_TYPE;
-%type <std::shared_ptr<Node::AnonymousConstant>> ANONYMOUS_CONSTANT;
 %type <std::shared_ptr<Node::BooleanType>> BOOLEAN_TYPE;
+%type <std::shared_ptr<Node::CallExpression>> CALL_EXPRESSION;
+%type <std::shared_ptr<Node::ConditionalStatement>> CONDITIONAL_STATEMENT;
+%type <std::shared_ptr<Node::Expression>> CALL_EXPRESSION_ARGUMENT;
+%type <std::shared_ptr<Node::Expression>> ARRAY_EXPRESSION_ELEMENT;
+%type <std::shared_ptr<Node::Expression>> TUPLE_EXPRESSION_ELEMENT;
+%type <std::shared_ptr<Node::Expression>> EXPRESSION;
+%type <std::shared_ptr<Node::ExpressionStatement>> EXPRESSION_STATEMENT;
+%type <std::shared_ptr<Node::FloatingPointLiteral>> FLOATING_POINT_LITERAL;
 %type <std::shared_ptr<Node::FloatingPointType>> FLOATING_POINT_TYPE;
 %type <std::shared_ptr<Node::FunctionType>> FUNCTION_TYPE;
-%type <std::vector<std::shared_ptr<Node::Parameter>>> PARAMETERS;
-%type <std::shared_ptr<Node::Parameter>> PARAMETER;
+%type <std::shared_ptr<Node::IndexExpression>> INDEX_EXPRESSION;
+%type <std::shared_ptr<Node::InfixExpression>> INFIX_EXPRESSION;
+%type <std::shared_ptr<Node::IntegerLiteral>> INTEGER_LITERAL;
 %type <std::shared_ptr<Node::IntegerType>> INTEGER_TYPE;
+%type <std::shared_ptr<Node::LiteralExpression>> LITERAL_EXPRESSION;
+%type <std::shared_ptr<Node::Parameter>> PARAMETER;
+%type <std::shared_ptr<Node::PathExpression>> PATH_EXPRESSION;
+%type <std::shared_ptr<Node::PostfixExpression>> POSTFIX_EXPRESSION;
+%type <std::shared_ptr<Node::PrefixExpression>> PREFIX_EXPRESSION;
+%type <std::shared_ptr<Node::TupleExpression>> TUPLE_EXPRESSION;
 %type <std::shared_ptr<Node::ReferenceType>> REFERENCE_TYPE;
+%type <std::shared_ptr<Node::ReturnStatement>> RETURN_STATEMENT;
 %type <std::shared_ptr<Node::SliceType>> SLICE_TYPE;
+%type <std::shared_ptr<Node::Statement>> STATEMENT;
+%type <std::shared_ptr<Node::Type>> TYPE;
+%type <std::vector<std::shared_ptr<Node::Expression>>> CALL_EXPRESSION_ARGUMENTS;
+%type <std::vector<std::shared_ptr<Node::Expression>>> ARRAY_EXPRESSION_ELEMENTS;
+%type <std::vector<std::shared_ptr<Node::Expression>>> TUPLE_EXPRESSION_ELEMENTS;
+%type <std::vector<std::shared_ptr<Node::Parameter>>> PARAMETERS;
+%type <std::vector<std::shared_ptr<Node::Statement>>> STATEMENTS;
 
 %printer {
     // FIXME:
@@ -120,44 +127,194 @@
 
 %start UNIT;
 
-OPERATOR                    : "×"
-                            ;
+
 UNIT                        : STATEMENTS
                             ;
 STATEMENTS                  : STATEMENT
                             | STATEMENTS STATEMENT
                             ;
-STATEMENT                   : ITEM_STATEMENT
+STATEMENT                   : EXPRESSION_STATEMENT
                             | ASSIGNMENT_STATEMENT
-                            | EXPRESSION_STATEMENT
+                            | ITEM_STATEMENT
+                            | CONDITIONAL_STATEMENT
                             | RETURN_STATEMENT
                             | BLOCK_STATEMENT
-                            | CONDITIONAL_STATEMENT
+                            ;
+EXPRESSION_STATEMENT        : EXPRESSION ";" {
+                              std::shared_ptr<Node::ExpressionStatement> x(new Node::ExpressionStatement($1));
+
+                              $$ = x;
+                            }
+                            ;
+EXPRESSION                  : PREFIX_EXPRESSION INFIX_EXPRESSIONS
+                            | PREFIX_EXPRESSION
+                            ;
+PREFIX_EXPRESSION           : OPERATOR POSTFIX_EXPRESSION
+                            | POSTFIX_EXPRESSION
+                            ;
+OPERATOR                    : "×"
+                            ;
+POSTFIX_EXPRESSION          : PATH_EXPRESSION
+                            | LITERAL_EXPRESSION
+                            | ARRAY_EXPRESSION
+                            | CLOSURE_EXPRESSION
+                            | GROUPED_EXPRESSION
+                            | TUPLE_EXPRESSION
+                            | POSTFIX_EXPRESSION OPERATOR
+                            | CALL_EXPRESSION
+                            | INDEX_EXPRESSION
+                            ;
+PATH_EXPRESSION             : IDENTIFIER 
+                            ;
+LITERAL_EXPRESSION          : BOOLEAN_LITERAL
+                            | FLOATING_POINT_LITERAL
+                            | INTEGER_LITERAL
+                            ;
+BOOLEAN_LITERAL             : "True" {
+                              std::shared_ptr<Node::BooleanLiteral> x(new Node::BooleanLiteral(true));
+
+                              $$ = x;
+                            }
+                            | "False" {
+                              std::shared_ptr<Node::BooleanLiteral> x(new Node::BooleanLiteral(false));
+
+                              $$ = x;
+                            }
+                            ;
+FLOATING_POINT_LITERAL      : LITERAL_FLOATING_POINT {
+                              std::shared_ptr<Node::FloatingPointLiteral> x(new Node::FloatingPointLiteral($1));
+
+                              $$ = x;
+                            }
+                            ;
+INTEGER_LITERAL             : LITERAL_INTEGER {
+                              std::shared_ptr<Node::IntegerLiteral> x(new Node::IntegerLiteral($1));
+
+                              $$ = x;
+                            }
+                            ;
+ARRAY_EXPRESSION            : "[" ARRAY_EXPRESSION_ELEMENTS "]" {
+                              std::shared_ptr<Node::ArrayExpression> x(new Node::ArrayExpression($2));
+
+                              $$ = x;
+                            }
+                            ;
+ARRAY_EXPRESSION_ELEMENTS   : ARRAY_EXPRESSION_ELEMENT {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+
+                              $$.push_back($1);
+                            }
+                            | ARRAY_EXPRESSION_ELEMENTS "," ARRAY_EXPRESSION_ELEMENT {
+                              std::vector<std::shared_ptr<Node::Expression>> elements = $1;
+
+                              elements.push_back($3);
+
+                              $$ = elements;
+                            }
+                            ;
+ARRAY_EXPRESSION_ELEMENT    : EXPRESSION
+                            ;
+CLOSURE_EXPRESSION          :
+                            ;
+GROUPED_EXPRESSION          : "(" EXPRESSION ")"
+                            ;
+TUPLE_EXPRESSION            : "(" TUPLE_EXPRESSION_ELEMENTS ")" {
+                              std::shared_ptr<Node::TupleExpression> x(new Node::TupleExpression($2));
+
+                              $$ = x;
+                            }
+                            ;
+TUPLE_EXPRESSION_ELEMENTS   : %empty {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+                            }
+                            | ARRAY_EXPRESSION_ELEMENT {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+
+                              $$.push_back($1);
+                            }
+                            | ARRAY_EXPRESSION_ELEMENTS "," ARRAY_EXPRESSION_ELEMENT {
+                              std::vector<std::shared_ptr<Node::Expression>> elements = $1;
+
+                              elements.push_back($3);
+
+                              $$ = elements;
+                            }
+                            ;
+TUPLE_EXPRESSION_ELEMENT    : EXPRESSION
+                            ;
+CALL_EXPRESSION             : EXPRESSION "(" CALL_EXPRESSION_ARGUMENTS ")" {
+                              std::shared_ptr<Node::CallExpression> x(new Node::CallExpression($1, $3));
+
+                              $$ = x;
+                            }
+                            ;
+CALL_EXPRESSION_ARGUMENTS   : %empty {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+                            }
+                            | CALL_EXPRESSION_ARGUMENT {
+                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
+
+                              $$.push_back($1);
+                            }
+                            | CALL_EXPRESSION_ARGUMENTS "," CALL_EXPRESSION_ARGUMENT {
+                              std::vector<std::shared_ptr<Node::Expression>> arguments = $1;
+
+                              arguments.push_back($3);
+
+                              $$ = arguments;
+                            }
+                            ;
+CALL_EXPRESSION_ARGUMENT    : EXPRESSION
+                            ;
+INDEX_EXPRESSION            : EXPRESSION "[" EXPRESSION "]" {
+                              std::shared_ptr<Node::IndexExpression> x(new Node::IndexExpression($1, $3));
+
+                              $$ = x;
+                            }
+                            ;
+INFIX_EXPRESSIONS           : INFIX_EXPRESSION
+                            | INFIX_EXPRESSIONS INFIX_EXPRESSION
+                            ;
+INFIX_EXPRESSION            : OPERATOR PREFIX_EXPRESSION
+                            ;
+ASSIGNMENT_STATEMENT        : PATTERN ":" TYPE "←" EXPRESSION
                             ;
 ITEM_STATEMENT              : ITEM
                             ;
 ITEM                        : MODULE_ITEM
                             | EXTERNAL_PACKAGE_ITEM
-                            | SUBROUTINE_ITEM
-                            | TYPE_ITEM
                             | CONSTANT_ITEM
+                            | TYPE_ITEM
+                            | SUBROUTINE_ITEM
                             ;
-MODULE_ITEM                 : "module" IDENTIFIER ";"
-                            | "module" IDENTIFIER "{" ITEMS "}" ";"
+MODULE_ITEM                 : "module" IDENTIFIER "{" ITEMS "}" ";"
+                            | "module" IDENTIFIER ";"
                             ;
-ITEMS                       : ITEM
-                            | ITEMS ITEM
+ITEMS                       : ITEMS ITEM
+                            | ITEM
                             ;
-EXTERNAL_PACKAGE_ITEM       : "external" "package" IDENTIFIER ";"
-                            | "external" "package" IDENTIFIER "as" IDENTIFIER ";"
-                            ;
-SUBROUTINE_ITEM             : "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT
-                            ;
-TYPE_ITEM                   : "type" IDENTIFIER "←" TYPE ";"
+EXTERNAL_PACKAGE_ITEM       : "external" "package" IDENTIFIER "as" IDENTIFIER ";"
+                            | "external" "package" IDENTIFIER ";"
                             ;
 CONSTANT_ITEM               : "constant" IDENTIFIER ":" TYPE "←" EXPRESSION ";"
                             ;
-ASSIGNMENT_STATEMENT        : PATTERN ":" TYPE "←" EXPRESSION
+TYPE_ITEM                   : "type" IDENTIFIER "←" TYPE ";"
+                            ;
+SUBROUTINE_ITEM             : "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT
+                            ;
+CONDITIONAL_STATEMENT       : "if" EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT ";"
+                            | "if" EXPRESSION BLOCK_STATEMENT ";"
+                            ;
+RETURN_STATEMENT            : "return" ";" {
+                              std::shared_ptr<Node::ReturnStatement> x(new Node::ReturnStatement());
+
+                              $$ = x;
+                            }
+                            | "return" EXPRESSION ";" {
+                              std::shared_ptr<Node::ReturnStatement> x(new Node::ReturnStatement($2));
+
+                              $$ = x;                              
+                            }
                             ;
 PATTERN                     : LITERAL_PATTERN
                             | IDENTIFIER_PATTERN
@@ -188,140 +345,10 @@ SLICE_PATTERN_ITEMS         : PATTERN
                             ;
 PATH_PATTERN                : 
                             ;
-EXPRESSION_STATEMENT        : EXPRESSION ";" {
-                              std::shared_ptr<Node::ExpressionStatement> x(new Node::ExpressionStatement($1));
-
-                              $$ = x;
-                            }
-                            ;
-PREFIX_EXPRESSION           :
-                            ;
-BINARY_EXPRESSIONS          : BINARY_EXPRESSIONS BINARY_EXPRESSION
-                            ;
-BINARY_EXPRESSION           :
-                            ;
-PREFIX_OPERATOR_EXPRESSION  : POSTFIX_OPERATOR_EXPRESSION
-                            | OPERATOR POSTFIX_OPERATOR_EXPRESSION
-                            ;
-INFIX_OPERATOR_EXPRESSION   : OPERATOR PREFIX_OPERATOR_EXPRESSION
-                            ;
-POSTFIX_OPERATOR_EXPRESSION : POSTFIX_OPERATOR_EXPRESSION OPERATOR
-                            | CALL_EXPRESSION
-                            | INDEX_EXPRESSION
-                            ;
-EXPRESSION                  : LITERAL_EXPRESSION
-                            | PATH_EXPRESSION
-                            | GROUPED_EXPRESSION
-                            | ARRAY_EXPRESSION
-                            | INDEX_EXPRESSION
-                            | TUPLE_EXPRESSION
-                            | CALL_EXPRESSION
-                            | CLOSURE_EXPRESSION
-                            ;
-LITERAL_EXPRESSION          : BOOLEAN_LITERAL
-                            | FLOATING_POINT_LITERAL
-                            | INTEGER_LITERAL
-                            ;
-BOOLEAN_LITERAL             : "True" {
-                              std::shared_ptr<Node::BooleanLiteral> x(new Node::BooleanLiteral(true));
-
-                              $$ = x;
-                            }
-                            | "False" {
-                              std::shared_ptr<Node::BooleanLiteral> x(new Node::BooleanLiteral(false));
-
-                              $$ = x;
-                            }
-                            ;
-FLOATING_POINT_LITERAL      : LITERAL_FLOATING_POINT {
-                              std::shared_ptr<Node::FloatingPointLiteral> x(new Node::FloatingPointLiteral($1));
-
-                              $$ = x;
-                            }
-                            ;
-INTEGER_LITERAL             : LITERAL_INTEGER {
-                              std::shared_ptr<Node::IntegerLiteral> x(new Node::IntegerLiteral($1));
-
-                              $$ = x;
-                            }
-                            ;
-PATH_EXPRESSION             : IDENTIFIER 
-                            ;
-GROUPED_EXPRESSION          : "(" EXPRESSION ")"
-                            ;
-ARRAY_EXPRESSION            : "[" ELEMENTS "]" {
-                              std::shared_ptr<Node::ArrayExpression> x(new Node::ArrayExpression($2));
-
-                              $$ = x;
-                            }
-                            ;
-ELEMENTS                    : %empty {
-                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
-                            }
-                            | ELEMENT {
-                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
-
-                              $$.push_back($1);
-                            }
-                            | ELEMENTS "," ELEMENT {
-                              std::vector<std::shared_ptr<Node::Expression>> elements = $1;
-
-                              elements.push_back($3);
-
-                              $$ = elements;
-                            }
-                            ;
-ELEMENT                     : EXPRESSION
-                            ;
-INDEX_EXPRESSION            : EXPRESSION "[" EXPRESSION "]" {
-                              std::shared_ptr<Node::IndexExpression> x(new Node::IndexExpression($1, $3));
-
-                              $$ = x;
-                            }
-                            ;
-TUPLE_EXPRESSION            :
-                            ;
-CALL_EXPRESSION             : EXPRESSION "(" ARGUMENTS ")" {
-                              std::shared_ptr<Node::CallExpression> x(new Node::CallExpression($1, $3));
-
-                              $$ = x;
-                            }
-                            ;
-ARGUMENTS                   : %empty {
-                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
-                            }
-                            | ARGUMENT {
-                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
-
-                              $$.push_back($1);
-                            }
-                            | ARGUMENTS "," ARGUMENT {
-                              std::vector<std::shared_ptr<Node::Expression>> arguments = $1;
-
-                              arguments.push_back($3);
-
-                              $$ = arguments;
-                            }
-                            ;
-ARGUMENT                    : EXPRESSION
-                            ;
-CLOSURE_EXPRESSION          :
-                            ;
-RETURN_STATEMENT            : "return" ";" {
-                              std::shared_ptr<Node::ReturnStatement> x(new Node::ReturnStatement());
-
-                              $$ = x;
-                            }
-                            | "return" EXPRESSION ";" {
-                              std::shared_ptr<Node::ReturnStatement> x(new Node::ReturnStatement($2));
-
-                              $$ = x;                              
-                            }
-                            ;
-TYPE                        : ARRAY_TYPE
+TYPE                        : FUNCTION_TYPE
+                            | ARRAY_TYPE
                             | BOOLEAN_TYPE
                             | FLOATING_POINT_TYPE
-                            | FUNCTION_TYPE
                             | INTEGER_TYPE
                             | REFERENCE_TYPE
                             | SLICE_TYPE
@@ -447,13 +474,6 @@ BLOCK_STATEMENT             : "{" STATEMENTS "}" {
                               std::shared_ptr<Node::BlockStatement> x(new Node::BlockStatement($2));
 
                               $$ = x;
-                            }
-                            ;
-CONDITIONAL_STATEMENT       : "if" EXPRESSION BLOCK_STATEMENT {
-
-                            }
-                            | "if" EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT {
-
                             }
                             ;
 

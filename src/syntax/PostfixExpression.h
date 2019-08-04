@@ -8,9 +8,9 @@
 #include "Expression.h"
 #include "Visitor.h"
 
-class Node::PostfixOperatorExpression: public Expression, public std::enable_shared_from_this<PostfixOperatorExpression> {
+class Node::PostfixExpression: public Expression, public std::enable_shared_from_this<PostfixExpression> {
 public:
-  PostfixOperatorExpression();
+  PostfixExpression();
 
   void accept(Visitor &visitor) override;
 };
