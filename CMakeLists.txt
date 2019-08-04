@@ -43,7 +43,7 @@ add_executable(
     src/syntax/ArrayType.cpp
     src/syntax/AssignmentStatement.cpp
     src/syntax/BlockStatement.cpp
-    src/syntax/BooleanLiteral.cpp
+        src/syntax/BooleanLiteralExpression.cpp
     src/syntax/BooleanType.cpp
     src/syntax/BottomType.cpp
     src/syntax/CallExpression.cpp
@@ -53,13 +53,13 @@ add_executable(
     src/syntax/Expression.cpp
     src/syntax/ExpressionStatement.cpp
     src/syntax/ExternalPackageItem.cpp
-    src/syntax/FloatingPointLiteral.cpp
+        src/syntax/FloatingPointLiteralExpression.cpp
     src/syntax/FloatingPointType.cpp
     src/syntax/FunctionDeclaration.cpp
     src/syntax/FunctionType.cpp
     src/syntax/Identifier.cpp
     src/syntax/IndexExpression.cpp
-    src/syntax/IntegerLiteral.cpp
+        src/syntax/IntegerLiteralExpression.cpp
     src/syntax/IntegerType.cpp
     src/syntax/Item.cpp
     src/syntax/ItemStatement.cpp

@@ -13,7 +13,7 @@ public:
   void accept(std::shared_ptr<Node::ArrayType> node) override;
   void accept(std::shared_ptr<Node::AssignmentStatement> node) override;
   void accept(std::shared_ptr<Node::BlockStatement> node) override;
-  void accept(std::shared_ptr<Node::BooleanLiteral> node) override;
+  void accept(std::shared_ptr<Node::BooleanLiteralExpression> node) override;
   void accept(std::shared_ptr<Node::BooleanType> node) override;
   void accept(std::shared_ptr<Node::BottomType> node) override;
   void accept(std::shared_ptr<Node::CallExpression> node) override;
@@ -22,7 +22,7 @@ public:
   void accept(std::shared_ptr<Node::ConstantItem> node) override;
   void accept(std::shared_ptr<Node::ExpressionStatement> node) override;
   void accept(std::shared_ptr<Node::ExternalPackageItem> node) override;
-  void accept(std::shared_ptr<Node::FloatingPointLiteral> node) override;
+  void accept(std::shared_ptr<Node::FloatingPointLiteralExpression> node) override;
   void accept(std::shared_ptr<Node::FloatingPointType> node) override;
   void accept(std::shared_ptr<Node::FunctionDeclaration> node) override;
   void accept(std::shared_ptr<Node::FunctionType> node) override;
@@ -30,7 +30,7 @@ public:
   void accept(std::shared_ptr<Node::Identifier> node) override;
   void accept(std::shared_ptr<Node::IndexExpression> node) override;
   void accept(std::shared_ptr<Node::InfixExpression> node) override;
-  void accept(std::shared_ptr<Node::IntegerLiteral> node) override;
+  void accept(std::shared_ptr<Node::IntegerLiteralExpression> node) override;
   void accept(std::shared_ptr<Node::IntegerType> node) override;
   void accept(std::shared_ptr<Node::ItemStatement> node) override;
   void accept(std::shared_ptr<Node::Literal> node) override;

@@ -12,7 +12,7 @@ namespace Node {
   class ArrayType;
   class AssignmentStatement;
   class BlockStatement;
-  class BooleanLiteral;
+  class BooleanLiteralExpression;
   class BooleanType;
   class BottomType;
   class CallExpression;
@@ -21,7 +21,7 @@ namespace Node {
   class ConstantItem;
   class ExpressionStatement;
   class ExternalPackageItem;
-  class FloatingPointLiteral;
+  class FloatingPointLiteralExpression;
   class FloatingPointType;
   class FunctionDeclaration;
   class FunctionType;
@@ -29,7 +29,7 @@ namespace Node {
   class Identifier;
   class IndexExpression;
   class InfixExpression;
-  class IntegerLiteral;
+  class IntegerLiteralExpression;
   class IntegerType;
   class ItemStatement;
   class Literal;
@@ -65,7 +65,7 @@ public:
   virtual void accept(std::shared_ptr<Node::ArrayType>) = 0;
   virtual void accept(std::shared_ptr<Node::AssignmentStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::BlockStatement>) = 0;
-  virtual void accept(std::shared_ptr<Node::BooleanLiteral>) = 0;
+  virtual void accept(std::shared_ptr<Node::BooleanLiteralExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::BooleanType>) = 0;
   virtual void accept(std::shared_ptr<Node::BottomType>) = 0;
   virtual void accept(std::shared_ptr<Node::CallExpression>) = 0;
@@ -74,7 +74,7 @@ public:
   virtual void accept(std::shared_ptr<Node::ConstantItem>) = 0;
   virtual void accept(std::shared_ptr<Node::ExpressionStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::ExternalPackageItem>) = 0;
-  virtual void accept(std::shared_ptr<Node::FloatingPointLiteral>) = 0;
+  virtual void accept(std::shared_ptr<Node::FloatingPointLiteralExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::FloatingPointType>) = 0;
   virtual void accept(std::shared_ptr<Node::FunctionDeclaration>) = 0;
   virtual void accept(std::shared_ptr<Node::FunctionType>) = 0;
@@ -82,7 +82,7 @@ public:
   virtual void accept(std::shared_ptr<Node::Identifier>) = 0;
   virtual void accept(std::shared_ptr<Node::IndexExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::InfixExpression>) = 0;
-  virtual void accept(std::shared_ptr<Node::IntegerLiteral>) = 0;
+  virtual void accept(std::shared_ptr<Node::IntegerLiteralExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::IntegerType>) = 0;
   virtual void accept(std::shared_ptr<Node::ItemStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::Literal>) = 0;

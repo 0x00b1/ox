@@ -6,7 +6,7 @@ void Generator::accept(std::shared_ptr<Node::ArrayExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::ArrayType> node) {}
 void Generator::accept(std::shared_ptr<Node::AssignmentStatement> node) {}
 void Generator::accept(std::shared_ptr<Node::BlockStatement> node) {}
-void Generator::accept(std::shared_ptr<Node::BooleanLiteral> node) {}
+void Generator::accept(std::shared_ptr<Node::BooleanLiteralExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::BooleanType> node) {}
 void Generator::accept(std::shared_ptr<Node::BottomType> node) {}
 void Generator::accept(std::shared_ptr<Node::CallExpression> node) {}
@@ -15,7 +15,7 @@ void Generator::accept(std::shared_ptr<Node::ConditionalStatement> node) {}
 void Generator::accept(std::shared_ptr<Node::ConstantItem> node) {}
 void Generator::accept(std::shared_ptr<Node::ExpressionStatement> node) {}
 void Generator::accept(std::shared_ptr<Node::ExternalPackageItem> node) {}
-void Generator::accept(std::shared_ptr<Node::FloatingPointLiteral> node) {}
+void Generator::accept(std::shared_ptr<Node::FloatingPointLiteralExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::FloatingPointType> node) {}
 void Generator::accept(std::shared_ptr<Node::FunctionDeclaration> node) {}
 void Generator::accept(std::shared_ptr<Node::FunctionType> node) {}
@@ -23,7 +23,7 @@ void Generator::accept(std::shared_ptr<Node::GroupedExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::Identifier> node) {}
 void Generator::accept(std::shared_ptr<Node::IndexExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::InfixExpression> node) {}
-void Generator::accept(std::shared_ptr<Node::IntegerLiteral> node) {}
+void Generator::accept(std::shared_ptr<Node::IntegerLiteralExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::IntegerType> node) {}
 void Generator::accept(std::shared_ptr<Node::ItemStatement> node) {}
 void Generator::accept(std::shared_ptr<Node::Literal> node) {}

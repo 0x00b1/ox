@@ -7,9 +7,9 @@
 
 #include "Visitor.h"
 
-class Node::IntegerLiteral: public Node, public std::enable_shared_from_this<IntegerLiteral> {
+class Node::IntegerLiteralExpression: public Node, public std::enable_shared_from_this<IntegerLiteralExpression> {
 public:
-  explicit IntegerLiteral(std::string value);
+  explicit IntegerLiteralExpression(std::string value);
 
   std::string value;
 

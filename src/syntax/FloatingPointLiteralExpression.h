@@ -7,9 +7,9 @@
 
 #include "Visitor.h"
 
-class Node::FloatingPointLiteral: public Node, public std::enable_shared_from_this<FloatingPointLiteral> {
+class Node::FloatingPointLiteralExpression: public Node, public std::enable_shared_from_this<FloatingPointLiteralExpression> {
 public:
-  explicit FloatingPointLiteral(std::string value);
+  explicit FloatingPointLiteralExpression(std::string value);
 
   std::string value;
 

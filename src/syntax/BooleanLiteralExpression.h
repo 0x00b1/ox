@@ -7,9 +7,9 @@
 
 #include "Visitor.h"
 
-class Node::BooleanLiteral: public Node, public std::enable_shared_from_this<BooleanLiteral> {
+class Node::BooleanLiteralExpression: public Node, public std::enable_shared_from_this<BooleanLiteralExpression> {
 public:
-  explicit BooleanLiteral(bool value);
+  explicit BooleanLiteralExpression(bool value);
 
   bool value;
 
