@@ -50,6 +50,7 @@
   KEYWORD_FLOATING_POINT                "Floating-point"
   KEYWORD_IF                            "if"
   KEYWORD_INTEGER                       "Integer"
+  KEYWORD_IS                            "is"
   KEYWORD_REFERENCE                     "reference"
   KEYWORD_RETURN                        "return"
   KEYWORD_SHARED                        "shared"
@@ -65,57 +66,69 @@
 %token
   PUNCTUATION_COLON                     ":"
   PUNCTUATION_COMMA                     ","
+  PUNCTUATION_DIVISION_SIGN             "÷"
   PUNCTUATION_LEFT_CURLY_BRACKET        "{"
   PUNCTUATION_LEFT_PARENTHESIS          "("
   PUNCTUATION_LEFT_SQUARE_BRACKET       "["
   PUNCTUATION_LEFTWARDS_ARROW           "←"
+  PUNCTUATION_MINUS_SIGN                "−"
   PUNCTUATION_MULTIPLICATION_SIGN       "×"
+  PUNCTUATION_PLUS_SIGN                 "+"
   PUNCTUATION_RIGHT_CURLY_BRACKET       "}"
   PUNCTUATION_RIGHT_PARENTHESIS         ")"
   PUNCTUATION_RIGHT_SQUARE_BRACKET      "]"
   PUNCTUATION_RIGHTWARDS_ARROW          "→"
   PUNCTUATION_SEMICOLON                 ";"
+  PUNCTUATION_GREATER_THAN_OR_EQUAL_TO  "≥"
+  PUNCTUATION_LESS_THAN_OR_EQUAL_TO     "≤"
+  PUNCTUATION_GREATER_THAN_SIGN         ">"
+  PUNCTUATION_LESS_THAN_SIGN            "<"
 ;
 
 %token <std::string> IDENTIFIER
 
-%type <std::shared_ptr<Node::AnonymousConstant>> ANONYMOUS_CONSTANT;
-%type <std::shared_ptr<Node::ArrayExpression>> ARRAY_EXPRESSION;
-%type <std::shared_ptr<Node::ArrayType>> ARRAY_TYPE;
-%type <std::shared_ptr<Node::AssignmentStatement>> ASSIGNMENT_STATEMENT;
-%type <std::shared_ptr<Node::BlockStatement>> BLOCK_STATEMENT;
-%type <std::shared_ptr<Node::BooleanLiteral>> BOOLEAN_LITERAL;
-%type <std::shared_ptr<Node::BooleanType>> BOOLEAN_TYPE;
-%type <std::shared_ptr<Node::CallExpression>> CALL_EXPRESSION;
-%type <std::shared_ptr<Node::ConditionalStatement>> CONDITIONAL_STATEMENT;
-%type <std::shared_ptr<Node::Expression>> CALL_EXPRESSION_ARGUMENT;
-%type <std::shared_ptr<Node::Expression>> ARRAY_EXPRESSION_ELEMENT;
-%type <std::shared_ptr<Node::Expression>> TUPLE_EXPRESSION_ELEMENT;
-%type <std::shared_ptr<Node::Expression>> EXPRESSION;
-%type <std::shared_ptr<Node::ExpressionStatement>> EXPRESSION_STATEMENT;
-%type <std::shared_ptr<Node::FloatingPointLiteral>> FLOATING_POINT_LITERAL;
-%type <std::shared_ptr<Node::FloatingPointType>> FLOATING_POINT_TYPE;
-%type <std::shared_ptr<Node::FunctionType>> FUNCTION_TYPE;
-%type <std::shared_ptr<Node::IndexExpression>> INDEX_EXPRESSION;
-%type <std::shared_ptr<Node::InfixExpression>> INFIX_EXPRESSION;
-%type <std::shared_ptr<Node::IntegerLiteral>> INTEGER_LITERAL;
-%type <std::shared_ptr<Node::IntegerType>> INTEGER_TYPE;
-%type <std::shared_ptr<Node::LiteralExpression>> LITERAL_EXPRESSION;
-%type <std::shared_ptr<Node::Parameter>> PARAMETER;
-%type <std::shared_ptr<Node::PathExpression>> PATH_EXPRESSION;
-%type <std::shared_ptr<Node::PostfixExpression>> POSTFIX_EXPRESSION;
-%type <std::shared_ptr<Node::PrefixExpression>> PREFIX_EXPRESSION;
-%type <std::shared_ptr<Node::TupleExpression>> TUPLE_EXPRESSION;
-%type <std::shared_ptr<Node::ReferenceType>> REFERENCE_TYPE;
-%type <std::shared_ptr<Node::ReturnStatement>> RETURN_STATEMENT;
-%type <std::shared_ptr<Node::SliceType>> SLICE_TYPE;
-%type <std::shared_ptr<Node::Statement>> STATEMENT;
-%type <std::shared_ptr<Node::Type>> TYPE;
-%type <std::vector<std::shared_ptr<Node::Expression>>> CALL_EXPRESSION_ARGUMENTS;
-%type <std::vector<std::shared_ptr<Node::Expression>>> ARRAY_EXPRESSION_ELEMENTS;
-%type <std::vector<std::shared_ptr<Node::Expression>>> TUPLE_EXPRESSION_ELEMENTS;
-%type <std::vector<std::shared_ptr<Node::Parameter>>> PARAMETERS;
+%type <std::vector<std::shared_ptr<Node::Node>>> UNIT;
 %type <std::vector<std::shared_ptr<Node::Statement>>> STATEMENTS;
+%type <std::shared_ptr<Node::Statement>> STATEMENT;
+%type <std::shared_ptr<Node::ExpressionStatement>> EXPRESSION_STATEMENT;
+%type <std::shared_ptr<Node::PrefixExpression>> PREFIX_EXPRESSION;
+%type <std::string> OPERATOR;
+%type <std::shared_ptr<Node::PostfixExpression>> POSTFIX_EXPRESSION;
+%type <std::shared_ptr<Node::PathExpression>> PATH_EXPRESSION;
+%type <std::shared_ptr<Node::LiteralExpression>> LITERAL_EXPRESSION;
+%type <std::shared_ptr<Node::BooleanLiteral>> BOOLEAN_LITERAL;
+%type <std::shared_ptr<Node::FloatingPointLiteral>> FLOATING_POINT_LITERAL;
+%type <std::shared_ptr<Node::IntegerLiteral>> INTEGER_LITERAL;
+%type <std::shared_ptr<Node::ArrayExpression>> ARRAY_EXPRESSION;
+%type <std::vector<std::shared_ptr<Node::Expression>>> ARRAY_EXPRESSION_ELEMENTS;
+%type <std::shared_ptr<Node::ClosureExpression>> CLOSURE_EXPRESSION;
+%type <std::shared_ptr<Node::TupleExpression>> TUPLE_EXPRESSION;
+%type <std::vector<std::shared_ptr<Node::Expression>>> TUPLE_EXPRESSION_ELEMENTS;
+%type <std::shared_ptr<Node::CallExpression>> CALL_EXPRESSION;
+%type <std::vector<std::shared_ptr<Node::Expression>>> CALL_EXPRESSION_ARGUMENTS;
+%type <std::shared_ptr<Node::Expression>> CALL_EXPRESSION_ARGUMENT;
+%type <std::shared_ptr<Node::IndexExpression>> INDEX_EXPRESSION;
+%type <std::vector<std::shared_ptr<Node::InfixExpression>>> INFIX_EXPRESSIONS;
+%type <std::shared_ptr<Node::InfixExpression>> INFIX_EXPRESSION;
+%type <std::shared_ptr<Node::AssignmentStatement>> ASSIGNMENT_STATEMENT;
+%type <std::shared_ptr<Node::ItemStatement>> ITEM_STATEMENT;
+%type <std::shared_ptr<Node::ConditionalStatement>> CONDITIONAL_STATEMENT;
+%type <std::shared_ptr<Node::ReturnStatement>> RETURN_STATEMENT;
+%type <std::shared_ptr<Node::BlockStatement>> BLOCK_STATEMENT;
+%type <std::shared_ptr<Node::Pattern>> PATTERN;
+%type <std::shared_ptr<Node::WildcardPattern>> WILDCARD_PATTERN;
+%type <std::shared_ptr<Node::TuplePattern>> TUPLE_PATTERN;
+%type <std::shared_ptr<Node::Type>> TYPE;
+%type <std::shared_ptr<Node::FunctionType>> FUNCTION_TYPE;
+%type <std::vector<std::shared_ptr<Node::Parameter>>> FUNCTION_TYPE_PARAMETERS;
+%type <std::shared_ptr<Node::Parameter>> FUNCTION_TYPE_PARAMETER;
+%type <std::shared_ptr<Node::ArrayType>> ARRAY_TYPE;
+%type <std::shared_ptr<Node::AnonymousConstant>> ANONYMOUS_CONSTANT;
+%type <std::shared_ptr<Node::BooleanType>> BOOLEAN_TYPE;
+%type <std::shared_ptr<Node::FloatingPointType>> FLOATING_POINT_TYPE;
+%type <std::shared_ptr<Node::IntegerType>> INTEGER_TYPE;
+%type <std::shared_ptr<Node::ReferenceType>> REFERENCE_TYPE;
+%type <std::shared_ptr<Node::SliceType>> SLICE_TYPE;
 
 %printer {
     // FIXME:
@@ -127,11 +140,20 @@
 
 %start UNIT;
 
-
 UNIT                        : STATEMENTS
                             ;
-STATEMENTS                  : STATEMENT
-                            | STATEMENTS STATEMENT
+STATEMENTS                  : STATEMENTS STATEMENT {
+                              std::vector<std::shared_ptr<Node::Statement>> statements = $1;
+
+                              statements.push_back($2);
+
+                              $$ = statements;
+                            }
+                            | STATEMENT {
+                              $$ = std::vector<std::shared_ptr<Node::Statement>>();
+
+                              $$.push_back($1);
+                            }
                             ;
 STATEMENT                   : EXPRESSION_STATEMENT
                             | ASSIGNMENT_STATEMENT
@@ -141,18 +163,53 @@ STATEMENT                   : EXPRESSION_STATEMENT
                             | BLOCK_STATEMENT
                             ;
 EXPRESSION_STATEMENT        : EXPRESSION ";" {
-                              std::shared_ptr<Node::ExpressionStatement> x(new Node::ExpressionStatement($1));
+                              std::shared_ptr<Node::ExpressionStatement> expression(new Node::ExpressionStatement($1));
 
-                              $$ = x;
+                              $$ = expression;
                             }
                             ;
-EXPRESSION                  : PREFIX_EXPRESSION INFIX_EXPRESSIONS
-                            | PREFIX_EXPRESSION
+EXPRESSION                  : PREFIX_EXPRESSION INFIX_EXPRESSIONS {
+
+                            }
+                            | PREFIX_EXPRESSION {
+
+                            }
                             ;
-PREFIX_EXPRESSION           : OPERATOR POSTFIX_EXPRESSION
-                            | POSTFIX_EXPRESSION
+PREFIX_EXPRESSION           : OPERATOR POSTFIX_EXPRESSION {
+                              std::shared_ptr<Node::PrefixExpression> expression(new Node::PrefixExpression($1, $2));
+
+                              $$ = expression;
+                            }
+                            | POSTFIX_EXPRESSION {
+                              std::shared_ptr<Node::PrefixExpression> expression(new Node::PrefixExpression($1));
+
+                              $$ = expression;
+                            }
                             ;
-OPERATOR                    : "×"
+OPERATOR                    : "+" { 
+                              $$ = Operator.PUNCTUATION_PLUS_SIGN; 
+                            }
+                            | "÷" { 
+                              $$ = Operator.PUNCTUATION_DIVISION_SIGN; 
+                            }
+                            | "×" { 
+                              $$ = Operator.PUNCTUATION_MULTIPLICATION_SIGN; 
+                            }
+                            | "<" { 
+                              $$ = Operator.PUNCTUATION_LESS_THAN_SIGN; 
+                            }
+                            | ">" { 
+                              $$ = Operator.PUNCTUATION_GREATER_THAN_SIGN; 
+                            }
+                            | "−" { 
+                              $$ = Operator.PUNCTUATION_MINUS_SIGN; 
+                            }
+                            | "≤" { 
+                              $$ = Operator.PUNCTUATION_LESS_THAN_OR_EQUAL_TO; 
+                            }
+                            | "≥" { 
+                              $$ = Operator.PUNCTUATION_GREATER_THAN_OR_EQUAL_TO; 
+                            }
                             ;
 POSTFIX_EXPRESSION          : PATH_EXPRESSION
                             | LITERAL_EXPRESSION
@@ -170,112 +227,44 @@ LITERAL_EXPRESSION          : BOOLEAN_LITERAL
                             | FLOATING_POINT_LITERAL
                             | INTEGER_LITERAL
                             ;
-BOOLEAN_LITERAL             : "True" {
-                              std::shared_ptr<Node::BooleanLiteral> x(new Node::BooleanLiteral(true));
-
-                              $$ = x;
-                            }
-                            | "False" {
-                              std::shared_ptr<Node::BooleanLiteral> x(new Node::BooleanLiteral(false));
-
-                              $$ = x;
-                            }
+BOOLEAN_LITERAL             : "True"
+                            | "False"
                             ;
-FLOATING_POINT_LITERAL      : LITERAL_FLOATING_POINT {
-                              std::shared_ptr<Node::FloatingPointLiteral> x(new Node::FloatingPointLiteral($1));
-
-                              $$ = x;
-                            }
+FLOATING_POINT_LITERAL      : LITERAL_FLOATING_POINT
                             ;
-INTEGER_LITERAL             : LITERAL_INTEGER {
-                              std::shared_ptr<Node::IntegerLiteral> x(new Node::IntegerLiteral($1));
-
-                              $$ = x;
-                            }
+INTEGER_LITERAL             : LITERAL_INTEGER
                             ;
-ARRAY_EXPRESSION            : "[" ARRAY_EXPRESSION_ELEMENTS "]" {
-                              std::shared_ptr<Node::ArrayExpression> x(new Node::ArrayExpression($2));
-
-                              $$ = x;
-                            }
+ARRAY_EXPRESSION            : "[" ARRAY_EXPRESSION_ELEMENTS "]"
                             ;
-ARRAY_EXPRESSION_ELEMENTS   : ARRAY_EXPRESSION_ELEMENT {
-                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
-
-                              $$.push_back($1);
-                            }
-                            | ARRAY_EXPRESSION_ELEMENTS "," ARRAY_EXPRESSION_ELEMENT {
-                              std::vector<std::shared_ptr<Node::Expression>> elements = $1;
-
-                              elements.push_back($3);
-
-                              $$ = elements;
-                            }
-                            ;
-ARRAY_EXPRESSION_ELEMENT    : EXPRESSION
+ARRAY_EXPRESSION_ELEMENTS   : ARRAY_EXPRESSION_ELEMENTS "," EXPRESSION 
+                            | EXPRESSION 
                             ;
 CLOSURE_EXPRESSION          :
                             ;
 GROUPED_EXPRESSION          : "(" EXPRESSION ")"
                             ;
-TUPLE_EXPRESSION            : "(" TUPLE_EXPRESSION_ELEMENTS ")" {
-                              std::shared_ptr<Node::TupleExpression> x(new Node::TupleExpression($2));
-
-                              $$ = x;
-                            }
+TUPLE_EXPRESSION            : "(" TUPLE_EXPRESSION_ELEMENTS ")"
                             ;
-TUPLE_EXPRESSION_ELEMENTS   : %empty {
-                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
-                            }
-                            | ARRAY_EXPRESSION_ELEMENT {
-                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
-
-                              $$.push_back($1);
-                            }
-                            | ARRAY_EXPRESSION_ELEMENTS "," ARRAY_EXPRESSION_ELEMENT {
-                              std::vector<std::shared_ptr<Node::Expression>> elements = $1;
-
-                              elements.push_back($3);
-
-                              $$ = elements;
-                            }
+TUPLE_EXPRESSION_ELEMENTS   : TUPLE_EXPRESSION_ELEMENTS "," EXPRESSION
+                            | EXPRESSION
                             ;
-TUPLE_EXPRESSION_ELEMENT    : EXPRESSION
+CALL_EXPRESSION             : EXPRESSION "(" CALL_EXPRESSION_ARGUMENTS ")"
                             ;
-CALL_EXPRESSION             : EXPRESSION "(" CALL_EXPRESSION_ARGUMENTS ")" {
-                              std::shared_ptr<Node::CallExpression> x(new Node::CallExpression($1, $3));
-
-                              $$ = x;
-                            }
-                            ;
-CALL_EXPRESSION_ARGUMENTS   : %empty {
-                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
-                            }
-                            | CALL_EXPRESSION_ARGUMENT {
-                              $$ = std::vector<std::shared_ptr<Node::Expression>>();
-
-                              $$.push_back($1);
-                            }
-                            | CALL_EXPRESSION_ARGUMENTS "," CALL_EXPRESSION_ARGUMENT {
-                              std::vector<std::shared_ptr<Node::Expression>> arguments = $1;
-
-                              arguments.push_back($3);
-
-                              $$ = arguments;
-                            }
+CALL_EXPRESSION_ARGUMENTS   : CALL_EXPRESSION_ARGUMENTS "," CALL_EXPRESSION_ARGUMENT
+                            | CALL_EXPRESSION_ARGUMENT
                             ;
 CALL_EXPRESSION_ARGUMENT    : EXPRESSION
                             ;
-INDEX_EXPRESSION            : EXPRESSION "[" EXPRESSION "]" {
-                              std::shared_ptr<Node::IndexExpression> x(new Node::IndexExpression($1, $3));
+INDEX_EXPRESSION            : EXPRESSION "[" EXPRESSION "]"
+                            ;
+INFIX_EXPRESSIONS           : INFIX_EXPRESSIONS INFIX_EXPRESSION
+                            | INFIX_EXPRESSION
+                            ;
+INFIX_EXPRESSION            : OPERATOR PREFIX_EXPRESSION {
+                              std::shared_ptr<Node::InfixExpression> expression(new Node::InfixExpression($1, $2));
 
-                              $$ = x;
+                              $$ = expression;
                             }
-                            ;
-INFIX_EXPRESSIONS           : INFIX_EXPRESSION
-                            | INFIX_EXPRESSIONS INFIX_EXPRESSION
-                            ;
-INFIX_EXPRESSION            : OPERATOR PREFIX_EXPRESSION
                             ;
 ASSIGNMENT_STATEMENT        : PATTERN ":" TYPE "←" EXPRESSION
                             ;
@@ -305,45 +294,35 @@ SUBROUTINE_ITEM             : "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEM
 CONDITIONAL_STATEMENT       : "if" EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT ";"
                             | "if" EXPRESSION BLOCK_STATEMENT ";"
                             ;
-RETURN_STATEMENT            : "return" ";" {
-                              std::shared_ptr<Node::ReturnStatement> x(new Node::ReturnStatement());
-
-                              $$ = x;
-                            }
-                            | "return" EXPRESSION ";" {
-                              std::shared_ptr<Node::ReturnStatement> x(new Node::ReturnStatement($2));
-
-                              $$ = x;                              
-                            }
+RETURN_STATEMENT            : "return" ";"
+                            | "return" EXPRESSION ";"
                             ;
-PATTERN                     : LITERAL_PATTERN
+BLOCK_STATEMENT             : "{" STATEMENTS "}"
+                            ;
+PATTERN                     : WILDCARD_PATTERN
                             | IDENTIFIER_PATTERN
-                            | WILDCARD_PATTERN
-                            | REFERENCE_PATTERN
                             | TUPLE_PATTERN
+                            | LITERAL_PATTERN
+                            | REFERENCE_PATTERN
                             | SLICE_PATTERN
-                            | PATH_PATTERN
-                            ;
-LITERAL_PATTERN             :
-                            ;
-IDENTIFIER_PATTERN          : IDENTIFIER
                             ;
 WILDCARD_PATTERN            : "_"
+                            ;
+IDENTIFIER_PATTERN          : IDENTIFIER
                             ;
 REFERENCE_PATTERN           : "reference" PATTERN
                             ;
 TUPLE_PATTERN               : "(" TUPLE_PATTERN_ITEMS ")"
                             ;
-TUPLE_PATTERN_ITEMS         : %empty
+TUPLE_PATTERN_ITEMS         : TUPLE_PATTERN_ITEMS "," PATTERN
                             | PATTERN
-                            | TUPLE_PATTERN_ITEMS "," PATTERN
+                            ;
+LITERAL_PATTERN             :
                             ;
 SLICE_PATTERN               : "[" SLICE_PATTERN_ITEMS "]"
                             ;
-SLICE_PATTERN_ITEMS         : PATTERN
-                            | SLICE_PATTERN_ITEMS "," PATTERN
-                            ;
-PATH_PATTERN                : 
+SLICE_PATTERN_ITEMS         : SLICE_PATTERN_ITEMS "," PATTERN
+                            | PATTERN
                             ;
 TYPE                        : FUNCTION_TYPE
                             | ARRAY_TYPE
@@ -353,128 +332,38 @@ TYPE                        : FUNCTION_TYPE
                             | REFERENCE_TYPE
                             | SLICE_TYPE
                             ;
-ARRAY_TYPE                  : "[" TYPE "×" ANONYMOUS_CONSTANT "]" {
-                              std::shared_ptr<Node::ArrayType> x(new Node::ArrayType($2));
-
-                              $$ = x;
-                            }
+FUNCTION_TYPE               : "(" FUNCTION_TYPE_PARAMETERS ")" "→" TYPE
                             ;
-ANONYMOUS_CONSTANT          : EXPRESSION {
-                              std::shared_ptr<Node::AnonymousConstant> x(new Node::AnonymousConstant($1));
-
-                              $$ = x;
-                            }
+FUNCTION_TYPE_PARAMETERS    : FUNCTION_TYPE_PARAMETERS "," FUNCTION_TYPE_PARAMETER
+                            | FUNCTION_TYPE_PARAMETER
+                            | %empty
                             ;
-BOOLEAN_TYPE                : "Boolean" {
-                              std::shared_ptr<Node::BooleanType> x(new Node::BooleanType());
-
-                              $$ = x;
-                            }
+FUNCTION_TYPE_PARAMETER     : IDENTIFIER ":" TYPE
                             ;
-FLOATING_POINT_TYPE         : "32-bit" "Floating-point" {
-                              std::shared_ptr<Node::FloatingPointType> x(new Node::FloatingPointType());
-
-                              $$ = x;
-                            }
-                            | "64-bit" "Floating-point" {
-                              std::shared_ptr<Node::FloatingPointType> x(new Node::FloatingPointType());
-
-                              $$ = x;
-                            }
+ARRAY_TYPE                  : "[" TYPE "×" ANONYMOUS_CONSTANT "]"
                             ;
-FUNCTION_TYPE               : "(" PARAMETERS ")" "→" TYPE {
-                              std::shared_ptr<Node::FunctionType> x(new Node::FunctionType());
-
-                              $$ = x;
-                            }
+ANONYMOUS_CONSTANT          : EXPRESSION
                             ;
-PARAMETERS                  : %empty {
-                              $$ = std::vector<std::shared_ptr<Node::Parameter>>();
-                            }
-                            | PARAMETER {
-                              $$ = std::vector<std::shared_ptr<Node::Parameter>>();
-
-                              $$.push_back($1);
-                            }
-                            | PARAMETERS "," PARAMETER {
-                              std::vector<std::shared_ptr<Node::Parameter>> parameters = $1;
-
-                              parameters.push_back($3);
-
-                              $$ = parameters;
-                            }
+BOOLEAN_TYPE                : "Boolean"
                             ;
-PARAMETER                   : IDENTIFIER ":" TYPE {
-                              std::shared_ptr<Node::Parameter> x(new Node::Parameter($1, $3));
-
-                              $$ = x;
-                            }
+FLOATING_POINT_TYPE         : "32-bit" "Floating-point"
+                            | "64-bit" "Floating-point"
                             ;
-INTEGER_TYPE                : "unsigned" "8-bit" "Integer" {
-                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
-
-                              $$ = x;
-                            }
-                            | "unsigned" "16-bit" "Integer" {
-                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
-
-                              $$ = x;
-                            }
-                            | "unsigned" "32-bit" "Integer" {
-                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
-
-                              $$ = x;
-                            }
-                            | "unsigned" "64-bit" "Integer" {
-                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
-
-                              $$ = x;
-                            }
-                            | "8-bit" "Integer" {
-                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
-
-                              $$ = x;
-                            }
-                            | "16-bit" "Integer" {
-                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
-
-                              $$ = x;
-                            }
-                            | "32-bit" "Integer" {
-                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
-
-                              $$ = x;
-                            }
-                            | "64-bit" "Integer" {
-                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
-
-                              $$ = x;
-                            }
-                            | "unsigned" "Size" {
-                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
-
-                              $$ = x;
-                            }
-                            | "Size" {
-                              std::shared_ptr<Node::IntegerType> x(new Node::IntegerType());
-
-                              $$ = x;
-                            }
+INTEGER_TYPE                : "unsigned"  "8-bit" "Integer"
+                            |             "8-bit" "Integer"
+                            | "unsigned" "16-bit" "Integer"
+                            |            "16-bit" "Integer"
+                            | "unsigned" "32-bit" "Integer"
+                            |            "32-bit" "Integer"
+                            | "unsigned" "64-bit" "Integer"
+                            |            "64-bit" "Integer"
+                            | "unsigned"          "Size"
+                            |                     "Size"
                             ;
 REFERENCE_TYPE              : "reference" TYPE
                             | "shared" "reference" TYPE
                             ;
-SLICE_TYPE                  : "[" TYPE "]" {
-                              std::shared_ptr<Node::SliceType> x(new Node::SliceType($2));
-
-                              $$ = x;
-                            }
-                            ;
-BLOCK_STATEMENT             : "{" STATEMENTS "}" {
-                              std::shared_ptr<Node::BlockStatement> x(new Node::BlockStatement($2));
-
-                              $$ = x;
-                            }
+SLICE_TYPE                  : "[" TYPE "]"
                             ;
 
 %%

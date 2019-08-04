@@ -112,6 +112,7 @@ WHITESPACE      [ \t]
 "Floating-point"  return yy::parser::make_KEYWORD_FLOATING_POINT(location);
 "if"              return yy::parser::make_KEYWORD_IF(location);
 "Integer"         return yy::parser::make_KEYWORD_INTEGER(location);
+"is"              return yy::parser::make_KEYWORD_IS(location);
 "reference"       return yy::parser::make_KEYWORD_REFERENCE(location);
 "return"          return yy::parser::make_KEYWORD_RETURN(location);
 "shared"          return yy::parser::make_KEYWORD_SHARED(location);
@@ -134,7 +135,14 @@ WHITESPACE      [ \t]
 "}"               return yy::parser::make_PUNCTUATION_RIGHT_CURLY_BRACKET(location);
 "←"               return yy::parser::make_PUNCTUATION_LEFTWARDS_ARROW(location);
 "→"               return yy::parser::make_PUNCTUATION_RIGHTWARDS_ARROW(location);
+"+"               return yy::parser::make_PUNCTUATION_PLUS_SIGN(location);
+"÷"               return yy::parser::make_PUNCTUATION_DIVISION_SIGN(location);
 "×"               return yy::parser::make_PUNCTUATION_MULTIPLICATION_SIGN(location);
+"<"               return yy::parser::make_PUNCTUATION_LESS_THAN_SIGN(location);
+">"               return yy::parser::make_PUNCTUATION_GREATER_THAN_SIGN(location);
+"−"               return yy::parser::make_PUNCTUATION_MINUS_SIGN(location);
+"≤"               return yy::parser::make_PUNCTUATION_LESS_THAN_OR_EQUAL_TO(location);
+"s"               return yy::parser::make_PUNCTUATION_GREATER_THAN_OR_EQUAL_TO(location);
 
 {IDENTIFIER}      return yy::parser::make_IDENTIFIER(yytext, location);
 

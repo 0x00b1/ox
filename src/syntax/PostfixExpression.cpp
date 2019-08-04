@@ -1,6 +1,8 @@
 #include "PostfixExpression.h"
 
-Node::PostfixExpression::PostfixExpression() = default;
+Node::PostfixExpression::PostfixExpression(std::shared_ptr<Expression> expression) {
+  this->expression = std::move(expression);
+}
 
 void Node::PostfixExpression::accept(Visitor &visitor) {
   std::shared_ptr<PostfixExpression> p{shared_from_this()};

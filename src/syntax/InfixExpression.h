@@ -6,11 +6,16 @@
 #include <utility>
 
 #include "Expression.h"
+#include "PrefixExpression.h"
 #include "Visitor.h"
 
 class Node::InfixExpression: public Expression, public std::enable_shared_from_this<InfixExpression> {
 public:
-  InfixExpression();
+  InfixExpression(Operator operation, std::shared_ptr<PrefixExpression> expression);
+
+  std::shared_ptr<PrefixExpression> expression;
+
+  Operator operation;
 
   void accept(Visitor &visitor) override;
 };

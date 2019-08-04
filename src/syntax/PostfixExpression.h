@@ -10,7 +10,9 @@
 
 class Node::PostfixExpression: public Expression, public std::enable_shared_from_this<PostfixExpression> {
 public:
-  PostfixExpression();
+  explicit PostfixExpression(std::shared_ptr<Expression> expression);
+
+  std::shared_ptr<Expression> expression;
 
   void accept(Visitor &visitor) override;
 };
