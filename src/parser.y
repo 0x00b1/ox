@@ -390,7 +390,7 @@ EXTERNAL_PACKAGE_ITEM             : "external" "package" IDENTIFIER "as" IDENTIF
                                   }
                                   ;
 CONSTANT_ITEM                     : "constant" IDENTIFIER ":" TYPE "←" OPERATOR_EXPRESSION ";" {
-                                    std::shared_ptr<Node::ConstantItem> constant_item(new Node::ConstantItem($2, $4. $6));
+                                    std::shared_ptr<Node::ConstantItem> constant_item(new Node::ConstantItem($2, $4, $6));
 
                                     $$ = constant_item;
                                   }
