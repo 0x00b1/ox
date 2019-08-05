@@ -1,7 +1,7 @@
 #ifndef OXC_PATTERN_H
 #define OXC_PATTERN_H
 
-#include "Node.hh"
+#include "Node.h"
 
 namespace Node {
   class Pattern: public Node {

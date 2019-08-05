@@ -50,4 +50,5 @@ void Generator::accept(std::shared_ptr<Node::TupleExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::TuplePattern> node) {}
 void Generator::accept(std::shared_ptr<Node::TupleType> node) {}
 void Generator::accept(std::shared_ptr<Node::TypeItem> node) {}
+void Generator::accept(std::shared_ptr<Node::Unit> node) {}
 void Generator::accept(std::shared_ptr<Node::WildcardPattern> node) {}

@@ -59,6 +59,8 @@
         "system_error": "cpp",
         "tuple": "cpp",
         "utility": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "array": "cpp",
+        "variant": "cpp"
     }
 }

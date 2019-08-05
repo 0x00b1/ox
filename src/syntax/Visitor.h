@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "Node.hh"
+#include "Node.h"
 
 namespace Node {
   class AnonymousConstant;
@@ -56,6 +56,7 @@ namespace Node {
   class TuplePattern;
   class TupleType;
   class TypeItem;
+  class Unit;
   class WildcardPattern;
 }
 
@@ -111,6 +112,7 @@ public:
   virtual void accept(std::shared_ptr<Node::TuplePattern>) = 0;
   virtual void accept(std::shared_ptr<Node::TupleType>) = 0;
   virtual void accept(std::shared_ptr<Node::TypeItem>) = 0;
+  virtual void accept(std::shared_ptr<Node::Unit>) = 0;
   virtual void accept(std::shared_ptr<Node::WildcardPattern>) = 0;
 };
 

@@ -87,7 +87,7 @@
 
 %token <std::string> IDENTIFIER;
 
-%type <std::vector<std::shared_ptr<Node::Node>>> UNIT;
+%type <std::shared_ptr<Node::Unit>> UNIT;
 %type <std::vector<std::shared_ptr<Node::Statement>>> STATEMENTS;
 %type <std::shared_ptr<Node::Statement>> STATEMENT;
 %type <std::shared_ptr<Node::ExpressionStatement>> EXPRESSION_STATEMENT;
@@ -150,7 +150,11 @@
 
 %start UNIT;
 
-UNIT                              : STATEMENTS
+UNIT                              : STATEMENTS {
+                                    std::shared_ptr<Node::Unit> unit(new Node::Unit($1));
+
+                                    compiler.unit = unit;
+                                  }
                                   ;
 STATEMENTS                        : STATEMENTS STATEMENT {
                                     std::vector<std::shared_ptr<Node::Statement>> statements = $1;

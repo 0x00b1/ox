@@ -1,7 +1,7 @@
 #ifndef OXC_TYPE_H
 #define OXC_TYPE_H
 
-#include "Node.hh"
+#include "Node.h"
 
 namespace Node {
   class Type: public Node {

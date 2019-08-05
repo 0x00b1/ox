@@ -18,6 +18,10 @@ public:
 
     std::map<std::string, int> variables;
 
+    std::vector<std::shared_ptr<Node::Statement>> nodes;
+
+    std::shared_ptr<Node::Unit> unit;
+
     int result;
 
     // Run the parser on file F. Return 0 on success.

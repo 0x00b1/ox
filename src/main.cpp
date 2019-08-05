@@ -5,26 +5,21 @@
 #include "compiler/compiler.h"
 
 int main(int argc, const char * argv[]) {
-    int code = 0;
-
     Compiler compiler;
 
-    for (int i = 1; i < argc; ++i) {
-        if (argv[i] == std::string ("-p")) {
+    for (int index = 1; index < argc; ++index) {
+        if (argv[index] == std::string ("-p")) {
             compiler.trace_parsing = true;
-        } else if (argv[i] == std::string("-s")) {
+        } else if (argv[index] == std::string("-s")) {
             compiler.trace_scanning = true;
-        } else if (!compiler.parse(argv[i])) {
-            std::cout << compiler.result << '\n';
+        } else if (!compiler.parse(argv[index])) {
+
         } else {
-            code = 1;
+
         }
     }
 
-    /*
-     * Example compiler pass
-     */
     Generator generator;
 
-    return code;
+    generator.accept(compiler.unit);
 }

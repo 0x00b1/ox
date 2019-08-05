@@ -33,7 +33,7 @@
 #include "syntax/LiteralPattern.h"
 #include "syntax/ModuleItem.h"
 #include "syntax/Name.h"
-#include "syntax/Node.hh"
+#include "syntax/Node.h"
 #include "syntax/Parameter.h"
 #include "syntax/PathPattern.h"
 #include "syntax/PathType.h"
@@ -51,6 +51,7 @@
 #include "syntax/TupleType.h"
 #include "syntax/Type.h"
 #include "syntax/TypeItem.h"
+#include "syntax/Unit.h"
 #include "syntax/Visitor.h"
 #include "syntax/WildcardPattern.h"
 

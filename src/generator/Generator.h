@@ -57,6 +57,7 @@ public:
   void accept(std::shared_ptr<Node::TuplePattern> node) override;
   void accept(std::shared_ptr<Node::TupleType> node) override;
   void accept(std::shared_ptr<Node::TypeItem> node) override;
+  void accept(std::shared_ptr<Node::Unit> node) override;
   void accept(std::shared_ptr<Node::WildcardPattern> node) override;
 };
 
