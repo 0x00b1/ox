@@ -137,7 +137,8 @@
 %type <std::shared_ptr<Node::SizeType>> SIZE_TYPE;
 %type <std::shared_ptr<Node::ReferenceType>> REFERENCE_TYPE;
 %type <std::shared_ptr<Node::SliceType>> SLICE_TYPE;
-%type <std::vector<std::shared_ptr<Node::Pattern>>> TUPLE_PATTERN_ITEMS
+%type <std::vector<std::shared_ptr<Node::Pattern>>> TUPLE_PATTERN_ITEMS;
+%type <std::shared_ptr<Node::ReferencePattern>> REFERENCE_PATTERN;
 
 %printer {
     // FIXME:
@@ -437,7 +438,6 @@ BLOCK_STATEMENT                   : "{" STATEMENTS "}" {
 PATTERN                           : WILDCARD_PATTERN
                                   | TUPLE_PATTERN
                                   | REFERENCE_PATTERN
-                                  | SLICE_PATTERN
                                   ;
 WILDCARD_PATTERN                  : "_" {
                                     std::shared_ptr<Node::WildcardPattern> wildcard_pattern(new Node::WildcardPattern());
@@ -452,25 +452,22 @@ TUPLE_PATTERN                     : "(" TUPLE_PATTERN_ITEMS ")" {
                                   }
                                   ;
 TUPLE_PATTERN_ITEMS               : TUPLE_PATTERN_ITEMS "," PATTERN {
+                                    std::vector<std::shared_ptr<Node::Pattern>> patterns = $1;
 
+                                    patterns.push_back($3);
+
+                                    $$ = patterns;
                                   }
                                   | PATTERN {
+                                    $$ = std::vector<std::shared_ptr<Node::Pattern>>();
 
+                                    $$.push_back($1);
                                   }
                                   ;
 REFERENCE_PATTERN                 : "reference" PATTERN {
+                                    std::shared_ptr<Node::ReferencePattern> reference_pattern(new Node::ReferencePattern($2));
 
-                                  }
-                                  ;
-SLICE_PATTERN                     : "[" SLICE_PATTERN_ITEMS "]" {
-
-                                  }
-                                  ;
-SLICE_PATTERN_ITEMS               : SLICE_PATTERN_ITEMS "," PATTERN {
-
-                                  }
-                                  | PATTERN {
-
+                                    $$ = reference_pattern;
                                   }
                                   ;
 TYPE                              : FUNCTION_TYPE
@@ -483,21 +480,28 @@ TYPE                              : FUNCTION_TYPE
                                   | SLICE_TYPE
                                   ;
 FUNCTION_TYPE                     : "(" FUNCTION_TYPE_PARAMETERS ")" "→" TYPE {
+                                    std::shared_ptr<Node::FunctionType> function_type(new Node::FunctionType());
 
+                                    $$ = function_type;
                                   }
                                   ;
 FUNCTION_TYPE_PARAMETERS          : FUNCTION_TYPE_PARAMETERS "," FUNCTION_TYPE_PARAMETER {
+                                    std::vector<std::shared_ptr<Node::Parameter>> items = $1;
 
+                                    items.push_back($3);
+
+                                    $$ = items;
                                   }
                                   | FUNCTION_TYPE_PARAMETER {
+                                    $$ = std::vector<std::shared_ptr<Node::Parameter>>();
 
-                                  }
-                                  | %empty {
-
+                                    $$.push_back($1);
                                   }
                                   ;
 FUNCTION_TYPE_PARAMETER           : IDENTIFIER ":" TYPE {
+                                    std::shared_ptr<Node::Parameter> function_type_parameter(new Node::Parameter($1, $3));
 
+                                    $$ = function_type_parameter;
                                   }
                                   ;
 ARRAY_TYPE                        : "[" TYPE "×" ANONYMOUS_CONSTANT "]" {
@@ -582,14 +586,15 @@ SIZE_TYPE                         : "unsigned"          "Size" {
                                   }
                                   ;
 REFERENCE_TYPE                    : "reference" TYPE {
+                                    std::shared_ptr<Node::ReferenceType> reference_type(new Node::ReferenceType($2));
 
-                                  }
-                                  | "shared" "reference" TYPE {
-
+                                    $$ = reference_type;
                                   }
                                   ;
 SLICE_TYPE                        : "[" TYPE "]" {
+                                    std::shared_ptr<Node::SliceType> slice_type(new Node::SliceType($2));
 
+                                    $$ = slice_type;
                                   }
                                   ;
 

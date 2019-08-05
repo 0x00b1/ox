@@ -39,6 +39,7 @@ void Generator::accept(std::shared_ptr<Node::PathType> node) {}
 void Generator::accept(std::shared_ptr<Node::PointerType> node) {}
 void Generator::accept(std::shared_ptr<Node::PostfixExpression> node) {}
 void Generator::accept(std::shared_ptr<Node::PrefixExpression> node) {}
+void Generator::accept(std::shared_ptr<Node::ReferencePattern> node) {}
 void Generator::accept(std::shared_ptr<Node::ReferenceType> node) {}
 void Generator::accept(std::shared_ptr<Node::ReturnStatement> node) {}
 void Generator::accept(std::shared_ptr<Node::SizeType> node) {}

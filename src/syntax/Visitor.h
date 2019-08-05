@@ -45,6 +45,7 @@ namespace Node {
   class PointerType;
   class PostfixExpression;
   class PrefixExpression;
+  class ReferencePattern;
   class ReferenceType;
   class ReturnStatement;
   class SizeType;
@@ -99,6 +100,7 @@ public:
   virtual void accept(std::shared_ptr<Node::PointerType>) = 0;
   virtual void accept(std::shared_ptr<Node::PostfixExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::PrefixExpression>) = 0;
+  virtual void accept(std::shared_ptr<Node::ReferencePattern>) = 0;
   virtual void accept(std::shared_ptr<Node::ReferenceType>) = 0;
   virtual void accept(std::shared_ptr<Node::ReturnStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::SizeType>) = 0;

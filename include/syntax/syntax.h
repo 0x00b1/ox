@@ -38,6 +38,7 @@
 #include "syntax/PathPattern.h"
 #include "syntax/PathType.h"
 #include "syntax/PointerType.h"
+#include "syntax/ReferencePattern.h"
 #include "syntax/ReferenceType.h"
 #include "syntax/ReturnStatement.h"
 #include "syntax/SizeType.h"
