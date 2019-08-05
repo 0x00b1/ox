@@ -102,7 +102,6 @@
 %type <std::shared_ptr<Node::IntegerLiteralExpression>> INTEGER_LITERAL_EXPRESSION;
 %type <std::shared_ptr<Node::ArrayExpression>> ARRAY_EXPRESSION;
 %type <std::vector<std::shared_ptr<Node::Expression>>> ARRAY_EXPRESSION_ELEMENTS;
-%type <std::shared_ptr<Node::ClosureExpression>> CLOSURE_EXPRESSION;
 %type <std::shared_ptr<Node::GroupedExpression>> GROUPED_EXPRESSION;
 %type <std::shared_ptr<Node::TupleExpression>> TUPLE_EXPRESSION;
 %type <std::vector<std::shared_ptr<Node::Expression>>> TUPLE_EXPRESSION_ELEMENTS;
@@ -117,6 +116,7 @@
 %type <std::shared_ptr<Node::ModuleItem>> MODULE_ITEM;
 %type <std::vector<std::shared_ptr<Node::Item>>> ITEMS;
 %type <std::shared_ptr<Node::ExternalPackageItem>> EXTERNAL_PACKAGE_ITEM;
+%type <std::shared_ptr<Node::SubroutineItem>> SUBROUTINE_ITEM;
 %type <std::shared_ptr<Node::ConstantItem>> CONSTANT_ITEM;
 %type <std::shared_ptr<Node::TypeItem>> TYPE_ITEM;
 %type <std::shared_ptr<Node::ConditionalStatement>> CONDITIONAL_STATEMENT;
@@ -212,7 +212,6 @@ OPERATOR                          : "+"
 POSTFIX_EXPRESSION                : PATH_EXPRESSION
                                   | LITERAL_EXPRESSION
                                   | ARRAY_EXPRESSION
-                                  | CLOSURE_EXPRESSION
                                   | GROUPED_EXPRESSION
                                   | TUPLE_EXPRESSION
                                   | POSTFIX_EXPRESSION OPERATOR
@@ -266,8 +265,6 @@ ARRAY_EXPRESSION_ELEMENTS         : ARRAY_EXPRESSION_ELEMENTS "," OPERATOR_EXPRE
 
                                     $$.push_back($1);
                                   }
-                                  ;
-CLOSURE_EXPRESSION                :
                                   ;
 GROUPED_EXPRESSION                : "(" OPERATOR_EXPRESSION ")" {
                                     std::shared_ptr<Node::GroupedExpression> grouped_expression(new Node::GroupedExpression($2));
@@ -404,7 +401,9 @@ TYPE_ITEM                         : "type" IDENTIFIER "←" TYPE ";" {
                                   }
                                   ;
 SUBROUTINE_ITEM                   : "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT {
+                                    std::shared_ptr<Node::SubroutineItem> subroutine_item(new Node::SubroutineItem($2, $3, $4));
 
+                                    $$ = subroutine_item;
                                   }
                                   ;
 CONDITIONAL_STATEMENT             : "if" OPERATOR_EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT ";" {
