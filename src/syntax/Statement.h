@@ -5,8 +5,6 @@
 
 namespace Node {
   class Statement: public Node {
-  public:
-    void accept(Visitor &visitor) override = 0;
   };
 }
 

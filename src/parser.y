@@ -151,7 +151,13 @@
 %start UNIT;
 
 UNIT                              : STATEMENTS {
-                                    std::shared_ptr<Node::Unit> unit(new Node::Unit($1));
+                                    std::vector<std::shared_ptr<Node::Statement>> statements;
+
+                                    std::shared_ptr<Node::Unit> unit(new Node::Unit(statements));
+
+                                    std::shared_ptr<Node::ReturnStatement> return_statement(new Node::ReturnStatement());
+
+                                    unit->statements.push_back(return_statement);
 
                                     compiler.unit = unit;
                                   }
