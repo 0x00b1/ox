@@ -20,6 +20,7 @@ public:
   virtual void accept(std::shared_ptr<Node::ClosureExpression> node) override;
   virtual void accept(std::shared_ptr<Node::ConditionalStatement> node) override;
   virtual void accept(std::shared_ptr<Node::ConstantItem> node) override;
+  virtual void accept(std::shared_ptr<Node::Expression> node) override;
   virtual void accept(std::shared_ptr<Node::ExpressionStatement> node) override;
   virtual void accept(std::shared_ptr<Node::ExternalPackageItem> node) override;
   virtual void accept(std::shared_ptr<Node::FloatingPointLiteralExpression> node) override;
@@ -32,6 +33,7 @@ public:
   virtual void accept(std::shared_ptr<Node::InfixExpression> node) override;
   virtual void accept(std::shared_ptr<Node::IntegerLiteralExpression> node) override;
   virtual void accept(std::shared_ptr<Node::IntegerType> node) override;
+  virtual void accept(std::shared_ptr<Node::Item> node) override;
   virtual void accept(std::shared_ptr<Node::ItemStatement> node) override;
   virtual void accept(std::shared_ptr<Node::Literal> node) override;
   virtual void accept(std::shared_ptr<Node::LiteralExpression> node) override;
@@ -43,6 +45,7 @@ public:
   virtual void accept(std::shared_ptr<Node::PathExpression> node) override;
   virtual void accept(std::shared_ptr<Node::PathPattern> node) override;
   virtual void accept(std::shared_ptr<Node::PathType> node) override;
+  virtual void accept(std::shared_ptr<Node::Pattern> node) override;
   virtual void accept(std::shared_ptr<Node::PointerType> node) override;
   virtual void accept(std::shared_ptr<Node::PostfixExpression> node) override;
   virtual void accept(std::shared_ptr<Node::PrefixExpression> node) override;
@@ -52,10 +55,12 @@ public:
   virtual void accept(std::shared_ptr<Node::SizeType> node) override;
   virtual void accept(std::shared_ptr<Node::SlicePattern> node) override;
   virtual void accept(std::shared_ptr<Node::SliceType> node) override;
+  virtual void accept(std::shared_ptr<Node::Statement> node) override;
   virtual void accept(std::shared_ptr<Node::SubroutineItem> node) override;
   virtual void accept(std::shared_ptr<Node::TupleExpression> node) override;
   virtual void accept(std::shared_ptr<Node::TuplePattern> node) override;
   virtual void accept(std::shared_ptr<Node::TupleType> node) override;
+  virtual void accept(std::shared_ptr<Node::Type> node) override;
   virtual void accept(std::shared_ptr<Node::TypeItem> node) override;
   virtual void accept(std::shared_ptr<Node::Unit> node) override;
   virtual void accept(std::shared_ptr<Node::WildcardPattern> node) override;

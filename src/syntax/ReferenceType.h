@@ -8,7 +8,7 @@
 #include "Type.h"
 #include "Visitor.h"
 
-class Node::ReferenceType: public Type, public std::enable_shared_from_this<ReferenceType> {
+class Node::ReferenceType: public Node, public std::enable_shared_from_this<ReferenceType> {
 public:
   explicit ReferenceType(std::shared_ptr<Type> type);
 

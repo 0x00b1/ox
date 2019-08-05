@@ -1,12 +1,20 @@
 #ifndef OXC_ITEM_H
 #define OXC_ITEM_H
 
-#include "Node.h"
+#include <memory>
+#include <string>
+#include <utility>
 
-namespace Node {
-  class Item: public Node {
-  public:
-  };
-}
+#include "Node.h"
+#include "Visitor.h"
+
+class Node::Item: public Node, public std::enable_shared_from_this<Item> {
+public:
+  explicit Item(std::shared_ptr<Node> node);
+
+  std::shared_ptr<Node> node;
+
+  void accept(Visitor &visitor) override;
+};
 
 #endif

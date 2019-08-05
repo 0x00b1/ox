@@ -8,7 +8,7 @@
 #include "Pattern.h"
 #include "Visitor.h"
 
-class Node::PathPattern: public Pattern, public std::enable_shared_from_this<PathPattern> {
+class Node::PathPattern: public Node, public std::enable_shared_from_this<PathPattern> {
 public:
   PathPattern();
 

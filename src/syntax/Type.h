@@ -3,10 +3,20 @@
 
 #include "Node.h"
 
-namespace Node {
-  class Type: public Node {
-  public:
-  };
-}
+#include <memory>
+#include <string>
+#include <utility>
+
+#include "Node.h"
+#include "Visitor.h"
+
+class Node::Type: public Node, public std::enable_shared_from_this<Type> {
+public:
+  explicit Type(std::shared_ptr<Node> node);
+
+  std::shared_ptr<Node> node;
+
+  void accept(Visitor &visitor) override;
+};
 
 #endif

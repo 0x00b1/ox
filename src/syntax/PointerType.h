@@ -8,7 +8,7 @@
 #include "Type.h"
 #include "Visitor.h"
 
-class Node::PointerType: public Type, public std::enable_shared_from_this<PointerType> {
+class Node::PointerType: public Node, public std::enable_shared_from_this<PointerType> {
 public:
   PointerType();
 

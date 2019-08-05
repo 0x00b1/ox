@@ -9,11 +9,11 @@
 #include "Expression.h"
 #include "Visitor.h"
 
-class Node::ArrayExpression: public Expression, public std::enable_shared_from_this<ArrayExpression> {
+class Node::ArrayExpression: public Node, public std::enable_shared_from_this<ArrayExpression> {
 public:
-  explicit ArrayExpression(std::vector<std::shared_ptr<Expression>> elements);
+  explicit ArrayExpression(std::vector<std::shared_ptr<Node>> elements);
 
-  std::vector<std::shared_ptr<Expression>> elements;
+  std::vector<std::shared_ptr<Node>> elements;
 
   void accept(Visitor &visitor) override;
 };

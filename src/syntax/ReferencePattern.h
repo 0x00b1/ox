@@ -8,7 +8,7 @@
 #include "Pattern.h"
 #include "Visitor.h"
 
-class Node::ReferencePattern: public Pattern, public std::enable_shared_from_this<ReferencePattern> {
+class Node::ReferencePattern: public Node, public std::enable_shared_from_this<ReferencePattern> {
 public:
   explicit ReferencePattern(std::shared_ptr<Pattern> type);
 

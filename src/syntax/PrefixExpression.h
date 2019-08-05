@@ -11,7 +11,7 @@
 #include "PostfixExpression.h"
 #include "Visitor.h"
 
-class Node::PrefixExpression: public Expression, public std::enable_shared_from_this<PrefixExpression> {
+class Node::PrefixExpression: public Node, public std::enable_shared_from_this<PrefixExpression> {
 public:
   explicit PrefixExpression(std::shared_ptr<PostfixExpression> expression);
 

@@ -8,7 +8,7 @@
 #include "Type.h"
 #include "Visitor.h"
 
-class Node::SizeType: public Type, public std::enable_shared_from_this<SizeType> {
+class Node::SizeType: public Node, public std::enable_shared_from_this<SizeType> {
 public:
   SizeType();
 

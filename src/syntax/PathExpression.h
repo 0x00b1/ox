@@ -9,7 +9,7 @@
 #include "Expression.h"
 #include "Visitor.h"
 
-class Node::PathExpression: public Expression, public std::enable_shared_from_this<PathExpression> {
+class Node::PathExpression: public Node, public std::enable_shared_from_this<PathExpression> {
 public:
   explicit PathExpression(std::vector<std::shared_ptr<Expression>> elements);
 

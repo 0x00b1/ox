@@ -9,7 +9,7 @@
 #include "Type.h"
 #include "Visitor.h"
 
-class Node::ArrayType: public Type, public std::enable_shared_from_this<ArrayType> {
+class Node::ArrayType: public Node, public std::enable_shared_from_this<ArrayType> {
 public:
   ArrayType(std::shared_ptr<Type> type, std::shared_ptr<AnonymousConstant> anonymous_constant);
 

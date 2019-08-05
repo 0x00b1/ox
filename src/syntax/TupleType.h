@@ -9,7 +9,7 @@
 #include "Type.h"
 #include "Visitor.h"
 
-class Node::TupleType: public Type, public std::enable_shared_from_this<TupleType> {
+class Node::TupleType: public Node, public std::enable_shared_from_this<TupleType> {
 public:
   explicit TupleType(std::vector<std::shared_ptr<Type>> types);
 

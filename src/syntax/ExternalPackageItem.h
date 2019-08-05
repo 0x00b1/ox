@@ -8,7 +8,7 @@
 #include "Item.h"
 #include "Visitor.h"
 
-class Node::ExternalPackageItem: public Item, public std::enable_shared_from_this<ExternalPackageItem> {
+class Node::ExternalPackageItem: public Node, public std::enable_shared_from_this<ExternalPackageItem> {
 public:
   explicit ExternalPackageItem(std::string identifier);
 

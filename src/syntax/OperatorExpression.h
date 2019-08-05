@@ -12,7 +12,7 @@
 #include "PrefixExpression.h"
 #include "Visitor.h"
 
-class Node::OperatorExpression: public Expression, public std::enable_shared_from_this<OperatorExpression> {
+class Node::OperatorExpression: public Node, public std::enable_shared_from_this<OperatorExpression> {
 public:
   OperatorExpression(std::shared_ptr<PrefixExpression> prefix_expression, std::vector<std::shared_ptr<InfixExpression>> infix_expressions);
 

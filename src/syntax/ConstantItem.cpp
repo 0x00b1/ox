@@ -1,6 +1,6 @@
 #include "ConstantItem.h"
 
-Node::ConstantItem::ConstantItem(std::string identifier, std::shared_ptr<Type> type, std::shared_ptr<Expression> expression) {
+Node::ConstantItem::ConstantItem(std::string identifier, std::shared_ptr<Type> type, std::shared_ptr<Node> expression) {
   this->identifier = std::move(identifier);
 
   this->type = std::move(type);

@@ -8,7 +8,7 @@
 #include "Type.h"
 #include "Visitor.h"
 
-class Node::PathType: public Type, public std::enable_shared_from_this<PathType> {
+class Node::PathType: public Node, public std::enable_shared_from_this<PathType> {
 public:
   PathType();
 

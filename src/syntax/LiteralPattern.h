@@ -9,7 +9,7 @@
 #include "Pattern.h"
 #include "Visitor.h"
 
-class Node::LiteralPattern: public Pattern, public std::enable_shared_from_this<LiteralPattern> {
+class Node::LiteralPattern: public Node, public std::enable_shared_from_this<LiteralPattern> {
 public:
   explicit LiteralPattern(std::shared_ptr<Expression> expression);
 

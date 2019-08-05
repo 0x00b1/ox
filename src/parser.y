@@ -101,12 +101,12 @@
 %type <std::shared_ptr<Node::FloatingPointLiteralExpression>> FLOATING_POINT_LITERAL_EXPRESSION;
 %type <std::shared_ptr<Node::IntegerLiteralExpression>> INTEGER_LITERAL_EXPRESSION;
 %type <std::shared_ptr<Node::ArrayExpression>> ARRAY_EXPRESSION;
-%type <std::vector<std::shared_ptr<Node::Expression>>> ARRAY_EXPRESSION_ELEMENTS;
+%type <std::vector<std::shared_ptr<Node::Node>>> ARRAY_EXPRESSION_ELEMENTS;
 %type <std::shared_ptr<Node::GroupedExpression>> GROUPED_EXPRESSION;
 %type <std::shared_ptr<Node::TupleExpression>> TUPLE_EXPRESSION;
-%type <std::vector<std::shared_ptr<Node::Expression>>> TUPLE_EXPRESSION_ELEMENTS;
+%type <std::vector<std::shared_ptr<Node::Node>>> TUPLE_EXPRESSION_ELEMENTS;
 %type <std::shared_ptr<Node::CallExpression>> CALL_EXPRESSION;
-%type <std::vector<std::shared_ptr<Node::Expression>>> CALL_EXPRESSION_ARGUMENTS;
+%type <std::vector<std::shared_ptr<Node::Node>>> CALL_EXPRESSION_ARGUMENTS;
 %type <std::shared_ptr<Node::IndexExpression>> INDEX_EXPRESSION;
 %type <std::vector<std::shared_ptr<Node::InfixExpression>>> INFIX_EXPRESSIONS;
 %type <std::shared_ptr<Node::InfixExpression>> INFIX_EXPRESSION;
@@ -151,13 +151,7 @@
 %start UNIT;
 
 UNIT                              : STATEMENTS {
-                                    std::vector<std::shared_ptr<Node::Statement>> statements;
-
-                                    std::shared_ptr<Node::Unit> unit(new Node::Unit(statements));
-
-                                    std::shared_ptr<Node::ReturnStatement> return_statement(new Node::ReturnStatement());
-
-                                    unit->statements.push_back(return_statement);
+                                    std::shared_ptr<Node::Unit> unit(new Node::Unit($1));
 
                                     compiler.unit = unit;
                                   }
@@ -175,39 +169,63 @@ STATEMENTS                        : STATEMENTS STATEMENT {
                                     $$.push_back($1);
                                   }
                                   ;
-STATEMENT                         : EXPRESSION_STATEMENT
-                                  | ASSIGNMENT_STATEMENT
-                                  | ITEM_STATEMENT
-                                  | CONDITIONAL_STATEMENT
-                                  | RETURN_STATEMENT
-                                  | BLOCK_STATEMENT
+STATEMENT                         : EXPRESSION_STATEMENT {
+                                    std::shared_ptr<Node::Statement> statement(new Node::Statement($1));
+
+                                    $$ = statement;
+                                  }
+                                  | ASSIGNMENT_STATEMENT {
+                                    std::shared_ptr<Node::Statement> statement(new Node::Statement($1));
+
+                                    $$ = statement;
+                                  }
+                                  | ITEM_STATEMENT {
+                                    std::shared_ptr<Node::Statement> statement(new Node::Statement($1));
+
+                                    $$ = statement;
+                                  }
+                                  | CONDITIONAL_STATEMENT {
+                                    std::shared_ptr<Node::Statement> statement(new Node::Statement($1));
+
+                                    $$ = statement;
+                                  }
+                                  | RETURN_STATEMENT {
+                                    std::shared_ptr<Node::Statement> statement(new Node::Statement($1));
+
+                                    $$ = statement;
+                                  }
+                                  | BLOCK_STATEMENT {
+                                    std::shared_ptr<Node::Statement> statement(new Node::Statement($1));
+
+                                    $$ = statement;
+                                  }
                                   ;
 EXPRESSION_STATEMENT              : OPERATOR_EXPRESSION ";" {
-                                    std::shared_ptr<Node::ExpressionStatement> expression(new Node::ExpressionStatement($1));
+                                    std::shared_ptr<Node::ExpressionStatement> expression_statement(new Node::ExpressionStatement($1));
 
-                                    $$ = expression;
+                                    $$ = expression_statement;
                                   }
                                   ;
 OPERATOR_EXPRESSION               : PREFIX_EXPRESSION INFIX_EXPRESSIONS {
-                                    std::shared_ptr<Node::OperatorExpression> expression(new Node::OperatorExpression($1, $2));
+                                    std::shared_ptr<Node::OperatorExpression> operator_expression(new Node::OperatorExpression($1, $2));
 
-                                    $$ = expression;
+                                    $$ = operator_expression;
                                   }
                                   | PREFIX_EXPRESSION {
-                                    std::shared_ptr<Node::OperatorExpression> expression(new Node::OperatorExpression($1));
+                                    std::shared_ptr<Node::OperatorExpression> operator_expression(new Node::OperatorExpression($1));
 
-                                    $$ = expression;
+                                    $$ = operator_expression;
                                   }
                                   ;
 PREFIX_EXPRESSION                 : OPERATOR POSTFIX_EXPRESSION {
-                                    std::shared_ptr<Node::PrefixExpression> expression(new Node::PrefixExpression($2));
+                                    std::shared_ptr<Node::PrefixExpression> prefix_expression(new Node::PrefixExpression($2));
 
-                                    $$ = expression;
+                                    $$ = prefix_expression;
                                   }
                                   | POSTFIX_EXPRESSION {
-                                    std::shared_ptr<Node::PrefixExpression> expression(new Node::PrefixExpression($1));
+                                    std::shared_ptr<Node::PrefixExpression> prefix_expression(new Node::PrefixExpression($1));
 
-                                    $$ = expression;
+                                    $$ = prefix_expression;
                                   }
                                   ;
 OPERATOR                          : "+"
@@ -264,14 +282,14 @@ ARRAY_EXPRESSION                  : "[" ARRAY_EXPRESSION_ELEMENTS "]" {
                                   }
                                   ;
 ARRAY_EXPRESSION_ELEMENTS         : ARRAY_EXPRESSION_ELEMENTS "," OPERATOR_EXPRESSION {
-                                    std::vector<std::shared_ptr<Node::Expression>> array_expression_elements = $1;
+                                    std::vector<std::shared_ptr<Node::Node>> array_expression_elements = $1;
 
                                     array_expression_elements.push_back($3);
 
                                     $$ = array_expression_elements;
                                   }
                                   | OPERATOR_EXPRESSION {
-                                    $$ = std::vector<std::shared_ptr<Node::Expression>>();
+                                    $$ = std::vector<std::shared_ptr<Node::Node>>();
 
                                     $$.push_back($1);
                                   }
@@ -289,14 +307,14 @@ TUPLE_EXPRESSION                  : "(" TUPLE_EXPRESSION_ELEMENTS ")" {
                                   }
                                   ;
 TUPLE_EXPRESSION_ELEMENTS         : TUPLE_EXPRESSION_ELEMENTS "," OPERATOR_EXPRESSION {
-                                    std::vector<std::shared_ptr<Node::Expression>> tuple_expression_elements = $1;
+                                    std::vector<std::shared_ptr<Node::Node>> tuple_expression_elements = $1;
 
                                     tuple_expression_elements.push_back($3);
 
                                     $$ = tuple_expression_elements;
                                   }
                                   | OPERATOR_EXPRESSION {
-                                    $$ = std::vector<std::shared_ptr<Node::Expression>>();
+                                    $$ = std::vector<std::shared_ptr<Node::Node>>();
 
                                     $$.push_back($1);
                                   }
@@ -308,14 +326,14 @@ CALL_EXPRESSION                   : OPERATOR_EXPRESSION "(" CALL_EXPRESSION_ARGU
                                   }
                                   ;
 CALL_EXPRESSION_ARGUMENTS         : CALL_EXPRESSION_ARGUMENTS "," OPERATOR_EXPRESSION {
-                                    std::vector<std::shared_ptr<Node::Expression>> call_expression_arguments = $1;
+                                    std::vector<std::shared_ptr<Node::Node>> call_expression_arguments = $1;
 
                                     call_expression_arguments.push_back($3);
 
                                     $$ = call_expression_arguments;
                                   }
                                   | OPERATOR_EXPRESSION {
-                                    $$ = std::vector<std::shared_ptr<Node::Expression>>();
+                                    $$ = std::vector<std::shared_ptr<Node::Node>>();
 
                                     $$.push_back($1);
                                   }
@@ -340,9 +358,9 @@ INFIX_EXPRESSIONS                 : INFIX_EXPRESSIONS INFIX_EXPRESSION {
                                   }
                                   ;
 INFIX_EXPRESSION                  : OPERATOR PREFIX_EXPRESSION {
-                                    std::shared_ptr<Node::InfixExpression> expression(new Node::InfixExpression($1, $2));
+                                    std::shared_ptr<Node::InfixExpression> infix_expression(new Node::InfixExpression($1, $2));
 
-                                    $$ = expression;
+                                    $$ = infix_expression;
                                   }
                                   ;
 ASSIGNMENT_STATEMENT              : PATTERN ":" TYPE "←" OPERATOR_EXPRESSION ";" {

@@ -10,13 +10,13 @@
 #include "Statement.h"
 #include "Visitor.h"
 
-class Node::ConditionalStatement: public Statement, public std::enable_shared_from_this<ConditionalStatement> {
+class Node::ConditionalStatement: public Node, public std::enable_shared_from_this<ConditionalStatement> {
 public:
-  ConditionalStatement(std::shared_ptr<Expression> predicate, std::shared_ptr<BlockStatement> consequent);
+  ConditionalStatement(std::shared_ptr<Node> predicate, std::shared_ptr<BlockStatement> consequent);
 
-  ConditionalStatement(std::shared_ptr<Expression> predicate, std::shared_ptr<BlockStatement> consequent, std::optional<std::shared_ptr<BlockStatement>> alternate);
+  ConditionalStatement(std::shared_ptr<Node> predicate, std::shared_ptr<BlockStatement> consequent, std::optional<std::shared_ptr<BlockStatement>> alternate);
 
-  std::shared_ptr<Expression> predicate;
+  std::shared_ptr<Node> predicate;
 
   std::shared_ptr<BlockStatement> consequent;
 

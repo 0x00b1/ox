@@ -11,15 +11,15 @@
 #include "Type.h"
 #include "Visitor.h"
 
-class Node::AssignmentStatement: public Statement, public std::enable_shared_from_this<AssignmentStatement> {
+class Node::AssignmentStatement: public Node, public std::enable_shared_from_this<AssignmentStatement> {
 public:
-  AssignmentStatement(std::shared_ptr<Pattern> pattern, std::shared_ptr<Type> type, std::shared_ptr<Expression> expression);
+  AssignmentStatement(std::shared_ptr<Pattern> pattern, std::shared_ptr<Type> type, std::shared_ptr<Node> expression);
 
   std::shared_ptr<Pattern> pattern;
 
   std::shared_ptr<Type> type;
 
-  std::shared_ptr<Expression> expression;
+  std::shared_ptr<Node> expression;
 
   void accept(Visitor &visitor) override;
 };

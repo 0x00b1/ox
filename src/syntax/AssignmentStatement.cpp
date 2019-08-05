@@ -1,6 +1,6 @@
 #include "AssignmentStatement.h"
 
-Node::AssignmentStatement::AssignmentStatement(std::shared_ptr<Pattern> pattern, std::shared_ptr<Type> type, std::shared_ptr<Expression> expression) {
+Node::AssignmentStatement::AssignmentStatement(std::shared_ptr<Pattern> pattern, std::shared_ptr<Type> type, std::shared_ptr<Node> expression) {
   this->pattern = std::move(pattern);
 
   this->type = std::move(type);

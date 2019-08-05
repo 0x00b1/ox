@@ -1,9 +1,6 @@
 #include "CallExpression.h"
 
-Node::CallExpression::CallExpression(
-    std::shared_ptr<Expression> subroutine,
-    std::vector<std::shared_ptr<Expression>> parameters
-) {
+Node::CallExpression::CallExpression(std::shared_ptr<Node> subroutine, std::vector<std::shared_ptr<Node>> parameters) {
   this->subroutine = std::move(subroutine);
 
   this->parameters = std::move(parameters);

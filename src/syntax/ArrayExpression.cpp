@@ -1,6 +1,6 @@
 #include "ArrayExpression.h"
 
-Node::ArrayExpression::ArrayExpression(std::vector<std::shared_ptr<Expression>> elements) {
+Node::ArrayExpression::ArrayExpression(std::vector<std::shared_ptr<Node>> elements) {
   this->elements = std::move(elements);
 }
 

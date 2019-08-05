@@ -9,13 +9,13 @@
 #include "Expression.h"
 #include "Visitor.h"
 
-class Node::CallExpression: public Expression, public std::enable_shared_from_this<CallExpression> {
+class Node::CallExpression: public Node, public std::enable_shared_from_this<CallExpression> {
 public:
-  CallExpression(std::shared_ptr<Expression> subroutine, std::vector<std::shared_ptr<Expression>> parameters);
+  CallExpression(std::shared_ptr<Node> subroutine, std::vector<std::shared_ptr<Node>> parameters);
 
-  std::shared_ptr<Expression> subroutine;
+  std::shared_ptr<Node> subroutine;
 
-  std::vector<std::shared_ptr<Expression>> parameters;
+  std::vector<std::shared_ptr<Node>> parameters;
 
   void accept(Visitor &visitor) override;
 };

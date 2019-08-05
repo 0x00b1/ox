@@ -8,7 +8,7 @@
 #include "Type.h"
 #include "Visitor.h"
 
-class Node::IntegerType: public Type, public std::enable_shared_from_this<IntegerType> {
+class Node::IntegerType: public Node, public std::enable_shared_from_this<IntegerType> {
 public:
   IntegerType();
 

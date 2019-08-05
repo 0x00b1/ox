@@ -1,12 +1,12 @@
 #include "ConditionalStatement.h"
 
-Node::ConditionalStatement::ConditionalStatement(std::shared_ptr<Expression> predicate, std::shared_ptr<BlockStatement> consequent) {
+Node::ConditionalStatement::ConditionalStatement(std::shared_ptr<Node> predicate, std::shared_ptr<BlockStatement> consequent) {
   this->predicate = std::move(predicate);
 
   this->consequent = std::move(consequent);
 }
 
-Node::ConditionalStatement::ConditionalStatement(std::shared_ptr<Expression> predicate, std::shared_ptr<BlockStatement> consequent, std::optional<std::shared_ptr<BlockStatement>> alternate) {
+Node::ConditionalStatement::ConditionalStatement(std::shared_ptr<Node> predicate, std::shared_ptr<BlockStatement> consequent, std::optional<std::shared_ptr<BlockStatement>> alternate) {
   this->predicate = std::move(predicate);
 
   this->consequent = std::move(consequent);

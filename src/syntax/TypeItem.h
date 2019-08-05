@@ -9,7 +9,7 @@
 #include "Type.h"
 #include "Visitor.h"
 
-class Node::TypeItem: public Item, public std::enable_shared_from_this<TypeItem> {
+class Node::TypeItem: public Node, public std::enable_shared_from_this<TypeItem> {
 public:
   TypeItem(std::string identifier, std::shared_ptr<Type> type);
 

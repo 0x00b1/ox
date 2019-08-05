@@ -9,7 +9,7 @@
 #include "PrefixExpression.h"
 #include "Visitor.h"
 
-class Node::InfixExpression: public Expression, public std::enable_shared_from_this<InfixExpression> {
+class Node::InfixExpression: public Node, public std::enable_shared_from_this<InfixExpression> {
 public:
   InfixExpression(Operator operation, std::shared_ptr<PrefixExpression> expression);
 

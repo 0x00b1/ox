@@ -1,11 +1,20 @@
 #ifndef OXC_STATEMENT_H
 #define OXC_STATEMENT_H
 
-#include "Node.h"
+#include <memory>
+#include <string>
+#include <utility>
 
-namespace Node {
-  class Statement: public Node {
-  };
-}
+#include "Node.h"
+#include "Visitor.h"
+
+class Node::Statement: public Node, public std::enable_shared_from_this<Statement> {
+public:
+  explicit Statement(std::shared_ptr<Node> node);
+
+  std::shared_ptr<Node> node;
+
+  void accept(Visitor &visitor) override;
+};
 
 #endif

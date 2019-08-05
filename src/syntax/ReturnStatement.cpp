@@ -2,7 +2,7 @@
 
 Node::ReturnStatement::ReturnStatement() {}
 
-Node::ReturnStatement::ReturnStatement(std::shared_ptr<Expression> expression) {
+Node::ReturnStatement::ReturnStatement(std::shared_ptr<Node> expression) {
   this->expression = std::move(expression);
 }
 

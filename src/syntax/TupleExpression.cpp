@@ -1,6 +1,6 @@
 #include "TupleExpression.h"
 
-Node::TupleExpression::TupleExpression(std::vector<std::shared_ptr<Expression>> elements) {
+Node::TupleExpression::TupleExpression(std::vector<std::shared_ptr<Node>> elements) {
   this->elements = std::move(elements);
 }
 

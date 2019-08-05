@@ -10,7 +10,7 @@
 #include "Item.h"
 #include "Visitor.h"
 
-class Node::SubroutineItem: public Item, public std::enable_shared_from_this<SubroutineItem> {
+class Node::SubroutineItem: public Node, public std::enable_shared_from_this<SubroutineItem> {
 public:
   SubroutineItem(std::string identifier, std::shared_ptr<FunctionType> function_type, std::shared_ptr<BlockStatement> block_statement);
 

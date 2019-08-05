@@ -8,7 +8,7 @@
 #include "Expression.h"
 #include "Visitor.h"
 
-class Node::PostfixExpression: public Expression, public std::enable_shared_from_this<PostfixExpression> {
+class Node::PostfixExpression: public Node, public std::enable_shared_from_this<PostfixExpression> {
 public:
   explicit PostfixExpression(std::shared_ptr<Expression> expression);
 

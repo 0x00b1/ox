@@ -9,7 +9,7 @@
 #include "Item.h"
 #include "Visitor.h"
 
-class Node::ModuleItem: public Item, public std::enable_shared_from_this<ModuleItem> {
+class Node::ModuleItem: public Node, public std::enable_shared_from_this<ModuleItem> {
 public:
   explicit ModuleItem(std::string identifier);
 

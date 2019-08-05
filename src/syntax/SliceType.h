@@ -8,7 +8,7 @@
 #include "Type.h"
 #include "Visitor.h"
 
-class Node::SliceType: public Type, public std::enable_shared_from_this<SliceType> {
+class Node::SliceType: public Node, public std::enable_shared_from_this<SliceType> {
 public:
   explicit SliceType(std::shared_ptr<Type> type);
 

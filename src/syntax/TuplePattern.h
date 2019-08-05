@@ -9,7 +9,7 @@
 #include "Pattern.h"
 #include "Visitor.h"
 
-class Node::TuplePattern: public Pattern, public std::enable_shared_from_this<TuplePattern> {
+class Node::TuplePattern: public Node, public std::enable_shared_from_this<TuplePattern> {
 public:
   explicit TuplePattern(std::vector<std::shared_ptr<Pattern>> patterns);
 
