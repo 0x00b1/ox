@@ -254,11 +254,11 @@ ARRAY_EXPRESSION                  : "[" ARRAY_EXPRESSION_ELEMENTS "]" {
                                   }
                                   ;
 ARRAY_EXPRESSION_ELEMENTS         : ARRAY_EXPRESSION_ELEMENTS "," OPERATOR_EXPRESSION {
-                                    std::vector<std::shared_ptr<Node::Expression>> expressions = $1;
+                                    std::vector<std::shared_ptr<Node::Expression>> array_expression_elements = $1;
 
-                                    expressions.push_back($3);
+                                    array_expression_elements.push_back($3);
 
-                                    $$ = expressions;
+                                    $$ = array_expression_elements;
                                   }
                                   | OPERATOR_EXPRESSION {
                                     $$ = std::vector<std::shared_ptr<Node::Expression>>();
@@ -279,11 +279,11 @@ TUPLE_EXPRESSION                  : "(" TUPLE_EXPRESSION_ELEMENTS ")" {
                                   }
                                   ;
 TUPLE_EXPRESSION_ELEMENTS         : TUPLE_EXPRESSION_ELEMENTS "," OPERATOR_EXPRESSION {
-                                    std::vector<std::shared_ptr<Node::Expression>> expressions = $1;
+                                    std::vector<std::shared_ptr<Node::Expression>> tuple_expression_elements = $1;
 
-                                    expressions.push_back($3);
+                                    tuple_expression_elements.push_back($3);
 
-                                    $$ = expressions;
+                                    $$ = tuple_expression_elements;
                                   }
                                   | OPERATOR_EXPRESSION {
                                     $$ = std::vector<std::shared_ptr<Node::Expression>>();
@@ -298,11 +298,11 @@ CALL_EXPRESSION                   : OPERATOR_EXPRESSION "(" CALL_EXPRESSION_ARGU
                                   }
                                   ;
 CALL_EXPRESSION_ARGUMENTS         : CALL_EXPRESSION_ARGUMENTS "," OPERATOR_EXPRESSION {
-                                    std::vector<std::shared_ptr<Node::Expression>> expressions = $1;
+                                    std::vector<std::shared_ptr<Node::Expression>> call_expression_arguments = $1;
 
-                                    expressions.push_back($3);
+                                    call_expression_arguments.push_back($3);
 
-                                    $$ = expressions;
+                                    $$ = call_expression_arguments;
                                   }
                                   | OPERATOR_EXPRESSION {
                                     $$ = std::vector<std::shared_ptr<Node::Expression>>();
