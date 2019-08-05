@@ -375,11 +375,31 @@ ITEM_STATEMENT                    : ITEM {
                                     $$ = item_statement;
                                   }
                                   ;
-ITEM                              : MODULE_ITEM
-                                  | EXTERNAL_PACKAGE_ITEM
-                                  | CONSTANT_ITEM
-                                  | TYPE_ITEM
-                                  | SUBROUTINE_ITEM
+ITEM                              : MODULE_ITEM {
+                                    std::shared_ptr<Node::Item> item(new Node::Item($1));
+
+                                    $$ = item;
+                                  }
+                                  | EXTERNAL_PACKAGE_ITEM {
+                                    std::shared_ptr<Node::Item> item(new Node::Item($1));
+
+                                    $$ = item;
+                                  }
+                                  | CONSTANT_ITEM {
+                                    std::shared_ptr<Node::Item> item(new Node::Item($1));
+
+                                    $$ = item;
+                                  }
+                                  | TYPE_ITEM {
+                                    std::shared_ptr<Node::Item> item(new Node::Item($1));
+
+                                    $$ = item;
+                                  }
+                                  | SUBROUTINE_ITEM {
+                                    std::shared_ptr<Node::Item> item(new Node::Item($1));
+
+                                    $$ = item;
+                                  }
                                   ;
 MODULE_ITEM                       : "module" IDENTIFIER "{" ITEMS "}" ";" {
                                     std::shared_ptr<Node::ModuleItem> module_item(new Node::ModuleItem($2, $4));

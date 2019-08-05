@@ -2,12 +2,18 @@
 
 #include "Generator.h"
 
-void Generator::accept(std::shared_ptr<Node::AnonymousConstant> node) {
+void Generator::accept(std::shared_ptr<Node::AnonymousConstant> anonymous_constant) {
   std::cout << "Node::AnonymousConstant" << std::endl;
+
+  anonymous_constant->expression->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::Argument> node) {
+void Generator::accept(std::shared_ptr<Node::Argument> argument) {
   std::cout << "Node::Argument" << std::endl;
+
+  argument->pattern->accept(*this);
+
+  argument->type->accept(*this);
 }
 
 void Generator::accept(std::shared_ptr<Node::ArrayExpression> array_expression) {
@@ -26,8 +32,12 @@ void Generator::accept(std::shared_ptr<Node::AssignmentStatement> node) {
   std::cout << "Node::AssignmentStatement" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::BlockStatement> node) {
+void Generator::accept(std::shared_ptr<Node::BlockStatement> block_statement) {
   std::cout << "Node::BlockStatement" << std::endl;
+
+  for (const std::shared_ptr<Node::Statement>& statement: block_statement->statements) {
+    statement->accept(*this);
+  }
 }
 
 void Generator::accept(std::shared_ptr<Node::BooleanLiteralExpression> node) {
@@ -58,8 +68,16 @@ void Generator::accept(std::shared_ptr<Node::ConstantItem> node) {
   std::cout << "Node::ConstantItem" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::ExpressionStatement> node) {
+void Generator::accept(std::shared_ptr<Node::Expression> expression) {
+  std::cout << "Node::Expression" << std::endl;
+
+  expression->node->accept(*this);
+}
+
+void Generator::accept(std::shared_ptr<Node::ExpressionStatement> expression_statement) {
   std::cout << "Node::ExpressionStatement" << std::endl;
+
+  expression_statement->expression->accept(*this);
 }
 
 void Generator::accept(std::shared_ptr<Node::ExternalPackageItem> node) {
@@ -78,7 +96,7 @@ void Generator::accept(std::shared_ptr<Node::FunctionDeclaration> node) {
   std::cout << "Node::FunctionDeclaration" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::FunctionType> node) {
+void Generator::accept(std::shared_ptr<Node::FunctionType> function_type) {
   std::cout << "Node::FunctionType" << std::endl;
 }
 
@@ -106,8 +124,16 @@ void Generator::accept(std::shared_ptr<Node::IntegerType> node) {
   std::cout << "Node::IntegerType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::ItemStatement> node) {
+void Generator::accept(std::shared_ptr<Node::Item> item) {
+  std::cout << "Node::Item" << std::endl;
+
+  item->node->accept(*this);
+}
+
+void Generator::accept(std::shared_ptr<Node::ItemStatement> item_statement) {
   std::cout << "Node::ItemStatement" << std::endl;
+
+  item_statement->item->accept(*this);
 }
 
 void Generator::accept(std::shared_ptr<Node::Literal> node) {
@@ -150,6 +176,10 @@ void Generator::accept(std::shared_ptr<Node::PathType> node) {
   std::cout << "Node::PathType" << std::endl;
 }
 
+void Generator::accept(std::shared_ptr<Node::Pattern> node) {
+  std::cout << "Node::Pattern" << std::endl;
+}
+
 void Generator::accept(std::shared_ptr<Node::PointerType> node) {
   std::cout << "Node::PointerType" << std::endl;
 }
@@ -186,8 +216,18 @@ void Generator::accept(std::shared_ptr<Node::SliceType> node) {
   std::cout << "Node::SliceType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::SubroutineItem> node) {
+void Generator::accept(std::shared_ptr<Node::Statement> statement) {
+  std::cout << "Node::Statement" << std::endl;
+
+  statement->node->accept(*this);
+}
+
+void Generator::accept(std::shared_ptr<Node::SubroutineItem> subroutine_item) {
   std::cout << "Node::SubroutineItem" << std::endl;
+
+  subroutine_item->function_type->accept(*this);
+
+  subroutine_item->block_statement->accept(*this);
 }
 
 void Generator::accept(std::shared_ptr<Node::TupleExpression> tuple_expression) {
@@ -206,6 +246,12 @@ void Generator::accept(std::shared_ptr<Node::TupleType> node) {
   std::cout << "Node::TupleType" << std::endl;
 }
 
+void Generator::accept(std::shared_ptr<Node::Type> type) {
+  std::cout << "Node::Type" << std::endl;
+
+  type->node->accept(*this);
+}
+
 void Generator::accept(std::shared_ptr<Node::TypeItem> node) {
   std::cout << "Node::TypeItem" << std::endl;
 }
@@ -220,24 +266,4 @@ void Generator::accept(std::shared_ptr<Node::Unit> unit) {
 
 void Generator::accept(std::shared_ptr<Node::WildcardPattern> node) {
   std::cout << "Node::WildcardPattern" << std::endl;
-}
-
-void Generator::accept(std::shared_ptr<Node::Expression> node) {
-
-}
-
-void Generator::accept(std::shared_ptr<Node::Item> node) {
-
-}
-
-void Generator::accept(std::shared_ptr<Node::Pattern> node) {
-
-}
-
-void Generator::accept(std::shared_ptr<Node::Statement> node) {
-
-}
-
-void Generator::accept(std::shared_ptr<Node::Type> node) {
-
 }
