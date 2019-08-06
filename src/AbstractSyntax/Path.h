@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "Identifier.h"
 
@@ -11,7 +12,9 @@
 
 class Node::Path: public Node, public std::enable_shared_from_this<Path> {
 public:
-  Path();
+  explicit Path(std::vector<std::shared_ptr<PathSegment>> path_segments);
+
+  std::vector<std::shared_ptr<PathSegment>> path_segments;
 
   void accept(Visitor &visitor) override;
 };
