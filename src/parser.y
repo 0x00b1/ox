@@ -157,9 +157,9 @@
 %start UNIT;
 
 UNIT                              : STATEMENTS {
-                                    std::shared_ptr<Node::TranslationUnit> unit(new Node::TranslationUnit($1));
+                                    std::shared_ptr<Node::TranslationUnit> translation_unit(new Node::TranslationUnit($1));
 
-                                    compiler.unit = unit;
+                                    compiler.unit = translation_unit;
                                   }
                                   ;
 STATEMENTS                        : STATEMENTS STATEMENT {
@@ -703,10 +703,8 @@ TYPE                              : FUNCTION_TYPE {
                                     $$ = type;
                                   }
                                   ;
-FUNCTION_TYPE                     : FUNCTION_PROTOTYPE {
-                                    std::shared_ptr<Node::FunctionDeclaration> function_declaration(new Node::FunctionDeclaration($1));
-
-                                    std::shared_ptr<Node::FunctionType> function_type(new Node::FunctionType(function_declaration));
+FUNCTION_TYPE                     : FUNCTION_DECLARATION {
+                                    std::shared_ptr<Node::FunctionType> function_type(new Node::FunctionType($1));
 
                                     $$ = function_type;
                                   }
