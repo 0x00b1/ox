@@ -1,5 +1,5 @@
-#ifndef OXC_SYMBOL_H
-#define OXC_SYMBOL_H
+#ifndef OXC_OX_H
+#define OXC_OX_H
 
 #include "symbol/ClassSymbolTable.h"
 #include "symbol/SubroutineSymbolTable.h"

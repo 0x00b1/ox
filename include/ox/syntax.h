@@ -1,5 +1,5 @@
-#ifndef OXC_SYNTAX_H
-#define OXC_SYNTAX_H
+#ifndef OXC_OX_SYNTAX_H
+#define OXC_OX_SYNTAX_H
 
 #include "ConcreteSyntax/AnonymousConstant.h"
 #include "ConcreteSyntax/Argument.h"
