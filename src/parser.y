@@ -13,7 +13,7 @@
 %code requires {
   #include <string>
 
-  #include "syntax/syntax.h"
+  #include "ox/syntax.h"
 
   class Compiler;
 }

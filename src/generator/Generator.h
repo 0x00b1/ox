@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "syntax/syntax.h"
+#include "ox/syntax.h"
 
 class Generator: public Visitor {
 public:

@@ -1,8 +1,8 @@
 #include <iostream>
 
+#include "ox/syntax.h"
 #include "compiler.hh"
-#include "syntax/syntax.h"
-#include "compiler/compiler.h"
+#include "ox/compiler.h"
 
 int main(int argc, const char * argv[]) {
     Compiler compiler;

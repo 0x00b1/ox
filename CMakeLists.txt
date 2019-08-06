@@ -37,74 +37,74 @@ add_executable(
     ${FLEX_SCANNER_OUTPUTS}
     src/compiler.cpp
     src/generator/Generator.cpp
-    src/syntax/AnonymousConstant.cpp
-    src/syntax/Argument.cpp
-    src/syntax/ArrayExpression.cpp
-    src/syntax/ArrayType.cpp
-    src/syntax/AssignmentStatement.cpp
-    src/syntax/BlockStatement.cpp
-        src/syntax/BooleanLiteralExpression.cpp
-    src/syntax/BooleanType.cpp
-    src/syntax/BottomType.cpp
-    src/syntax/CallExpression.cpp
-    src/syntax/ClosureExpression.cpp
-    src/syntax/ConditionalStatement.cpp
-    src/syntax/ConstantItem.cpp
-    src/syntax/Expression.cpp
-    src/syntax/ExpressionStatement.cpp
-    src/syntax/ExternalPackageItem.cpp
-        src/syntax/FloatingPointLiteralExpression.cpp
-    src/syntax/FloatingPointType.cpp
-    src/syntax/FunctionDeclaration.cpp
-    src/syntax/FunctionType.cpp
-    src/syntax/Identifier.cpp
-    src/syntax/IndexExpression.cpp
-        src/syntax/IntegerLiteralExpression.cpp
-    src/syntax/IntegerType.cpp
-    src/syntax/Item.cpp
-    src/syntax/ItemStatement.cpp
-    src/syntax/Literal.cpp
-    src/syntax/LiteralExpression.cpp
-    src/syntax/LiteralPattern.cpp
-    src/syntax/ModuleItem.cpp
-    src/syntax/Name.cpp
-    src/syntax/Parameter.cpp
-    src/syntax/PathPattern.cpp
-    src/syntax/PathType.cpp
-    src/syntax/Pattern.cpp
-    src/syntax/PointerType.cpp
-    src/syntax/Position.cpp
-    src/syntax/ReferenceType.cpp
-    src/syntax/ReturnStatement.cpp
-    src/syntax/SlicePattern.cpp
-    src/syntax/SliceType.cpp
-    src/syntax/Statement.cpp
-    src/syntax/SubroutineItem.cpp
-    src/syntax/TupleExpression.cpp
-    src/syntax/TuplePattern.cpp
-    src/syntax/TupleType.cpp
-    src/syntax/Type.cpp
-    src/syntax/TypeItem.cpp
-    src/syntax/WildcardPattern.cpp
+        src/ConcreteSyntax/AnonymousConstant.cpp
+        src/ConcreteSyntax/Argument.cpp
+        src/ConcreteSyntax/ArrayExpression.cpp
+        src/ConcreteSyntax/ArrayType.cpp
+        src/ConcreteSyntax/AssignmentStatement.cpp
+        src/ConcreteSyntax/BlockStatement.cpp
+        src/ConcreteSyntax/BooleanLiteralExpression.cpp
+        src/ConcreteSyntax/BooleanType.cpp
+        src/ConcreteSyntax/BottomType.cpp
+        src/ConcreteSyntax/CallExpression.cpp
+        src/ConcreteSyntax/ClosureExpression.cpp
+        src/ConcreteSyntax/ConditionalStatement.cpp
+        src/ConcreteSyntax/ConstantItem.cpp
+        src/ConcreteSyntax/Expression.cpp
+        src/ConcreteSyntax/ExpressionStatement.cpp
+        src/ConcreteSyntax/ExternalPackageItem.cpp
+        src/ConcreteSyntax/FloatingPointLiteralExpression.cpp
+        src/ConcreteSyntax/FloatingPointType.cpp
+        src/ConcreteSyntax/FunctionDeclaration.cpp
+        src/ConcreteSyntax/FunctionType.cpp
+        src/ConcreteSyntax/Identifier.cpp
+        src/ConcreteSyntax/IndexExpression.cpp
+        src/ConcreteSyntax/IntegerLiteralExpression.cpp
+        src/ConcreteSyntax/IntegerType.cpp
+        src/ConcreteSyntax/Item.cpp
+        src/ConcreteSyntax/ItemStatement.cpp
+        src/ConcreteSyntax/Literal.cpp
+        src/ConcreteSyntax/LiteralExpression.cpp
+        src/ConcreteSyntax/LiteralPattern.cpp
+        src/ConcreteSyntax/ModuleItem.cpp
+        src/ConcreteSyntax/Name.cpp
+        src/ConcreteSyntax/Parameter.cpp
+        src/ConcreteSyntax/PathPattern.cpp
+        src/ConcreteSyntax/PathType.cpp
+        src/ConcreteSyntax/Pattern.cpp
+        src/ConcreteSyntax/PointerType.cpp
+        src/ConcreteSyntax/Position.cpp
+        src/ConcreteSyntax/ReferenceType.cpp
+        src/ConcreteSyntax/ReturnStatement.cpp
+        src/ConcreteSyntax/SlicePattern.cpp
+        src/ConcreteSyntax/SliceType.cpp
+        src/ConcreteSyntax/Statement.cpp
+        src/ConcreteSyntax/SubroutineItem.cpp
+        src/ConcreteSyntax/TupleExpression.cpp
+        src/ConcreteSyntax/TuplePattern.cpp
+        src/ConcreteSyntax/TupleType.cpp
+        src/ConcreteSyntax/Type.cpp
+        src/ConcreteSyntax/TypeItem.cpp
+        src/ConcreteSyntax/WildcardPattern.cpp
         include/compiler/compiler.h
-        src/syntax/PathExpression.cpp
-        src/syntax/PathExpression.h
-        src/syntax/PrefixExpression.cpp
-        src/syntax/PrefixExpression.h
-        src/syntax/InfixExpression.cpp
-        src/syntax/InfixExpression.h
-        src/syntax/PostfixExpression.cpp
-        src/syntax/PostfixExpression.h
-        src/syntax/Operator.cpp
-        src/syntax/Operator.h
-        src/syntax/OperatorExpression.cpp
-        src/syntax/OperatorExpression.h
-        src/syntax/GroupedExpression.cpp
-        src/syntax/GroupedExpression.h
-        src/syntax/SizeType.cpp
-        src/syntax/SizeType.h
-        src/syntax/ModuleSymbol.cpp
-        src/syntax/ModuleSymbol.h
+        src/ConcreteSyntax/PathExpression.cpp
+        src/ConcreteSyntax/PathExpression.h
+        src/ConcreteSyntax/PrefixExpression.cpp
+        src/ConcreteSyntax/PrefixExpression.h
+        src/ConcreteSyntax/InfixExpression.cpp
+        src/ConcreteSyntax/InfixExpression.h
+        src/ConcreteSyntax/PostfixExpression.cpp
+        src/ConcreteSyntax/PostfixExpression.h
+        src/ConcreteSyntax/Operator.cpp
+        src/ConcreteSyntax/Operator.h
+        src/ConcreteSyntax/OperatorExpression.cpp
+        src/ConcreteSyntax/OperatorExpression.h
+        src/ConcreteSyntax/GroupedExpression.cpp
+        src/ConcreteSyntax/GroupedExpression.h
+        src/ConcreteSyntax/SizeType.cpp
+        src/ConcreteSyntax/SizeType.h
+        src/ConcreteSyntax/ModuleSymbol.cpp
+        src/ConcreteSyntax/ModuleSymbol.h
         src/symbol/SubroutineSymbolTable.cpp
         src/symbol/SubroutineSymbolTable.h
         src/symbol/ClassSymbolTable.cpp
@@ -114,11 +114,11 @@ add_executable(
         src/symbol/Symbol.cpp
         src/symbol/Symbol.h
         include/symbol/symbol.h
-        src/syntax/ReferencePattern.cpp
-        src/syntax/ReferencePattern.h
-        src/syntax/Unit.cpp
-        src/syntax/Unit.h
-        src/syntax/IdentifierPattern.cpp src/syntax/IdentifierPattern.h)
+        src/ConcreteSyntax/ReferencePattern.cpp
+        src/ConcreteSyntax/ReferencePattern.h
+        src/ConcreteSyntax/Unit.cpp
+        src/ConcreteSyntax/Unit.h
+        src/ConcreteSyntax/IdentifierPattern.cpp src/ConcreteSyntax/IdentifierPattern.h)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 
