@@ -4,13 +4,18 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "Node.h"
 #include "Visitor/Visitor.h"
 
 class Node::FunctionPrototype: public Node, public std::enable_shared_from_this<FunctionPrototype> {
 public:
-  FunctionPrototype();
+  FunctionPrototype(std::vector<std::shared_ptr<Parameter>> parameters, std::shared_ptr<Type> return_type);
+
+  std::vector<std::shared_ptr<Parameter>> parameters;
+
+  std::shared_ptr<Type> return_type;
 
   void accept(Visitor &visitor) override;
 };
