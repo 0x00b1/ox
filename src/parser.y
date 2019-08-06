@@ -647,7 +647,7 @@ TYPE                              : FUNCTION_TYPE {
                                   }
                                   ;
 FUNCTION_TYPE                     : "(" FUNCTION_TYPE_PARAMETERS ")" "→" TYPE {
-                                    std::shared_ptr<Node::FunctionType> function_type(new Node::FunctionType());
+                                    std::shared_ptr<Node::FunctionType> function_type(new Node::FunctionType($2, $5));
 
                                     $$ = function_type;
                                   }
