@@ -36,11 +36,11 @@ public:
   void accept(std::shared_ptr<Node::IntegerLiteralExpression> node) override;
   void accept(std::shared_ptr<Node::IntegerType> node) override;
   void accept(std::shared_ptr<Node::Declaration> node) override;
-  void accept(std::shared_ptr<Node::ItemStatement> node) override;
+  void accept(std::shared_ptr<Node::DeclarationStatement> node) override;
   void accept(std::shared_ptr<Node::Literal> node) override;
   void accept(std::shared_ptr<Node::LiteralExpression> node) override;
   void accept(std::shared_ptr<Node::LiteralPattern> node) override;
-  void accept(std::shared_ptr<Node::ModuleItem> node) override;
+  void accept(std::shared_ptr<Node::ModuleDeclaration> node) override;
   void accept(std::shared_ptr<Node::Name> node) override;
   void accept(std::shared_ptr<Node::OperatorExpression> node) override;
   void accept(std::shared_ptr<Node::Parameter> node) override;

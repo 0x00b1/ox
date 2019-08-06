@@ -168,8 +168,8 @@ void NameResolution::accept(std::shared_ptr<Node::Declaration> item) {
   item->node->accept(*this);
 }
 
-void NameResolution::accept(std::shared_ptr<Node::ItemStatement> item_statement) {
-  std::cout << "Node::ItemStatement" << std::endl;
+void NameResolution::accept(std::shared_ptr<Node::DeclarationStatement> item_statement) {
+  std::cout << "Node::DeclarationStatement" << std::endl;
 
   item_statement->item->accept(*this);
 }
@@ -188,8 +188,8 @@ void NameResolution::accept(std::shared_ptr<Node::LiteralPattern> literal_patter
   std::cout << "Node::LiteralPattern" << std::endl;
 }
 
-void NameResolution::accept(std::shared_ptr<Node::ModuleItem> module_item) {
-  std::cout << "Node::ModuleItem" << std::endl;
+void NameResolution::accept(std::shared_ptr<Node::ModuleDeclaration> module_item) {
+  std::cout << "Node::ModuleDeclaration" << std::endl;
 }
 
 void NameResolution::accept(std::shared_ptr<Node::Name> name) {

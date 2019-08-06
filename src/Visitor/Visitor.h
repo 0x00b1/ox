@@ -35,11 +35,11 @@ namespace Node {
   class IntegerLiteralExpression;
   class IntegerType;
   class Declaration;
-  class ItemStatement;
+  class DeclarationStatement;
   class Literal;
   class LiteralExpression;
   class LiteralPattern;
-  class ModuleItem;
+  class ModuleDeclaration;
   class Name;
   class OperatorExpression;
   class Parameter;
@@ -98,11 +98,11 @@ public:
   virtual void accept(std::shared_ptr<Node::IntegerLiteralExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::IntegerType>) = 0;
   virtual void accept(std::shared_ptr<Node::Declaration>) = 0;
-  virtual void accept(std::shared_ptr<Node::ItemStatement>) = 0;
+  virtual void accept(std::shared_ptr<Node::DeclarationStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::Literal>) = 0;
   virtual void accept(std::shared_ptr<Node::LiteralExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::LiteralPattern>) = 0;
-  virtual void accept(std::shared_ptr<Node::ModuleItem>) = 0;
+  virtual void accept(std::shared_ptr<Node::ModuleDeclaration>) = 0;
   virtual void accept(std::shared_ptr<Node::Name>) = 0;
   virtual void accept(std::shared_ptr<Node::OperatorExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::Parameter>) = 0;

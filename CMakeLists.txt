@@ -64,12 +64,11 @@ add_executable(
         src/AbstractSyntax/IntegerLiteralExpression.cpp
         src/AbstractSyntax/IntegerType.cpp
         src/AbstractSyntax/Declaration.cpp
-        src/AbstractSyntax/ItemStatement.cpp
+        src/AbstractSyntax/DeclarationStatement.cpp
         src/AbstractSyntax/Literal.cpp
         src/AbstractSyntax/LiteralExpression.cpp
         src/AbstractSyntax/LiteralPattern.cpp
-        src/AbstractSyntax/ModuleItem.cpp
-        src/AbstractSyntax/ModuleSymbol.cpp
+        src/AbstractSyntax/ModuleDeclaration.cpp
         src/AbstractSyntax/Name.cpp
         src/AbstractSyntax/Operator.cpp
         src/AbstractSyntax/OperatorExpression.cpp
@@ -106,7 +105,8 @@ add_executable(
         include/ox/Visitor.h
         src/AbstractSyntax/ClassDeclaration.cpp
         src/AbstractSyntax/ClassDeclaration.h
-        src/SymbolTable/ModuleSymbolTable.cpp src/SymbolTable/ModuleSymbolTable.h)
+        src/SymbolTable/ModuleSymbolTable.cpp src/SymbolTable/ModuleSymbolTable.h
+)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 

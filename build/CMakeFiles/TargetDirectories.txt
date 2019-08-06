@@ -1,0 +1,4 @@
+/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles/rebuild_cache.dir
+/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles/edit_cache.dir
+/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles/oxc.dir
+/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles/intrinsics_gen.dir

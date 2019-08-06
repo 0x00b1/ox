@@ -13,7 +13,7 @@
 %code requires {
   #include <string>
 
-  #include "ox/syntax.h"
+  #include "ox/AbstractSyntax.h"
 
   class Compiler;
 }
@@ -111,14 +111,14 @@
 %type <std::vector<std::shared_ptr<Node::InfixExpression>>> INFIX_EXPRESSIONS;
 %type <std::shared_ptr<Node::InfixExpression>> INFIX_EXPRESSION;
 %type <std::shared_ptr<Node::AssignmentStatement>> ASSIGNMENT_STATEMENT;
-%type <std::shared_ptr<Node::ItemStatement>> ITEM_STATEMENT;
-%type <std::shared_ptr<Node::Item>> ITEM;
-%type <std::shared_ptr<Node::ModuleItem>> MODULE_ITEM;
-%type <std::vector<std::shared_ptr<Node::Item>>> ITEMS;
-%type <std::shared_ptr<Node::ExternalPackageItem>> EXTERNAL_PACKAGE_ITEM;
-%type <std::shared_ptr<Node::SubroutineItem>> SUBROUTINE_ITEM;
-%type <std::shared_ptr<Node::ConstantItem>> CONSTANT_ITEM;
-%type <std::shared_ptr<Node::TypeItem>> TYPE_ITEM;
+%type <std::shared_ptr<Node::DeclarationStatement>> ITEM_STATEMENT;
+%type <std::shared_ptr<Node::Declaration>> ITEM;
+%type <std::shared_ptr<Node::ModuleDeclaration>> MODULE_ITEM;
+%type <std::vector<std::shared_ptr<Node::Declaration>>> ITEMS;
+%type <std::shared_ptr<Node::ExternalPackageDeclaration>> EXTERNAL_PACKAGE_ITEM;
+%type <std::shared_ptr<Node::SubroutineDeclaration>> SUBROUTINE_ITEM;
+%type <std::shared_ptr<Node::ConstantDeclaration>> CONSTANT_ITEM;
+%type <std::shared_ptr<Node::TypeDeclaration>> TYPE_ITEM;
 %type <std::shared_ptr<Node::ConditionalStatement>> CONDITIONAL_STATEMENT;
 %type <std::shared_ptr<Node::ReturnStatement>> RETURN_STATEMENT;
 %type <std::shared_ptr<Node::BlockStatement>> BLOCK_STATEMENT;
@@ -435,86 +435,86 @@ ASSIGNMENT_STATEMENT              : PATTERN ":" TYPE "←" OPERATOR_EXPRESSION "
                                   }
                                   ;
 ITEM_STATEMENT                    : ITEM {
-                                    std::shared_ptr<Node::ItemStatement> item_statement(new Node::ItemStatement($1));
+                                    std::shared_ptr<Node::DeclarationStatement> item_statement(new Node::DeclarationStatement($1));
 
                                     $$ = item_statement;
                                   }
                                   ;
 ITEM                              : MODULE_ITEM {
-                                    std::shared_ptr<Node::Item> item(new Node::Item($1));
+                                    std::shared_ptr<Node::Declaration> item(new Node::Declaration($1));
 
                                     $$ = item;
                                   }
                                   | EXTERNAL_PACKAGE_ITEM {
-                                    std::shared_ptr<Node::Item> item(new Node::Item($1));
+                                    std::shared_ptr<Node::Declaration> item(new Node::Declaration($1));
 
                                     $$ = item;
                                   }
                                   | CONSTANT_ITEM {
-                                    std::shared_ptr<Node::Item> item(new Node::Item($1));
+                                    std::shared_ptr<Node::Declaration> item(new Node::Declaration($1));
 
                                     $$ = item;
                                   }
                                   | TYPE_ITEM {
-                                    std::shared_ptr<Node::Item> item(new Node::Item($1));
+                                    std::shared_ptr<Node::Declaration> item(new Node::Declaration($1));
 
                                     $$ = item;
                                   }
                                   | SUBROUTINE_ITEM {
-                                    std::shared_ptr<Node::Item> item(new Node::Item($1));
+                                    std::shared_ptr<Node::Declaration> item(new Node::Declaration($1));
 
                                     $$ = item;
                                   }
                                   ;
 MODULE_ITEM                       : "module" IDENTIFIER "{" ITEMS "}" ";" {
-                                    std::shared_ptr<Node::ModuleItem> module_item(new Node::ModuleItem($2, $4));
+                                    std::shared_ptr<Node::ModuleDeclaration> module_item(new Node::ModuleDeclaration($2, $4));
 
                                     $$ = module_item;
                                   }
                                   | "module" IDENTIFIER ";" {
-                                    std::shared_ptr<Node::ModuleItem> module_item(new Node::ModuleItem($2));
+                                    std::shared_ptr<Node::ModuleDeclaration> module_item(new Node::ModuleDeclaration($2));
 
                                     $$ = module_item;
                                   }
                                   ;
 ITEMS                             : ITEMS ITEM {
-                                    std::vector<std::shared_ptr<Node::Item>> items = $1;
+                                    std::vector<std::shared_ptr<Node::Declaration>> items = $1;
 
                                     items.push_back($2);
 
                                     $$ = items;
                                   }
                                   | ITEM {
-                                    $$ = std::vector<std::shared_ptr<Node::Item>>();
+                                    $$ = std::vector<std::shared_ptr<Node::Declaration>>();
 
                                     $$.push_back($1);
                                   }
                                   ;
 EXTERNAL_PACKAGE_ITEM             : "external" "package" IDENTIFIER "as" IDENTIFIER ";" {
-                                    std::shared_ptr<Node::ExternalPackageItem> external_package_item(new Node::ExternalPackageItem($3, $5));
+                                    std::shared_ptr<Node::ExternalPackageDeclaration> external_package_item(new Node::ExternalPackageDeclaration($3, $5));
 
                                     $$ = external_package_item;
                                   }
                                   | "external" "package" IDENTIFIER ";" {
-                                    std::shared_ptr<Node::ExternalPackageItem> external_package_item(new Node::ExternalPackageItem($3));
+                                    std::shared_ptr<Node::ExternalPackageDeclaration> external_package_item(new Node::ExternalPackageDeclaration($3));
 
                                     $$ = external_package_item;
                                   }
                                   ;
 CONSTANT_ITEM                     : "constant" IDENTIFIER ":" TYPE "←" OPERATOR_EXPRESSION ";" {
-                                    std::shared_ptr<Node::ConstantItem> constant_item(new Node::ConstantItem($2, $4, $6));
+                                    std::shared_ptr<Node::ConstantDeclaration> constant_item(new Node::ConstantDeclaration($2, $4, $6));
 
                                     $$ = constant_item;
                                   }
                                   ;
 TYPE_ITEM                         : "type" IDENTIFIER "←" TYPE ";" {
-                                    std::shared_ptr<Node::TypeItem> type_item(new Node::TypeItem($2, $4));
+                                    std::shared_ptr<Node::TypeDeclaration> type_item(new Node::TypeDeclaration($2, $4));
 
                                     $$ = type_item;
                                   }
                                   ;
 SUBROUTINE_ITEM                   : "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT {
-                                    std::shared_ptr<Node::SubroutineItem> subroutine_item(new Node::SubroutineItem($2, $3, $4));
+                                    std::shared_ptr<Node::SubroutineDeclaration> subroutine_item(new Node::SubroutineDeclaration($2, $3, $4));
 
                                     $$ = subroutine_item;
                                   }

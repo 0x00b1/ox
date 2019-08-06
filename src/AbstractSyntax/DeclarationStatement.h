@@ -9,9 +9,9 @@
 #include "Statement.h"
 #include "Visitor/Visitor.h"
 
-class Node::ItemStatement: public Node, public std::enable_shared_from_this<ItemStatement> {
+class Node::DeclarationStatement: public Node, public std::enable_shared_from_this<DeclarationStatement> {
 public:
-  explicit ItemStatement(std::shared_ptr<Declaration> item);
+  explicit DeclarationStatement(std::shared_ptr<Declaration> item);
 
   std::shared_ptr<Declaration> item;
 

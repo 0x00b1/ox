@@ -9,11 +9,11 @@
 #include "Declaration.h"
 #include "Visitor/Visitor.h"
 
-class Node::ModuleItem: public Node, public std::enable_shared_from_this<ModuleItem> {
+class Node::ModuleDeclaration: public Node, public std::enable_shared_from_this<ModuleDeclaration> {
 public:
-  explicit ModuleItem(std::string identifier);
+  explicit ModuleDeclaration(std::string identifier);
 
-  ModuleItem(std::string identifier, std::vector<std::shared_ptr<Declaration>> items);
+  ModuleDeclaration(std::string identifier, std::vector<std::shared_ptr<Declaration>> items);
 
   std::string identifier;
 
