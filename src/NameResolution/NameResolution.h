@@ -27,6 +27,7 @@ public:
   void accept(std::shared_ptr<Node::FloatingPointLiteralExpression> node) override;
   void accept(std::shared_ptr<Node::FloatingPointType> node) override;
   void accept(std::shared_ptr<Node::FunctionDeclaration> node) override;
+  void accept(std::shared_ptr<Node::FunctionPrototype> node) override;
   void accept(std::shared_ptr<Node::FunctionType> node) override;
   void accept(std::shared_ptr<Node::GroupedExpression> node) override;
   void accept(std::shared_ptr<Node::Identifier> node) override;

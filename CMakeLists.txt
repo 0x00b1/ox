@@ -106,7 +106,7 @@ add_executable(
         src/AbstractSyntax/ClassDeclaration.cpp
         src/AbstractSyntax/ClassDeclaration.h
         src/SymbolTable/ModuleSymbolTable.cpp src/SymbolTable/ModuleSymbolTable.h
-)
+        src/AbstractSyntax/FunctionPrototype.cpp src/AbstractSyntax/FunctionPrototype.h)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 

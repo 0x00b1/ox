@@ -1,5 +1,5 @@
-#ifndef OX_VISITOR_H
-#define OX_VISITOR_H
+#ifndef OXC_VISITOR_VISITOR_H
+#define OXC_VISITOR_VISITOR_H
 
 #include <memory>
 
@@ -20,12 +20,15 @@ namespace Node {
   class ClosureExpression;
   class ConditionalStatement;
   class ConstantDeclaration;
+  class Declaration;
+  class DeclarationStatement;
   class Expression;
   class ExpressionStatement;
   class ExternalPackageDeclaration;
   class FloatingPointLiteralExpression;
   class FloatingPointType;
   class FunctionDeclaration;
+  class FunctionPrototype;
   class FunctionType;
   class GroupedExpression;
   class Identifier;
@@ -34,8 +37,6 @@ namespace Node {
   class InfixExpression;
   class IntegerLiteralExpression;
   class IntegerType;
-  class Declaration;
-  class DeclarationStatement;
   class Literal;
   class LiteralExpression;
   class LiteralPattern;
@@ -58,12 +59,12 @@ namespace Node {
   class SliceType;
   class Statement;
   class SubroutineDeclaration;
+  class TranslationUnit;
   class TupleExpression;
   class TuplePattern;
   class TupleType;
   class Type;
   class TypeDeclaration;
-  class TranslationUnit;
   class WildcardPattern;
 }
 
@@ -83,12 +84,15 @@ public:
   virtual void accept(std::shared_ptr<Node::ClosureExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::ConditionalStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::ConstantDeclaration>) = 0;
+  virtual void accept(std::shared_ptr<Node::Declaration>) = 0;
+  virtual void accept(std::shared_ptr<Node::DeclarationStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::Expression>) = 0;
   virtual void accept(std::shared_ptr<Node::ExpressionStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::ExternalPackageDeclaration>) = 0;
   virtual void accept(std::shared_ptr<Node::FloatingPointLiteralExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::FloatingPointType>) = 0;
   virtual void accept(std::shared_ptr<Node::FunctionDeclaration>) = 0;
+  virtual void accept(std::shared_ptr<Node::FunctionPrototype>) = 0;
   virtual void accept(std::shared_ptr<Node::FunctionType>) = 0;
   virtual void accept(std::shared_ptr<Node::GroupedExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::Identifier>) = 0;
@@ -97,8 +101,6 @@ public:
   virtual void accept(std::shared_ptr<Node::InfixExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::IntegerLiteralExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::IntegerType>) = 0;
-  virtual void accept(std::shared_ptr<Node::Declaration>) = 0;
-  virtual void accept(std::shared_ptr<Node::DeclarationStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::Literal>) = 0;
   virtual void accept(std::shared_ptr<Node::LiteralExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::LiteralPattern>) = 0;
@@ -121,12 +123,12 @@ public:
   virtual void accept(std::shared_ptr<Node::SliceType>) = 0;
   virtual void accept(std::shared_ptr<Node::Statement>) = 0;
   virtual void accept(std::shared_ptr<Node::SubroutineDeclaration>) = 0;
+  virtual void accept(std::shared_ptr<Node::TranslationUnit>) = 0;
   virtual void accept(std::shared_ptr<Node::TupleExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::TuplePattern>) = 0;
   virtual void accept(std::shared_ptr<Node::TupleType>) = 0;
   virtual void accept(std::shared_ptr<Node::Type>) = 0;
   virtual void accept(std::shared_ptr<Node::TypeDeclaration>) = 0;
-  virtual void accept(std::shared_ptr<Node::TranslationUnit>) = 0;
   virtual void accept(std::shared_ptr<Node::WildcardPattern>) = 0;
 };
 

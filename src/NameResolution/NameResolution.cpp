@@ -122,6 +122,10 @@ void NameResolution::accept(std::shared_ptr<Node::FunctionDeclaration> node) {
   std::cout << "Node::FunctionDeclaration" << std::endl;
 }
 
+void NameResolution::accept(std::shared_ptr<Node::FunctionPrototype> node) {
+  std::cout << "Node::FunctionPrototype" << std::endl;
+}
+
 void NameResolution::accept(std::shared_ptr<Node::FunctionType> function_type) {
   std::cout << "Node::FunctionType" << std::endl;
 }
