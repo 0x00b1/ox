@@ -4,9 +4,12 @@
 #include <memory>
 
 #include "ox/AbstractSyntax.h"
+#include "ox/SymbolTable.h"
 
 class NameResolution: public Visitor {
 public:
+  std::shared_ptr<SymbolTable> symbol_table;
+
   void accept(std::shared_ptr<Node::AnonymousConstant> node) override;
   void accept(std::shared_ptr<Node::Argument> node) override;
   void accept(std::shared_ptr<Node::ArrayExpression> node) override;
