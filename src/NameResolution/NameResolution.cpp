@@ -74,8 +74,8 @@ void NameResolution::accept(std::shared_ptr<Node::CallExpression> call_expressio
   }
 }
 
-void NameResolution::accept(std::shared_ptr<Node::ClassItem> class_item) {
-  std::cout << "Node::ClassItem" << std::endl;
+void NameResolution::accept(std::shared_ptr<Node::ClassDeclaration> class_item) {
+  std::cout << "Node::ClassDeclaration" << std::endl;
 }
 
 void NameResolution::accept(std::shared_ptr<Node::ClosureExpression> node) {
@@ -90,8 +90,8 @@ void NameResolution::accept(std::shared_ptr<Node::ConditionalStatement> conditio
   conditional_statement->consequent->accept(*this);
 }
 
-void NameResolution::accept(std::shared_ptr<Node::ConstantItem> node) {
-  std::cout << "Node::ConstantItem" << std::endl;
+void NameResolution::accept(std::shared_ptr<Node::ConstantDeclaration> node) {
+  std::cout << "Node::ConstantDeclaration" << std::endl;
 }
 
 void NameResolution::accept(std::shared_ptr<Node::Expression> expression) {
@@ -106,8 +106,8 @@ void NameResolution::accept(std::shared_ptr<Node::ExpressionStatement> expressio
   expression_statement->expression->accept(*this);
 }
 
-void NameResolution::accept(std::shared_ptr<Node::ExternalPackageItem> node) {
-  std::cout << "Node::ExternalPackageItem" << std::endl;
+void NameResolution::accept(std::shared_ptr<Node::ExternalPackageDeclaration> node) {
+  std::cout << "Node::ExternalPackageDeclaration" << std::endl;
 }
 
 void NameResolution::accept(std::shared_ptr<Node::FloatingPointLiteralExpression> node) {
@@ -162,8 +162,8 @@ void NameResolution::accept(std::shared_ptr<Node::IntegerType> integer_type) {
   std::cout << "Node::IntegerType" << std::endl;
 }
 
-void NameResolution::accept(std::shared_ptr<Node::Item> item) {
-  std::cout << "Node::Item" << std::endl;
+void NameResolution::accept(std::shared_ptr<Node::Declaration> item) {
+  std::cout << "Node::Declaration" << std::endl;
 
   item->node->accept(*this);
 }
@@ -274,8 +274,8 @@ void NameResolution::accept(std::shared_ptr<Node::Statement> statement) {
   statement->node->accept(*this);
 }
 
-void NameResolution::accept(std::shared_ptr<Node::SubroutineItem> subroutine_item) {
-  std::cout << "Node::SubroutineItem" << std::endl;
+void NameResolution::accept(std::shared_ptr<Node::SubroutineDeclaration> subroutine_item) {
+  std::cout << "Node::SubroutineDeclaration" << std::endl;
 
   subroutine_item->function_type->accept(*this);
 
@@ -304,8 +304,8 @@ void NameResolution::accept(std::shared_ptr<Node::Type> type) {
   type->node->accept(*this);
 }
 
-void NameResolution::accept(std::shared_ptr<Node::TypeItem> type_item) {
-  std::cout << "Node::TypeItem" << std::endl;
+void NameResolution::accept(std::shared_ptr<Node::TypeDeclaration> type_item) {
+  std::cout << "Node::TypeDeclaration" << std::endl;
 }
 
 void NameResolution::accept(std::shared_ptr<Node::Unit> unit) {

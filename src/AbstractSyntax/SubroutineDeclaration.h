@@ -7,12 +7,12 @@
 #include <vector>
 
 #include "FunctionType.h"
-#include "Item.h"
+#include "Declaration.h"
 #include "Visitor/Visitor.h"
 
-class Node::SubroutineItem: public Node, public std::enable_shared_from_this<SubroutineItem> {
+class Node::SubroutineDeclaration: public Node, public std::enable_shared_from_this<SubroutineDeclaration> {
 public:
-  SubroutineItem(std::string identifier, std::shared_ptr<FunctionType> function_type, std::shared_ptr<BlockStatement> block_statement);
+  SubroutineDeclaration(std::string identifier, std::shared_ptr<FunctionType> function_type, std::shared_ptr<BlockStatement> block_statement);
 
   std::string identifier;
 

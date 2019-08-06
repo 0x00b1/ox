@@ -5,13 +5,13 @@
 #include <string>
 #include <utility>
 
-#include "Item.h"
+#include "Declaration.h"
 #include "Type.h"
 #include "Visitor/Visitor.h"
 
-class Node::TypeItem: public Node, public std::enable_shared_from_this<TypeItem> {
+class Node::TypeDeclaration: public Node, public std::enable_shared_from_this<TypeDeclaration> {
 public:
-  TypeItem(std::string identifier, std::shared_ptr<Type> type);
+  TypeDeclaration(std::string identifier, std::shared_ptr<Type> type);
 
   std::string identifier;
 

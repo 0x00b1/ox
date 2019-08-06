@@ -6,18 +6,18 @@
 #include <utility>
 #include <vector>
 
-#include "Item.h"
+#include "Declaration.h"
 #include "Visitor/Visitor.h"
 
 class Node::ModuleItem: public Node, public std::enable_shared_from_this<ModuleItem> {
 public:
   explicit ModuleItem(std::string identifier);
 
-  ModuleItem(std::string identifier, std::vector<std::shared_ptr<Item>> items);
+  ModuleItem(std::string identifier, std::vector<std::shared_ptr<Declaration>> items);
 
   std::string identifier;
 
-  std::vector<std::shared_ptr<Item>> items;
+  std::vector<std::shared_ptr<Declaration>> items;
 
   void accept(Visitor &visitor) override;
 };

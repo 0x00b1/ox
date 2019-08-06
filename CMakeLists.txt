@@ -48,10 +48,10 @@ add_executable(
         src/AbstractSyntax/CallExpression.cpp
         src/AbstractSyntax/ClosureExpression.cpp
         src/AbstractSyntax/ConditionalStatement.cpp
-        src/AbstractSyntax/ConstantItem.cpp
+        src/AbstractSyntax/ConstantDeclaration.cpp
         src/AbstractSyntax/Expression.cpp
         src/AbstractSyntax/ExpressionStatement.cpp
-        src/AbstractSyntax/ExternalPackageItem.cpp
+        src/AbstractSyntax/ExternalPackageDeclaration.cpp
         src/AbstractSyntax/FloatingPointLiteralExpression.cpp
         src/AbstractSyntax/FloatingPointType.cpp
         src/AbstractSyntax/FunctionDeclaration.cpp
@@ -63,7 +63,7 @@ add_executable(
         src/AbstractSyntax/InfixExpression.cpp
         src/AbstractSyntax/IntegerLiteralExpression.cpp
         src/AbstractSyntax/IntegerType.cpp
-        src/AbstractSyntax/Item.cpp
+        src/AbstractSyntax/Declaration.cpp
         src/AbstractSyntax/ItemStatement.cpp
         src/AbstractSyntax/Literal.cpp
         src/AbstractSyntax/LiteralExpression.cpp
@@ -90,12 +90,12 @@ add_executable(
         src/AbstractSyntax/SlicePattern.cpp
         src/AbstractSyntax/SliceType.cpp
         src/AbstractSyntax/Statement.cpp
-        src/AbstractSyntax/SubroutineItem.cpp
+        src/AbstractSyntax/SubroutineDeclaration.cpp
         src/AbstractSyntax/TupleExpression.cpp
         src/AbstractSyntax/TuplePattern.cpp
         src/AbstractSyntax/TupleType.cpp
         src/AbstractSyntax/Type.cpp
-        src/AbstractSyntax/TypeItem.cpp
+        src/AbstractSyntax/TypeDeclaration.cpp
         src/AbstractSyntax/Unit.cpp
         src/AbstractSyntax/WildcardPattern.cpp
         src/NameResolution/NameResolution.cpp
@@ -104,8 +104,8 @@ add_executable(
         src/SymbolTable/Symbol.cpp
         src/SymbolTable/SymbolTable.cpp
         include/ox/Visitor.h
-        src/AbstractSyntax/ClassItem.cpp
-        src/AbstractSyntax/ClassItem.h
+        src/AbstractSyntax/ClassDeclaration.cpp
+        src/AbstractSyntax/ClassDeclaration.h
         src/SymbolTable/ModuleSymbolTable.cpp src/SymbolTable/ModuleSymbolTable.h)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )

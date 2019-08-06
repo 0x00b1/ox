@@ -10,9 +10,9 @@
 #include "Statement.h"
 #include "Visitor/Visitor.h"
 
-class Node::ClassItem: public Node, public std::enable_shared_from_this<ClassItem> {
+class Node::ClassDeclaration: public Node, public std::enable_shared_from_this<ClassDeclaration> {
 public:
-  ClassItem();
+  ClassDeclaration();
 
   void accept(Visitor &visitor) override;
 };

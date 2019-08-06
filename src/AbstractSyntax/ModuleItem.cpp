@@ -4,7 +4,7 @@ Node::ModuleItem::ModuleItem(std::string identifier) {
   this->identifier = std::move(identifier);
 }
 
-Node::ModuleItem::ModuleItem(std::string identifier, std::vector<std::shared_ptr<Item>> items) {
+Node::ModuleItem::ModuleItem(std::string identifier, std::vector<std::shared_ptr<Declaration>> items) {
   this->identifier = std::move(identifier);
 
   this->items = std::move(items);

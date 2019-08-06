@@ -1,6 +1,6 @@
 #include "ItemStatement.h"
 
-Node::ItemStatement::ItemStatement(std::shared_ptr<Item> item) {
+Node::ItemStatement::ItemStatement(std::shared_ptr<Declaration> item) {
   this->item = std::move(item);
 }
 
