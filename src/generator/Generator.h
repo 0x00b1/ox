@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "ox/syntax.h"
+#include "ox/AbstractSyntax.h"
 
 class Generator: public Visitor {
 public:
@@ -17,6 +17,7 @@ public:
   void accept(std::shared_ptr<Node::BooleanType> node) override;
   void accept(std::shared_ptr<Node::BottomType> node) override;
   void accept(std::shared_ptr<Node::CallExpression> node) override;
+  void accept(std::shared_ptr<Node::ClassItem> node) override;
   void accept(std::shared_ptr<Node::ClosureExpression> node) override;
   void accept(std::shared_ptr<Node::ConditionalStatement> node) override;
   void accept(std::shared_ptr<Node::ConstantItem> node) override;

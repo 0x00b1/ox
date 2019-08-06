@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "ox/SymbolTable.h"
+
 #include "Generator.h"
 
 void Generator::accept(std::shared_ptr<Node::AnonymousConstant> anonymous_constant) {
@@ -70,6 +72,10 @@ void Generator::accept(std::shared_ptr<Node::CallExpression> call_expression) {
   for (const std::shared_ptr<Node::Node>& parameter: call_expression->parameters) {
     parameter->accept(*this);
   }
+}
+
+void Generator::accept(std::shared_ptr<Node::ClassItem> class_item) {
+  std::cout << "Node::ClassItem" << std::endl;
 }
 
 void Generator::accept(std::shared_ptr<Node::ClosureExpression> node) {

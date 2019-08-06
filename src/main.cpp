@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "ox/syntax.h"
+#include "ox/AbstractSyntax.h"
 #include "compiler.hh"
 #include "ox/compiler.h"
 
