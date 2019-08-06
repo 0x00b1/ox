@@ -1,6 +1,6 @@
 #include "IdentifierPattern.h"
 
-Node::IdentifierPattern::IdentifierPattern(std::string identifier) {
+Node::IdentifierPattern::IdentifierPattern(std::shared_ptr<Identifier> identifier) {
   this->identifier = std::move(identifier);
 }
 

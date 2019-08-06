@@ -602,7 +602,7 @@ PATTERN                           : IDENTIFIER_PATTERN {
                                     $$ = pattern;
                                   }
                                   ;
-IDENTIFIER_PATTERN                : IDENTIFIER_TOKEN {
+IDENTIFIER_PATTERN                : IDENTIFIER {
                                     std::shared_ptr<Node::IdentifierPattern> identifier_pattern(new Node::IdentifierPattern($1));
 
                                     $$ = identifier_pattern;
