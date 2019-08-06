@@ -121,8 +121,8 @@ WHITESPACE      [ \t]
 "True"            return yy::parser::make_KEYWORD_TRUE(location);
 "unsigned"        return yy::parser::make_KEYWORD_UNSIGNED(location);
 
-{FLOATING_POINT}  return yy::parser::make_LITERAL_FLOATING_POINT(yytext, location);
-{INTEGER}         return yy::parser::make_LITERAL_INTEGER(yytext, location);
+{FLOATING_POINT}  return yy::parser::make_LITERAL_FLOATING_POINT_TOKEN(yytext, location);
+{INTEGER}         return yy::parser::make_LITERAL_INTEGER_TOKEN(yytext, location);
 
 ","               return yy::parser::make_PUNCTUATION_COMMA(location);
 ";"               return yy::parser::make_PUNCTUATION_SEMICOLON(location);
@@ -144,7 +144,7 @@ WHITESPACE      [ \t]
 "≤"               return yy::parser::make_PUNCTUATION_LESS_THAN_OR_EQUAL_TO(location);
 "s"               return yy::parser::make_PUNCTUATION_GREATER_THAN_OR_EQUAL_TO(location);
 
-{IDENTIFIER}      return yy::parser::make_IDENTIFIER(yytext, location);
+{IDENTIFIER}      return yy::parser::make_IDENTIFIER_TOKEN(yytext, location);
 
 . {
   throw yy::parser::syntax_error(location, "invalid character: " + std::string(yytext));

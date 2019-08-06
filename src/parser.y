@@ -60,8 +60,8 @@
   KEYWORD_UNSIGNED                      "unsigned"
 ;
 
-%token <std::string> LITERAL_FLOATING_POINT 
-%token <std::string> LITERAL_INTEGER 
+%token <std::string> LITERAL_FLOATING_POINT_TOKEN;
+%token <std::string> LITERAL_INTEGER_TOKEN;
 
 %token
   PUNCTUATION_COLON                     ":"
@@ -85,7 +85,7 @@
   PUNCTUATION_LESS_THAN_SIGN            "<"
 ;
 
-%token <std::string> IDENTIFIER;
+%token <std::string> IDENTIFIER_TOKEN;
 
 %type <std::shared_ptr<Node::TranslationUnit>> UNIT;
 %type <std::vector<std::shared_ptr<Node::Statement>>> STATEMENTS;
@@ -143,6 +143,7 @@
 %type <std::vector<std::shared_ptr<Node::Parameter>>> PARAMETERS;
 %type <std::shared_ptr<Node::Parameter>> PARAMETER;
 %type <std::shared_ptr<Node::FunctionPrototype>> FUNCTION_PROTOTYPE;
+%type <std::shared_ptr<Node::Identifier>> IDENTIFIER;
 
 %printer {
     // FIXME:
@@ -298,7 +299,7 @@ POSTFIX_EXPRESSION                : PATH_EXPRESSION {
                                     $$ = postfix_expression;
                                   }
                                   ;
-PATH_EXPRESSION                   : IDENTIFIER {
+PATH_EXPRESSION                   : IDENTIFIER_TOKEN {
                                     std::shared_ptr<Node::PathExpression> path_expression(new Node::PathExpression($1));
 
                                     $$ = path_expression;
@@ -331,13 +332,13 @@ BOOLEAN_LITERAL_EXPRESSION        : "True" {
                                     $$ = boolean_literal;
                                   }
                                   ;
-FLOATING_POINT_LITERAL_EXPRESSION : LITERAL_FLOATING_POINT {
+FLOATING_POINT_LITERAL_EXPRESSION : LITERAL_FLOATING_POINT_TOKEN {
                                     std::shared_ptr<Node::FloatingPointLiteralExpression> floating_point_literal(new Node::FloatingPointLiteralExpression($1));
 
                                     $$ = floating_point_literal;
                                   }
                                   ;
-INTEGER_LITERAL_EXPRESSION        : LITERAL_INTEGER {
+INTEGER_LITERAL_EXPRESSION        : LITERAL_INTEGER_TOKEN {
                                     std::shared_ptr<Node::IntegerLiteralExpression> integer_literal(new Node::IntegerLiteralExpression($1));
 
                                     $$ = integer_literal;
@@ -474,10 +475,16 @@ MODULE_ITEM                       : "module" IDENTIFIER "{" ITEMS "}" ";" {
 
                                     $$ = module_item;
                                   }
-                                  | "module" IDENTIFIER ";" {
+                                  | "module" IDENTIFIER_TOKEN ";" {
                                     std::shared_ptr<Node::ModuleDeclaration> module_item(new Node::ModuleDeclaration());
 
                                     $$ = module_item;
+                                  }
+                                  ;
+IDENTIFIER                        : IDENTIFIER_TOKEN {
+                                    std::shared_ptr<Node::Identifier> identifier(new Node::Identifier($1));
+
+                                    $$ = identifier;
                                   }
                                   ;
 ITEMS                             : ITEMS ITEM {
@@ -493,30 +500,30 @@ ITEMS                             : ITEMS ITEM {
                                     $$.push_back($1);
                                   }
                                   ;
-EXTERNAL_PACKAGE_ITEM             : "external" "package" IDENTIFIER "as" IDENTIFIER ";" {
+EXTERNAL_PACKAGE_ITEM             : "external" "package" IDENTIFIER_TOKEN "as" IDENTIFIER_TOKEN ";" {
                                     std::shared_ptr<Node::ExternalPackageDeclaration> external_package_item(new Node::ExternalPackageDeclaration());
 
                                     $$ = external_package_item;
                                   }
-                                  | "external" "package" IDENTIFIER ";" {
+                                  | "external" "package" IDENTIFIER_TOKEN ";" {
                                     std::shared_ptr<Node::ExternalPackageDeclaration> external_package_item(new Node::ExternalPackageDeclaration());
 
                                     $$ = external_package_item;
                                   }
                                   ;
-CONSTANT_ITEM                     : "constant" IDENTIFIER ":" TYPE "←" OPERATOR_EXPRESSION ";" {
+CONSTANT_ITEM                     : "constant" IDENTIFIER_TOKEN ":" TYPE "←" OPERATOR_EXPRESSION ";" {
                                     std::shared_ptr<Node::ConstantDeclaration> constant_item(new Node::ConstantDeclaration($4, $6));
 
                                     $$ = constant_item;
                                   }
                                   ;
-TYPE_ITEM                         : "type" IDENTIFIER "←" TYPE ";" {
+TYPE_ITEM                         : "type" IDENTIFIER_TOKEN "←" TYPE ";" {
                                     std::shared_ptr<Node::TypeDeclaration> type_item(new Node::TypeDeclaration($4));
 
                                     $$ = type_item;
                                   }
                                   ;
-SUBROUTINE_ITEM                   : "subroutine" IDENTIFIER FUNCTION_PROTOTYPE BLOCK_STATEMENT {
+SUBROUTINE_ITEM                   : "subroutine" IDENTIFIER_TOKEN FUNCTION_PROTOTYPE BLOCK_STATEMENT {
                                     std::shared_ptr<Node::FunctionDeclaration> function_declaration(new Node::FunctionDeclaration($3));
 
                                     std::shared_ptr<Node::SubroutineDeclaration> subroutine_declaration(new Node::SubroutineDeclaration(function_declaration, $4));
@@ -542,7 +549,7 @@ PARAMETERS                        : PARAMETERS "," PARAMETER {
                                     $$.push_back($1);
                                   }
                                   ;
-PARAMETER                         : IDENTIFIER ":" TYPE {
+PARAMETER                         : IDENTIFIER_TOKEN ":" TYPE {
                                     std::shared_ptr<Node::Parameter> parameter(new Node::Parameter($1, $3));
 
                                     $$ = parameter;
@@ -597,7 +604,7 @@ PATTERN                           : IDENTIFIER_PATTERN {
                                     $$ = pattern;
                                   }
                                   ;
-IDENTIFIER_PATTERN                : IDENTIFIER {
+IDENTIFIER_PATTERN                : IDENTIFIER_TOKEN {
                                     std::shared_ptr<Node::IdentifierPattern> identifier_pattern(new Node::IdentifierPattern($1));
 
                                     $$ = identifier_pattern;
@@ -698,7 +705,7 @@ FUNCTION_TYPE_PARAMETERS          : FUNCTION_TYPE_PARAMETERS "," FUNCTION_TYPE_P
                                     $$.push_back($1);
                                   }
                                   ;
-FUNCTION_TYPE_PARAMETER           : IDENTIFIER ":" TYPE {
+FUNCTION_TYPE_PARAMETER           : IDENTIFIER_TOKEN ":" TYPE {
                                     std::shared_ptr<Node::Parameter> function_type_parameter(new Node::Parameter($1, $3));
 
                                     $$ = function_type_parameter;
