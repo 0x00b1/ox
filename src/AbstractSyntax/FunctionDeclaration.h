@@ -10,7 +10,9 @@
 
 class Node::FunctionDeclaration: public Node, public std::enable_shared_from_this<FunctionDeclaration> {
 public:
-  FunctionDeclaration();
+  explicit FunctionDeclaration(std::shared_ptr<FunctionPrototype> function_prototype);
+
+  std::shared_ptr<FunctionPrototype> function_prototype;
 
   void accept(Visitor &visitor) override;
 };

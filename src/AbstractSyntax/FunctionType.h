@@ -6,17 +6,16 @@
 #include <utility>
 #include <vector>
 
+#include "ox/Visitor.h"
+
 #include "Parameter.h"
 #include "Type.h"
-#include "Visitor/Visitor.h"
 
 class Node::FunctionType: public Node, public std::enable_shared_from_this<FunctionType> {
 public:
-  FunctionType(std::vector<std::shared_ptr<Parameter>> parameters, std::shared_ptr<Type> return_type);
+  explicit FunctionType(std::shared_ptr<FunctionDeclaration> function_declaration);
 
-  std::vector<std::shared_ptr<Parameter>> parameters;
-
-  std::shared_ptr<Type> return_type;
+  std::shared_ptr<FunctionDeclaration> function_declaration;
 
   void accept(Visitor &visitor) override;
 };

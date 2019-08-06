@@ -1,9 +1,7 @@
 #include "FunctionType.h"
 
-Node::FunctionType::FunctionType(std::vector<std::shared_ptr<Parameter>> parameters, std::shared_ptr<Type> return_type) {
-  this->parameters = std::move(parameters);
-
-  this->return_type = std::move(return_type);
+Node::FunctionType::FunctionType(std::shared_ptr<FunctionDeclaration> function_declaration) {
+  this->function_declaration = std::move(function_declaration);
 }
 
 void Node::FunctionType::accept(Visitor &visitor) {
