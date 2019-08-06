@@ -5,7 +5,7 @@
 
 #include "ox/AbstractSyntax.h"
 
-class Generator: public Visitor {
+class NameResolution: public Visitor {
 public:
   void accept(std::shared_ptr<Node::AnonymousConstant> node) override;
   void accept(std::shared_ptr<Node::Argument> node) override;

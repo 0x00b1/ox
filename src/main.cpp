@@ -19,7 +19,7 @@ int main(int argc, const char * argv[]) {
         }
     }
 
-    Generator generator;
+    NameResolution generator;
 
     generator.accept(compiler.unit);
 }

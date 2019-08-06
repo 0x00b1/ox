@@ -98,7 +98,7 @@ add_executable(
         src/AbstractSyntax/TypeItem.cpp
         src/AbstractSyntax/Unit.cpp
         src/AbstractSyntax/WildcardPattern.cpp
-        src/generator/Generator.cpp
+        src/NameResolution/NameResolution.cpp
         src/SymbolTable/ClassSymbolTable.cpp
         src/SymbolTable/SubroutineSymbolTable.cpp
         src/SymbolTable/Symbol.cpp

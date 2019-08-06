@@ -2,15 +2,15 @@
 
 #include "ox/SymbolTable.h"
 
-#include "Generator.h"
+#include "NameResolution.h"
 
-void Generator::accept(std::shared_ptr<Node::AnonymousConstant> anonymous_constant) {
+void NameResolution::accept(std::shared_ptr<Node::AnonymousConstant> anonymous_constant) {
   std::cout << "Node::AnonymousConstant" << std::endl;
 
   anonymous_constant->expression->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::Argument> argument) {
+void NameResolution::accept(std::shared_ptr<Node::Argument> argument) {
   std::cout << "Node::Argument" << std::endl;
 
   argument->pattern->accept(*this);
@@ -18,7 +18,7 @@ void Generator::accept(std::shared_ptr<Node::Argument> argument) {
   argument->type->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::ArrayExpression> array_expression) {
+void NameResolution::accept(std::shared_ptr<Node::ArrayExpression> array_expression) {
   std::cout << "Node::ArrayExpression" << std::endl;
 
   for (const std::shared_ptr<Node::Node>& element: array_expression->elements) {
@@ -26,7 +26,7 @@ void Generator::accept(std::shared_ptr<Node::ArrayExpression> array_expression) 
   }
 }
 
-void Generator::accept(std::shared_ptr<Node::ArrayType> array_type) {
+void NameResolution::accept(std::shared_ptr<Node::ArrayType> array_type) {
   std::cout << "Node::ArrayType" << std::endl;
 
   array_type->type->accept(*this);
@@ -34,7 +34,7 @@ void Generator::accept(std::shared_ptr<Node::ArrayType> array_type) {
   array_type->anonymous_constant->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::AssignmentStatement> assignment_statement) {
+void NameResolution::accept(std::shared_ptr<Node::AssignmentStatement> assignment_statement) {
   std::cout << "Node::AssignmentStatement" << std::endl;
 
   assignment_statement->pattern->accept(*this);
@@ -44,7 +44,7 @@ void Generator::accept(std::shared_ptr<Node::AssignmentStatement> assignment_sta
   assignment_statement->expression->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::BlockStatement> block_statement) {
+void NameResolution::accept(std::shared_ptr<Node::BlockStatement> block_statement) {
   std::cout << "Node::BlockStatement" << std::endl;
 
   for (const std::shared_ptr<Node::Statement>& statement: block_statement->statements) {
@@ -52,19 +52,19 @@ void Generator::accept(std::shared_ptr<Node::BlockStatement> block_statement) {
   }
 }
 
-void Generator::accept(std::shared_ptr<Node::BooleanLiteralExpression> node) {
+void NameResolution::accept(std::shared_ptr<Node::BooleanLiteralExpression> node) {
   std::cout << "Node::BooleanLiteralExpression" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::BooleanType> node) {
+void NameResolution::accept(std::shared_ptr<Node::BooleanType> node) {
   std::cout << "Node::BooleanType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::BottomType> node) {
+void NameResolution::accept(std::shared_ptr<Node::BottomType> node) {
   std::cout << "Node::BottomType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::CallExpression> call_expression) {
+void NameResolution::accept(std::shared_ptr<Node::CallExpression> call_expression) {
   std::cout << "Node::CallExpression" << std::endl;
 
   call_expression->subroutine->accept(*this);
@@ -74,15 +74,15 @@ void Generator::accept(std::shared_ptr<Node::CallExpression> call_expression) {
   }
 }
 
-void Generator::accept(std::shared_ptr<Node::ClassItem> class_item) {
+void NameResolution::accept(std::shared_ptr<Node::ClassItem> class_item) {
   std::cout << "Node::ClassItem" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::ClosureExpression> node) {
+void NameResolution::accept(std::shared_ptr<Node::ClosureExpression> node) {
   std::cout << "Node::ClosureExpression" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::ConditionalStatement> conditional_statement) {
+void NameResolution::accept(std::shared_ptr<Node::ConditionalStatement> conditional_statement) {
   std::cout << "Node::ConditionalStatement" << std::endl;
 
   conditional_statement->predicate->accept(*this);
@@ -90,57 +90,57 @@ void Generator::accept(std::shared_ptr<Node::ConditionalStatement> conditional_s
   conditional_statement->consequent->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::ConstantItem> node) {
+void NameResolution::accept(std::shared_ptr<Node::ConstantItem> node) {
   std::cout << "Node::ConstantItem" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::Expression> expression) {
+void NameResolution::accept(std::shared_ptr<Node::Expression> expression) {
   std::cout << "Node::Expression" << std::endl;
 
   expression->node->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::ExpressionStatement> expression_statement) {
+void NameResolution::accept(std::shared_ptr<Node::ExpressionStatement> expression_statement) {
   std::cout << "Node::ExpressionStatement" << std::endl;
 
   expression_statement->expression->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::ExternalPackageItem> node) {
+void NameResolution::accept(std::shared_ptr<Node::ExternalPackageItem> node) {
   std::cout << "Node::ExternalPackageItem" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::FloatingPointLiteralExpression> node) {
+void NameResolution::accept(std::shared_ptr<Node::FloatingPointLiteralExpression> node) {
   std::cout << "Node::FloatingPointLiteralExpression" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::FloatingPointType> node) {
+void NameResolution::accept(std::shared_ptr<Node::FloatingPointType> node) {
   std::cout << "Node::FloatingPointType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::FunctionDeclaration> node) {
+void NameResolution::accept(std::shared_ptr<Node::FunctionDeclaration> node) {
   std::cout << "Node::FunctionDeclaration" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::FunctionType> function_type) {
+void NameResolution::accept(std::shared_ptr<Node::FunctionType> function_type) {
   std::cout << "Node::FunctionType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::GroupedExpression> grouped_expression) {
+void NameResolution::accept(std::shared_ptr<Node::GroupedExpression> grouped_expression) {
   std::cout << "Node::GroupedExpression" << std::endl;
 
   grouped_expression->operator_expression->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::Identifier> node) {
+void NameResolution::accept(std::shared_ptr<Node::Identifier> node) {
   std::cout << "Node::Identifier" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::IdentifierPattern> node) {
+void NameResolution::accept(std::shared_ptr<Node::IdentifierPattern> node) {
   std::cout << "Node::IdentifierPattern" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::IndexExpression> index_expression) {
+void NameResolution::accept(std::shared_ptr<Node::IndexExpression> index_expression) {
   std::cout << "Node::IndexExpression" << std::endl;
 
   index_expression->container->accept(*this);
@@ -148,55 +148,55 @@ void Generator::accept(std::shared_ptr<Node::IndexExpression> index_expression) 
   index_expression->index->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::InfixExpression> infix_expression) {
+void NameResolution::accept(std::shared_ptr<Node::InfixExpression> infix_expression) {
   std::cout << "Node::InfixExpression" << std::endl;
 
   infix_expression->expression->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::IntegerLiteralExpression> integer_literal_expression) {
+void NameResolution::accept(std::shared_ptr<Node::IntegerLiteralExpression> integer_literal_expression) {
   std::cout << "Node::IntegerLiteralExpression" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::IntegerType> integer_type) {
+void NameResolution::accept(std::shared_ptr<Node::IntegerType> integer_type) {
   std::cout << "Node::IntegerType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::Item> item) {
+void NameResolution::accept(std::shared_ptr<Node::Item> item) {
   std::cout << "Node::Item" << std::endl;
 
   item->node->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::ItemStatement> item_statement) {
+void NameResolution::accept(std::shared_ptr<Node::ItemStatement> item_statement) {
   std::cout << "Node::ItemStatement" << std::endl;
 
   item_statement->item->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::Literal> literal) {
+void NameResolution::accept(std::shared_ptr<Node::Literal> literal) {
   std::cout << "Node::Literal" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::LiteralExpression> literal_expression) {
+void NameResolution::accept(std::shared_ptr<Node::LiteralExpression> literal_expression) {
   std::cout << "Node::LiteralExpression" << std::endl;
 
   literal_expression->node->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::LiteralPattern> literal_pattern) {
+void NameResolution::accept(std::shared_ptr<Node::LiteralPattern> literal_pattern) {
   std::cout << "Node::LiteralPattern" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::ModuleItem> module_item) {
+void NameResolution::accept(std::shared_ptr<Node::ModuleItem> module_item) {
   std::cout << "Node::ModuleItem" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::Name> name) {
+void NameResolution::accept(std::shared_ptr<Node::Name> name) {
   std::cout << "Node::Name" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::OperatorExpression> operator_expression) {
+void NameResolution::accept(std::shared_ptr<Node::OperatorExpression> operator_expression) {
   std::cout << "Node::OperatorExpression" << std::endl;
 
   operator_expression->prefix_expression->accept(*this);
@@ -206,75 +206,75 @@ void Generator::accept(std::shared_ptr<Node::OperatorExpression> operator_expres
   }
 }
 
-void Generator::accept(std::shared_ptr<Node::Parameter> parameter) {
+void NameResolution::accept(std::shared_ptr<Node::Parameter> parameter) {
   std::cout << "Node::Parameter" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::PathExpression> path_expression) {
+void NameResolution::accept(std::shared_ptr<Node::PathExpression> path_expression) {
   std::cout << "Node::PathExpression" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::PathPattern> path_pattern) {
+void NameResolution::accept(std::shared_ptr<Node::PathPattern> path_pattern) {
   std::cout << "Node::PathPattern" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::PathType> path_type) {
+void NameResolution::accept(std::shared_ptr<Node::PathType> path_type) {
   std::cout << "Node::PathType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::Pattern> pattern) {
+void NameResolution::accept(std::shared_ptr<Node::Pattern> pattern) {
   std::cout << "Node::Pattern" << std::endl;
 
   pattern->node->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::PointerType> pointer_type) {
+void NameResolution::accept(std::shared_ptr<Node::PointerType> pointer_type) {
   std::cout << "Node::PointerType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::PostfixExpression> postfix_expression) {
+void NameResolution::accept(std::shared_ptr<Node::PostfixExpression> postfix_expression) {
   std::cout << "Node::PostfixExpression" << std::endl;
 
   postfix_expression->expression->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::PrefixExpression> prefix_expression) {
+void NameResolution::accept(std::shared_ptr<Node::PrefixExpression> prefix_expression) {
   std::cout << "Node::PrefixExpression" << std::endl;
 
   prefix_expression->postfix_expression->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::ReferencePattern> reference_pattern) {
+void NameResolution::accept(std::shared_ptr<Node::ReferencePattern> reference_pattern) {
   std::cout << "Node::ReferencePattern" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::ReferenceType> reference_type) {
+void NameResolution::accept(std::shared_ptr<Node::ReferenceType> reference_type) {
   std::cout << "Node::ReferenceType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::ReturnStatement> return_statement) {
+void NameResolution::accept(std::shared_ptr<Node::ReturnStatement> return_statement) {
   std::cout << "Node::ReturnStatement" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::SizeType> size_type) {
+void NameResolution::accept(std::shared_ptr<Node::SizeType> size_type) {
   std::cout << "Node::SizeType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::SlicePattern> slice_pattern) {
+void NameResolution::accept(std::shared_ptr<Node::SlicePattern> slice_pattern) {
   std::cout << "Node::SlicePattern" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::SliceType> slice_type) {
+void NameResolution::accept(std::shared_ptr<Node::SliceType> slice_type) {
   std::cout << "Node::SliceType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::Statement> statement) {
+void NameResolution::accept(std::shared_ptr<Node::Statement> statement) {
   std::cout << "Node::Statement" << std::endl;
 
   statement->node->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::SubroutineItem> subroutine_item) {
+void NameResolution::accept(std::shared_ptr<Node::SubroutineItem> subroutine_item) {
   std::cout << "Node::SubroutineItem" << std::endl;
 
   subroutine_item->function_type->accept(*this);
@@ -282,7 +282,7 @@ void Generator::accept(std::shared_ptr<Node::SubroutineItem> subroutine_item) {
   subroutine_item->block_statement->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::TupleExpression> tuple_expression) {
+void NameResolution::accept(std::shared_ptr<Node::TupleExpression> tuple_expression) {
   std::cout << "Node::TupleExpression" << std::endl;
 
   for (const std::shared_ptr<Node::Node>& element: tuple_expression->elements) {
@@ -290,25 +290,25 @@ void Generator::accept(std::shared_ptr<Node::TupleExpression> tuple_expression) 
   }
 }
 
-void Generator::accept(std::shared_ptr<Node::TuplePattern> tuple_pattern) {
+void NameResolution::accept(std::shared_ptr<Node::TuplePattern> tuple_pattern) {
   std::cout << "Node::TuplePattern" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::TupleType> tuple_type) {
+void NameResolution::accept(std::shared_ptr<Node::TupleType> tuple_type) {
   std::cout << "Node::TupleType" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::Type> type) {
+void NameResolution::accept(std::shared_ptr<Node::Type> type) {
   std::cout << "Node::Type" << std::endl;
 
   type->node->accept(*this);
 }
 
-void Generator::accept(std::shared_ptr<Node::TypeItem> type_item) {
+void NameResolution::accept(std::shared_ptr<Node::TypeItem> type_item) {
   std::cout << "Node::TypeItem" << std::endl;
 }
 
-void Generator::accept(std::shared_ptr<Node::Unit> unit) {
+void NameResolution::accept(std::shared_ptr<Node::Unit> unit) {
   std::cout << "Node::Unit" << std::endl;
 
   for (const std::shared_ptr<Node::Statement>& statement: unit->statements) {
@@ -316,6 +316,6 @@ void Generator::accept(std::shared_ptr<Node::Unit> unit) {
   }
 }
 
-void Generator::accept(std::shared_ptr<Node::WildcardPattern> node) {
+void NameResolution::accept(std::shared_ptr<Node::WildcardPattern> node) {
   std::cout << "Node::WildcardPattern" << std::endl;
 }

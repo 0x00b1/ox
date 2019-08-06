@@ -304,15 +304,15 @@ CMAKE_EXE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_EXPORT_COMPILE_COMMANDS
 CMAKE_EXPORT_COMPILE_COMMANDS-ADVANCED:INTERNAL=1
-//Name of external makefile project generator.
+//Name of external makefile project NameResolution.
 CMAKE_EXTRA_GENERATOR:INTERNAL=
-//Name of generator.
+//Name of NameResolution.
 CMAKE_GENERATOR:INTERNAL=Unix Makefiles
-//Generator instance identifier.
+//NameResolution instance identifier.
 CMAKE_GENERATOR_INSTANCE:INTERNAL=
-//Name of generator platform.
+//Name of NameResolution platform.
 CMAKE_GENERATOR_PLATFORM:INTERNAL=
-//Name of generator toolset.
+//Name of NameResolution toolset.
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
 //Source directory with the top level CMakeLists.txt file for this
 // project
