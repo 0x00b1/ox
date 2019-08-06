@@ -1,6 +1,6 @@
 #include "Parameter.h"
 
-Node::Parameter::Parameter(std::string pattern, std::shared_ptr<Type> type) {
+Node::Parameter::Parameter(std::shared_ptr<Pattern> pattern, std::shared_ptr<Type> type) {
   this->pattern = std::move(pattern);
 
   this->type = std::move(type);

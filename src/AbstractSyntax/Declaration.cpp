@@ -4,7 +4,7 @@ Node::Declaration::Declaration(std::shared_ptr<Node> node) {
   this->node = std::move(node);
 }
 
-Node::Declaration::Declaration(Identifier identifier, std::shared_ptr<Node> node) {
+Node::Declaration::Declaration(std::shared_ptr<Identifier> identifier, std::shared_ptr<Node> node) {
   this->identifier = std::move(identifier);
 
   this->node = std::move(node);

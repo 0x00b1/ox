@@ -5,16 +5,17 @@
 #include <string>
 #include <utility>
 
+#include "ox/Visitor.h"
+
 #include "Pattern.h"
 #include "Position.h"
 #include "Type.h"
-#include "Visitor/Visitor.h"
 
 class Node::Parameter: public Node, public std::enable_shared_from_this<Parameter> {
 public:
-  Parameter(std::string pattern, std::shared_ptr<Type> type);
+  Parameter(std::shared_ptr<Pattern> pattern, std::shared_ptr<Type> type);
 
-  std::string pattern;
+  std::shared_ptr<Pattern> pattern;
 
   std::shared_ptr<Type> type;
 

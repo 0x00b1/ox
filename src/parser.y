@@ -111,14 +111,14 @@
 %type <std::vector<std::shared_ptr<Node::InfixExpression>>> INFIX_EXPRESSIONS;
 %type <std::shared_ptr<Node::InfixExpression>> INFIX_EXPRESSION;
 %type <std::shared_ptr<Node::AssignmentStatement>> ASSIGNMENT_STATEMENT;
-%type <std::shared_ptr<Node::DeclarationStatement>> ITEM_STATEMENT;
-%type <std::shared_ptr<Node::Declaration>> ITEM;
-%type <std::shared_ptr<Node::ModuleDeclaration>> MODULE_ITEM;
-%type <std::vector<std::shared_ptr<Node::Declaration>>> ITEMS;
-%type <std::shared_ptr<Node::ExternalPackageDeclaration>> EXTERNAL_PACKAGE_ITEM;
-%type <std::shared_ptr<Node::SubroutineDeclaration>> SUBROUTINE_ITEM;
-%type <std::shared_ptr<Node::ConstantDeclaration>> CONSTANT_ITEM;
-%type <std::shared_ptr<Node::TypeDeclaration>> TYPE_ITEM;
+%type <std::shared_ptr<Node::DeclarationStatement>> DECLARATION_STATEMENT;
+%type <std::shared_ptr<Node::Declaration>> DECLARATION;
+%type <std::shared_ptr<Node::ModuleDeclaration>> MODULE_DECLARATION;
+%type <std::vector<std::shared_ptr<Node::Declaration>>> DECLARATIONS;
+%type <std::shared_ptr<Node::ExternalPackageDeclaration>> EXTERNAL_PACKAGE_DECLARATION;
+%type <std::shared_ptr<Node::SubroutineDeclaration>> SUBROUTINE_DECLARATION;
+%type <std::shared_ptr<Node::ConstantDeclaration>> CONSTANT_DECLARATION;
+%type <std::shared_ptr<Node::TypeDeclaration>> TYPE_DECLARATION;
 %type <std::shared_ptr<Node::ConditionalStatement>> CONDITIONAL_STATEMENT;
 %type <std::shared_ptr<Node::ReturnStatement>> RETURN_STATEMENT;
 %type <std::shared_ptr<Node::BlockStatement>> BLOCK_STATEMENT;
@@ -127,8 +127,6 @@
 %type <std::shared_ptr<Node::TuplePattern>> TUPLE_PATTERN;
 %type <std::shared_ptr<Node::Type>> TYPE;
 %type <std::shared_ptr<Node::FunctionType>> FUNCTION_TYPE;
-%type <std::vector<std::shared_ptr<Node::Parameter>>> FUNCTION_TYPE_PARAMETERS;
-%type <std::shared_ptr<Node::Parameter>> FUNCTION_TYPE_PARAMETER;
 %type <std::shared_ptr<Node::ArrayType>> ARRAY_TYPE;
 %type <std::shared_ptr<Node::AnonymousConstant>> ANONYMOUS_CONSTANT;
 %type <std::shared_ptr<Node::BooleanType>> BOOLEAN_TYPE;
@@ -137,7 +135,7 @@
 %type <std::shared_ptr<Node::SizeType>> SIZE_TYPE;
 %type <std::shared_ptr<Node::ReferenceType>> REFERENCE_TYPE;
 %type <std::shared_ptr<Node::SliceType>> SLICE_TYPE;
-%type <std::vector<std::shared_ptr<Node::Pattern>>> TUPLE_PATTERN_ITEMS;
+%type <std::vector<std::shared_ptr<Node::Pattern>>> TUPLE_PATTERN_DECLARATIONS;
 %type <std::shared_ptr<Node::ReferencePattern>> REFERENCE_PATTERN;
 %type <std::shared_ptr<Node::IdentifierPattern>> IDENTIFIER_PATTERN;
 %type <std::vector<std::shared_ptr<Node::Parameter>>> PARAMETERS;
@@ -184,7 +182,7 @@ STATEMENT                         : EXPRESSION_STATEMENT {
 
                                     $$ = statement;
                                   }
-                                  | ITEM_STATEMENT {
+                                  | DECLARATION_STATEMENT {
                                     std::shared_ptr<Node::Statement> statement(new Node::Statement($1));
 
                                     $$ = statement;
@@ -438,47 +436,36 @@ ASSIGNMENT_STATEMENT              : PATTERN ":" TYPE "←" OPERATOR_EXPRESSION "
                                     $$ = assignment_statement;
                                   }
                                   ;
-ITEM_STATEMENT                    : ITEM {
-                                    std::shared_ptr<Node::DeclarationStatement> item_statement(new Node::DeclarationStatement($1));
+DECLARATION_STATEMENT             : DECLARATION {
+                                    std::shared_ptr<Node::DeclarationStatement> declaration_statement(new Node::DeclarationStatement($1));
 
-                                    $$ = item_statement;
+                                    $$ = declaration_statement;
                                   }
                                   ;
-ITEM                              : MODULE_ITEM {
-                                    std::shared_ptr<Node::Declaration> item(new Node::Declaration($1));
+DECLARATION                       : "module" IDENTIFIER MODULE_DECLARATION {
+                                    std::shared_ptr<Node::Declaration> declaration(new Node::Declaration($2, $3));
 
-                                    $$ = item;
+                                    $$ = declaration;
                                   }
-                                  | EXTERNAL_PACKAGE_ITEM {
-                                    std::shared_ptr<Node::Declaration> item(new Node::Declaration($1));
+                                  | EXTERNAL_PACKAGE_DECLARATION {
+                                    std::shared_ptr<Node::Declaration> declaration(new Node::Declaration($1));
 
-                                    $$ = item;
+                                    $$ = declaration;
                                   }
-                                  | CONSTANT_ITEM {
-                                    std::shared_ptr<Node::Declaration> item(new Node::Declaration($1));
+                                  | "constant" IDENTIFIER CONSTANT_DECLARATION {
+                                    std::shared_ptr<Node::Declaration> declaration(new Node::Declaration($2, $3));
 
-                                    $$ = item;
+                                    $$ = declaration;
                                   }
-                                  | TYPE_ITEM {
-                                    std::shared_ptr<Node::Declaration> item(new Node::Declaration($1));
+                                  | "type" IDENTIFIER TYPE_DECLARATION {
+                                    std::shared_ptr<Node::Declaration> declaration(new Node::Declaration($2, $3));
 
-                                    $$ = item;
+                                    $$ = declaration;
                                   }
-                                  | SUBROUTINE_ITEM {
-                                    std::shared_ptr<Node::Declaration> item(new Node::Declaration($1));
+                                  | "subroutine" IDENTIFIER SUBROUTINE_DECLARATION {
+                                    std::shared_ptr<Node::Declaration> declaration(new Node::Declaration($2, $3));
 
-                                    $$ = item;
-                                  }
-                                  ;
-MODULE_ITEM                       : "module" IDENTIFIER "{" ITEMS "}" ";" {
-                                    std::shared_ptr<Node::ModuleDeclaration> module_item(new Node::ModuleDeclaration($4));
-
-                                    $$ = module_item;
-                                  }
-                                  | "module" IDENTIFIER_TOKEN ";" {
-                                    std::shared_ptr<Node::ModuleDeclaration> module_item(new Node::ModuleDeclaration());
-
-                                    $$ = module_item;
+                                    $$ = declaration;
                                   }
                                   ;
 IDENTIFIER                        : IDENTIFIER_TOKEN {
@@ -487,46 +474,57 @@ IDENTIFIER                        : IDENTIFIER_TOKEN {
                                     $$ = identifier;
                                   }
                                   ;
-ITEMS                             : ITEMS ITEM {
+MODULE_DECLARATION                : "{" DECLARATIONS "}" ";" {
+                                    std::shared_ptr<Node::ModuleDeclaration> module_item(new Node::ModuleDeclaration($2));
+
+                                    $$ = module_item;
+                                  }
+                                  | ";" {
+                                    std::shared_ptr<Node::ModuleDeclaration> module_item(new Node::ModuleDeclaration());
+
+                                    $$ = module_item;
+                                  }
+                                  ;
+DECLARATIONS                      : DECLARATIONS DECLARATION {
                                     std::vector<std::shared_ptr<Node::Declaration>> items = $1;
 
                                     items.push_back($2);
 
                                     $$ = items;
                                   }
-                                  | ITEM {
+                                  | DECLARATION {
                                     $$ = std::vector<std::shared_ptr<Node::Declaration>>();
 
                                     $$.push_back($1);
                                   }
                                   ;
-EXTERNAL_PACKAGE_ITEM             : "external" "package" IDENTIFIER_TOKEN "as" IDENTIFIER_TOKEN ";" {
+EXTERNAL_PACKAGE_DECLARATION      : "external" "package" IDENTIFIER "as" IDENTIFIER ";" {
                                     std::shared_ptr<Node::ExternalPackageDeclaration> external_package_item(new Node::ExternalPackageDeclaration());
 
                                     $$ = external_package_item;
                                   }
-                                  | "external" "package" IDENTIFIER_TOKEN ";" {
+                                  | "external" "package" IDENTIFIER ";" {
                                     std::shared_ptr<Node::ExternalPackageDeclaration> external_package_item(new Node::ExternalPackageDeclaration());
 
                                     $$ = external_package_item;
                                   }
                                   ;
-CONSTANT_ITEM                     : "constant" IDENTIFIER_TOKEN ":" TYPE "←" OPERATOR_EXPRESSION ";" {
-                                    std::shared_ptr<Node::ConstantDeclaration> constant_item(new Node::ConstantDeclaration($4, $6));
+CONSTANT_DECLARATION              : ":" TYPE "←" OPERATOR_EXPRESSION ";" {
+                                    std::shared_ptr<Node::ConstantDeclaration> constant_item(new Node::ConstantDeclaration($2, $4));
 
                                     $$ = constant_item;
                                   }
                                   ;
-TYPE_ITEM                         : "type" IDENTIFIER_TOKEN "←" TYPE ";" {
-                                    std::shared_ptr<Node::TypeDeclaration> type_item(new Node::TypeDeclaration($4));
+TYPE_DECLARATION                  : "←" TYPE ";" {
+                                    std::shared_ptr<Node::TypeDeclaration> type_item(new Node::TypeDeclaration($2));
 
                                     $$ = type_item;
                                   }
                                   ;
-SUBROUTINE_ITEM                   : "subroutine" IDENTIFIER_TOKEN FUNCTION_PROTOTYPE BLOCK_STATEMENT {
-                                    std::shared_ptr<Node::FunctionDeclaration> function_declaration(new Node::FunctionDeclaration($3));
+SUBROUTINE_DECLARATION            : FUNCTION_PROTOTYPE BLOCK_STATEMENT {
+                                    std::shared_ptr<Node::FunctionDeclaration> function_declaration(new Node::FunctionDeclaration($1));
 
-                                    std::shared_ptr<Node::SubroutineDeclaration> subroutine_declaration(new Node::SubroutineDeclaration(function_declaration, $4));
+                                    std::shared_ptr<Node::SubroutineDeclaration> subroutine_declaration(new Node::SubroutineDeclaration(function_declaration, $2));
 
                                     $$ = subroutine_declaration;
                                   }
@@ -549,7 +547,7 @@ PARAMETERS                        : PARAMETERS "," PARAMETER {
                                     $$.push_back($1);
                                   }
                                   ;
-PARAMETER                         : IDENTIFIER_TOKEN ":" TYPE {
+PARAMETER                         : PATTERN ":" TYPE {
                                     std::shared_ptr<Node::Parameter> parameter(new Node::Parameter($1, $3));
 
                                     $$ = parameter;
@@ -616,13 +614,13 @@ WILDCARD_PATTERN                  : "_" {
                                     $$ = wildcard_pattern;
                                   }
                                   ;
-TUPLE_PATTERN                     : "(" TUPLE_PATTERN_ITEMS ")" {
+TUPLE_PATTERN                     : "(" TUPLE_PATTERN_DECLARATIONS ")" {
                                     std::shared_ptr<Node::TuplePattern> tuple_pattern(new Node::TuplePattern($2));
 
                                     $$ = tuple_pattern;
                                   }
                                   ;
-TUPLE_PATTERN_ITEMS               : TUPLE_PATTERN_ITEMS "," PATTERN {
+TUPLE_PATTERN_DECLARATIONS               : TUPLE_PATTERN_DECLARATIONS "," PATTERN {
                                     std::vector<std::shared_ptr<Node::Pattern>> patterns = $1;
 
                                     patterns.push_back($3);
@@ -682,7 +680,7 @@ TYPE                              : FUNCTION_TYPE {
                                     $$ = type;
                                   }
                                   ;
-FUNCTION_TYPE                     : "(" FUNCTION_TYPE_PARAMETERS ")" "→" TYPE {
+FUNCTION_TYPE                     : "(" PARAMETERS ")" "→" TYPE {
                                     std::shared_ptr<Node::FunctionPrototype> function_prototype(new Node::FunctionPrototype($2, $5));
 
                                     std::shared_ptr<Node::FunctionDeclaration> function_declaration(new Node::FunctionDeclaration(function_prototype));
@@ -690,25 +688,6 @@ FUNCTION_TYPE                     : "(" FUNCTION_TYPE_PARAMETERS ")" "→" TYPE 
                                     std::shared_ptr<Node::FunctionType> function_type(new Node::FunctionType(function_declaration));
 
                                     $$ = function_type;
-                                  }
-                                  ;
-FUNCTION_TYPE_PARAMETERS          : FUNCTION_TYPE_PARAMETERS "," FUNCTION_TYPE_PARAMETER {
-                                    std::vector<std::shared_ptr<Node::Parameter>> items = $1;
-
-                                    items.push_back($3);
-
-                                    $$ = items;
-                                  }
-                                  | FUNCTION_TYPE_PARAMETER {
-                                    $$ = std::vector<std::shared_ptr<Node::Parameter>>();
-
-                                    $$.push_back($1);
-                                  }
-                                  ;
-FUNCTION_TYPE_PARAMETER           : IDENTIFIER_TOKEN ":" TYPE {
-                                    std::shared_ptr<Node::Parameter> function_type_parameter(new Node::Parameter($1, $3));
-
-                                    $$ = function_type_parameter;
                                   }
                                   ;
 ARRAY_TYPE                        : "[" TYPE "×" ANONYMOUS_CONSTANT "]" {

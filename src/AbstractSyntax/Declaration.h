@@ -15,9 +15,9 @@ class Node::Declaration: public Node, public std::enable_shared_from_this<Declar
 public:
   explicit Declaration(std::shared_ptr<Node> node);
   
-  Declaration(Identifier identifier, std::shared_ptr<Node> node);
+  Declaration(std::shared_ptr<Identifier> identifier, std::shared_ptr<Node> node);
 
-  std::optional<Identifier> identifier;
+  std::optional<std::shared_ptr<Identifier>> identifier;
 
   std::shared_ptr<Node> node;
 
