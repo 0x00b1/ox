@@ -135,13 +135,16 @@
 %type <std::shared_ptr<Node::SizeType>> SIZE_TYPE;
 %type <std::shared_ptr<Node::ReferenceType>> REFERENCE_TYPE;
 %type <std::shared_ptr<Node::SliceType>> SLICE_TYPE;
-%type <std::vector<std::shared_ptr<Node::Pattern>>> TUPLE_PATTERN_DECLARATIONS;
+%type <std::vector<std::shared_ptr<Node::Pattern>>> PATTERNS;
 %type <std::shared_ptr<Node::ReferencePattern>> REFERENCE_PATTERN;
 %type <std::shared_ptr<Node::IdentifierPattern>> IDENTIFIER_PATTERN;
 %type <std::vector<std::shared_ptr<Node::Parameter>>> PARAMETERS;
 %type <std::shared_ptr<Node::Parameter>> PARAMETER;
 %type <std::shared_ptr<Node::FunctionPrototype>> FUNCTION_PROTOTYPE;
 %type <std::shared_ptr<Node::Identifier>> IDENTIFIER;
+%type <std::shared_ptr<Node::SlicePattern>> SLICE_PATTERN;
+%type <std::shared_ptr<Node::BottomType>> BOTTOM_TYPE;
+%type <std::shared_ptr<Node::FunctionDeclaration>> FUNCTION_DECLARATION;
 
 %printer {
     // FIXME:
@@ -521,12 +524,16 @@ TYPE_DECLARATION                  : "←" TYPE ";" {
                                     $$ = type_item;
                                   }
                                   ;
-SUBROUTINE_DECLARATION            : FUNCTION_PROTOTYPE BLOCK_STATEMENT {
-                                    std::shared_ptr<Node::FunctionDeclaration> function_declaration(new Node::FunctionDeclaration($1));
-
-                                    std::shared_ptr<Node::SubroutineDeclaration> subroutine_declaration(new Node::SubroutineDeclaration(function_declaration, $2));
+SUBROUTINE_DECLARATION            : FUNCTION_DECLARATION BLOCK_STATEMENT {
+                                    std::shared_ptr<Node::SubroutineDeclaration> subroutine_declaration(new Node::SubroutineDeclaration($1, $2));
 
                                     $$ = subroutine_declaration;
+                                  }
+                                  ;
+FUNCTION_DECLARATION              : FUNCTION_PROTOTYPE {
+                                    std::shared_ptr<Node::FunctionDeclaration> function_declaration(new Node::FunctionDeclaration($1));
+
+                                    $$ = function_declaration;
                                   }
                                   ;
 FUNCTION_PROTOTYPE                : "(" PARAMETERS ")" "→" TYPE {
@@ -596,6 +603,11 @@ PATTERN                           : IDENTIFIER_PATTERN {
 
                                     $$ = pattern;
                                   }
+                                  | SLICE_PATTERN {
+                                    std::shared_ptr<Node::Pattern> pattern(new Node::Pattern($1));
+
+                                    $$ = pattern;
+                                  }
                                   | REFERENCE_PATTERN {
                                     std::shared_ptr<Node::Pattern> pattern(new Node::Pattern($1));
 
@@ -614,13 +626,13 @@ WILDCARD_PATTERN                  : "_" {
                                     $$ = wildcard_pattern;
                                   }
                                   ;
-TUPLE_PATTERN                     : "(" TUPLE_PATTERN_DECLARATIONS ")" {
+TUPLE_PATTERN                     : "(" PATTERNS ")" {
                                     std::shared_ptr<Node::TuplePattern> tuple_pattern(new Node::TuplePattern($2));
 
                                     $$ = tuple_pattern;
                                   }
                                   ;
-TUPLE_PATTERN_DECLARATIONS        : TUPLE_PATTERN_DECLARATIONS "," PATTERN {
+PATTERNS                          : PATTERNS "," PATTERN {
                                     std::vector<std::shared_ptr<Node::Pattern>> patterns = $1;
 
                                     patterns.push_back($3);
@@ -631,6 +643,12 @@ TUPLE_PATTERN_DECLARATIONS        : TUPLE_PATTERN_DECLARATIONS "," PATTERN {
                                     $$ = std::vector<std::shared_ptr<Node::Pattern>>();
 
                                     $$.push_back($1);
+                                  }
+                                  ;
+SLICE_PATTERN                     : "[" PATTERNS "]" {
+                                    std::shared_ptr<Node::SlicePattern> slice_pattern(new Node::SlicePattern($2));
+
+                                    $$ = slice_pattern;
                                   }
                                   ;
 REFERENCE_PATTERN                 : "reference" PATTERN {
@@ -679,11 +697,14 @@ TYPE                              : FUNCTION_TYPE {
 
                                     $$ = type;
                                   }
-                                  ;
-FUNCTION_TYPE                     : "(" PARAMETERS ")" "→" TYPE {
-                                    std::shared_ptr<Node::FunctionPrototype> function_prototype(new Node::FunctionPrototype($2, $5));
+                                  | BOTTOM_TYPE {
+                                    std::shared_ptr<Node::Type> type(new Node::Type($1));
 
-                                    std::shared_ptr<Node::FunctionDeclaration> function_declaration(new Node::FunctionDeclaration(function_prototype));
+                                    $$ = type;
+                                  }
+                                  ;
+FUNCTION_TYPE                     : FUNCTION_PROTOTYPE {
+                                    std::shared_ptr<Node::FunctionDeclaration> function_declaration(new Node::FunctionDeclaration($1));
 
                                     std::shared_ptr<Node::FunctionType> function_type(new Node::FunctionType(function_declaration));
 
@@ -781,6 +802,12 @@ SLICE_TYPE                        : "[" TYPE "]" {
                                     std::shared_ptr<Node::SliceType> slice_type(new Node::SliceType($2));
 
                                     $$ = slice_type;
+                                  }
+                                  ;
+BOTTOM_TYPE                       : "!" {
+                                    std::shared_ptr<Node::BottomType> bottom_type(new Node::BottomType());
+
+                                    $$ = bottom_type;
                                   }
                                   ;
 

@@ -1,6 +1,6 @@
 #include "LiteralPattern.h"
 
-Node::LiteralPattern::LiteralPattern(std::shared_ptr<Expression> expression) {
+Node::LiteralPattern::LiteralPattern(std::shared_ptr<OperatorExpression> expression) {
   this->expression = std::move(expression);
 };
 

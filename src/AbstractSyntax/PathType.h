@@ -10,7 +10,9 @@
 
 class Node::PathType: public Node, public std::enable_shared_from_this<PathType> {
 public:
-  PathType();
+  explicit PathType(std::shared_ptr<Path> path);
+
+  std::shared_ptr<Path> path;
 
   void accept(Visitor &visitor) override;
 };
