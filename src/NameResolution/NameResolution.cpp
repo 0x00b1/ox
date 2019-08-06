@@ -214,12 +214,20 @@ void NameResolution::accept(std::shared_ptr<Node::Parameter> parameter) {
   std::cout << "Node::Parameter" << std::endl;
 }
 
+void NameResolution::accept(std::shared_ptr<Node::Path> path_segment) {
+  std::cout << "Node::Path" << std::endl;
+}
+
 void NameResolution::accept(std::shared_ptr<Node::PathExpression> path_expression) {
   std::cout << "Node::PathExpression" << std::endl;
 }
 
 void NameResolution::accept(std::shared_ptr<Node::PathPattern> path_pattern) {
   std::cout << "Node::PathPattern" << std::endl;
+}
+
+void NameResolution::accept(std::shared_ptr<Node::PathSegment> path_segment) {
+  std::cout << "Node::PathSegment" << std::endl;
 }
 
 void NameResolution::accept(std::shared_ptr<Node::PathType> path_type) {

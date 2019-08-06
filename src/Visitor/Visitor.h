@@ -44,8 +44,10 @@ namespace Node {
   class Name;
   class OperatorExpression;
   class Parameter;
+  class Path;
   class PathExpression;
   class PathPattern;
+  class PathSegment;
   class PathType;
   class Pattern;
   class PointerType;
@@ -108,8 +110,10 @@ public:
   virtual void accept(std::shared_ptr<Node::Name>) = 0;
   virtual void accept(std::shared_ptr<Node::OperatorExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::Parameter>) = 0;
+  virtual void accept(std::shared_ptr<Node::Path>) = 0;
   virtual void accept(std::shared_ptr<Node::PathExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::PathPattern>) = 0;
+  virtual void accept(std::shared_ptr<Node::PathSegment>) = 0;
   virtual void accept(std::shared_ptr<Node::PathType>) = 0;
   virtual void accept(std::shared_ptr<Node::Pattern>) = 0;
   virtual void accept(std::shared_ptr<Node::PointerType>) = 0;

@@ -620,7 +620,7 @@ TUPLE_PATTERN                     : "(" TUPLE_PATTERN_DECLARATIONS ")" {
                                     $$ = tuple_pattern;
                                   }
                                   ;
-TUPLE_PATTERN_DECLARATIONS               : TUPLE_PATTERN_DECLARATIONS "," PATTERN {
+TUPLE_PATTERN_DECLARATIONS        : TUPLE_PATTERN_DECLARATIONS "," PATTERN {
                                     std::vector<std::shared_ptr<Node::Pattern>> patterns = $1;
 
                                     patterns.push_back($3);
