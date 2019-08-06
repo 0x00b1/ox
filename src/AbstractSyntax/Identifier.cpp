@@ -1,7 +1,7 @@
 #include "Identifier.h"
 
-Node::Identifier::Identifier(std::string value) {
-  this->value = std::move(value);
+Node::Identifier::Identifier(std::string name) {
+  this->name = std::move(name);
 };
 
 void Node::Identifier::accept(Visitor &visitor) {

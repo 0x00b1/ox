@@ -20,6 +20,7 @@
 #include "AbstractSyntax/FloatingPointLiteralExpression.h"
 #include "AbstractSyntax/FloatingPointType.h"
 #include "AbstractSyntax/FunctionDeclaration.h"
+#include "AbstractSyntax/FunctionPrototype.h"
 #include "AbstractSyntax/FunctionType.h"
 #include "AbstractSyntax/GroupedExpression.h"
 #include "AbstractSyntax/Identifier.h"

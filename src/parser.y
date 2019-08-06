@@ -87,7 +87,7 @@
 
 %token <std::string> IDENTIFIER;
 
-%type <std::shared_ptr<Node::Unit>> UNIT;
+%type <std::shared_ptr<Node::TranslationUnit>> UNIT;
 %type <std::vector<std::shared_ptr<Node::Statement>>> STATEMENTS;
 %type <std::shared_ptr<Node::Statement>> STATEMENT;
 %type <std::shared_ptr<Node::ExpressionStatement>> EXPRESSION_STATEMENT;
@@ -152,7 +152,7 @@
 %start UNIT;
 
 UNIT                              : STATEMENTS {
-                                    std::shared_ptr<Node::Unit> unit(new Node::Unit($1));
+                                    std::shared_ptr<Node::TranslationUnit> unit(new Node::TranslationUnit($1));
 
                                     compiler.unit = unit;
                                   }
@@ -647,7 +647,11 @@ TYPE                              : FUNCTION_TYPE {
                                   }
                                   ;
 FUNCTION_TYPE                     : "(" FUNCTION_TYPE_PARAMETERS ")" "→" TYPE {
-                                    std::shared_ptr<Node::FunctionType> function_type(new Node::FunctionType($2, $5));
+                                    std::shared_ptr<Node::FunctionPrototype> function_prototype(new Node::FunctionPrototype($2, $5));
+
+                                    std::shared_ptr<Node::FunctionDeclaration> function_declaration(new Node::FunctionDeclaration(function_prototype));
+
+                                    std::shared_ptr<Node::FunctionType> function_type(new Node::FunctionType(function_declaration));
 
                                     $$ = function_type;
                                   }
