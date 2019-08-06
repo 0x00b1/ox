@@ -53,7 +53,7 @@
 #include "AbstractSyntax/TupleType.h"
 #include "AbstractSyntax/Type.h"
 #include "AbstractSyntax/TypeDeclaration.h"
-#include "AbstractSyntax/Unit.h"
+#include "AbstractSyntax/TranslationUnit.h"
 #include "AbstractSyntax/WildcardPattern.h"
 
 #endif

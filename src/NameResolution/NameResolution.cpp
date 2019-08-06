@@ -308,8 +308,8 @@ void NameResolution::accept(std::shared_ptr<Node::TypeDeclaration> type_item) {
   std::cout << "Node::TypeDeclaration" << std::endl;
 }
 
-void NameResolution::accept(std::shared_ptr<Node::Unit> unit) {
-  std::cout << "Node::Unit" << std::endl;
+void NameResolution::accept(std::shared_ptr<Node::TranslationUnit> unit) {
+  std::cout << "Node::TranslationUnit" << std::endl;
 
   for (const std::shared_ptr<Node::Statement>& statement: unit->statements) {
     statement->accept(*this);

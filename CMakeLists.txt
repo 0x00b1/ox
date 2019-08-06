@@ -95,7 +95,7 @@ add_executable(
         src/AbstractSyntax/TupleType.cpp
         src/AbstractSyntax/Type.cpp
         src/AbstractSyntax/TypeDeclaration.cpp
-        src/AbstractSyntax/Unit.cpp
+        src/AbstractSyntax/TranslationUnit.cpp
         src/AbstractSyntax/WildcardPattern.cpp
         src/NameResolution/NameResolution.cpp
         src/SymbolTable/ClassSymbolTable.cpp

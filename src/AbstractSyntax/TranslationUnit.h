@@ -10,9 +10,9 @@
 #include "Statement.h"
 #include "Visitor/Visitor.h"
 
-class Node::Unit: public Node, public std::enable_shared_from_this<Unit> {
+class Node::TranslationUnit: public Node, public std::enable_shared_from_this<TranslationUnit> {
 public:
-  explicit Unit(std::vector<std::shared_ptr<Statement>> statements);
+  explicit TranslationUnit(std::vector<std::shared_ptr<Statement>> statements);
 
   std::vector<std::shared_ptr<Statement>> statements;
 

@@ -20,7 +20,7 @@ public:
 
     std::vector<std::shared_ptr<Node::Statement>> nodes;
 
-    std::shared_ptr<Node::Unit> unit;
+    std::shared_ptr<Node::TranslationUnit> unit;
 
     int result;
 

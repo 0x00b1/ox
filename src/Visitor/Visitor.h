@@ -63,7 +63,7 @@ namespace Node {
   class TupleType;
   class Type;
   class TypeDeclaration;
-  class Unit;
+  class TranslationUnit;
   class WildcardPattern;
 }
 
@@ -126,7 +126,7 @@ public:
   virtual void accept(std::shared_ptr<Node::TupleType>) = 0;
   virtual void accept(std::shared_ptr<Node::Type>) = 0;
   virtual void accept(std::shared_ptr<Node::TypeDeclaration>) = 0;
-  virtual void accept(std::shared_ptr<Node::Unit>) = 0;
+  virtual void accept(std::shared_ptr<Node::TranslationUnit>) = 0;
   virtual void accept(std::shared_ptr<Node::WildcardPattern>) = 0;
 };
 
