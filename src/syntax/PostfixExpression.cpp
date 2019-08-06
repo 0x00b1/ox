@@ -1,6 +1,6 @@
 #include "PostfixExpression.h"
 
-Node::PostfixExpression::PostfixExpression(std::shared_ptr<Expression> expression) {
+Node::PostfixExpression::PostfixExpression(std::shared_ptr<Node> expression) {
   this->expression = std::move(expression);
 }
 

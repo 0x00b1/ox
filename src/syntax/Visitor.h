@@ -28,6 +28,7 @@ namespace Node {
   class FunctionType;
   class GroupedExpression;
   class Identifier;
+  class IdentifierPattern;
   class IndexExpression;
   class InfixExpression;
   class IntegerLiteralExpression;
@@ -89,6 +90,7 @@ public:
   virtual void accept(std::shared_ptr<Node::FunctionType>) = 0;
   virtual void accept(std::shared_ptr<Node::GroupedExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::Identifier>) = 0;
+  virtual void accept(std::shared_ptr<Node::IdentifierPattern>) = 0;
   virtual void accept(std::shared_ptr<Node::IndexExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::InfixExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::IntegerLiteralExpression>) = 0;

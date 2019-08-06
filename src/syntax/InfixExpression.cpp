@@ -1,6 +1,6 @@
 #include "InfixExpression.h"
 
-Node::InfixExpression::InfixExpression(Operator operation, std::shared_ptr<PrefixExpression> expression) {
+Node::InfixExpression::InfixExpression(std::string operation, std::shared_ptr<PrefixExpression> expression) {
   this->operation = std::move(operation);
 
   this->expression = std::move(expression);

@@ -10,9 +10,9 @@
 
 class Node::LiteralExpression: public Node, public std::enable_shared_from_this<LiteralExpression> {
 public:
-  explicit LiteralExpression(std::string value);
+  explicit LiteralExpression(std::shared_ptr<Node> node);
 
-  std::string value;
+  std::shared_ptr<Node> node;
 
   void accept(Visitor &visitor) override;
 };

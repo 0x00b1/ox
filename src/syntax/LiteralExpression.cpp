@@ -1,7 +1,7 @@
 #include "LiteralExpression.h"
 
-Node::LiteralExpression::LiteralExpression(std::string value) {
-  this->value = std::move(value);
+Node::LiteralExpression::LiteralExpression(std::shared_ptr<Node> node) {
+  this->node = std::move(node);
 }
 
 void Node::LiteralExpression::accept(Visitor &visitor) {

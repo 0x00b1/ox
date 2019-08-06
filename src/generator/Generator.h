@@ -29,6 +29,7 @@ public:
   virtual void accept(std::shared_ptr<Node::FunctionType> node) override;
   virtual void accept(std::shared_ptr<Node::GroupedExpression> node) override;
   virtual void accept(std::shared_ptr<Node::Identifier> node) override;
+  virtual void accept(std::shared_ptr<Node::IdentifierPattern> node) override;
   virtual void accept(std::shared_ptr<Node::IndexExpression> node) override;
   virtual void accept(std::shared_ptr<Node::InfixExpression> node) override;
   virtual void accept(std::shared_ptr<Node::IntegerLiteralExpression> node) override;

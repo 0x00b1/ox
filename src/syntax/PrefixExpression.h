@@ -13,13 +13,13 @@
 
 class Node::PrefixExpression: public Node, public std::enable_shared_from_this<PrefixExpression> {
 public:
-  explicit PrefixExpression(std::shared_ptr<PostfixExpression> expression);
+  explicit PrefixExpression(std::shared_ptr<PostfixExpression> postfix_expression);
 
-  PrefixExpression(Operator operation, std::shared_ptr<PostfixExpression> expression);
+  PrefixExpression(std::string operation, std::shared_ptr<PostfixExpression> postfix_expression);
 
-  std::shared_ptr<PostfixExpression> expression;
+  std::shared_ptr<PostfixExpression> postfix_expression;
 
-  std::optional<Operator> operation;
+  std::optional<std::string> operation;
 
   void accept(Visitor &visitor) override;
 };

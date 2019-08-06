@@ -196,7 +196,7 @@ Node::Parameter
     type: std::shared_ptr<Node::Type>
 
 Node::Block
-    expression: std::option<std::shared_ptr<Node::Expression>>
+    postfix_expression: std::option<std::shared_ptr<Node::Expression>>
     identifier: Node::Identifier
     statements: std::vector<std::shared_ptr<Node::Statement>>
 

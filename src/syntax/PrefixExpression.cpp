@@ -1,13 +1,13 @@
 #include "PrefixExpression.h"
 
-Node::PrefixExpression::PrefixExpression(std::shared_ptr<PostfixExpression> expression) {
-  this->expression = std::move(expression);
+Node::PrefixExpression::PrefixExpression(std::shared_ptr<PostfixExpression> postfix_expression) {
+  this->postfix_expression = std::move(postfix_expression);
 }
 
-Node::PrefixExpression::PrefixExpression(Operator operation, std::shared_ptr<PostfixExpression> expression) {
+Node::PrefixExpression::PrefixExpression(std::string operation, std::shared_ptr<PostfixExpression> postfix_expression) {
   this->operation = std::move(operation);
 
-  this->expression = std::move(expression);
+  this->postfix_expression = std::move(postfix_expression);
 }
 
 void Node::PrefixExpression::accept(Visitor &visitor) {

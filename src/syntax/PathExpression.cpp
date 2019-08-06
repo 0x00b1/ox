@@ -1,7 +1,7 @@
 #include "PathExpression.h"
 
-Node::PathExpression::PathExpression(std::vector<std::shared_ptr<Expression>> elements) {
-  this->elements = std::move(elements);
+Node::PathExpression::PathExpression(std::string identifier) {
+  this->identifier = std::move(identifier);
 }
 
 void Node::PathExpression::accept(Visitor &visitor) {

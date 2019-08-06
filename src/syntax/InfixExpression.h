@@ -11,11 +11,11 @@
 
 class Node::InfixExpression: public Node, public std::enable_shared_from_this<InfixExpression> {
 public:
-  InfixExpression(Operator operation, std::shared_ptr<PrefixExpression> expression);
+  InfixExpression(std::string operation, std::shared_ptr<PrefixExpression> expression);
 
   std::shared_ptr<PrefixExpression> expression;
 
-  Operator operation;
+  std::string operation;
 
   void accept(Visitor &visitor) override;
 };

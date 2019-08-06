@@ -1,3 +1,8 @@
-subroutine example (a: unsigned 8-bit Integer) → unsigned 8-bit Integer {
-    return True;
-}
+a;
+1;
+[1, 2, 3];
+(a);
+(1, 2, 3);
+a+;
+example(foo);
+a: Boolean ← (1, 2, 3);

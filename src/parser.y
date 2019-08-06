@@ -93,7 +93,7 @@
 %type <std::shared_ptr<Node::ExpressionStatement>> EXPRESSION_STATEMENT;
 %type <std::shared_ptr<Node::OperatorExpression>> OPERATOR_EXPRESSION;
 %type <std::shared_ptr<Node::PrefixExpression>> PREFIX_EXPRESSION;
-%type <Node::Operator> OPERATOR;
+%type <std::string> OPERATION;
 %type <std::shared_ptr<Node::PostfixExpression>> POSTFIX_EXPRESSION;
 %type <std::shared_ptr<Node::PathExpression>> PATH_EXPRESSION;
 %type <std::shared_ptr<Node::LiteralExpression>> LITERAL_EXPRESSION;
@@ -139,6 +139,7 @@
 %type <std::shared_ptr<Node::SliceType>> SLICE_TYPE;
 %type <std::vector<std::shared_ptr<Node::Pattern>>> TUPLE_PATTERN_ITEMS;
 %type <std::shared_ptr<Node::ReferencePattern>> REFERENCE_PATTERN;
+%type <std::shared_ptr<Node::IdentifierPattern>> IDENTIFIER_PATTERN;
 
 %printer {
     // FIXME:
@@ -217,8 +218,8 @@ OPERATOR_EXPRESSION               : PREFIX_EXPRESSION INFIX_EXPRESSIONS {
                                     $$ = operator_expression;
                                   }
                                   ;
-PREFIX_EXPRESSION                 : OPERATOR POSTFIX_EXPRESSION {
-                                    std::shared_ptr<Node::PrefixExpression> prefix_expression(new Node::PrefixExpression($2));
+PREFIX_EXPRESSION                 : OPERATION POSTFIX_EXPRESSION {
+                                    std::shared_ptr<Node::PrefixExpression> prefix_expression(new Node::PrefixExpression($1, $2));
 
                                     $$ = prefix_expression;
                                   }
@@ -228,29 +229,93 @@ PREFIX_EXPRESSION                 : OPERATOR POSTFIX_EXPRESSION {
                                     $$ = prefix_expression;
                                   }
                                   ;
-OPERATOR                          : "+"
-                                  | "÷"
-                                  | "×"
-                                  | "<"
-                                  | ">"
-                                  | "−"
-                                  | "≤"
-                                  | "≥"
+OPERATION                         : "+" {
+                                    $$ = std::string("+");
+                                  }
+                                  | "÷" {
+                                    $$ = std::string("÷");
+                                  }
+                                  | "×" {
+                                    $$ = std::string("×");
+                                  }
+                                  | "<" {
+                                    $$ = std::string("<");
+                                  }
+                                  | ">" {
+                                    $$ = std::string(">");
+                                  }
+                                  | "−" {
+                                    $$ = std::string("−");
+                                  }
+                                  | "≤" {
+                                    $$ = std::string("≤");
+                                  }
+                                  | "≥" {
+                                    $$ = std::string("≥");
+                                  }
                                   ;
-POSTFIX_EXPRESSION                : PATH_EXPRESSION
-                                  | LITERAL_EXPRESSION
-                                  | ARRAY_EXPRESSION
-                                  | GROUPED_EXPRESSION
-                                  | TUPLE_EXPRESSION
-                                  | POSTFIX_EXPRESSION OPERATOR
-                                  | CALL_EXPRESSION
-                                  | INDEX_EXPRESSION
+POSTFIX_EXPRESSION                : PATH_EXPRESSION {
+                                    std::shared_ptr<Node::PostfixExpression> postfix_expression(new Node::PostfixExpression($1));
+
+                                    $$ = postfix_expression;
+                                  }
+                                  | LITERAL_EXPRESSION {
+                                    std::shared_ptr<Node::PostfixExpression> postfix_expression(new Node::PostfixExpression($1));
+
+                                    $$ = postfix_expression;
+                                  }
+                                  | ARRAY_EXPRESSION {
+                                    std::shared_ptr<Node::PostfixExpression> postfix_expression(new Node::PostfixExpression($1));
+
+                                    $$ = postfix_expression;
+                                  }
+                                  | GROUPED_EXPRESSION {
+                                    std::shared_ptr<Node::PostfixExpression> postfix_expression(new Node::PostfixExpression($1));
+
+                                    $$ = postfix_expression;
+                                  }
+                                  | TUPLE_EXPRESSION {
+                                    std::shared_ptr<Node::PostfixExpression> postfix_expression(new Node::PostfixExpression($1));
+
+                                    $$ = postfix_expression;
+                                  }
+                                  | POSTFIX_EXPRESSION OPERATION {
+                                    std::shared_ptr<Node::PostfixExpression> postfix_expression(new Node::PostfixExpression($1));
+
+                                    $$ = postfix_expression;
+                                  }
+                                  | CALL_EXPRESSION {
+                                    std::shared_ptr<Node::PostfixExpression> postfix_expression(new Node::PostfixExpression($1));
+
+                                    $$ = postfix_expression;
+                                  }
+                                  | INDEX_EXPRESSION {
+                                    std::shared_ptr<Node::PostfixExpression> postfix_expression(new Node::PostfixExpression($1));
+
+                                    $$ = postfix_expression;
+                                  }
                                   ;
-PATH_EXPRESSION                   : IDENTIFIER 
+PATH_EXPRESSION                   : IDENTIFIER {
+                                    std::shared_ptr<Node::PathExpression> path_expression(new Node::PathExpression($1));
+
+                                    $$ = path_expression;
+                                  }
                                   ;
-LITERAL_EXPRESSION                : BOOLEAN_LITERAL_EXPRESSION
-                                  | FLOATING_POINT_LITERAL_EXPRESSION
-                                  | INTEGER_LITERAL_EXPRESSION
+LITERAL_EXPRESSION                : BOOLEAN_LITERAL_EXPRESSION {
+                                    std::shared_ptr<Node::LiteralExpression> literal_expression(new Node::LiteralExpression($1));
+
+                                    $$ = literal_expression;
+                                  }
+                                  | FLOATING_POINT_LITERAL_EXPRESSION {
+                                    std::shared_ptr<Node::LiteralExpression> literal_expression(new Node::LiteralExpression($1));
+
+                                    $$ = literal_expression;
+                                  }
+                                  | INTEGER_LITERAL_EXPRESSION {
+                                    std::shared_ptr<Node::LiteralExpression> literal_expression(new Node::LiteralExpression($1));
+
+                                    $$ = literal_expression;
+                                  }
                                   ;
 BOOLEAN_LITERAL_EXPRESSION        : "True" {
                                     std::shared_ptr<Node::BooleanLiteralExpression> boolean_literal(new Node::BooleanLiteralExpression(true));
@@ -357,7 +422,7 @@ INFIX_EXPRESSIONS                 : INFIX_EXPRESSIONS INFIX_EXPRESSION {
                                     $$.push_back($1);
                                   }
                                   ;
-INFIX_EXPRESSION                  : OPERATOR PREFIX_EXPRESSION {
+INFIX_EXPRESSION                  : OPERATION PREFIX_EXPRESSION {
                                     std::shared_ptr<Node::InfixExpression> infix_expression(new Node::InfixExpression($1, $2));
 
                                     $$ = infix_expression;
@@ -482,9 +547,32 @@ BLOCK_STATEMENT                   : "{" STATEMENTS "}" {
                                     $$ = block_statement;
                                   }
                                   ;
-PATTERN                           : WILDCARD_PATTERN
-                                  | TUPLE_PATTERN
-                                  | REFERENCE_PATTERN
+PATTERN                           : IDENTIFIER_PATTERN {
+                                    std::shared_ptr<Node::Pattern> pattern(new Node::Pattern($1));
+
+                                    $$ = pattern;
+                                  }
+                                  | WILDCARD_PATTERN {
+                                    std::shared_ptr<Node::Pattern> pattern(new Node::Pattern($1));
+
+                                    $$ = pattern;
+                                  }
+                                  | TUPLE_PATTERN {
+                                    std::shared_ptr<Node::Pattern> pattern(new Node::Pattern($1));
+
+                                    $$ = pattern;
+                                  }
+                                  | REFERENCE_PATTERN {
+                                    std::shared_ptr<Node::Pattern> pattern(new Node::Pattern($1));
+
+                                    $$ = pattern;
+                                  }
+                                  ;
+IDENTIFIER_PATTERN                : IDENTIFIER {
+                                    std::shared_ptr<Node::IdentifierPattern> identifier_pattern(new Node::IdentifierPattern($1));
+
+                                    $$ = identifier_pattern;
+                                  }
                                   ;
 WILDCARD_PATTERN                  : "_" {
                                     std::shared_ptr<Node::WildcardPattern> wildcard_pattern(new Node::WildcardPattern());
@@ -517,14 +605,46 @@ REFERENCE_PATTERN                 : "reference" PATTERN {
                                     $$ = reference_pattern;
                                   }
                                   ;
-TYPE                              : FUNCTION_TYPE
-                                  | ARRAY_TYPE
-                                  | BOOLEAN_TYPE
-                                  | FLOATING_POINT_TYPE
-                                  | INTEGER_TYPE
-                                  | SIZE_TYPE
-                                  | REFERENCE_TYPE
-                                  | SLICE_TYPE
+TYPE                              : FUNCTION_TYPE {
+                                    std::shared_ptr<Node::Type> type(new Node::Type($1));
+
+                                    $$ = type;
+                                  }
+                                  | ARRAY_TYPE {
+                                    std::shared_ptr<Node::Type> type(new Node::Type($1));
+
+                                    $$ = type;
+                                  }
+                                  | BOOLEAN_TYPE {
+                                    std::shared_ptr<Node::Type> type(new Node::Type($1));
+
+                                    $$ = type;
+                                  }
+                                  | FLOATING_POINT_TYPE {
+                                    std::shared_ptr<Node::Type> type(new Node::Type($1));
+
+                                    $$ = type;
+                                  }
+                                  | INTEGER_TYPE {
+                                    std::shared_ptr<Node::Type> type(new Node::Type($1));
+
+                                    $$ = type;
+                                  }
+                                  | SIZE_TYPE {
+                                    std::shared_ptr<Node::Type> type(new Node::Type($1));
+
+                                    $$ = type;
+                                  }
+                                  | REFERENCE_TYPE {
+                                    std::shared_ptr<Node::Type> type(new Node::Type($1));
+
+                                    $$ = type;
+                                  }
+                                  | SLICE_TYPE {
+                                    std::shared_ptr<Node::Type> type(new Node::Type($1));
+
+                                    $$ = type;
+                                  }
                                   ;
 FUNCTION_TYPE                     : "(" FUNCTION_TYPE_PARAMETERS ")" "→" TYPE {
                                     std::shared_ptr<Node::FunctionType> function_type(new Node::FunctionType());
