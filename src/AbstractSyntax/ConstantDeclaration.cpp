@@ -1,8 +1,6 @@
 #include "ConstantDeclaration.h"
 
-Node::ConstantDeclaration::ConstantDeclaration(std::string identifier, std::shared_ptr<Type> type, std::shared_ptr<Node> expression) {
-  this->identifier = std::move(identifier);
-
+Node::ConstantDeclaration::ConstantDeclaration(std::shared_ptr<Type> type, std::shared_ptr<Node> expression) {
   this->type = std::move(type);
 
   this->expression = std::move(expression);

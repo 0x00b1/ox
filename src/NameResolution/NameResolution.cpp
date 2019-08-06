@@ -281,7 +281,7 @@ void NameResolution::accept(std::shared_ptr<Node::Statement> statement) {
 void NameResolution::accept(std::shared_ptr<Node::SubroutineDeclaration> subroutine_item) {
   std::cout << "Node::SubroutineDeclaration" << std::endl;
 
-  subroutine_item->function_type->accept(*this);
+  subroutine_item->function_declaration->accept(*this);
 
   subroutine_item->block_statement->accept(*this);
 }

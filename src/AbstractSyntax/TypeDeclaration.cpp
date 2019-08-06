@@ -1,8 +1,6 @@
 #include "TypeDeclaration.h"
 
-Node::TypeDeclaration::TypeDeclaration(std::string identifier, std::shared_ptr<Type> type) {
-  this->identifier = std::move(identifier);
-
+Node::TypeDeclaration::TypeDeclaration(std::shared_ptr<Type> type) {
   this->type = std::move(type);
 }
 

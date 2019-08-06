@@ -1,12 +1,8 @@
 #include "ModuleDeclaration.h"
 
-Node::ModuleDeclaration::ModuleDeclaration(std::string identifier) {
-  this->identifier = std::move(identifier);
-}
+Node::ModuleDeclaration::ModuleDeclaration() = default;
 
-Node::ModuleDeclaration::ModuleDeclaration(std::string identifier, std::vector<std::shared_ptr<Declaration>> items) {
-  this->identifier = std::move(identifier);
-
+Node::ModuleDeclaration::ModuleDeclaration(std::vector<std::shared_ptr<Declaration>> items) {
   this->items = std::move(items);
 }
 

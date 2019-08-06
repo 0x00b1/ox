@@ -11,9 +11,7 @@
 
 class Node::TypeDeclaration: public Node, public std::enable_shared_from_this<TypeDeclaration> {
 public:
-  TypeDeclaration(std::string identifier, std::shared_ptr<Type> type);
-
-  std::string identifier;
+  explicit TypeDeclaration(std::shared_ptr<Type> type);
 
   std::shared_ptr<Type> type;
 

@@ -10,13 +10,7 @@
 
 class Node::ExternalPackageDeclaration: public Node, public std::enable_shared_from_this<ExternalPackageDeclaration> {
 public:
-  explicit ExternalPackageDeclaration(std::string identifier);
-
-  ExternalPackageDeclaration(std::string identifier, std::string alias);
-
-  std::string identifier;
-
-  std::string alias;
+  ExternalPackageDeclaration();
 
   void accept(Visitor &visitor) override;
 };

@@ -140,6 +140,9 @@
 %type <std::vector<std::shared_ptr<Node::Pattern>>> TUPLE_PATTERN_ITEMS;
 %type <std::shared_ptr<Node::ReferencePattern>> REFERENCE_PATTERN;
 %type <std::shared_ptr<Node::IdentifierPattern>> IDENTIFIER_PATTERN;
+%type <std::vector<std::shared_ptr<Node::Parameter>>> PARAMETERS;
+%type <std::shared_ptr<Node::Parameter>> PARAMETER;
+%type <std::shared_ptr<Node::FunctionPrototype>> FUNCTION_PROTOTYPE;
 
 %printer {
     // FIXME:
@@ -467,12 +470,12 @@ ITEM                              : MODULE_ITEM {
                                   }
                                   ;
 MODULE_ITEM                       : "module" IDENTIFIER "{" ITEMS "}" ";" {
-                                    std::shared_ptr<Node::ModuleDeclaration> module_item(new Node::ModuleDeclaration($2, $4));
+                                    std::shared_ptr<Node::ModuleDeclaration> module_item(new Node::ModuleDeclaration($4));
 
                                     $$ = module_item;
                                   }
                                   | "module" IDENTIFIER ";" {
-                                    std::shared_ptr<Node::ModuleDeclaration> module_item(new Node::ModuleDeclaration($2));
+                                    std::shared_ptr<Node::ModuleDeclaration> module_item(new Node::ModuleDeclaration());
 
                                     $$ = module_item;
                                   }
@@ -491,32 +494,58 @@ ITEMS                             : ITEMS ITEM {
                                   }
                                   ;
 EXTERNAL_PACKAGE_ITEM             : "external" "package" IDENTIFIER "as" IDENTIFIER ";" {
-                                    std::shared_ptr<Node::ExternalPackageDeclaration> external_package_item(new Node::ExternalPackageDeclaration($3, $5));
+                                    std::shared_ptr<Node::ExternalPackageDeclaration> external_package_item(new Node::ExternalPackageDeclaration());
 
                                     $$ = external_package_item;
                                   }
                                   | "external" "package" IDENTIFIER ";" {
-                                    std::shared_ptr<Node::ExternalPackageDeclaration> external_package_item(new Node::ExternalPackageDeclaration($3));
+                                    std::shared_ptr<Node::ExternalPackageDeclaration> external_package_item(new Node::ExternalPackageDeclaration());
 
                                     $$ = external_package_item;
                                   }
                                   ;
 CONSTANT_ITEM                     : "constant" IDENTIFIER ":" TYPE "←" OPERATOR_EXPRESSION ";" {
-                                    std::shared_ptr<Node::ConstantDeclaration> constant_item(new Node::ConstantDeclaration($2, $4, $6));
+                                    std::shared_ptr<Node::ConstantDeclaration> constant_item(new Node::ConstantDeclaration($4, $6));
 
                                     $$ = constant_item;
                                   }
                                   ;
 TYPE_ITEM                         : "type" IDENTIFIER "←" TYPE ";" {
-                                    std::shared_ptr<Node::TypeDeclaration> type_item(new Node::TypeDeclaration($2, $4));
+                                    std::shared_ptr<Node::TypeDeclaration> type_item(new Node::TypeDeclaration($4));
 
                                     $$ = type_item;
                                   }
                                   ;
-SUBROUTINE_ITEM                   : "subroutine" IDENTIFIER FUNCTION_TYPE BLOCK_STATEMENT {
-                                    std::shared_ptr<Node::SubroutineDeclaration> subroutine_item(new Node::SubroutineDeclaration($2, $3, $4));
+SUBROUTINE_ITEM                   : "subroutine" IDENTIFIER FUNCTION_PROTOTYPE BLOCK_STATEMENT {
+                                    std::shared_ptr<Node::FunctionDeclaration> function_declaration(new Node::FunctionDeclaration($3));
 
-                                    $$ = subroutine_item;
+                                    std::shared_ptr<Node::SubroutineDeclaration> subroutine_declaration(new Node::SubroutineDeclaration(function_declaration, $4));
+
+                                    $$ = subroutine_declaration;
+                                  }
+                                  ;
+FUNCTION_PROTOTYPE                : "(" PARAMETERS ")" "→" TYPE {
+                                    std::shared_ptr<Node::FunctionPrototype> function_prototype(new Node::FunctionPrototype($2, $5));
+
+                                    $$ = function_prototype;
+                                  }
+PARAMETERS                        : PARAMETERS "," PARAMETER {
+                                    std::vector<std::shared_ptr<Node::Parameter>> parameters = $1;
+
+                                    parameters.push_back($3);
+
+                                    $$ = parameters;
+                                  }
+                                  | PARAMETER {
+                                    $$ = std::vector<std::shared_ptr<Node::Parameter>>();
+
+                                    $$.push_back($1);
+                                  }
+                                  ;
+PARAMETER                         : IDENTIFIER ":" TYPE {
+                                    std::shared_ptr<Node::Parameter> parameter(new Node::Parameter($1, $3));
+
+                                    $$ = parameter;
                                   }
                                   ;
 CONDITIONAL_STATEMENT             : "if" OPERATOR_EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT ";" {

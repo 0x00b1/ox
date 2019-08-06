@@ -6,17 +6,16 @@
 #include <utility>
 #include <vector>
 
-#include "FunctionType.h"
+#include "ox/Visitor.h"
+
 #include "Declaration.h"
-#include "Visitor/Visitor.h"
+#include "FunctionDeclaration.h"
 
 class Node::SubroutineDeclaration: public Node, public std::enable_shared_from_this<SubroutineDeclaration> {
 public:
-  SubroutineDeclaration(std::string identifier, std::shared_ptr<FunctionType> function_type, std::shared_ptr<BlockStatement> block_statement);
+  SubroutineDeclaration(std::shared_ptr<FunctionDeclaration> function_declaration, std::shared_ptr<BlockStatement> block_statement);
 
-  std::string identifier;
-
-  std::shared_ptr<FunctionType> function_type;
+  std::shared_ptr<FunctionDeclaration> function_declaration;
 
   std::shared_ptr<BlockStatement> block_statement;
 

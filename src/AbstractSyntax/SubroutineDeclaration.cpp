@@ -1,9 +1,7 @@
 #include "SubroutineDeclaration.h"
 
-Node::SubroutineDeclaration::SubroutineDeclaration(std::string identifier, std::shared_ptr<FunctionType> function_type, std::shared_ptr<BlockStatement> block_statement) {
-  this->identifier = std::move(identifier);
-
-  this->function_type = std::move(function_type);
+Node::SubroutineDeclaration::SubroutineDeclaration(std::shared_ptr<FunctionDeclaration> function_declaration, std::shared_ptr<BlockStatement> block_statement) {
+  this->function_declaration = std::move(function_declaration);
 
   this->block_statement = std::move(block_statement);
 }

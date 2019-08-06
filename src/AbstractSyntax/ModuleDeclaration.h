@@ -6,16 +6,15 @@
 #include <utility>
 #include <vector>
 
+#include "ox/Visitor.h"
+
 #include "Declaration.h"
-#include "Visitor/Visitor.h"
 
 class Node::ModuleDeclaration: public Node, public std::enable_shared_from_this<ModuleDeclaration> {
 public:
-  explicit ModuleDeclaration(std::string identifier);
+  ModuleDeclaration();
 
-  ModuleDeclaration(std::string identifier, std::vector<std::shared_ptr<Declaration>> items);
-
-  std::string identifier;
+  explicit ModuleDeclaration(std::vector<std::shared_ptr<Declaration>> items);
 
   std::vector<std::shared_ptr<Declaration>> items;
 
