@@ -8,11 +8,16 @@ a;
 
 (1, 2, 3);
 
-a+;
+example(a);
 
-example(foo);
+example(a, b, c);
 
-example: [unsigned 8-bit Integer × 3] ← [1, 2, 3];
+example: [Integer × 3] ← [1, 2, 3];
 
-constant example: [unsigned 8-bit Integer × 3] ← [1, 2, 3];
+constant example: [Integer × 3] ← [1, 2, 3];
 
+x: Integer ← 1;
+
+x: 32-bit Floating-point ← 1.0;
+
+x: Boolean ← True;

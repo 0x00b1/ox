@@ -537,35 +537,22 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/LiteralPattern.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/LiteralPattern.cpp.s"
 	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/LiteralPattern.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/LiteralPattern.cpp.s
 
-CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.o: CMakeFiles/oxc.dir/flags.make
-CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.o: ../src/AbstractSyntax/ModuleItem.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.o"
-	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleItem.cpp
+CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.o: CMakeFiles/oxc.dir/flags.make
+CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.o: ../src/AbstractSyntax/ModuleDeclaration.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.o"
+	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleDeclaration.cpp
 
-CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.i"
-	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleItem.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.i
+CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.i"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleDeclaration.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.i
 
-CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.s"
-	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleItem.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.s
-
-CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.o: CMakeFiles/oxc.dir/flags.make
-CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.o: ../src/AbstractSyntax/ModuleSymbol.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.o"
-	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleSymbol.cpp
-
-CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.i"
-	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleSymbol.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.i
-
-CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.s"
-	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleSymbol.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.s
+CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.s"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleDeclaration.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.s
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Name.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/Name.cpp.o: ../src/AbstractSyntax/Name.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Name.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Name.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/Name.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Name.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Name.cpp.i: cmake_force
@@ -578,7 +565,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/Name.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Operator.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/Operator.cpp.o: ../src/AbstractSyntax/Operator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Operator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Operator.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/Operator.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Operator.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Operator.cpp.i: cmake_force
@@ -591,7 +578,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/Operator.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/OperatorExpression.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/OperatorExpression.cpp.o: ../src/AbstractSyntax/OperatorExpression.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/OperatorExpression.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/OperatorExpression.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/OperatorExpression.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/OperatorExpression.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/OperatorExpression.cpp.i: cmake_force
@@ -604,7 +591,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/OperatorExpression.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Parameter.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/Parameter.cpp.o: ../src/AbstractSyntax/Parameter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Parameter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Parameter.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/Parameter.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Parameter.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Parameter.cpp.i: cmake_force
@@ -617,7 +604,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/Parameter.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PathExpression.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/PathExpression.cpp.o: ../src/AbstractSyntax/PathExpression.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PathExpression.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PathExpression.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/PathExpression.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PathExpression.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PathExpression.cpp.i: cmake_force
@@ -630,7 +617,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/PathExpression.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PathPattern.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/PathPattern.cpp.o: ../src/AbstractSyntax/PathPattern.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PathPattern.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PathPattern.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/PathPattern.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PathPattern.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PathPattern.cpp.i: cmake_force
@@ -643,7 +630,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/PathPattern.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PathType.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/PathType.cpp.o: ../src/AbstractSyntax/PathType.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PathType.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PathType.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/PathType.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PathType.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PathType.cpp.i: cmake_force
@@ -656,7 +643,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/PathType.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Pattern.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/Pattern.cpp.o: ../src/AbstractSyntax/Pattern.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Pattern.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Pattern.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/Pattern.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Pattern.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Pattern.cpp.i: cmake_force
@@ -669,7 +656,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/Pattern.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PointerType.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/PointerType.cpp.o: ../src/AbstractSyntax/PointerType.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PointerType.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PointerType.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/PointerType.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PointerType.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PointerType.cpp.i: cmake_force
@@ -682,7 +669,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/PointerType.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Position.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/Position.cpp.o: ../src/AbstractSyntax/Position.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Position.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Position.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/Position.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Position.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Position.cpp.i: cmake_force
@@ -695,7 +682,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/Position.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PostfixExpression.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/PostfixExpression.cpp.o: ../src/AbstractSyntax/PostfixExpression.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PostfixExpression.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PostfixExpression.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/PostfixExpression.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PostfixExpression.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PostfixExpression.cpp.i: cmake_force
@@ -708,7 +695,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/PostfixExpression.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixExpression.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixExpression.cpp.o: ../src/AbstractSyntax/PrefixExpression.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixExpression.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixExpression.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixExpression.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PrefixExpression.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixExpression.cpp.i: cmake_force
@@ -721,7 +708,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixExpression.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/ReferencePattern.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/ReferencePattern.cpp.o: ../src/AbstractSyntax/ReferencePattern.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ReferencePattern.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ReferencePattern.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/ReferencePattern.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ReferencePattern.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/ReferencePattern.cpp.i: cmake_force
@@ -734,7 +721,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/ReferencePattern.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/ReferenceType.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/ReferenceType.cpp.o: ../src/AbstractSyntax/ReferenceType.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ReferenceType.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ReferenceType.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/ReferenceType.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ReferenceType.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/ReferenceType.cpp.i: cmake_force
@@ -747,7 +734,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/ReferenceType.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/ReturnStatement.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/ReturnStatement.cpp.o: ../src/AbstractSyntax/ReturnStatement.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ReturnStatement.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ReturnStatement.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/ReturnStatement.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ReturnStatement.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/ReturnStatement.cpp.i: cmake_force
@@ -760,7 +747,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/ReturnStatement.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/SizeType.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/SizeType.cpp.o: ../src/AbstractSyntax/SizeType.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/SizeType.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/SizeType.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/SizeType.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/SizeType.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/SizeType.cpp.i: cmake_force
@@ -773,7 +760,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/SizeType.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/SlicePattern.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/SlicePattern.cpp.o: ../src/AbstractSyntax/SlicePattern.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/SlicePattern.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/SlicePattern.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/SlicePattern.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/SlicePattern.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/SlicePattern.cpp.i: cmake_force
@@ -786,7 +773,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/SlicePattern.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/SliceType.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/SliceType.cpp.o: ../src/AbstractSyntax/SliceType.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/SliceType.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/SliceType.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/SliceType.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/SliceType.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/SliceType.cpp.i: cmake_force
@@ -799,7 +786,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/SliceType.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Statement.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/Statement.cpp.o: ../src/AbstractSyntax/Statement.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Statement.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Statement.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/Statement.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Statement.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Statement.cpp.i: cmake_force
@@ -812,7 +799,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/Statement.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/SubroutineDeclaration.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/SubroutineDeclaration.cpp.o: ../src/AbstractSyntax/SubroutineDeclaration.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_60) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/SubroutineDeclaration.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/SubroutineDeclaration.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/SubroutineDeclaration.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/SubroutineDeclaration.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/SubroutineDeclaration.cpp.i: cmake_force
@@ -825,7 +812,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/SubroutineDeclaration.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/TupleExpression.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/TupleExpression.cpp.o: ../src/AbstractSyntax/TupleExpression.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_61) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/TupleExpression.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_60) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/TupleExpression.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/TupleExpression.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/TupleExpression.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/TupleExpression.cpp.i: cmake_force
@@ -838,7 +825,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/TupleExpression.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/TuplePattern.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/TuplePattern.cpp.o: ../src/AbstractSyntax/TuplePattern.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_62) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/TuplePattern.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_61) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/TuplePattern.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/TuplePattern.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/TuplePattern.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/TuplePattern.cpp.i: cmake_force
@@ -851,7 +838,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/TuplePattern.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/TupleType.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/TupleType.cpp.o: ../src/AbstractSyntax/TupleType.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_63) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/TupleType.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_62) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/TupleType.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/TupleType.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/TupleType.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/TupleType.cpp.i: cmake_force
@@ -864,7 +851,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/TupleType.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Type.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/Type.cpp.o: ../src/AbstractSyntax/Type.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_64) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Type.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_63) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Type.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/Type.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Type.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/Type.cpp.i: cmake_force
@@ -877,7 +864,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/Type.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.o: ../src/AbstractSyntax/TypeDeclaration.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_65) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_64) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/TypeDeclaration.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.i: cmake_force
@@ -888,22 +875,22 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.s"
 	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/TypeDeclaration.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.s
 
-CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.o: CMakeFiles/oxc.dir/flags.make
-CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.o: ../src/AbstractSyntax/Unit.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_66) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.o"
-	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Unit.cpp
+CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.o: CMakeFiles/oxc.dir/flags.make
+CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.o: ../src/AbstractSyntax/TranslationUnit.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_65) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.o"
+	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/TranslationUnit.cpp
 
-CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.i"
-	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Unit.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.i
+CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.i"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/TranslationUnit.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.i
 
-CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.s"
-	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Unit.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.s
+CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.s"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/TranslationUnit.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.s
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/WildcardPattern.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/WildcardPattern.cpp.o: ../src/AbstractSyntax/WildcardPattern.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_67) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/WildcardPattern.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_66) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/WildcardPattern.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/WildcardPattern.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/WildcardPattern.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/WildcardPattern.cpp.i: cmake_force
@@ -916,7 +903,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/WildcardPattern.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/NameResolution/NameResolution.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/NameResolution/NameResolution.cpp.o: ../src/NameResolution/NameResolution.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_68) "Building CXX object CMakeFiles/oxc.dir/src/NameResolution/NameResolution.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_67) "Building CXX object CMakeFiles/oxc.dir/src/NameResolution/NameResolution.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/NameResolution/NameResolution.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/NameResolution/NameResolution.cpp
 
 CMakeFiles/oxc.dir/src/NameResolution/NameResolution.cpp.i: cmake_force
@@ -929,7 +916,7 @@ CMakeFiles/oxc.dir/src/NameResolution/NameResolution.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/SymbolTable/ClassSymbolTable.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/SymbolTable/ClassSymbolTable.cpp.o: ../src/SymbolTable/ClassSymbolTable.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_69) "Building CXX object CMakeFiles/oxc.dir/src/SymbolTable/ClassSymbolTable.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_68) "Building CXX object CMakeFiles/oxc.dir/src/SymbolTable/ClassSymbolTable.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/SymbolTable/ClassSymbolTable.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/SymbolTable/ClassSymbolTable.cpp
 
 CMakeFiles/oxc.dir/src/SymbolTable/ClassSymbolTable.cpp.i: cmake_force
@@ -942,7 +929,7 @@ CMakeFiles/oxc.dir/src/SymbolTable/ClassSymbolTable.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/SymbolTable/SubroutineSymbolTable.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/SymbolTable/SubroutineSymbolTable.cpp.o: ../src/SymbolTable/SubroutineSymbolTable.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_70) "Building CXX object CMakeFiles/oxc.dir/src/SymbolTable/SubroutineSymbolTable.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_69) "Building CXX object CMakeFiles/oxc.dir/src/SymbolTable/SubroutineSymbolTable.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/SymbolTable/SubroutineSymbolTable.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/SymbolTable/SubroutineSymbolTable.cpp
 
 CMakeFiles/oxc.dir/src/SymbolTable/SubroutineSymbolTable.cpp.i: cmake_force
@@ -955,7 +942,7 @@ CMakeFiles/oxc.dir/src/SymbolTable/SubroutineSymbolTable.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/SymbolTable/Symbol.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/SymbolTable/Symbol.cpp.o: ../src/SymbolTable/Symbol.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_71) "Building CXX object CMakeFiles/oxc.dir/src/SymbolTable/Symbol.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_70) "Building CXX object CMakeFiles/oxc.dir/src/SymbolTable/Symbol.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/SymbolTable/Symbol.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/SymbolTable/Symbol.cpp
 
 CMakeFiles/oxc.dir/src/SymbolTable/Symbol.cpp.i: cmake_force
@@ -968,7 +955,7 @@ CMakeFiles/oxc.dir/src/SymbolTable/Symbol.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/SymbolTable/SymbolTable.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/SymbolTable/SymbolTable.cpp.o: ../src/SymbolTable/SymbolTable.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_72) "Building CXX object CMakeFiles/oxc.dir/src/SymbolTable/SymbolTable.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_71) "Building CXX object CMakeFiles/oxc.dir/src/SymbolTable/SymbolTable.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/SymbolTable/SymbolTable.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/SymbolTable/SymbolTable.cpp
 
 CMakeFiles/oxc.dir/src/SymbolTable/SymbolTable.cpp.i: cmake_force
@@ -981,7 +968,7 @@ CMakeFiles/oxc.dir/src/SymbolTable/SymbolTable.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/ClassDeclaration.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/ClassDeclaration.cpp.o: ../src/AbstractSyntax/ClassDeclaration.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_73) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ClassDeclaration.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_72) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ClassDeclaration.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/ClassDeclaration.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ClassDeclaration.cpp
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/ClassDeclaration.cpp.i: cmake_force
@@ -994,7 +981,7 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/ClassDeclaration.cpp.s: cmake_force
 
 CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.o: ../src/SymbolTable/ModuleSymbolTable.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_74) "Building CXX object CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_73) "Building CXX object CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.o"
 	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/SymbolTable/ModuleSymbolTable.cpp
 
 CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.i: cmake_force
@@ -1004,6 +991,45 @@ CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.i: cmake_force
 CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.s"
 	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/SymbolTable/ModuleSymbolTable.cpp -o CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.s
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.o: CMakeFiles/oxc.dir/flags.make
+CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.o: ../src/AbstractSyntax/FunctionPrototype.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_74) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.o"
+	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/FunctionPrototype.cpp
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.i"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/FunctionPrototype.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.i
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.s"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/FunctionPrototype.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.s
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.o: CMakeFiles/oxc.dir/flags.make
+CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.o: ../src/AbstractSyntax/PathSegment.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_75) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.o"
+	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PathSegment.cpp
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.i"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PathSegment.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.i
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.s"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PathSegment.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.s
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o: CMakeFiles/oxc.dir/flags.make
+CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o: ../src/AbstractSyntax/Path.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_76) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o"
+	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Path.cpp
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.i"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Path.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.i
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.s"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Path.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.s
 
 # Object files for target oxc
 oxc_OBJECTS = \
@@ -1043,8 +1069,7 @@ oxc_OBJECTS = \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/Literal.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/LiteralExpression.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/LiteralPattern.cpp.o" \
-"CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.o" \
-"CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.o" \
+"CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/Name.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/Operator.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/OperatorExpression.cpp.o" \
@@ -1070,7 +1095,7 @@ oxc_OBJECTS = \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/TupleType.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/Type.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.o" \
-"CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.o" \
+"CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/WildcardPattern.cpp.o" \
 "CMakeFiles/oxc.dir/src/NameResolution/NameResolution.cpp.o" \
 "CMakeFiles/oxc.dir/src/SymbolTable/ClassSymbolTable.cpp.o" \
@@ -1078,7 +1103,10 @@ oxc_OBJECTS = \
 "CMakeFiles/oxc.dir/src/SymbolTable/Symbol.cpp.o" \
 "CMakeFiles/oxc.dir/src/SymbolTable/SymbolTable.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/ClassDeclaration.cpp.o" \
-"CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.o"
+"CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.o" \
+"CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.o" \
+"CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.o" \
+"CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o"
 
 # External object files for target oxc
 oxc_EXTERNAL_OBJECTS =
@@ -1119,8 +1147,7 @@ oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/DeclarationStatement.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/Literal.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/LiteralExpression.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/LiteralPattern.cpp.o
-oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.o
-oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.o
+oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/Name.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/Operator.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/OperatorExpression.cpp.o
@@ -1146,7 +1173,7 @@ oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/TuplePattern.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/TupleType.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/Type.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.o
-oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.o
+oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/WildcardPattern.cpp.o
 oxc: CMakeFiles/oxc.dir/src/NameResolution/NameResolution.cpp.o
 oxc: CMakeFiles/oxc.dir/src/SymbolTable/ClassSymbolTable.cpp.o
@@ -1155,6 +1182,9 @@ oxc: CMakeFiles/oxc.dir/src/SymbolTable/Symbol.cpp.o
 oxc: CMakeFiles/oxc.dir/src/SymbolTable/SymbolTable.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/ClassDeclaration.cpp.o
 oxc: CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.o
+oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.o
+oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.o
+oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o
 oxc: CMakeFiles/oxc.dir/build.make
 oxc: /usr/local/opt/llvm/lib/libLLVMX86CodeGen.a
 oxc: /usr/local/opt/llvm/lib/libLLVMX86AsmParser.a
@@ -1189,7 +1219,7 @@ oxc: /usr/local/opt/llvm/lib/libLLVMDebugInfoMSF.a
 oxc: /usr/local/opt/llvm/lib/libLLVMSupport.a
 oxc: /usr/local/opt/llvm/lib/libLLVMDemangle.a
 oxc: CMakeFiles/oxc.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_75) "Linking CXX executable oxc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_77) "Linking CXX executable oxc"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/oxc.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

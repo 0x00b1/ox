@@ -37,6 +37,7 @@ public:
   void accept(std::shared_ptr<Node::IdentifierPattern> node) override;
   void accept(std::shared_ptr<Node::IndexExpression> node) override;
   void accept(std::shared_ptr<Node::InfixExpression> node) override;
+  void accept(std::shared_ptr<Node::InfixOperation> node) override;
   void accept(std::shared_ptr<Node::IntegerLiteralExpression> node) override;
   void accept(std::shared_ptr<Node::IntegerType> node) override;
   void accept(std::shared_ptr<Node::Declaration> node) override;
@@ -57,6 +58,7 @@ public:
   void accept(std::shared_ptr<Node::PointerType> node) override;
   void accept(std::shared_ptr<Node::PostfixExpression> node) override;
   void accept(std::shared_ptr<Node::PrefixExpression> node) override;
+  void accept(std::shared_ptr<Node::PrefixOperation> node) override;
   void accept(std::shared_ptr<Node::ReferencePattern> node) override;
   void accept(std::shared_ptr<Node::ReferenceType> node) override;
   void accept(std::shared_ptr<Node::ReturnStatement> node) override;

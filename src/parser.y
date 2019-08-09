@@ -42,21 +42,28 @@
   KEYWORD_16_BIT                        "16-bit"
   KEYWORD_32_BIT                        "32-bit"
   KEYWORD_64_BIT                        "64-bit"
+  KEYWORD_AND                           "and"
+  KEYWORD_ARBITRARY_PRECISION           "arbitrary-precision"
   KEYWORD_AS                            "as"
   KEYWORD_BOOLEAN                       "Boolean"
+  KEYWORD_BORROW                        "borrow"
   KEYWORD_CONSTANT                      "constant"
+  KEYWORD_DEREFERENCE                   "dereference"
   KEYWORD_ELSE                          "else"
   KEYWORD_FALSE                         "False"
   KEYWORD_FLOATING_POINT                "Floating-point"
   KEYWORD_IF                            "if"
   KEYWORD_INTEGER                       "Integer"
   KEYWORD_IS                            "is"
+  KEYWORD_MUTABLE                       "mutable"
+  KEYWORD_OR                            "or"
   KEYWORD_REFERENCE                     "reference"
   KEYWORD_RETURN                        "return"
   KEYWORD_SHARED                        "shared"
   KEYWORD_SIZE                          "Size"
   KEYWORD_SUBROUTINE                    "subroutine"
   KEYWORD_TRUE                          "True"
+  KEYWORD_UNLESS                        "unless"
   KEYWORD_UNSIGNED                      "unsigned"
 ;
 
@@ -67,22 +74,24 @@
   PUNCTUATION_COLON                     ":"
   PUNCTUATION_COMMA                     ","
   PUNCTUATION_DIVISION_SIGN             "÷"
+  PUNCTUATION_EQUALS_SIGN               "="
+  PUNCTUATION_GREATER_THAN_OR_EQUAL_TO  "≥"
+  PUNCTUATION_GREATER_THAN_SIGN         ">"
   PUNCTUATION_LEFT_CURLY_BRACKET        "{"
   PUNCTUATION_LEFT_PARENTHESIS          "("
   PUNCTUATION_LEFT_SQUARE_BRACKET       "["
   PUNCTUATION_LEFTWARDS_ARROW           "←"
+  PUNCTUATION_LESS_THAN_OR_EQUAL_TO     "≤"
+  PUNCTUATION_LESS_THAN_SIGN            "<"
   PUNCTUATION_MINUS_SIGN                "−"
   PUNCTUATION_MULTIPLICATION_SIGN       "×"
+  PUNCTUATION_NOT_EQUAL_TO              "≠"
   PUNCTUATION_PLUS_SIGN                 "+"
   PUNCTUATION_RIGHT_CURLY_BRACKET       "}"
   PUNCTUATION_RIGHT_PARENTHESIS         ")"
   PUNCTUATION_RIGHT_SQUARE_BRACKET      "]"
   PUNCTUATION_RIGHTWARDS_ARROW          "→"
   PUNCTUATION_SEMICOLON                 ";"
-  PUNCTUATION_GREATER_THAN_OR_EQUAL_TO  "≥"
-  PUNCTUATION_LESS_THAN_OR_EQUAL_TO     "≤"
-  PUNCTUATION_GREATER_THAN_SIGN         ">"
-  PUNCTUATION_LESS_THAN_SIGN            "<"
 ;
 
 %token <std::string> IDENTIFIER_TOKEN;
@@ -93,7 +102,8 @@
 %type <std::shared_ptr<Node::ExpressionStatement>> EXPRESSION_STATEMENT;
 %type <std::shared_ptr<Node::OperatorExpression>> OPERATOR_EXPRESSION;
 %type <std::shared_ptr<Node::PrefixExpression>> PREFIX_EXPRESSION;
-%type <std::string> OPERATION;
+%type <std::string> INFIX_OPERATION;
+%type <std::string> PREFIX_OPERATION;
 %type <std::shared_ptr<Node::PostfixExpression>> POSTFIX_EXPRESSION;
 %type <std::shared_ptr<Node::PathExpression>> PATH_EXPRESSION;
 %type <std::shared_ptr<Node::LiteralExpression>> LITERAL_EXPRESSION;
@@ -223,7 +233,7 @@ OPERATOR_EXPRESSION               : PREFIX_EXPRESSION INFIX_EXPRESSIONS {
                                     $$ = operator_expression;
                                   }
                                   ;
-PREFIX_EXPRESSION                 : OPERATION POSTFIX_EXPRESSION {
+PREFIX_EXPRESSION                 : PREFIX_OPERATION POSTFIX_EXPRESSION {
                                     std::shared_ptr<Node::PrefixExpression> prefix_expression(new Node::PrefixExpression($1, $2));
 
                                     $$ = prefix_expression;
@@ -234,30 +244,10 @@ PREFIX_EXPRESSION                 : OPERATION POSTFIX_EXPRESSION {
                                     $$ = prefix_expression;
                                   }
                                   ;
-OPERATION                         : "+" {
-                                    $$ = std::string("+");
-                                  }
-                                  | "÷" {
-                                    $$ = std::string("÷");
-                                  }
-                                  | "×" {
-                                    $$ = std::string("×");
-                                  }
-                                  | "<" {
-                                    $$ = std::string("<");
-                                  }
-                                  | ">" {
-                                    $$ = std::string(">");
-                                  }
-                                  | "−" {
-                                    $$ = std::string("−");
-                                  }
-                                  | "≤" {
-                                    $$ = std::string("≤");
-                                  }
-                                  | "≥" {
-                                    $$ = std::string("≥");
-                                  }
+PREFIX_OPERATION                  : "borrow" "mutable" OPERATOR_EXPRESSION
+                                  | "borrow" OPERATOR_EXPRESSION
+                                  | "dereference" OPERATOR_EXPRESSION
+                                  | "−" OPERATOR_EXPRESSION
                                   ;
 POSTFIX_EXPRESSION                : PATH_EXPRESSION {
                                     std::shared_ptr<Node::PostfixExpression> postfix_expression(new Node::PostfixExpression($1));
@@ -284,7 +274,7 @@ POSTFIX_EXPRESSION                : PATH_EXPRESSION {
 
                                     $$ = postfix_expression;
                                   }
-                                  | POSTFIX_EXPRESSION OPERATION {
+                                  | POSTFIX_EXPRESSION POSTFIX_OPERATION {
                                     std::shared_ptr<Node::PostfixExpression> postfix_expression(new Node::PostfixExpression($1));
 
                                     $$ = postfix_expression;
@@ -376,6 +366,8 @@ TUPLE_EXPRESSION                  : "(" TUPLE_EXPRESSION_ELEMENTS ")" {
                                     $$ = tuple_expression;
                                   }
                                   ;
+POSTFIX_OPERATION                 :
+                                  ;
 TUPLE_EXPRESSION_ELEMENTS         : TUPLE_EXPRESSION_ELEMENTS "," OPERATOR_EXPRESSION {
                                     std::vector<std::shared_ptr<Node::Node>> tuple_expression_elements = $1;
 
@@ -427,10 +419,53 @@ INFIX_EXPRESSIONS                 : INFIX_EXPRESSIONS INFIX_EXPRESSION {
                                     $$.push_back($1);
                                   }
                                   ;
-INFIX_EXPRESSION                  : OPERATION PREFIX_EXPRESSION {
+INFIX_EXPRESSION                  : INFIX_OPERATION PREFIX_EXPRESSION {
                                     std::shared_ptr<Node::InfixExpression> infix_expression(new Node::InfixExpression($1, $2));
 
                                     $$ = infix_expression;
+                                  }
+                                  ;
+INFIX_OPERATION                   : "+" {
+                                    $$ = std::string("+");
+                                  }
+                                  | "−" {
+                                    $$ = std::string("−");
+                                  }
+                                  | "×" {
+                                    $$ = std::string("×");
+                                  }
+                                  | "÷" {
+                                    $$ = std::string("÷");
+                                  }
+                                  | "and" {
+                                    $$ = std::string("and");
+                                  }
+                                  | "or" {
+                                    $$ = std::string("and");
+                                  }
+                                  | "=" {
+                                    $$ = std::string("=");
+                                  }
+                                  | "≠" {
+                                    $$ = std::string("≠");
+                                  }
+                                  | ">" {
+                                    $$ = std::string(">");
+                                  }
+                                  | "<" {
+                                    $$ = std::string("<");
+                                  }
+                                  | "≥" {
+                                    $$ = std::string("≥");
+                                  }
+                                  | "≤" {
+                                    $$ = std::string("≤");
+                                  }
+                                  | "as" {
+                                    $$ = std::string("as");
+                                  }
+                                  | "is" {
+                                    $$ = std::string("is");
                                   }
                                   ;
 ASSIGNMENT_STATEMENT              : PATTERN ":" TYPE "←" OPERATOR_EXPRESSION ";" {
@@ -738,7 +773,18 @@ FLOATING_POINT_TYPE               : "32-bit" "Floating-point" {
                                     $$ = floating_point_type;
                                   }
                                   ;
-INTEGER_TYPE                      : "unsigned"  "8-bit" "Integer" {
+INTEGER_TYPE                      : "unsigned"          "Integer" {
+                                    std::shared_ptr<Node::IntegerType> integer_type(new Node::IntegerType());
+
+                                    $$ = integer_type;
+                                  }
+                                  |                     "Integer" {
+                                    std::shared_ptr<Node::IntegerType> integer_type(new Node::IntegerType());
+
+                                    $$ = integer_type;
+                                  }
+                                  ;
+                                  | "unsigned"  "8-bit" "Integer" {
                                     std::shared_ptr<Node::IntegerType> integer_type(new Node::IntegerType());
 
                                     $$ = integer_type;

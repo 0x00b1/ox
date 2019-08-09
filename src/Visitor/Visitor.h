@@ -35,6 +35,7 @@ namespace Node {
   class IdentifierPattern;
   class IndexExpression;
   class InfixExpression;
+  class InfixOperation;
   class IntegerLiteralExpression;
   class IntegerType;
   class Literal;
@@ -53,6 +54,7 @@ namespace Node {
   class PointerType;
   class PostfixExpression;
   class PrefixExpression;
+  class PrefixOperation;
   class ReferencePattern;
   class ReferenceType;
   class ReturnStatement;
@@ -101,6 +103,7 @@ public:
   virtual void accept(std::shared_ptr<Node::IdentifierPattern>) = 0;
   virtual void accept(std::shared_ptr<Node::IndexExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::InfixExpression>) = 0;
+  virtual void accept(std::shared_ptr<Node::InfixOperation>) = 0;
   virtual void accept(std::shared_ptr<Node::IntegerLiteralExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::IntegerType>) = 0;
   virtual void accept(std::shared_ptr<Node::Literal>) = 0;
@@ -119,6 +122,7 @@ public:
   virtual void accept(std::shared_ptr<Node::PointerType>) = 0;
   virtual void accept(std::shared_ptr<Node::PostfixExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::PrefixExpression>) = 0;
+  virtual void accept(std::shared_ptr<Node::PrefixOperation>) = 0;
   virtual void accept(std::shared_ptr<Node::ReferencePattern>) = 0;
   virtual void accept(std::shared_ptr<Node::ReferenceType>) = 0;
   virtual void accept(std::shared_ptr<Node::ReturnStatement>) = 0;

@@ -181,13 +181,8 @@
 },
 {
   "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
-  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleItem.cpp",
-  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleItem.cpp"
-},
-{
-  "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
-  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleSymbol.cpp",
-  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleSymbol.cpp"
+  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleDeclaration.cpp",
+  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ModuleDeclaration.cpp"
 },
 {
   "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
@@ -316,8 +311,8 @@
 },
 {
   "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
-  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Unit.cpp",
-  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Unit.cpp"
+  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/TranslationUnit.cpp",
+  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/TranslationUnit.cpp"
 },
 {
   "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
@@ -358,5 +353,20 @@
   "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
   "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/SymbolTable/ModuleSymbolTable.cpp",
   "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/SymbolTable/ModuleSymbolTable.cpp"
+},
+{
+  "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
+  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/FunctionPrototype.cpp",
+  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/FunctionPrototype.cpp"
+},
+{
+  "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
+  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PathSegment.cpp",
+  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PathSegment.cpp"
+},
+{
+  "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
+  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Path.cpp",
+  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Path.cpp"
 }
 ]

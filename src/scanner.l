@@ -100,26 +100,33 @@ WHITESPACE      [ \t]
   location.step();
 }
 
- "8-bit"          return yy::parser::make_KEYWORD__8_BIT(location);
-"16-bit"          return yy::parser::make_KEYWORD_16_BIT(location);
-"32-bit"          return yy::parser::make_KEYWORD_32_BIT(location);
-"64-bit"          return yy::parser::make_KEYWORD_64_BIT(location);
-"as"              return yy::parser::make_KEYWORD_AS(location);
-"Boolean"         return yy::parser::make_KEYWORD_BOOLEAN(location);
-"constant"        return yy::parser::make_KEYWORD_CONSTANT(location);
-"else"            return yy::parser::make_KEYWORD_ELSE(location);
-"False"           return yy::parser::make_KEYWORD_FALSE(location);
-"Floating-point"  return yy::parser::make_KEYWORD_FLOATING_POINT(location);
-"if"              return yy::parser::make_KEYWORD_IF(location);
-"Integer"         return yy::parser::make_KEYWORD_INTEGER(location);
-"is"              return yy::parser::make_KEYWORD_IS(location);
-"reference"       return yy::parser::make_KEYWORD_REFERENCE(location);
-"return"          return yy::parser::make_KEYWORD_RETURN(location);
-"shared"          return yy::parser::make_KEYWORD_SHARED(location);
-"Size"            return yy::parser::make_KEYWORD_SIZE(location);
-"subroutine"      return yy::parser::make_KEYWORD_SUBROUTINE(location);
-"True"            return yy::parser::make_KEYWORD_TRUE(location);
-"unsigned"        return yy::parser::make_KEYWORD_UNSIGNED(location);
+ "8-bit"                return yy::parser::make_KEYWORD__8_BIT(location);
+"16-bit"                return yy::parser::make_KEYWORD_16_BIT(location);
+"32-bit"                return yy::parser::make_KEYWORD_32_BIT(location);
+"64-bit"                return yy::parser::make_KEYWORD_64_BIT(location);
+"and"                   return yy::parser::make_KEYWORD_AND(location);
+"arbitrary-precision"   return yy::parser::make_KEYWORD_ARBITRARY_PRECISION(location);
+"as"                    return yy::parser::make_KEYWORD_AS(location);
+"Boolean"               return yy::parser::make_KEYWORD_BOOLEAN(location);
+"borrow"                return yy::parser::make_KEYWORD_BORROW(location);
+"constant"              return yy::parser::make_KEYWORD_CONSTANT(location);
+"dereference"           return yy::parser::make_KEYWORD_DEREFERENCE(location);
+"else"                  return yy::parser::make_KEYWORD_ELSE(location);
+"False"                 return yy::parser::make_KEYWORD_FALSE(location);
+"Floating-point"        return yy::parser::make_KEYWORD_FLOATING_POINT(location);
+"if"                    return yy::parser::make_KEYWORD_IF(location);
+"Integer"               return yy::parser::make_KEYWORD_INTEGER(location);
+"is"                    return yy::parser::make_KEYWORD_IS(location);
+"mutable"               return yy::parser::make_KEYWORD_MUTABLE(location);
+"or"                    return yy::parser::make_KEYWORD_OR(location);
+"reference"             return yy::parser::make_KEYWORD_REFERENCE(location);
+"return"                return yy::parser::make_KEYWORD_RETURN(location);
+"shared"                return yy::parser::make_KEYWORD_SHARED(location);
+"Size"                  return yy::parser::make_KEYWORD_SIZE(location);
+"subroutine"            return yy::parser::make_KEYWORD_SUBROUTINE(location);
+"True"                  return yy::parser::make_KEYWORD_TRUE(location);
+"unless"                return yy::parser::make_KEYWORD_UNLESS(location);
+"unsigned"              return yy::parser::make_KEYWORD_UNSIGNED(location);
 
 {FLOATING_POINT}  return yy::parser::make_LITERAL_FLOATING_POINT_TOKEN(yytext, location);
 {INTEGER}         return yy::parser::make_LITERAL_INTEGER_TOKEN(yytext, location);
@@ -139,10 +146,12 @@ WHITESPACE      [ \t]
 "÷"               return yy::parser::make_PUNCTUATION_DIVISION_SIGN(location);
 "×"               return yy::parser::make_PUNCTUATION_MULTIPLICATION_SIGN(location);
 "<"               return yy::parser::make_PUNCTUATION_LESS_THAN_SIGN(location);
+"="               return yy::parser::make_PUNCTUATION_EQUALS_SIGN(location);
+"≠"               return yy::parser::make_PUNCTUATION_NOT_EQUAL_TO(location);
 ">"               return yy::parser::make_PUNCTUATION_GREATER_THAN_SIGN(location);
 "−"               return yy::parser::make_PUNCTUATION_MINUS_SIGN(location);
 "≤"               return yy::parser::make_PUNCTUATION_LESS_THAN_OR_EQUAL_TO(location);
-"s"               return yy::parser::make_PUNCTUATION_GREATER_THAN_OR_EQUAL_TO(location);
+"≥"               return yy::parser::make_PUNCTUATION_GREATER_THAN_OR_EQUAL_TO(location);
 
 {IDENTIFIER}      return yy::parser::make_IDENTIFIER_TOKEN(yytext, location);
 

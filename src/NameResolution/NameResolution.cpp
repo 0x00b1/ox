@@ -158,6 +158,10 @@ void NameResolution::accept(std::shared_ptr<Node::InfixExpression> infix_express
   infix_expression->expression->accept(*this);
 }
 
+void NameResolution::accept(std::shared_ptr<Node::InfixOperation> node) {
+
+}
+
 void NameResolution::accept(std::shared_ptr<Node::IntegerLiteralExpression> integer_literal_expression) {
   std::cout << "Node::IntegerLiteralExpression" << std::endl;
 }
@@ -254,6 +258,10 @@ void NameResolution::accept(std::shared_ptr<Node::PrefixExpression> prefix_expre
   std::cout << "Node::PrefixExpression" << std::endl;
 
   prefix_expression->postfix_expression->accept(*this);
+}
+
+void NameResolution::accept(std::shared_ptr<Node::PrefixOperation> node) {
+
 }
 
 void NameResolution::accept(std::shared_ptr<Node::ReferencePattern> reference_pattern) {

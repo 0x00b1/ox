@@ -784,6 +784,33 @@ src/AbstractSyntax/FunctionDeclaration.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionDeclaration.cpp.s
 .PHONY : src/AbstractSyntax/FunctionDeclaration.cpp.s
 
+src/AbstractSyntax/FunctionPrototype.o: src/AbstractSyntax/FunctionPrototype.cpp.o
+
+.PHONY : src/AbstractSyntax/FunctionPrototype.o
+
+# target to build an object file
+src/AbstractSyntax/FunctionPrototype.cpp.o:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.o
+.PHONY : src/AbstractSyntax/FunctionPrototype.cpp.o
+
+src/AbstractSyntax/FunctionPrototype.i: src/AbstractSyntax/FunctionPrototype.cpp.i
+
+.PHONY : src/AbstractSyntax/FunctionPrototype.i
+
+# target to preprocess a source file
+src/AbstractSyntax/FunctionPrototype.cpp.i:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.i
+.PHONY : src/AbstractSyntax/FunctionPrototype.cpp.i
+
+src/AbstractSyntax/FunctionPrototype.s: src/AbstractSyntax/FunctionPrototype.cpp.s
+
+.PHONY : src/AbstractSyntax/FunctionPrototype.s
+
+# target to generate assembly for a file
+src/AbstractSyntax/FunctionPrototype.cpp.s:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.s
+.PHONY : src/AbstractSyntax/FunctionPrototype.cpp.s
+
 src/AbstractSyntax/FunctionType.o: src/AbstractSyntax/FunctionType.cpp.o
 
 .PHONY : src/AbstractSyntax/FunctionType.o
@@ -1081,59 +1108,32 @@ src/AbstractSyntax/LiteralPattern.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/LiteralPattern.cpp.s
 .PHONY : src/AbstractSyntax/LiteralPattern.cpp.s
 
-src/AbstractSyntax/ModuleItem.o: src/AbstractSyntax/ModuleItem.cpp.o
+src/AbstractSyntax/ModuleDeclaration.o: src/AbstractSyntax/ModuleDeclaration.cpp.o
 
-.PHONY : src/AbstractSyntax/ModuleItem.o
-
-# target to build an object file
-src/AbstractSyntax/ModuleItem.cpp.o:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.o
-.PHONY : src/AbstractSyntax/ModuleItem.cpp.o
-
-src/AbstractSyntax/ModuleItem.i: src/AbstractSyntax/ModuleItem.cpp.i
-
-.PHONY : src/AbstractSyntax/ModuleItem.i
-
-# target to preprocess a source file
-src/AbstractSyntax/ModuleItem.cpp.i:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.i
-.PHONY : src/AbstractSyntax/ModuleItem.cpp.i
-
-src/AbstractSyntax/ModuleItem.s: src/AbstractSyntax/ModuleItem.cpp.s
-
-.PHONY : src/AbstractSyntax/ModuleItem.s
-
-# target to generate assembly for a file
-src/AbstractSyntax/ModuleItem.cpp.s:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleItem.cpp.s
-.PHONY : src/AbstractSyntax/ModuleItem.cpp.s
-
-src/AbstractSyntax/ModuleSymbol.o: src/AbstractSyntax/ModuleSymbol.cpp.o
-
-.PHONY : src/AbstractSyntax/ModuleSymbol.o
+.PHONY : src/AbstractSyntax/ModuleDeclaration.o
 
 # target to build an object file
-src/AbstractSyntax/ModuleSymbol.cpp.o:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.o
-.PHONY : src/AbstractSyntax/ModuleSymbol.cpp.o
+src/AbstractSyntax/ModuleDeclaration.cpp.o:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.o
+.PHONY : src/AbstractSyntax/ModuleDeclaration.cpp.o
 
-src/AbstractSyntax/ModuleSymbol.i: src/AbstractSyntax/ModuleSymbol.cpp.i
+src/AbstractSyntax/ModuleDeclaration.i: src/AbstractSyntax/ModuleDeclaration.cpp.i
 
-.PHONY : src/AbstractSyntax/ModuleSymbol.i
+.PHONY : src/AbstractSyntax/ModuleDeclaration.i
 
 # target to preprocess a source file
-src/AbstractSyntax/ModuleSymbol.cpp.i:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.i
-.PHONY : src/AbstractSyntax/ModuleSymbol.cpp.i
+src/AbstractSyntax/ModuleDeclaration.cpp.i:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.i
+.PHONY : src/AbstractSyntax/ModuleDeclaration.cpp.i
 
-src/AbstractSyntax/ModuleSymbol.s: src/AbstractSyntax/ModuleSymbol.cpp.s
+src/AbstractSyntax/ModuleDeclaration.s: src/AbstractSyntax/ModuleDeclaration.cpp.s
 
-.PHONY : src/AbstractSyntax/ModuleSymbol.s
+.PHONY : src/AbstractSyntax/ModuleDeclaration.s
 
 # target to generate assembly for a file
-src/AbstractSyntax/ModuleSymbol.cpp.s:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleSymbol.cpp.s
-.PHONY : src/AbstractSyntax/ModuleSymbol.cpp.s
+src/AbstractSyntax/ModuleDeclaration.cpp.s:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ModuleDeclaration.cpp.s
+.PHONY : src/AbstractSyntax/ModuleDeclaration.cpp.s
 
 src/AbstractSyntax/Name.o: src/AbstractSyntax/Name.cpp.o
 
@@ -1243,6 +1243,33 @@ src/AbstractSyntax/Parameter.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/Parameter.cpp.s
 .PHONY : src/AbstractSyntax/Parameter.cpp.s
 
+src/AbstractSyntax/Path.o: src/AbstractSyntax/Path.cpp.o
+
+.PHONY : src/AbstractSyntax/Path.o
+
+# target to build an object file
+src/AbstractSyntax/Path.cpp.o:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o
+.PHONY : src/AbstractSyntax/Path.cpp.o
+
+src/AbstractSyntax/Path.i: src/AbstractSyntax/Path.cpp.i
+
+.PHONY : src/AbstractSyntax/Path.i
+
+# target to preprocess a source file
+src/AbstractSyntax/Path.cpp.i:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.i
+.PHONY : src/AbstractSyntax/Path.cpp.i
+
+src/AbstractSyntax/Path.s: src/AbstractSyntax/Path.cpp.s
+
+.PHONY : src/AbstractSyntax/Path.s
+
+# target to generate assembly for a file
+src/AbstractSyntax/Path.cpp.s:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.s
+.PHONY : src/AbstractSyntax/Path.cpp.s
+
 src/AbstractSyntax/PathExpression.o: src/AbstractSyntax/PathExpression.cpp.o
 
 .PHONY : src/AbstractSyntax/PathExpression.o
@@ -1296,6 +1323,33 @@ src/AbstractSyntax/PathPattern.s: src/AbstractSyntax/PathPattern.cpp.s
 src/AbstractSyntax/PathPattern.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/PathPattern.cpp.s
 .PHONY : src/AbstractSyntax/PathPattern.cpp.s
+
+src/AbstractSyntax/PathSegment.o: src/AbstractSyntax/PathSegment.cpp.o
+
+.PHONY : src/AbstractSyntax/PathSegment.o
+
+# target to build an object file
+src/AbstractSyntax/PathSegment.cpp.o:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.o
+.PHONY : src/AbstractSyntax/PathSegment.cpp.o
+
+src/AbstractSyntax/PathSegment.i: src/AbstractSyntax/PathSegment.cpp.i
+
+.PHONY : src/AbstractSyntax/PathSegment.i
+
+# target to preprocess a source file
+src/AbstractSyntax/PathSegment.cpp.i:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.i
+.PHONY : src/AbstractSyntax/PathSegment.cpp.i
+
+src/AbstractSyntax/PathSegment.s: src/AbstractSyntax/PathSegment.cpp.s
+
+.PHONY : src/AbstractSyntax/PathSegment.s
+
+# target to generate assembly for a file
+src/AbstractSyntax/PathSegment.cpp.s:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.s
+.PHONY : src/AbstractSyntax/PathSegment.cpp.s
 
 src/AbstractSyntax/PathType.o: src/AbstractSyntax/PathType.cpp.o
 
@@ -1675,6 +1729,33 @@ src/AbstractSyntax/SubroutineDeclaration.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/SubroutineDeclaration.cpp.s
 .PHONY : src/AbstractSyntax/SubroutineDeclaration.cpp.s
 
+src/AbstractSyntax/TranslationUnit.o: src/AbstractSyntax/TranslationUnit.cpp.o
+
+.PHONY : src/AbstractSyntax/TranslationUnit.o
+
+# target to build an object file
+src/AbstractSyntax/TranslationUnit.cpp.o:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.o
+.PHONY : src/AbstractSyntax/TranslationUnit.cpp.o
+
+src/AbstractSyntax/TranslationUnit.i: src/AbstractSyntax/TranslationUnit.cpp.i
+
+.PHONY : src/AbstractSyntax/TranslationUnit.i
+
+# target to preprocess a source file
+src/AbstractSyntax/TranslationUnit.cpp.i:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.i
+.PHONY : src/AbstractSyntax/TranslationUnit.cpp.i
+
+src/AbstractSyntax/TranslationUnit.s: src/AbstractSyntax/TranslationUnit.cpp.s
+
+.PHONY : src/AbstractSyntax/TranslationUnit.s
+
+# target to generate assembly for a file
+src/AbstractSyntax/TranslationUnit.cpp.s:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/TranslationUnit.cpp.s
+.PHONY : src/AbstractSyntax/TranslationUnit.cpp.s
+
 src/AbstractSyntax/TupleExpression.o: src/AbstractSyntax/TupleExpression.cpp.o
 
 .PHONY : src/AbstractSyntax/TupleExpression.o
@@ -1809,33 +1890,6 @@ src/AbstractSyntax/TypeDeclaration.s: src/AbstractSyntax/TypeDeclaration.cpp.s
 src/AbstractSyntax/TypeDeclaration.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.s
 .PHONY : src/AbstractSyntax/TypeDeclaration.cpp.s
-
-src/AbstractSyntax/Unit.o: src/AbstractSyntax/Unit.cpp.o
-
-.PHONY : src/AbstractSyntax/Unit.o
-
-# target to build an object file
-src/AbstractSyntax/Unit.cpp.o:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.o
-.PHONY : src/AbstractSyntax/Unit.cpp.o
-
-src/AbstractSyntax/Unit.i: src/AbstractSyntax/Unit.cpp.i
-
-.PHONY : src/AbstractSyntax/Unit.i
-
-# target to preprocess a source file
-src/AbstractSyntax/Unit.cpp.i:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.i
-.PHONY : src/AbstractSyntax/Unit.cpp.i
-
-src/AbstractSyntax/Unit.s: src/AbstractSyntax/Unit.cpp.s
-
-.PHONY : src/AbstractSyntax/Unit.s
-
-# target to generate assembly for a file
-src/AbstractSyntax/Unit.cpp.s:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/Unit.cpp.s
-.PHONY : src/AbstractSyntax/Unit.cpp.s
 
 src/AbstractSyntax/WildcardPattern.o: src/AbstractSyntax/WildcardPattern.cpp.o
 
@@ -2162,6 +2216,9 @@ help:
 	@echo "... src/AbstractSyntax/FunctionDeclaration.o"
 	@echo "... src/AbstractSyntax/FunctionDeclaration.i"
 	@echo "... src/AbstractSyntax/FunctionDeclaration.s"
+	@echo "... src/AbstractSyntax/FunctionPrototype.o"
+	@echo "... src/AbstractSyntax/FunctionPrototype.i"
+	@echo "... src/AbstractSyntax/FunctionPrototype.s"
 	@echo "... src/AbstractSyntax/FunctionType.o"
 	@echo "... src/AbstractSyntax/FunctionType.i"
 	@echo "... src/AbstractSyntax/FunctionType.s"
@@ -2195,12 +2252,9 @@ help:
 	@echo "... src/AbstractSyntax/LiteralPattern.o"
 	@echo "... src/AbstractSyntax/LiteralPattern.i"
 	@echo "... src/AbstractSyntax/LiteralPattern.s"
-	@echo "... src/AbstractSyntax/ModuleItem.o"
-	@echo "... src/AbstractSyntax/ModuleItem.i"
-	@echo "... src/AbstractSyntax/ModuleItem.s"
-	@echo "... src/AbstractSyntax/ModuleSymbol.o"
-	@echo "... src/AbstractSyntax/ModuleSymbol.i"
-	@echo "... src/AbstractSyntax/ModuleSymbol.s"
+	@echo "... src/AbstractSyntax/ModuleDeclaration.o"
+	@echo "... src/AbstractSyntax/ModuleDeclaration.i"
+	@echo "... src/AbstractSyntax/ModuleDeclaration.s"
 	@echo "... src/AbstractSyntax/Name.o"
 	@echo "... src/AbstractSyntax/Name.i"
 	@echo "... src/AbstractSyntax/Name.s"
@@ -2213,12 +2267,18 @@ help:
 	@echo "... src/AbstractSyntax/Parameter.o"
 	@echo "... src/AbstractSyntax/Parameter.i"
 	@echo "... src/AbstractSyntax/Parameter.s"
+	@echo "... src/AbstractSyntax/Path.o"
+	@echo "... src/AbstractSyntax/Path.i"
+	@echo "... src/AbstractSyntax/Path.s"
 	@echo "... src/AbstractSyntax/PathExpression.o"
 	@echo "... src/AbstractSyntax/PathExpression.i"
 	@echo "... src/AbstractSyntax/PathExpression.s"
 	@echo "... src/AbstractSyntax/PathPattern.o"
 	@echo "... src/AbstractSyntax/PathPattern.i"
 	@echo "... src/AbstractSyntax/PathPattern.s"
+	@echo "... src/AbstractSyntax/PathSegment.o"
+	@echo "... src/AbstractSyntax/PathSegment.i"
+	@echo "... src/AbstractSyntax/PathSegment.s"
 	@echo "... src/AbstractSyntax/PathType.o"
 	@echo "... src/AbstractSyntax/PathType.i"
 	@echo "... src/AbstractSyntax/PathType.s"
@@ -2261,6 +2321,9 @@ help:
 	@echo "... src/AbstractSyntax/SubroutineDeclaration.o"
 	@echo "... src/AbstractSyntax/SubroutineDeclaration.i"
 	@echo "... src/AbstractSyntax/SubroutineDeclaration.s"
+	@echo "... src/AbstractSyntax/TranslationUnit.o"
+	@echo "... src/AbstractSyntax/TranslationUnit.i"
+	@echo "... src/AbstractSyntax/TranslationUnit.s"
 	@echo "... src/AbstractSyntax/TupleExpression.o"
 	@echo "... src/AbstractSyntax/TupleExpression.i"
 	@echo "... src/AbstractSyntax/TupleExpression.s"
@@ -2276,9 +2339,6 @@ help:
 	@echo "... src/AbstractSyntax/TypeDeclaration.o"
 	@echo "... src/AbstractSyntax/TypeDeclaration.i"
 	@echo "... src/AbstractSyntax/TypeDeclaration.s"
-	@echo "... src/AbstractSyntax/Unit.o"
-	@echo "... src/AbstractSyntax/Unit.i"
-	@echo "... src/AbstractSyntax/Unit.s"
 	@echo "... src/AbstractSyntax/WildcardPattern.o"
 	@echo "... src/AbstractSyntax/WildcardPattern.i"
 	@echo "... src/AbstractSyntax/WildcardPattern.s"

@@ -106,7 +106,7 @@ add_executable(
         src/AbstractSyntax/ClassDeclaration.cpp
         src/AbstractSyntax/ClassDeclaration.h
         src/SymbolTable/ModuleSymbolTable.cpp src/SymbolTable/ModuleSymbolTable.h
-        src/AbstractSyntax/FunctionPrototype.cpp src/AbstractSyntax/FunctionPrototype.h src/AbstractSyntax/PathSegment.cpp src/AbstractSyntax/PathSegment.h src/AbstractSyntax/Path.cpp src/AbstractSyntax/Path.h)
+        src/AbstractSyntax/FunctionPrototype.cpp src/AbstractSyntax/FunctionPrototype.h src/AbstractSyntax/PathSegment.cpp src/AbstractSyntax/PathSegment.h src/AbstractSyntax/Path.cpp src/AbstractSyntax/Path.h src/AbstractSyntax/PrefixOperation.cpp src/AbstractSyntax/PrefixOperation.h src/AbstractSyntax/InfixOperation.cpp src/AbstractSyntax/InfixOperation.h)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 
