@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 
+#include "ox/compiler.h"
 #include "parser.hh"
 
 // Give Flex the prototype of yylex we want ...
@@ -14,34 +15,31 @@ YY_DECL;
 
 class Compiler {
 public:
-    Compiler();
+  Compiler();
 
-    std::map<std::string, int> variables;
+  std::shared_ptr<Node::TranslationUnit> translation_unit;
 
-    std::vector<std::shared_ptr<Node::Statement>> nodes;
+  // The name of the file being parsed.
+  std::string file;
 
-    std::shared_ptr<Node::TranslationUnit> unit;
+  NameResolution name_resolution;
 
-    int result;
+  // Whether to generate parser debug traces.
+  bool trace_parsing = false;
 
-    // Run the parser on file F. Return 0 on success.
-    int parse(const std::string& f);
+  // Whether to generate scanner debug traces.
+  bool trace_scanning = false;
 
-    // The name of the file being parsed.
-    std::string file;
+  // The token's location used by the scanner.
+  yy::location location;
 
-    // Whether to generate parser debug traces.
-    bool trace_parsing;
+  void resolve_names();
 
-    // Handling the scanner.
-    void scan_begin();
-    void scan_end();
+  int parse(const std::string &f);
 
-    // Whether to generate scanner debug traces.
-    bool trace_scanning;
-
-    // The token's location used by the scanner.
-    yy::location location;
+  // Handling the scanner.
+  void scan_begin();
+  void scan_end();
 };
 
 #endif

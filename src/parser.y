@@ -169,7 +169,7 @@
 UNIT                              : STATEMENTS {
                                     std::shared_ptr<Node::TranslationUnit> translation_unit(new Node::TranslationUnit($1));
 
-                                    compiler.unit = translation_unit;
+                                    compiler.translation_unit = translation_unit;
                                   }
                                   ;
 STATEMENTS                        : STATEMENTS STATEMENT {
