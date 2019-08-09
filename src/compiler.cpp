@@ -5,6 +5,8 @@ Compiler::Compiler() = default;
 
 void Compiler::resolve_names() {
   name_resolution.accept(this->translation_unit);
+
+  this->symbol_table = name_resolution.symbol_table;
 }
 
 int Compiler::parse(const std::string &f) {

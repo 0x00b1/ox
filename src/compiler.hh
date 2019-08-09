@@ -5,6 +5,8 @@
 #include <map>
 
 #include "ox/compiler.h"
+#include "ox/SymbolTable.h"
+
 #include "parser.hh"
 
 // Give Flex the prototype of yylex we want ...
@@ -17,12 +19,15 @@ class Compiler {
 public:
   Compiler();
 
-  std::shared_ptr<Node::TranslationUnit> translation_unit;
-
-  // The name of the file being parsed.
   std::string file;
 
+  yy::location location;
+
   NameResolution name_resolution;
+
+  std::shared_ptr<SymbolTable> symbol_table;
+
+  std::shared_ptr<Node::TranslationUnit> translation_unit;
 
   // Whether to generate parser debug traces.
   bool trace_parsing = false;
@@ -30,14 +35,10 @@ public:
   // Whether to generate scanner debug traces.
   bool trace_scanning = false;
 
-  // The token's location used by the scanner.
-  yy::location location;
-
   void resolve_names();
 
   int parse(const std::string &f);
 
-  // Handling the scanner.
   void scan_begin();
   void scan_end();
 };
