@@ -5,8 +5,9 @@
 #include <string>
 #include <utility>
 
-#include "Node.h"
 #include "ox/Visitor.h"
+
+#include "Node.h"
 
 class Node::FunctionDeclaration: public Node, public std::enable_shared_from_this<FunctionDeclaration> {
 public:

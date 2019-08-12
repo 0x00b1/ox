@@ -5,10 +5,11 @@
 #include <string>
 #include <utility>
 
+#include "ox/Visitor.h"
+
 #include "Expression.h"
 #include "Declaration.h"
 #include "Type.h"
-#include "ox/Visitor.h"
 
 class Node::ConstantDeclaration: public Node, public std::enable_shared_from_this<ConstantDeclaration> {
 public:

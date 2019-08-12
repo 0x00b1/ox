@@ -5,8 +5,9 @@
 #include <string>
 #include <utility>
 
-#include "Type.h"
 #include "ox/Visitor.h"
+
+#include "Type.h"
 
 class Node::IntegerType: public Node, public std::enable_shared_from_this<IntegerType> {
 public:

@@ -6,8 +6,9 @@
 #include <utility>
 #include <vector>
 
-#include "Expression.h"
 #include "ox/Visitor.h"
+
+#include "Expression.h"
 
 class Node::PathExpression: public Node, public std::enable_shared_from_this<PathExpression> {
 public:

@@ -6,10 +6,11 @@
 #include <string>
 #include <utility>
 
+#include "ox/Visitor.h"
+
 #include "Expression.h"
 #include "Operator.h"
 #include "PostfixExpression.h"
-#include "ox/Visitor.h"
 
 class Node::PrefixExpression: public Node, public std::enable_shared_from_this<PrefixExpression> {
 public:

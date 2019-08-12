@@ -5,9 +5,9 @@
 #include <string>
 #include <utility>
 
-#include "Identifier.h"
-
 #include "ox/Visitor.h"
+
+#include "Identifier.h"
 
 class Node::PathSegment: public Node, public std::enable_shared_from_this<PathSegment> {
 public:

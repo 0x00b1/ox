@@ -6,9 +6,9 @@
 #include <utility>
 #include <vector>
 
-#include "Identifier.h"
-
 #include "ox/Visitor.h"
+
+#include "Identifier.h"
 
 class Node::Path: public Node, public std::enable_shared_from_this<Path> {
 public:

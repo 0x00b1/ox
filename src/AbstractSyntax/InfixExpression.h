@@ -5,9 +5,10 @@
 #include <string>
 #include <utility>
 
+#include "ox/Visitor.h"
+
 #include "Expression.h"
 #include "PrefixExpression.h"
-#include "ox/Visitor.h"
 
 class Node::InfixExpression: public Node, public std::enable_shared_from_this<InfixExpression> {
 public:

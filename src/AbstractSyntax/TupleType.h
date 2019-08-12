@@ -6,8 +6,9 @@
 #include <utility>
 #include <vector>
 
-#include "Type.h"
 #include "ox/Visitor.h"
+
+#include "Type.h"
 
 class Node::TupleType: public Node, public std::enable_shared_from_this<TupleType> {
 public:
