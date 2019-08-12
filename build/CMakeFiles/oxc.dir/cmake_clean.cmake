@@ -21,7 +21,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/oxc.dir/src/AbstractSyntax/ConstantDeclaration.cpp.o"
   "CMakeFiles/oxc.dir/src/AbstractSyntax/Expression.cpp.o"
   "CMakeFiles/oxc.dir/src/AbstractSyntax/ExpressionStatement.cpp.o"
-  "CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.o"
+  "CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.o"
   "CMakeFiles/oxc.dir/src/AbstractSyntax/FloatingPointLiteralExpression.cpp.o"
   "CMakeFiles/oxc.dir/src/AbstractSyntax/FloatingPointType.cpp.o"
   "CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionDeclaration.cpp.o"

@@ -96,8 +96,8 @@
 },
 {
   "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
-  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ExternalPackageDeclaration.cpp",
-  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ExternalPackageDeclaration.cpp"
+  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ImportDeclaration.cpp",
+  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ImportDeclaration.cpp"
 },
 {
   "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",

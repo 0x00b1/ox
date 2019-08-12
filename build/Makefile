@@ -676,33 +676,6 @@ src/AbstractSyntax/ExpressionStatement.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ExpressionStatement.cpp.s
 .PHONY : src/AbstractSyntax/ExpressionStatement.cpp.s
 
-src/AbstractSyntax/ExternalPackageDeclaration.o: src/AbstractSyntax/ExternalPackageDeclaration.cpp.o
-
-.PHONY : src/AbstractSyntax/ExternalPackageDeclaration.o
-
-# target to build an object file
-src/AbstractSyntax/ExternalPackageDeclaration.cpp.o:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.o
-.PHONY : src/AbstractSyntax/ExternalPackageDeclaration.cpp.o
-
-src/AbstractSyntax/ExternalPackageDeclaration.i: src/AbstractSyntax/ExternalPackageDeclaration.cpp.i
-
-.PHONY : src/AbstractSyntax/ExternalPackageDeclaration.i
-
-# target to preprocess a source file
-src/AbstractSyntax/ExternalPackageDeclaration.cpp.i:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.i
-.PHONY : src/AbstractSyntax/ExternalPackageDeclaration.cpp.i
-
-src/AbstractSyntax/ExternalPackageDeclaration.s: src/AbstractSyntax/ExternalPackageDeclaration.cpp.s
-
-.PHONY : src/AbstractSyntax/ExternalPackageDeclaration.s
-
-# target to generate assembly for a file
-src/AbstractSyntax/ExternalPackageDeclaration.cpp.s:
-	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.s
-.PHONY : src/AbstractSyntax/ExternalPackageDeclaration.cpp.s
-
 src/AbstractSyntax/FloatingPointLiteralExpression.o: src/AbstractSyntax/FloatingPointLiteralExpression.cpp.o
 
 .PHONY : src/AbstractSyntax/FloatingPointLiteralExpression.o
@@ -918,6 +891,33 @@ src/AbstractSyntax/IdentifierPattern.s: src/AbstractSyntax/IdentifierPattern.cpp
 src/AbstractSyntax/IdentifierPattern.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/IdentifierPattern.cpp.s
 .PHONY : src/AbstractSyntax/IdentifierPattern.cpp.s
+
+src/AbstractSyntax/ImportDeclaration.o: src/AbstractSyntax/ImportDeclaration.cpp.o
+
+.PHONY : src/AbstractSyntax/ImportDeclaration.o
+
+# target to build an object file
+src/AbstractSyntax/ImportDeclaration.cpp.o:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.o
+.PHONY : src/AbstractSyntax/ImportDeclaration.cpp.o
+
+src/AbstractSyntax/ImportDeclaration.i: src/AbstractSyntax/ImportDeclaration.cpp.i
+
+.PHONY : src/AbstractSyntax/ImportDeclaration.i
+
+# target to preprocess a source file
+src/AbstractSyntax/ImportDeclaration.cpp.i:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.i
+.PHONY : src/AbstractSyntax/ImportDeclaration.cpp.i
+
+src/AbstractSyntax/ImportDeclaration.s: src/AbstractSyntax/ImportDeclaration.cpp.s
+
+.PHONY : src/AbstractSyntax/ImportDeclaration.s
+
+# target to generate assembly for a file
+src/AbstractSyntax/ImportDeclaration.cpp.s:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.s
+.PHONY : src/AbstractSyntax/ImportDeclaration.cpp.s
 
 src/AbstractSyntax/IndexExpression.o: src/AbstractSyntax/IndexExpression.cpp.o
 
@@ -2258,9 +2258,6 @@ help:
 	@echo "... src/AbstractSyntax/ExpressionStatement.o"
 	@echo "... src/AbstractSyntax/ExpressionStatement.i"
 	@echo "... src/AbstractSyntax/ExpressionStatement.s"
-	@echo "... src/AbstractSyntax/ExternalPackageDeclaration.o"
-	@echo "... src/AbstractSyntax/ExternalPackageDeclaration.i"
-	@echo "... src/AbstractSyntax/ExternalPackageDeclaration.s"
 	@echo "... src/AbstractSyntax/FloatingPointLiteralExpression.o"
 	@echo "... src/AbstractSyntax/FloatingPointLiteralExpression.i"
 	@echo "... src/AbstractSyntax/FloatingPointLiteralExpression.s"
@@ -2285,6 +2282,9 @@ help:
 	@echo "... src/AbstractSyntax/IdentifierPattern.o"
 	@echo "... src/AbstractSyntax/IdentifierPattern.i"
 	@echo "... src/AbstractSyntax/IdentifierPattern.s"
+	@echo "... src/AbstractSyntax/ImportDeclaration.o"
+	@echo "... src/AbstractSyntax/ImportDeclaration.i"
+	@echo "... src/AbstractSyntax/ImportDeclaration.s"
 	@echo "... src/AbstractSyntax/IndexExpression.o"
 	@echo "... src/AbstractSyntax/IndexExpression.i"
 	@echo "... src/AbstractSyntax/IndexExpression.s"

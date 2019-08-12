@@ -106,8 +106,8 @@ void NameResolution::accept(std::shared_ptr<Node::ExpressionStatement> expressio
   expression_statement->expression->accept(*this);
 }
 
-void NameResolution::accept(std::shared_ptr<Node::ExternalPackageDeclaration> node) {
-  std::cout << "Node::ExternalPackageDeclaration" << std::endl;
+void NameResolution::accept(std::shared_ptr<Node::ImportDeclaration> node) {
+  std::cout << "Node::ImportDeclaration" << std::endl;
 }
 
 void NameResolution::accept(std::shared_ptr<Node::FloatingPointLiteralExpression> node) {

@@ -316,18 +316,18 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/ExpressionStatement.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/ExpressionStatement.cpp.s"
 	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ExpressionStatement.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/ExpressionStatement.cpp.s
 
-CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.o: CMakeFiles/oxc.dir/flags.make
-CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.o: ../src/AbstractSyntax/ExternalPackageDeclaration.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.o"
-	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ExternalPackageDeclaration.cpp
+CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.o: CMakeFiles/oxc.dir/flags.make
+CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.o: ../src/AbstractSyntax/ImportDeclaration.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.o"
+	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ImportDeclaration.cpp
 
-CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.i"
-	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ExternalPackageDeclaration.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.i
+CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.i"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ImportDeclaration.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.i
 
-CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.s"
-	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ExternalPackageDeclaration.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.s
+CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.s"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/ImportDeclaration.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.s
 
 CMakeFiles/oxc.dir/src/AbstractSyntax/FloatingPointLiteralExpression.cpp.o: CMakeFiles/oxc.dir/flags.make
 CMakeFiles/oxc.dir/src/AbstractSyntax/FloatingPointLiteralExpression.cpp.o: ../src/AbstractSyntax/FloatingPointLiteralExpression.cpp
@@ -1078,7 +1078,7 @@ oxc_OBJECTS = \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/ConstantDeclaration.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/Expression.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/ExpressionStatement.cpp.o" \
-"CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.o" \
+"CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/FloatingPointLiteralExpression.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/FloatingPointType.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionDeclaration.cpp.o" \
@@ -1158,7 +1158,7 @@ oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/ConditionalStatement.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/ConstantDeclaration.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/Expression.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/ExpressionStatement.cpp.o
-oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/ExternalPackageDeclaration.cpp.o
+oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/ImportDeclaration.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/FloatingPointLiteralExpression.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/FloatingPointType.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionDeclaration.cpp.o

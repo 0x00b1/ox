@@ -51,7 +51,7 @@ add_executable(
         src/AbstractSyntax/ConstantDeclaration.cpp
         src/AbstractSyntax/Expression.cpp
         src/AbstractSyntax/ExpressionStatement.cpp
-        src/AbstractSyntax/ExternalPackageDeclaration.cpp
+        src/AbstractSyntax/ImportDeclaration.cpp
         src/AbstractSyntax/FloatingPointLiteralExpression.cpp
         src/AbstractSyntax/FloatingPointType.cpp
         src/AbstractSyntax/FunctionDeclaration.cpp

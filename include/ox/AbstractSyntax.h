@@ -16,7 +16,7 @@
 #include "AbstractSyntax/ConstantDeclaration.h"
 #include "AbstractSyntax/Expression.h"
 #include "AbstractSyntax/ExpressionStatement.h"
-#include "AbstractSyntax/ExternalPackageDeclaration.h"
+#include "AbstractSyntax/ImportDeclaration.h"
 #include "AbstractSyntax/FloatingPointLiteralExpression.h"
 #include "AbstractSyntax/FloatingPointType.h"
 #include "AbstractSyntax/FunctionDeclaration.h"

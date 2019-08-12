@@ -26,7 +26,7 @@ public:
   void accept(std::shared_ptr<Node::ConstantDeclaration> node) override;
   void accept(std::shared_ptr<Node::Expression> node) override;
   void accept(std::shared_ptr<Node::ExpressionStatement> node) override;
-  void accept(std::shared_ptr<Node::ExternalPackageDeclaration> node) override;
+  void accept(std::shared_ptr<Node::ImportDeclaration> node) override;
   void accept(std::shared_ptr<Node::FloatingPointLiteralExpression> node) override;
   void accept(std::shared_ptr<Node::FloatingPointType> node) override;
   void accept(std::shared_ptr<Node::FunctionDeclaration> node) override;
