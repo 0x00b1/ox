@@ -1,5 +1,5 @@
-#ifndef OXC_PATH_EXPRESSION_H
-#define OXC_PATH_EXPRESSION_H
+#ifndef OXC_ABSTRACT_SYNTAX_PATH_EXPRESSION_H
+#define OXC_ABSTRACT_SYNTAX_PATH_EXPRESSION_H
 
 #include <memory>
 #include <string>

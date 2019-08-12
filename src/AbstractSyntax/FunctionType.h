@@ -1,5 +1,5 @@
-#ifndef OXC_FUNCTION_TYPE_H
-#define OXC_FUNCTION_TYPE_H
+#ifndef OXC_ABSTRACT_SYNTAX_FUNCTION_TYPE_H
+#define OXC_ABSTRACT_SYNTAX_FUNCTION_TYPE_H
 
 #include <memory>
 #include <string>

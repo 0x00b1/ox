@@ -1,5 +1,5 @@
-#ifndef OXC_MODULE_ITEM_H
-#define OXC_MODULE_ITEM_H
+#ifndef OXC_ABSTRACT_SYNTAX_MODULE_ITEM_H
+#define OXC_ABSTRACT_SYNTAX_MODULE_ITEM_H
 
 #include <memory>
 #include <string>

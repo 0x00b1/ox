@@ -1,5 +1,5 @@
-#ifndef OXC_BOOLEAN_TYPE_H
-#define OXC_BOOLEAN_TYPE_H
+#ifndef OXC_ABSTRACT_SYNTAX_BOOLEAN_TYPE_H
+#define OXC_ABSTRACT_SYNTAX_BOOLEAN_TYPE_H
 
 #include <memory>
 #include <string>

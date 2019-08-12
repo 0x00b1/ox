@@ -1,5 +1,5 @@
-#ifndef OXC_CLASS_ITEM_H
-#define OXC_CLASS_ITEM_H
+#ifndef OXC_ABSTRACT_SYNTAX_CLASS_ITEM_H
+#define OXC_ABSTRACT_SYNTAX_CLASS_ITEM_H
 
 #include <memory>
 #include <optional>

@@ -1,5 +1,5 @@
-#ifndef OXC_ARGUMENT_H
-#define OXC_ARGUMENT_H
+#ifndef OXC_ABSTRACT_SYNTAX_ARGUMENT_H
+#define OXC_ABSTRACT_SYNTAX_ARGUMENT_H
 
 #include <memory>
 #include <string>

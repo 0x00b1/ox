@@ -1,5 +1,5 @@
-#ifndef OXC_IDENTIFIER_H
-#define OXC_IDENTIFIER_H
+#ifndef OXC_ABSTRACT_SYNTAX_IDENTIFIER_H
+#define OXC_ABSTRACT_SYNTAX_IDENTIFIER_H
 
 #include <memory>
 #include <string>

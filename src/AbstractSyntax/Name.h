@@ -1,5 +1,5 @@
-#ifndef OXC_NAME_H
-#define OXC_NAME_H
+#ifndef OXC_ABSTRACT_SYNTAX_NAME_H
+#define OXC_ABSTRACT_SYNTAX_NAME_H
 
 #include <memory>
 #include <string>

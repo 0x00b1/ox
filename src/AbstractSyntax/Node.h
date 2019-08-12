@@ -1,5 +1,5 @@
-#ifndef OXC_NODE_H
-#define OXC_NODE_H
+#ifndef OXC_ABSTRACT_SYNTAX_NODE_H
+#define OXC_ABSTRACT_SYNTAX_NODE_H
 
 #include "Position.h"
 

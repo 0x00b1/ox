@@ -1,5 +1,5 @@
-#ifndef OXC_SLICE_TYPE_H
-#define OXC_SLICE_TYPE_H
+#ifndef OXC_ABSTRACT_SYNTAX_SLICE_TYPE_H
+#define OXC_ABSTRACT_SYNTAX_SLICE_TYPE_H
 
 #include <memory>
 #include <string>

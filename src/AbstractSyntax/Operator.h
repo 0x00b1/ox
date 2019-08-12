@@ -1,5 +1,5 @@
-#ifndef OXC_OPERATOR_H
-#define OXC_OPERATOR_H
+#ifndef OXC_ABSTRACT_SYNTAX_OPERATOR_H
+#define OXC_ABSTRACT_SYNTAX_OPERATOR_H
 
 namespace Node {
   enum Operator {

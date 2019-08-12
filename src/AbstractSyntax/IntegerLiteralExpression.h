@@ -1,5 +1,5 @@
-#ifndef OXC_INTEGER_LITERAL_H
-#define OXC_INTEGER_LITERAL_H
+#ifndef OXC_ABSTRACT_SYNTAX_INTEGER_LITERAL_H
+#define OXC_ABSTRACT_SYNTAX_INTEGER_LITERAL_H
 
 #include <memory>
 #include <string>

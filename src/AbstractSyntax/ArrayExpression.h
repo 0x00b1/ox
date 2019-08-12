@@ -1,5 +1,5 @@
-#ifndef OXC_ARRAY_EXPRESSION_H
-#define OXC_ARRAY_EXPRESSION_H
+#ifndef OXC_ABSTRACT_SYNTAX_ARRAY_EXPRESSION_H
+#define OXC_ABSTRACT_SYNTAX_ARRAY_EXPRESSION_H
 
 #include <memory>
 #include <string>

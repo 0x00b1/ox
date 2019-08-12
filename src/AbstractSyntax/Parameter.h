@@ -1,5 +1,5 @@
-#ifndef OXC_PARAMETER_H
-#define OXC_PARAMETER_H
+#ifndef OXC_ABSTRACT_SYNTAX_PARAMETER_H
+#define OXC_ABSTRACT_SYNTAX_PARAMETER_H
 
 #include <memory>
 #include <string>

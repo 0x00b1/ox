@@ -1,5 +1,5 @@
-#ifndef OXC_POSITION_H
-#define OXC_POSITION_H
+#ifndef OXC_ABSTRACT_SYNTAX_POSITION_H
+#define OXC_ABSTRACT_SYNTAX_POSITION_H
 
 class Position {
 public:

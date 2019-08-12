@@ -1,5 +1,5 @@
-#ifndef OXC_DECLARATION_H
-#define OXC_DECLARATION_H
+#ifndef OXC_ABSTRACT_SYNTAX_DECLARATION_H
+#define OXC_ABSTRACT_SYNTAX_DECLARATION_H
 
 #include <memory>
 #include <optional>

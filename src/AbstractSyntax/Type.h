@@ -1,5 +1,5 @@
-#ifndef OXC_TYPE_H
-#define OXC_TYPE_H
+#ifndef OXC_ABSTRACT_SYNTAX_TYPE_H
+#define OXC_ABSTRACT_SYNTAX_TYPE_H
 
 #include "Node.h"
 
