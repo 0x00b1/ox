@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "Pattern.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::TuplePattern: public Node, public std::enable_shared_from_this<TuplePattern> {
 public:

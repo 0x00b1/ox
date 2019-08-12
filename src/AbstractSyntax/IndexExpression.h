@@ -6,7 +6,7 @@
 #include <utility>
 
 #include "Expression.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::IndexExpression: public Node, public std::enable_shared_from_this<IndexExpression> {
 public:

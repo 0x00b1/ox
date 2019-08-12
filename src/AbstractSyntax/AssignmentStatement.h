@@ -5,11 +5,12 @@
 #include <string>
 #include <utility>
 
+#include "ox/Visitor.h"
+
 #include "Expression.h"
 #include "Pattern.h"
 #include "Statement.h"
 #include "Type.h"
-#include "Visitor/Visitor.h"
 
 class Node::AssignmentStatement: public Node, public std::enable_shared_from_this<AssignmentStatement> {
 public:

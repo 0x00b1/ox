@@ -5,9 +5,10 @@
 #include <string>
 #include <utility>
 
+#include "ox/Visitor.h"
+
 #include "AnonymousConstant.h"
 #include "Type.h"
-#include "Visitor/Visitor.h"
 
 class Node::ArrayType: public Node, public std::enable_shared_from_this<ArrayType> {
 public:

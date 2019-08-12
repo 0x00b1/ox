@@ -5,9 +5,10 @@
 #include <string>
 #include <utility>
 
+#include "ox/Visitor.h"
+
 #include "Expression.h"
 #include "Node.h"
-#include "Visitor/Visitor.h"
 
 class Node::AnonymousConstant: public Node, public std::enable_shared_from_this<AnonymousConstant> {
 public:

@@ -5,8 +5,9 @@
 #include <string>
 #include <utility>
 
+#include "ox/Visitor.h"
+
 #include "Type.h"
-#include "Visitor/Visitor.h"
 
 class Node::BooleanType: public Node, public std::enable_shared_from_this<BooleanType> {
 public:

@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "Expression.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::ClosureExpression: public Node, public std::enable_shared_from_this<ClosureExpression> {
 public:

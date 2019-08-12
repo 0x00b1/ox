@@ -8,7 +8,7 @@
 #include <utility>
 
 #include "Node.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::Type: public Node, public std::enable_shared_from_this<Type> {
 public:

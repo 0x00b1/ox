@@ -6,7 +6,7 @@
 #include <utility>
 
 #include "Type.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::SliceType: public Node, public std::enable_shared_from_this<SliceType> {
 public:

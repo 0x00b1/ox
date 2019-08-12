@@ -7,7 +7,7 @@
 
 #include "Declaration.h"
 #include "Type.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::TypeDeclaration: public Node, public std::enable_shared_from_this<TypeDeclaration> {
 public:

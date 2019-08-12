@@ -6,7 +6,7 @@
 #include <utility>
 
 #include "Pattern.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::WildcardPattern: public Node, public std::enable_shared_from_this<WildcardPattern> {
 public:

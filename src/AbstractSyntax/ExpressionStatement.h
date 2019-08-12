@@ -7,7 +7,7 @@
 
 #include "OperatorExpression.h"
 #include "Statement.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::ExpressionStatement: public Node, public std::enable_shared_from_this<ExpressionStatement> {
 public:

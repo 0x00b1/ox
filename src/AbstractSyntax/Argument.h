@@ -5,10 +5,11 @@
 #include <string>
 #include <utility>
 
+#include "ox/Visitor.h"
+
 #include "Pattern.h"
 #include "Position.h"
 #include "Type.h"
-#include "Visitor/Visitor.h"
 
 class Node::Argument: public Node, public std::enable_shared_from_this<Argument> {
 public:

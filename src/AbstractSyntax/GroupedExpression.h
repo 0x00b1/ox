@@ -7,7 +7,7 @@
 
 #include "Expression.h"
 #include "OperatorExpression.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::GroupedExpression: public Node, public std::enable_shared_from_this<GroupedExpression> {
 public:

@@ -8,7 +8,7 @@
 
 #include "Expression.h"
 #include "Statement.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::ReturnStatement: public Node, public std::enable_shared_from_this<ReturnStatement> {
 public:

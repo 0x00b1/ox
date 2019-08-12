@@ -5,7 +5,7 @@
 #include <string>
 #include <utility>
 
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::FloatingPointLiteralExpression: public Node, public std::enable_shared_from_this<FloatingPointLiteralExpression> {
 public:

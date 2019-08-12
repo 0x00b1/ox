@@ -6,8 +6,9 @@
 #include <utility>
 #include <vector>
 
+#include "ox/Visitor.h"
+
 #include "Expression.h"
-#include "Visitor/Visitor.h"
 
 class Node::ArrayExpression: public Node, public std::enable_shared_from_this<ArrayExpression> {
 public:

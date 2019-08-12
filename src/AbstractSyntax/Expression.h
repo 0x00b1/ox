@@ -6,7 +6,7 @@
 #include <utility>
 
 #include "Node.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::Expression: public Node, public std::enable_shared_from_this<Expression> {
 public:

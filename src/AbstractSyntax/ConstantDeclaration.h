@@ -8,7 +8,7 @@
 #include "Expression.h"
 #include "Declaration.h"
 #include "Type.h"
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::ConstantDeclaration: public Node, public std::enable_shared_from_this<ConstantDeclaration> {
 public:

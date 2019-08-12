@@ -5,7 +5,7 @@
 #include <string>
 #include <utility>
 
-#include "Visitor/Visitor.h"
+#include "ox/Visitor.h"
 
 class Node::Name: public Node, public std::enable_shared_from_this<Name> {
 public:
