@@ -1031,6 +1031,32 @@ CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.s"
 	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Path.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.s
 
+CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.o: CMakeFiles/oxc.dir/flags.make
+CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.o: ../src/AbstractSyntax/PrefixOperation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_77) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.o"
+	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PrefixOperation.cpp
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.i"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PrefixOperation.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.i
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.s"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PrefixOperation.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.s
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.o: CMakeFiles/oxc.dir/flags.make
+CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.o: ../src/AbstractSyntax/InfixOperation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_78) "Building CXX object CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.o"
+	/usr/local/opt/llvm/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/InfixOperation.cpp
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.i"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/InfixOperation.cpp > CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.i
+
+CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.s"
+	/usr/local/opt/llvm/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/InfixOperation.cpp -o CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.s
+
 # Object files for target oxc
 oxc_OBJECTS = \
 "CMakeFiles/oxc.dir/src/main.cpp.o" \
@@ -1106,7 +1132,9 @@ oxc_OBJECTS = \
 "CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.o" \
 "CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.o" \
-"CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o"
+"CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o" \
+"CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.o" \
+"CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.o"
 
 # External object files for target oxc
 oxc_EXTERNAL_OBJECTS =
@@ -1185,6 +1213,8 @@ oxc: CMakeFiles/oxc.dir/src/SymbolTable/ModuleSymbolTable.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/FunctionPrototype.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/PathSegment.cpp.o
 oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o
+oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.o
+oxc: CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.o
 oxc: CMakeFiles/oxc.dir/build.make
 oxc: /usr/local/opt/llvm/lib/libLLVMX86CodeGen.a
 oxc: /usr/local/opt/llvm/lib/libLLVMX86AsmParser.a
@@ -1219,7 +1249,7 @@ oxc: /usr/local/opt/llvm/lib/libLLVMDebugInfoMSF.a
 oxc: /usr/local/opt/llvm/lib/libLLVMSupport.a
 oxc: /usr/local/opt/llvm/lib/libLLVMDemangle.a
 oxc: CMakeFiles/oxc.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_77) "Linking CXX executable oxc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/agoodman/Documents/com/github/0x00b1/ox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_79) "Linking CXX executable oxc"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/oxc.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

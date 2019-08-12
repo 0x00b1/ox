@@ -368,5 +368,15 @@
   "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
   "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Path.cpp",
   "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/Path.cpp"
+},
+{
+  "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
+  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PrefixOperation.cpp",
+  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/PrefixOperation.cpp"
+},
+{
+  "directory": "/Users/agoodman/Documents/com/github/0x00b1/ox/build",
+  "command": "/usr/local/opt/llvm/bin/clang++   -I/Users/agoodman/Documents/com/github/0x00b1/ox/build -I/Users/agoodman/Documents/com/github/0x00b1/ox/include -I/Users/agoodman/Documents/com/github/0x00b1/ox/src -I/usr/local/opt/llvm/include  -g   -std=gnu++17 -o CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.o -c /Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/InfixOperation.cpp",
+  "file": "/Users/agoodman/Documents/com/github/0x00b1/ox/src/AbstractSyntax/InfixOperation.cpp"
 }
 ]

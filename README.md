@@ -1,5 +1,17 @@
 # Ox
 
+## Examples
+
+subroutine fibonacci(maximum: Integer):
+    a: Integer ← 0
+    b: Integer ← 1
+
+    while a < maximum:
+        a ← b
+        b ← a + b
+
+fibonacci(1000)
+
 ## Grammar
 
 ### EBNF

@@ -973,6 +973,33 @@ src/AbstractSyntax/InfixExpression.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/InfixExpression.cpp.s
 .PHONY : src/AbstractSyntax/InfixExpression.cpp.s
 
+src/AbstractSyntax/InfixOperation.o: src/AbstractSyntax/InfixOperation.cpp.o
+
+.PHONY : src/AbstractSyntax/InfixOperation.o
+
+# target to build an object file
+src/AbstractSyntax/InfixOperation.cpp.o:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.o
+.PHONY : src/AbstractSyntax/InfixOperation.cpp.o
+
+src/AbstractSyntax/InfixOperation.i: src/AbstractSyntax/InfixOperation.cpp.i
+
+.PHONY : src/AbstractSyntax/InfixOperation.i
+
+# target to preprocess a source file
+src/AbstractSyntax/InfixOperation.cpp.i:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.i
+.PHONY : src/AbstractSyntax/InfixOperation.cpp.i
+
+src/AbstractSyntax/InfixOperation.s: src/AbstractSyntax/InfixOperation.cpp.s
+
+.PHONY : src/AbstractSyntax/InfixOperation.s
+
+# target to generate assembly for a file
+src/AbstractSyntax/InfixOperation.cpp.s:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.s
+.PHONY : src/AbstractSyntax/InfixOperation.cpp.s
+
 src/AbstractSyntax/IntegerLiteralExpression.o: src/AbstractSyntax/IntegerLiteralExpression.cpp.o
 
 .PHONY : src/AbstractSyntax/IntegerLiteralExpression.o
@@ -1512,6 +1539,33 @@ src/AbstractSyntax/PrefixExpression.s: src/AbstractSyntax/PrefixExpression.cpp.s
 src/AbstractSyntax/PrefixExpression.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixExpression.cpp.s
 .PHONY : src/AbstractSyntax/PrefixExpression.cpp.s
+
+src/AbstractSyntax/PrefixOperation.o: src/AbstractSyntax/PrefixOperation.cpp.o
+
+.PHONY : src/AbstractSyntax/PrefixOperation.o
+
+# target to build an object file
+src/AbstractSyntax/PrefixOperation.cpp.o:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.o
+.PHONY : src/AbstractSyntax/PrefixOperation.cpp.o
+
+src/AbstractSyntax/PrefixOperation.i: src/AbstractSyntax/PrefixOperation.cpp.i
+
+.PHONY : src/AbstractSyntax/PrefixOperation.i
+
+# target to preprocess a source file
+src/AbstractSyntax/PrefixOperation.cpp.i:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.i
+.PHONY : src/AbstractSyntax/PrefixOperation.cpp.i
+
+src/AbstractSyntax/PrefixOperation.s: src/AbstractSyntax/PrefixOperation.cpp.s
+
+.PHONY : src/AbstractSyntax/PrefixOperation.s
+
+# target to generate assembly for a file
+src/AbstractSyntax/PrefixOperation.cpp.s:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.s
+.PHONY : src/AbstractSyntax/PrefixOperation.cpp.s
 
 src/AbstractSyntax/ReferencePattern.o: src/AbstractSyntax/ReferencePattern.cpp.o
 
@@ -2237,6 +2291,9 @@ help:
 	@echo "... src/AbstractSyntax/InfixExpression.o"
 	@echo "... src/AbstractSyntax/InfixExpression.i"
 	@echo "... src/AbstractSyntax/InfixExpression.s"
+	@echo "... src/AbstractSyntax/InfixOperation.o"
+	@echo "... src/AbstractSyntax/InfixOperation.i"
+	@echo "... src/AbstractSyntax/InfixOperation.s"
 	@echo "... src/AbstractSyntax/IntegerLiteralExpression.o"
 	@echo "... src/AbstractSyntax/IntegerLiteralExpression.i"
 	@echo "... src/AbstractSyntax/IntegerLiteralExpression.s"
@@ -2297,6 +2354,9 @@ help:
 	@echo "... src/AbstractSyntax/PrefixExpression.o"
 	@echo "... src/AbstractSyntax/PrefixExpression.i"
 	@echo "... src/AbstractSyntax/PrefixExpression.s"
+	@echo "... src/AbstractSyntax/PrefixOperation.o"
+	@echo "... src/AbstractSyntax/PrefixOperation.i"
+	@echo "... src/AbstractSyntax/PrefixOperation.s"
 	@echo "... src/AbstractSyntax/ReferencePattern.o"
 	@echo "... src/AbstractSyntax/ReferencePattern.i"
 	@echo "... src/AbstractSyntax/ReferencePattern.s"
