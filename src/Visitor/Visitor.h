@@ -51,6 +51,7 @@ namespace Node {
   class PathSegment;
   class PathType;
   class Pattern;
+  class PlaceExpression;
   class PointerType;
   class PostfixExpression;
   class PrefixExpression;
@@ -69,6 +70,7 @@ namespace Node {
   class TupleType;
   class Type;
   class TypeDeclaration;
+  class ValueExpression;
   class WildcardPattern;
 }
 
@@ -119,6 +121,7 @@ public:
   virtual void accept(std::shared_ptr<Node::PathSegment>) = 0;
   virtual void accept(std::shared_ptr<Node::PathType>) = 0;
   virtual void accept(std::shared_ptr<Node::Pattern>) = 0;
+  virtual void accept(std::shared_ptr<Node::PlaceExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::PointerType>) = 0;
   virtual void accept(std::shared_ptr<Node::PostfixExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::PrefixExpression>) = 0;
@@ -137,6 +140,7 @@ public:
   virtual void accept(std::shared_ptr<Node::TupleType>) = 0;
   virtual void accept(std::shared_ptr<Node::Type>) = 0;
   virtual void accept(std::shared_ptr<Node::TypeDeclaration>) = 0;
+  virtual void accept(std::shared_ptr<Node::ValueExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::WildcardPattern>) = 0;
 };
 

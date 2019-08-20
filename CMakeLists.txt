@@ -104,9 +104,15 @@ add_executable(
         src/SymbolTable/SymbolTable.cpp
         include/ox/Visitor.h
         src/AbstractSyntax/ClassDeclaration.cpp
-        src/AbstractSyntax/ClassDeclaration.h
-        src/SymbolTable/ModuleSymbolTable.cpp src/SymbolTable/ModuleSymbolTable.h
-        src/AbstractSyntax/FunctionPrototype.cpp src/AbstractSyntax/FunctionPrototype.h src/AbstractSyntax/PathSegment.cpp src/AbstractSyntax/PathSegment.h src/AbstractSyntax/Path.cpp src/AbstractSyntax/Path.h src/AbstractSyntax/PrefixOperation.cpp src/AbstractSyntax/PrefixOperation.h src/AbstractSyntax/InfixOperation.cpp src/AbstractSyntax/InfixOperation.h)
+        src/SymbolTable/ModuleSymbolTable.cpp
+        src/AbstractSyntax/FunctionPrototype.cpp
+        src/AbstractSyntax/PathSegment.cpp
+        src/AbstractSyntax/Path.cpp
+        src/AbstractSyntax/PrefixOperation.cpp
+        src/AbstractSyntax/InfixOperation.cpp
+        src/AbstractSyntax/PlaceExpression.cpp
+        src/AbstractSyntax/ValueExpression.cpp
+)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 

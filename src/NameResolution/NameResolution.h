@@ -55,6 +55,7 @@ public:
   void accept(std::shared_ptr<Node::PathSegment> node) override;
   void accept(std::shared_ptr<Node::PathType> node) override;
   void accept(std::shared_ptr<Node::Pattern> node) override;
+  void accept(std::shared_ptr<Node::PlaceExpression> node) override;
   void accept(std::shared_ptr<Node::PointerType> node) override;
   void accept(std::shared_ptr<Node::PostfixExpression> node) override;
   void accept(std::shared_ptr<Node::PrefixExpression> node) override;
@@ -73,6 +74,7 @@ public:
   void accept(std::shared_ptr<Node::Type> node) override;
   void accept(std::shared_ptr<Node::TypeDeclaration> node) override;
   void accept(std::shared_ptr<Node::TranslationUnit> node) override;
+  void accept(std::shared_ptr<Node::ValueExpression> node) override;
   void accept(std::shared_ptr<Node::WildcardPattern> node) override;
 };
 

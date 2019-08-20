@@ -42,6 +42,7 @@
 #include "AbstractSyntax/PathPattern.h"
 #include "AbstractSyntax/PathSegment.h"
 #include "AbstractSyntax/PathType.h"
+#include "AbstractSyntax/PlaceExpression.h"
 #include "AbstractSyntax/PointerType.h"
 #include "AbstractSyntax/ReferencePattern.h"
 #include "AbstractSyntax/ReferenceType.h"
@@ -57,6 +58,7 @@
 #include "AbstractSyntax/Type.h"
 #include "AbstractSyntax/TypeDeclaration.h"
 #include "AbstractSyntax/TranslationUnit.h"
+#include "AbstractSyntax/ValueExpression.h"
 #include "AbstractSyntax/WildcardPattern.h"
 
 #endif

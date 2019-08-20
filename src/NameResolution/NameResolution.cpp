@@ -244,6 +244,12 @@ void NameResolution::accept(std::shared_ptr<Node::Pattern> pattern) {
   pattern->node->accept(*this);
 }
 
+void NameResolution::accept(std::shared_ptr<Node::PlaceExpression> place_expression) {
+  std::cout << "Node::PlaceExpression" << std::endl;
+
+  place_expression->node->accept(*this);
+}
+
 void NameResolution::accept(std::shared_ptr<Node::PointerType> pointer_type) {
   std::cout << "Node::PointerType" << std::endl;
 }
@@ -334,6 +340,12 @@ void NameResolution::accept(std::shared_ptr<Node::TranslationUnit> unit) {
   for (const std::shared_ptr<Node::Statement>& statement: unit->statements) {
     statement->accept(*this);
   }
+}
+
+void NameResolution::accept(std::shared_ptr<Node::ValueExpression> value_expression) {
+  std::cout << "Node::ValueExpression" << std::endl;
+
+  value_expression->node->accept(*this);
 }
 
 void NameResolution::accept(std::shared_ptr<Node::WildcardPattern> node) {
