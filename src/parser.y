@@ -65,6 +65,7 @@
   KEYWORD_TRUE                          "True"
   KEYWORD_UNLESS                        "unless"
   KEYWORD_UNSIGNED                      "unsigned"
+  KEYWORD_VARIABLE                      "variable"
 ;
 
 %token <std::string> LITERAL_FLOATING_POINT_TOKEN;
@@ -120,7 +121,7 @@
 %type <std::shared_ptr<Node::IndexExpression>> INDEX_EXPRESSION;
 %type <std::vector<std::shared_ptr<Node::InfixExpression>>> INFIX_EXPRESSIONS;
 %type <std::shared_ptr<Node::InfixExpression>> INFIX_EXPRESSION;
-%type <std::shared_ptr<Node::AssignmentStatement>> ASSIGNMENT_STATEMENT;
+%type <std::shared_ptr<Node::VariableDeclaration>> VARIABLE_DECLARATION;
 %type <std::shared_ptr<Node::DeclarationStatement>> DECLARATION_STATEMENT;
 %type <std::shared_ptr<Node::Declaration>> DECLARATION;
 %type <std::shared_ptr<Node::ModuleDeclaration>> MODULE_DECLARATION;
@@ -190,7 +191,7 @@ STATEMENT                         : EXPRESSION_STATEMENT {
 
                                     $$ = statement;
                                   }
-                                  | ASSIGNMENT_STATEMENT {
+                                  | VARIABLE_DECLARATION {
                                     std::shared_ptr<Node::Statement> statement(new Node::Statement($1));
 
                                     $$ = statement;
@@ -468,12 +469,6 @@ INFIX_OPERATION                   : "+" {
                                     $$ = std::string("is");
                                   }
                                   ;
-ASSIGNMENT_STATEMENT              : PATTERN ":" TYPE "←" OPERATOR_EXPRESSION ";" {
-                                    std::shared_ptr<Node::AssignmentStatement> assignment_statement(new Node::AssignmentStatement($1, $3, $5));
-
-                                    $$ = assignment_statement;
-                                  }
-                                  ;
 DECLARATION_STATEMENT             : DECLARATION {
                                     std::shared_ptr<Node::DeclarationStatement> declaration_statement(new Node::DeclarationStatement($1));
 
@@ -499,6 +494,26 @@ DECLARATION                       : "module" IDENTIFIER MODULE_DECLARATION {
                                     std::shared_ptr<Node::Declaration> declaration(new Node::Declaration($2, $3));
 
                                     $$ = declaration;
+                                  }
+VARIABLE_DECLARATION              : "variable" PATTERN ":" TYPE "←" OPERATOR_EXPRESSION ";" {
+                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($2, $4, $6));
+
+                                    $$ = variable_declaration;
+                                  }
+                                  | "variable" PATTERN "←" OPERATOR_EXPRESSION ";" {
+                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($2, $4));
+
+                                    $$ = variable_declaration;
+                                  }
+                                  | "variable" PATTERN ":" TYPE ";" {
+                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($2, $4));
+
+                                    $$ = variable_declaration;
+                                  }
+                                  | "variable" PATTERN ";" {
+                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($2));
+
+                                    $$ = variable_declaration;
                                   }
                                   ;
 IDENTIFIER                        : IDENTIFIER_TOKEN {

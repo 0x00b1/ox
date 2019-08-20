@@ -354,6 +354,12 @@ void NameResolution::accept(std::shared_ptr<Node::ValueExpression> value_express
 
 void NameResolution::accept(std::shared_ptr<Node::VariableDeclaration> variable_declaration) {
   std::cout << "Node::VariableDeclaration" << std::endl;
+
+  variable_declaration->pattern->accept(*this);
+
+  variable_declaration->type.value_or(nullptr)->accept(*this);
+
+  variable_declaration->expression.value_or(nullptr)->accept(*this);
 }
 
 void NameResolution::accept(std::shared_ptr<Node::WildcardPattern> node) {

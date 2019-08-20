@@ -127,6 +127,7 @@ WHITESPACE      [ \t]
 "True"                  return yy::parser::make_KEYWORD_TRUE(location);
 "unless"                return yy::parser::make_KEYWORD_UNLESS(location);
 "unsigned"              return yy::parser::make_KEYWORD_UNSIGNED(location);
+"variable"              return yy::parser::make_KEYWORD_VARIABLE(location);
 
 {FLOATING_POINT}  return yy::parser::make_LITERAL_FLOATING_POINT_TOKEN(yytext, location);
 {INTEGER}         return yy::parser::make_LITERAL_INTEGER_TOKEN(yytext, location);

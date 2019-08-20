@@ -78,6 +78,9 @@ file(REMOVE_RECURSE
   "CMakeFiles/oxc.dir/src/AbstractSyntax/Path.cpp.o"
   "CMakeFiles/oxc.dir/src/AbstractSyntax/PrefixOperation.cpp.o"
   "CMakeFiles/oxc.dir/src/AbstractSyntax/InfixOperation.cpp.o"
+  "CMakeFiles/oxc.dir/src/AbstractSyntax/PlaceExpression.cpp.o"
+  "CMakeFiles/oxc.dir/src/AbstractSyntax/ValueExpression.cpp.o"
+  "CMakeFiles/oxc.dir/src/AbstractSyntax/VariableDeclaration.cpp.o"
   "oxc.pdb"
   "oxc"
 )

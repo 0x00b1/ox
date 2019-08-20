@@ -12,12 +12,14 @@ example(a);
 
 example(a, b, c);
 
-example: [Integer × 3] ← [1, 2, 3];
+variable example: [Integer × 3] ← [1, 2, 3];
 
 constant example: [Integer × 3] ← [1, 2, 3];
 
-x: Integer ← 1;
+variable x: Integer ← 1;
 
-x: 32-bit Floating-point ← 1.0;
+variable x: 32-bit Floating-point ← 1.0;
 
-x: Boolean ← True;
+variable x: Boolean ← True;
+
+variable x ← True;

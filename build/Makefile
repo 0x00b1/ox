@@ -1432,6 +1432,33 @@ src/AbstractSyntax/Pattern.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/Pattern.cpp.s
 .PHONY : src/AbstractSyntax/Pattern.cpp.s
 
+src/AbstractSyntax/PlaceExpression.o: src/AbstractSyntax/PlaceExpression.cpp.o
+
+.PHONY : src/AbstractSyntax/PlaceExpression.o
+
+# target to build an object file
+src/AbstractSyntax/PlaceExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/PlaceExpression.cpp.o
+.PHONY : src/AbstractSyntax/PlaceExpression.cpp.o
+
+src/AbstractSyntax/PlaceExpression.i: src/AbstractSyntax/PlaceExpression.cpp.i
+
+.PHONY : src/AbstractSyntax/PlaceExpression.i
+
+# target to preprocess a source file
+src/AbstractSyntax/PlaceExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/PlaceExpression.cpp.i
+.PHONY : src/AbstractSyntax/PlaceExpression.cpp.i
+
+src/AbstractSyntax/PlaceExpression.s: src/AbstractSyntax/PlaceExpression.cpp.s
+
+.PHONY : src/AbstractSyntax/PlaceExpression.s
+
+# target to generate assembly for a file
+src/AbstractSyntax/PlaceExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/PlaceExpression.cpp.s
+.PHONY : src/AbstractSyntax/PlaceExpression.cpp.s
+
 src/AbstractSyntax/PointerType.o: src/AbstractSyntax/PointerType.cpp.o
 
 .PHONY : src/AbstractSyntax/PointerType.o
@@ -1945,6 +1972,60 @@ src/AbstractSyntax/TypeDeclaration.cpp.s:
 	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/TypeDeclaration.cpp.s
 .PHONY : src/AbstractSyntax/TypeDeclaration.cpp.s
 
+src/AbstractSyntax/ValueExpression.o: src/AbstractSyntax/ValueExpression.cpp.o
+
+.PHONY : src/AbstractSyntax/ValueExpression.o
+
+# target to build an object file
+src/AbstractSyntax/ValueExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ValueExpression.cpp.o
+.PHONY : src/AbstractSyntax/ValueExpression.cpp.o
+
+src/AbstractSyntax/ValueExpression.i: src/AbstractSyntax/ValueExpression.cpp.i
+
+.PHONY : src/AbstractSyntax/ValueExpression.i
+
+# target to preprocess a source file
+src/AbstractSyntax/ValueExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ValueExpression.cpp.i
+.PHONY : src/AbstractSyntax/ValueExpression.cpp.i
+
+src/AbstractSyntax/ValueExpression.s: src/AbstractSyntax/ValueExpression.cpp.s
+
+.PHONY : src/AbstractSyntax/ValueExpression.s
+
+# target to generate assembly for a file
+src/AbstractSyntax/ValueExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/ValueExpression.cpp.s
+.PHONY : src/AbstractSyntax/ValueExpression.cpp.s
+
+src/AbstractSyntax/VariableDeclaration.o: src/AbstractSyntax/VariableDeclaration.cpp.o
+
+.PHONY : src/AbstractSyntax/VariableDeclaration.o
+
+# target to build an object file
+src/AbstractSyntax/VariableDeclaration.cpp.o:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/VariableDeclaration.cpp.o
+.PHONY : src/AbstractSyntax/VariableDeclaration.cpp.o
+
+src/AbstractSyntax/VariableDeclaration.i: src/AbstractSyntax/VariableDeclaration.cpp.i
+
+.PHONY : src/AbstractSyntax/VariableDeclaration.i
+
+# target to preprocess a source file
+src/AbstractSyntax/VariableDeclaration.cpp.i:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/VariableDeclaration.cpp.i
+.PHONY : src/AbstractSyntax/VariableDeclaration.cpp.i
+
+src/AbstractSyntax/VariableDeclaration.s: src/AbstractSyntax/VariableDeclaration.cpp.s
+
+.PHONY : src/AbstractSyntax/VariableDeclaration.s
+
+# target to generate assembly for a file
+src/AbstractSyntax/VariableDeclaration.cpp.s:
+	$(MAKE) -f CMakeFiles/oxc.dir/build.make CMakeFiles/oxc.dir/src/AbstractSyntax/VariableDeclaration.cpp.s
+.PHONY : src/AbstractSyntax/VariableDeclaration.cpp.s
+
 src/AbstractSyntax/WildcardPattern.o: src/AbstractSyntax/WildcardPattern.cpp.o
 
 .PHONY : src/AbstractSyntax/WildcardPattern.o
@@ -2342,6 +2423,9 @@ help:
 	@echo "... src/AbstractSyntax/Pattern.o"
 	@echo "... src/AbstractSyntax/Pattern.i"
 	@echo "... src/AbstractSyntax/Pattern.s"
+	@echo "... src/AbstractSyntax/PlaceExpression.o"
+	@echo "... src/AbstractSyntax/PlaceExpression.i"
+	@echo "... src/AbstractSyntax/PlaceExpression.s"
 	@echo "... src/AbstractSyntax/PointerType.o"
 	@echo "... src/AbstractSyntax/PointerType.i"
 	@echo "... src/AbstractSyntax/PointerType.s"
@@ -2399,6 +2483,12 @@ help:
 	@echo "... src/AbstractSyntax/TypeDeclaration.o"
 	@echo "... src/AbstractSyntax/TypeDeclaration.i"
 	@echo "... src/AbstractSyntax/TypeDeclaration.s"
+	@echo "... src/AbstractSyntax/ValueExpression.o"
+	@echo "... src/AbstractSyntax/ValueExpression.i"
+	@echo "... src/AbstractSyntax/ValueExpression.s"
+	@echo "... src/AbstractSyntax/VariableDeclaration.o"
+	@echo "... src/AbstractSyntax/VariableDeclaration.i"
+	@echo "... src/AbstractSyntax/VariableDeclaration.s"
 	@echo "... src/AbstractSyntax/WildcardPattern.o"
 	@echo "... src/AbstractSyntax/WildcardPattern.i"
 	@echo "... src/AbstractSyntax/WildcardPattern.s"
