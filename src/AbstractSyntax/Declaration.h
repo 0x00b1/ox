@@ -8,7 +8,6 @@
 
 #include "ox/Visitor.h"
 
-#include "Identifier.h"
 #include "Node.h"
 
 class Node::Declaration: public Node, public std::enable_shared_from_this<Declaration> {

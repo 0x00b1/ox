@@ -2,6 +2,7 @@
 
 ## Examples
 
+```
 subroutine fibonacci(maximum: Integer):
     a: Integer ← 0
     b: Integer ← 1
@@ -11,6 +12,7 @@ subroutine fibonacci(maximum: Integer):
         b ← a + b
 
 fibonacci(1000)
+```
 
 ## Grammar
 

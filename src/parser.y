@@ -485,11 +485,6 @@ DECLARATION                       : "module" IDENTIFIER MODULE_DECLARATION {
 
                                     $$ = declaration;
                                   }
-                                  | EXTERNAL_PACKAGE_DECLARATION {
-                                    std::shared_ptr<Node::Declaration> declaration(new Node::Declaration($1));
-
-                                    $$ = declaration;
-                                  }
                                   | "constant" IDENTIFIER CONSTANT_DECLARATION {
                                     std::shared_ptr<Node::Declaration> declaration(new Node::Declaration($2, $3));
 

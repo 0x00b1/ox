@@ -24,6 +24,7 @@ namespace Node {
   class DeclarationStatement;
   class Expression;
   class ExpressionStatement;
+  class ExternalPackageDeclaration;
   class ImportDeclaration;
   class FloatingPointLiteralExpression;
   class FloatingPointType;
@@ -95,6 +96,7 @@ public:
   virtual void accept(std::shared_ptr<Node::DeclarationStatement>) = 0;
   virtual void accept(std::shared_ptr<Node::Expression>) = 0;
   virtual void accept(std::shared_ptr<Node::ExpressionStatement>) = 0;
+  virtual void accept(std::shared_ptr<Node::ExternalPackageDeclaration>) = 0;
   virtual void accept(std::shared_ptr<Node::ImportDeclaration>) = 0;
   virtual void accept(std::shared_ptr<Node::FloatingPointLiteralExpression>) = 0;
   virtual void accept(std::shared_ptr<Node::FloatingPointType>) = 0;
