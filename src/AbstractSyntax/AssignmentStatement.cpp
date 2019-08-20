@@ -1,11 +1,9 @@
 #include "AssignmentStatement.h"
 
-Node::AssignmentStatement::AssignmentStatement(std::shared_ptr<Pattern> pattern, std::shared_ptr<Type> type, std::shared_ptr<Node> expression) {
-  this->pattern = std::move(pattern);
+Node::AssignmentStatement::AssignmentStatement(std::shared_ptr<PlaceExpression> place_expression, std::shared_ptr<ValueExpression> value_expression) {
+  this->place_expression = std::move(place_expression);
 
-  this->type = std::move(type);
-
-  this->expression = std::move(expression);
+  this->value_expression = std::move(value_expression);
 }
 
 void Node::AssignmentStatement::accept(Visitor &visitor) {

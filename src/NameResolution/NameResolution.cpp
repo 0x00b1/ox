@@ -37,11 +37,9 @@ void NameResolution::accept(std::shared_ptr<Node::ArrayType> array_type) {
 void NameResolution::accept(std::shared_ptr<Node::AssignmentStatement> assignment_statement) {
   std::cout << "Node::AssignmentStatement" << std::endl;
 
-  assignment_statement->pattern->accept(*this);
+  assignment_statement->place_expression->accept(*this);
 
-  assignment_statement->type->accept(*this);
-
-  assignment_statement->expression->accept(*this);
+  assignment_statement->value_expression->accept(*this);
 }
 
 void NameResolution::accept(std::shared_ptr<Node::BlockStatement> block_statement) {

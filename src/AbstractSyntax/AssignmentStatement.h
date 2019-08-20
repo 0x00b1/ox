@@ -7,20 +7,19 @@
 
 #include "ox/Visitor.h"
 
-#include "Expression.h"
-#include "Pattern.h"
-#include "Statement.h"
-#include "Type.h"
+#include "PlaceExpression.h"
+#include "ValueExpression.h"
 
 class Node::AssignmentStatement: public Node, public std::enable_shared_from_this<AssignmentStatement> {
 public:
-  AssignmentStatement(std::shared_ptr<Pattern> pattern, std::shared_ptr<Type> type, std::shared_ptr<Node> expression);
+  /*
+   *    x ← True;
+   */
+  AssignmentStatement(std::shared_ptr<PlaceExpression> place_expression, std::shared_ptr<ValueExpression> value_expression);
 
-  std::shared_ptr<Pattern> pattern;
+  std::shared_ptr<PlaceExpression> place_expression;
 
-  std::shared_ptr<Type> type;
-
-  std::shared_ptr<Node> expression;
+  std::shared_ptr<ValueExpression> value_expression;
 
   void accept(Visitor &visitor) override;
 };

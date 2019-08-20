@@ -191,11 +191,6 @@ STATEMENT                         : EXPRESSION_STATEMENT {
 
                                     $$ = statement;
                                   }
-                                  | VARIABLE_DECLARATION {
-                                    std::shared_ptr<Node::Statement> statement(new Node::Statement($1));
-
-                                    $$ = statement;
-                                  }
                                   | DECLARATION_STATEMENT {
                                     std::shared_ptr<Node::Statement> statement(new Node::Statement($1));
 
@@ -495,27 +490,11 @@ DECLARATION                       : "module" IDENTIFIER MODULE_DECLARATION {
 
                                     $$ = declaration;
                                   }
-VARIABLE_DECLARATION              : "variable" PATTERN ":" TYPE "←" OPERATOR_EXPRESSION ";" {
-                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($2, $4, $6));
+                                  | "variable" VARIABLE_DECLARATION {
+                                    std::shared_ptr<Node::Declaration> declaration(new Node::Declaration($2));
 
-                                    $$ = variable_declaration;
+                                    $$ = declaration;
                                   }
-                                  | "variable" PATTERN "←" OPERATOR_EXPRESSION ";" {
-                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($2, $4));
-
-                                    $$ = variable_declaration;
-                                  }
-                                  | "variable" PATTERN ":" TYPE ";" {
-                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($2, $4));
-
-                                    $$ = variable_declaration;
-                                  }
-                                  | "variable" PATTERN ";" {
-                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($2));
-
-                                    $$ = variable_declaration;
-                                  }
-                                  ;
 IDENTIFIER                        : IDENTIFIER_TOKEN {
                                     std::shared_ptr<Node::Identifier> identifier(new Node::Identifier($1));
 
@@ -603,6 +582,27 @@ PARAMETER                         : PATTERN ":" TYPE {
                                     std::shared_ptr<Node::Parameter> parameter(new Node::Parameter($1, $3));
 
                                     $$ = parameter;
+                                  }
+                                  ;
+VARIABLE_DECLARATION              : PATTERN ":" TYPE "←" OPERATOR_EXPRESSION ";" {
+                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($1, $3, $5));
+
+                                    $$ = variable_declaration;
+                                  }
+                                  | PATTERN "←" OPERATOR_EXPRESSION ";" {
+                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($1, $3));
+
+                                    $$ = variable_declaration;
+                                  }
+                                  | PATTERN ":" TYPE ";" {
+                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($1, $3));
+
+                                    $$ = variable_declaration;
+                                  }
+                                  | PATTERN ";" {
+                                    std::shared_ptr<Node::VariableDeclaration> variable_declaration(new Node::VariableDeclaration($1));
+
+                                    $$ = variable_declaration;
                                   }
                                   ;
 CONDITIONAL_STATEMENT             : "if" OPERATOR_EXPRESSION BLOCK_STATEMENT "else" BLOCK_STATEMENT ";" {
