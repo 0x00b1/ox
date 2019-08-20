@@ -112,7 +112,7 @@ add_executable(
         src/AbstractSyntax/InfixOperation.cpp
         src/AbstractSyntax/PlaceExpression.cpp
         src/AbstractSyntax/ValueExpression.cpp
-)
+        src/AbstractSyntax/VariableDeclaration.cpp src/AbstractSyntax/VariableDeclaration.h)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 

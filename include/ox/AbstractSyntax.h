@@ -59,6 +59,7 @@
 #include "AbstractSyntax/TypeDeclaration.h"
 #include "AbstractSyntax/TranslationUnit.h"
 #include "AbstractSyntax/ValueExpression.h"
+#include "AbstractSyntax/VariableDeclaration.h"
 #include "AbstractSyntax/WildcardPattern.h"
 
 #endif

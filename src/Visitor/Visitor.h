@@ -71,6 +71,7 @@ namespace Node {
   class Type;
   class TypeDeclaration;
   class ValueExpression;
+  class VariableDeclaration;
   class WildcardPattern;
 }
 
@@ -141,6 +142,7 @@ public:
   virtual void accept(std::shared_ptr<Node::Type>) = 0;
   virtual void accept(std::shared_ptr<Node::TypeDeclaration>) = 0;
   virtual void accept(std::shared_ptr<Node::ValueExpression>) = 0;
+  virtual void accept(std::shared_ptr<Node::VariableDeclaration>) = 0;
   virtual void accept(std::shared_ptr<Node::WildcardPattern>) = 0;
 };
 

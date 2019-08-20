@@ -75,6 +75,7 @@ public:
   void accept(std::shared_ptr<Node::TypeDeclaration> node) override;
   void accept(std::shared_ptr<Node::TranslationUnit> node) override;
   void accept(std::shared_ptr<Node::ValueExpression> node) override;
+  void accept(std::shared_ptr<Node::VariableDeclaration> node) override;
   void accept(std::shared_ptr<Node::WildcardPattern> node) override;
 };
 

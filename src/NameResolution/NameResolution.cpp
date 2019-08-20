@@ -348,6 +348,10 @@ void NameResolution::accept(std::shared_ptr<Node::ValueExpression> value_express
   value_expression->node->accept(*this);
 }
 
+void NameResolution::accept(std::shared_ptr<Node::VariableDeclaration> variable_declaration) {
+  std::cout << "Node::VariableDeclaration" << std::endl;
+}
+
 void NameResolution::accept(std::shared_ptr<Node::WildcardPattern> node) {
   std::cout << "Node::WildcardPattern" << std::endl;
 }
