@@ -8,13 +8,7 @@
 
 class SymbolTable {
 public:
-  std::string identifier;
-
   std::vector<Symbol> symbols;
-
-  std::vector<SymbolTable> children;
-
-  virtual Symbol find(std::string identifier);
 };
 
 #endif

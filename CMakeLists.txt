@@ -98,13 +98,10 @@ add_executable(
         src/AbstractSyntax/TranslationUnit.cpp
         src/AbstractSyntax/WildcardPattern.cpp
         src/NameResolution/NameResolution.cpp
-        src/SymbolTable/ClassSymbolTable.cpp
-        src/SymbolTable/SubroutineSymbolTable.cpp
         src/SymbolTable/Symbol.cpp
         src/SymbolTable/SymbolTable.cpp
         include/ox/Visitor.h
         src/AbstractSyntax/ClassDeclaration.cpp
-        src/SymbolTable/ModuleSymbolTable.cpp
         src/AbstractSyntax/FunctionPrototype.cpp
         src/AbstractSyntax/PathSegment.cpp
         src/AbstractSyntax/Path.cpp
@@ -112,7 +109,7 @@ add_executable(
         src/AbstractSyntax/InfixOperation.cpp
         src/AbstractSyntax/PlaceExpression.cpp
         src/AbstractSyntax/ValueExpression.cpp
-        src/AbstractSyntax/VariableDeclaration.cpp src/AbstractSyntax/VariableDeclaration.h)
+        src/AbstractSyntax/VariableDeclaration.cpp src/AbstractSyntax/VariableDeclaration.h src/SymbolTable/GlobalScope.cpp src/SymbolTable/GlobalScope.h src/SymbolTable/ModuleScope.cpp src/SymbolTable/ModuleScope.h src/SymbolTable/FunctionScope.cpp src/SymbolTable/FunctionScope.h src/SymbolTable/BlockScope.cpp src/SymbolTable/BlockScope.h)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 

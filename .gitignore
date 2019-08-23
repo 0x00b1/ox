@@ -1,4 +1,8 @@
-cmake-build-debug
+.DS_Store
 .idea
-RE-flex
+.vscode
 bison.txt
+build
+cmake-build-debug
+example.ox
+RE-flex
