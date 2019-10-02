@@ -13,7 +13,7 @@
 class Node::AssignmentStatement: public Node, public std::enable_shared_from_this<AssignmentStatement> {
 public:
   /*
-   *    x ← True;
+   *    x: Boolean ← True;
    */
   AssignmentStatement(std::shared_ptr<PlaceExpression> place_expression, std::shared_ptr<ValueExpression> value_expression);
 

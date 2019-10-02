@@ -6,24 +6,29 @@ project(oxc)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(BISON)
-find_package(FLEX)
-find_package(LLVM)
+find_package(BISON  REQUIRED)
+find_package(FLEX   REQUIRED)
+find_package(LLVM   REQUIRED)
+find_package(GTEST  REQUIRED)
 
-BISON_TARGET(
+enable_testing()
+
+include_directories(${GTEST_INCLUDE_DIRS})
+
+bison_target(
     PARSER
     src/parser.y
     ${CMAKE_CURRENT_BINARY_DIR}/parser.cc
     COMPILE_FLAGS "--report=all --report-file=bison.txt"
 )
 
-FLEX_TARGET(
+flex_target(
     SCANNER
     src/scanner.l
     ${CMAKE_CURRENT_BINARY_DIR}/scanner.cc
 )
 
-ADD_FLEX_BISON_DEPENDENCY(SCANNER PARSER)
+add_flex_bison_dependency(SCANNER PARSER)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
@@ -109,7 +114,17 @@ add_executable(
         src/AbstractSyntax/InfixOperation.cpp
         src/AbstractSyntax/PlaceExpression.cpp
         src/AbstractSyntax/ValueExpression.cpp
-        src/AbstractSyntax/VariableDeclaration.cpp src/AbstractSyntax/VariableDeclaration.h src/SymbolTable/GlobalScope.cpp src/SymbolTable/GlobalScope.h src/SymbolTable/ModuleScope.cpp src/SymbolTable/ModuleScope.h src/SymbolTable/FunctionScope.cpp src/SymbolTable/FunctionScope.h src/SymbolTable/BlockScope.cpp src/SymbolTable/BlockScope.h)
+        src/AbstractSyntax/VariableDeclaration.cpp
+        src/AbstractSyntax/VariableDeclaration.h
+        src/SymbolTable/GlobalScope.cpp
+        src/SymbolTable/GlobalScope.h
+        src/SymbolTable/ModuleScope.cpp
+        src/SymbolTable/ModuleScope.h
+        src/SymbolTable/FunctionScope.cpp
+        src/SymbolTable/FunctionScope.h
+        src/SymbolTable/BlockScope.cpp
+        src/SymbolTable/BlockScope.h
+        src/SymbolTable/ModuleSymbol.cpp src/SymbolTable/ModuleSymbol.h)
 
 include_directories( ${LLVM_INCLUDE_DIRS} )
 
@@ -124,3 +139,9 @@ target_link_libraries(
     oxc
     ${LLVM_LIBRARIES}
 )
+
+add_executable(oxtest test/main.cpp)
+
+target_link_libraries(oxtest GTest::GTest)
+
+gtest_discover_tests(oxtest TEST_PREFIX new:)
